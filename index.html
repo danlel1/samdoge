@@ -1,0 +1,221 @@
+<!doctype html>
+
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SamDoge Staking</title>
+  <style>
+    :root{--bg:#0b1020;--card:#111831;--text:#eaf1ff;--muted:#9fb1d9;--accent:#5e8cff;--ok:#35c08a;--warn:#ffb020;--danger:#ff5d5d}
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#0b1020,#0a0f1d);color:var(--text);font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial}
+    .wrap{max-width:980px;margin:0 auto;padding:24px}
+    .row{display:grid;gap:16px}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .card{background:var(--card);border:1px solid #1b2444;border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+    .btn{appearance:none;border:0;border-radius:12px;padding:10px 14px;font-weight:600;cursor:pointer;color:white;background:var(--accent)}
+    .btn:disabled{opacity:.6;cursor:not-allowed}
+    .btn.ok{background:var(--ok)}
+    .btn.warn{background:var(--warn);color:#0d0f14}
+    .btn.danger{background:var(--danger)}
+    input{width:100%;padding:10px 12px;border-radius:12px;background:#0d1530;border:1px solid #202a53;color:var(--text)}
+    .muted{color:var(--muted);font-size:13px}
+    .title{display:flex;align-items:center;gap:10px}
+    .title h1{margin:0;font-size:22px}
+    .pill{padding:6px 10px;border-radius:999px;background:#0e1733;border:1px solid #223063;color:var(--muted);font-size:12px}
+    .rowcenter{display:flex;align-items:center;gap:10px}
+    .right{margin-left:auto}
+    .mt{margin-top:16px}
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.min.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <header class="row card">
+      <div class="title">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9 9-4.03 9-9S16.97 3 12 3Zm3.5 10.5h-2V16h-3v-2.5h-2L12 7l3.5 6.5Z" fill="#5e8cff"/></svg>
+        <h1>SamDoge Staking</h1>
+        <span id="status" class="pill">Déconnecté</span>
+        <button id="connect" class="btn right">Connecter MetaMask</button>
+      </div>
+      <div class="muted">Stake ton token et réclame des rewards. Remplace les adresses dans le script si besoin.</div>
+    </header><section class="row grid-3 mt">
+  <div class="card">
+    <div class="muted">Total staké</div>
+    <div id="totalStaked" style="font-size:20px;font-weight:700">0</div>
+  </div>
+  <div class="card">
+    <div class="muted">Ton stake</div>
+    <div id="userStaked" style="font-size:20px;font-weight:700">0</div>
+  </div>
+  <div class="card">
+    <div class="muted">Rewards non réclamées</div>
+    <div id="earned" style="font-size:20px;font-weight:700">0</div>
+  </div>
+</section>
+
+<section class="card mt">
+  <div class="rowcenter">
+    <div class="muted">Statut du pool</div>
+    <button id="refresh" class="btn pill right" style="background:#20306b">Actualiser</button>
+  </div>
+  <div id="hint" class="mt"></div>
+  <div id="period" class="muted mt"></div>
+</section>
+
+<section class="row grid-2 mt">
+  <div class="card">
+    <div style="font-weight:700;margin-bottom:6px">Stake</div>
+    <div class="muted">Solde : <span id="balance">0</span></div>
+    <div class="mt"><input id="amountIn" placeholder="Montant" /></div>
+    <div class="rowcenter mt">
+      <button id="approve" class="btn">Approuver</button>
+      <button id="stake" class="btn ok">Stake</button>
+      <button id="claim" class="btn" style="background:#2aa0ff">Claim</button>
+    </div>
+  </div>
+  <div class="card">
+    <div style="font-weight:700;margin-bottom:6px">Withdraw</div>
+    <div class="muted">Staké : <span id="stakedSmall">0</span></div>
+    <div class="mt"><input id="amountOut" placeholder="Montant" /></div>
+    <div class="rowcenter mt">
+      <button id="withdraw" class="btn danger">Withdraw</button>
+      <button id="exit" class="btn warn">Exit (All + Claim)</button>
+    </div>
+  </div>
+</section>
+
+<footer class="muted mt">Assure-toi de définir STAKING_CONTRACT_ADDRESS et TOKEN_ADDRESS ci-dessous. Fonctionne avec MetaMask (BSC Testnet/Mainnet).</footer>
+
+  </div>  <script>
+    // ====== CONFIG À REMPLACER ======
+    const STAKING_CONTRACT_ADDRESS = "0xYourStakingContract"; // TODO
+    const TOKEN_ADDRESS = "0xYourSAMDOGE"; // TODO (token staké)
+
+    // ====== ABIs minimales ======
+    const STAKING_ABI = [
+      "function totalStaked() view returns (uint256)",
+      "function periodFinish() view returns (uint256)",
+      "function rewardRate() view returns (uint256)",
+      "function rewardPerToken() view returns (uint256)",
+      "function earned(address) view returns (uint256)",
+      "function balances(address) view returns (uint256)",
+      "function stake(uint256)",
+      "function withdraw(uint256)",
+      "function getReward()",
+      "function exit()",
+      "function paused() view returns (bool)"
+    ];
+    const ERC20_ABI = [
+      "function symbol() view returns (string)",
+      "function decimals() view returns (uint8)",
+      "function balanceOf(address) view returns (uint256)",
+      "function allowance(address,address) view returns (uint256)",
+      "function approve(address,uint256) returns (bool)"
+    ];
+
+    // ====== Helpers ======
+    const $ = (id) => document.getElementById(id);
+    let provider, signer, staking, token, account, decimals = 18, symbol = "TOKEN";
+
+    function fmt(n, d = 6){
+      try { return ethers.formatUnits(n??0n, decimals).split(".").map((p,i)=> i? p.slice(0,d):p).join("."); } catch { return "0" }
+    }
+    function parse(v){ try { return ethers.parseUnits(String(v||"0"), decimals); } catch { return 0n } }
+
+    async function connect(){
+      if(!window.ethereum){ alert('MetaMask non détecté'); return; }
+      provider = new ethers.BrowserProvider(window.ethereum);
+      signer = await provider.getSigner();
+      account = await signer.getAddress();
+      staking = new ethers.Contract(STAKING_CONTRACT_ADDRESS, STAKING_ABI, signer);
+      token = new ethers.Contract(TOKEN_ADDRESS, ERC20_ABI, signer);
+      $('status').textContent = 'Connecté: '+account.slice(0,6)+'…'+account.slice(-4);
+      $('connect').disabled = true;
+      await loadMeta();
+      await refresh();
+    }
+
+    async function loadMeta(){
+      try{
+        decimals = await token.decimals();
+        symbol = await token.symbol();
+      }catch(e){ console.error(e); }
+    }
+
+    async function refresh(){
+      if(!staking || !token) return;
+      try{
+        const [ts, us, ub, er, alw, rr, pf, paused] = await Promise.all([
+          staking.totalStaked(),
+          staking.balances(account||ethers.ZeroAddress),
+          token.balanceOf(account||ethers.ZeroAddress),
+          staking.earned(account||ethers.ZeroAddress),
+          token.allowance(account||ethers.ZeroAddress, STAKING_CONTRACT_ADDRESS),
+          staking.rewardRate(),
+          staking.periodFinish(),
+          staking.paused(),
+        ]);
+        $('totalStaked').textContent = fmt(ts)+ ' '+symbol;
+        $('userStaked').textContent = fmt(us)+ ' '+symbol;
+        $('stakedSmall').textContent = fmt(us)+ ' '+symbol;
+        $('earned').textContent = fmt(er)+ ' '+symbol;
+        $('balance').textContent = fmt(ub)+ ' '+symbol;
+        const now = Math.floor(Date.now()/1000);
+        $('period').textContent = pf>0 ? 'Fin des rewards: '+ new Date(Number(pf)*1000).toLocaleString() : '';
+        $('hint').textContent = (Number(pf)>now && Number(rr)>0 && !paused) ? 'Pool actif' : (paused? 'Contrat en pause' : 'Pool inactif');
+      }catch(e){ console.error(e); }
+    }
+
+    async function approve(){
+      try{
+        const amt = parse($('amountIn').value);
+        const tx = await token.approve(STAKING_CONTRACT_ADDRESS, amt);
+        await tx.wait();
+        await refresh();
+      }catch(e){ console.error(e); alert('Approve échoué'); }
+    }
+    async function stake(){
+      try{
+        const amt = parse($('amountIn').value);
+        const tx = await staking.stake(amt);
+        await tx.wait();
+        $('amountIn').value = '';
+        await refresh();
+      }catch(e){ console.error(e); alert('Stake échoué'); }
+    }
+    async function withdraw(){
+      try{
+        const amt = parse($('amountOut').value);
+        const tx = await staking.withdraw(amt);
+        await tx.wait();
+        $('amountOut').value='';
+        await refresh();
+      }catch(e){ console.error(e); alert('Withdraw échoué'); }
+    }
+    async function claim(){
+      try{
+        const tx = await staking.getReward();
+        await tx.wait();
+        await refresh();
+      }catch(e){ console.error(e); alert('Claim échoué'); }
+    }
+    async function exit(){
+      try{
+        const tx = await staking.exit();
+        await tx.wait();
+        await refresh();
+      }catch(e){ console.error(e); alert('Exit échoué'); }
+    }
+
+    // Bind UI
+    $('connect').onclick = connect;
+    $('refresh').onclick = refresh;
+    $('approve').onclick = approve;
+    $('stake').onclick = stake;
+    $('withdraw').onclick = withdraw;
+    $('claim').onclick = claim;
+    $('exit').onclick = exit;
+  </script></body>
+</html>
