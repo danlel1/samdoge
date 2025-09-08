@@ -1,4 +1,144 @@
 <!doctype html>
+
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SamDoge — Site Officiel</title>
+  <meta name="description" content="SamDoge — Meme coin communautaire sur BSC avec staking." />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="icon" href="./logo.png" type="image/png" />
+  <style>
+    :root{
+      --brand:#F6A62D; /* couleur SamDoge */
+      --brand-dark:#d78500; /* hover */
+    }
+    .container{max-width:72rem;margin-left:auto;margin-right:auto}/* Boutons langue */
+.lang-btn{padding:.35rem .6rem;border-radius:.75rem;border:1px solid #fff;background:#fff;color:#111}
+.lang-active{background:#111;color:#fff;border-color:#111}
+
+/* Liens brand */
+.brand-link{color:var(--brand);text-decoration:underline}
+.brand-link:hover{color:var(--brand-dark)}
+
+  </style>
+</head>
+<body class="bg-gradient-to-b from-white to-gray-50 text-gray-900">
+  <!-- Nav -->
+  <header class="sticky top-0 z-50 backdrop-blur bg-gradient-to-r from-indigo-600/80 to-fuchsia-600/80 text-white">
+    <div class="container flex items-center justify-between p-3">
+      <a href="./index.html" class="flex items-center gap-2">
+        <img src="./logo.png" alt="SamDoge Logo" class="h-10 w-10 rounded-full" />
+        <span class="font-bold text-lg md:text-xl tracking-wide" data-i18n="brand">SamDoge</span>
+      </a>
+      <nav class="flex items-center gap-2 text-sm md:text-base">
+        <a href="#about" class="px-3 py-2 rounded-xl hover:bg-white/20" data-i18n="nav_about">À propos</a>
+        <a href="#tokenomics" class="px-3 py-2 rounded-xl hover:bg-white/20" data-i18n="nav_tokenomics">Tokenomics</a>
+        <a href="#buy" class="px-3 py-2 rounded-xl hover:bg-white/20" data-i18n="nav_buy">Acheter</a>
+        <a href="#roadmap" class="px-3 py-2 rounded-xl hover:bg-white/20" data-i18n="nav_roadmap">Roadmap</a>
+        <a href="./staking.html" class="px-3 py-2 rounded-xl bg-white/90 text-gray-900 shadow" data-i18n="nav_staking">Staking</a>
+        <div class="ml-2 flex items-center gap-2">
+          <button class="lang-btn" data-lang="fr">FR</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="hr">HR</button>
+        </div>
+      </nav>
+    </div>
+  </header> <!-- Hero --> <section class="bg-gradient-to-br from-gray-900 via-indigo-900 to-gray-900 text-white">
+    <div class="container px-6 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+      <div class="text-center md:text-left">
+        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+          <span data-i18n="hero_title_main">SamDoge</span>
+          <span
+            class="block text-transparent bg-clip-text"
+            style="background-image:linear-gradient(to right, var(--brand), #FFD36E)"
+            data-i18n="hero_title_sub"
+          >La mascotte de la communauté</span>
+        </h1>
+        <p class="mt-4 text-lg md:text-xl text-white/90" data-i18n="hero_tagline">Meme coin fun, tokenomics claires, utilités simples et staking en un clic. Rejoignez la meute !</p>
+        <div class="mt-6 flex flex-wrap gap-3 justify-center md:justify-start">
+          <a href="#buy" class="px-5 py-3 rounded-2xl bg-white text-gray-900 font-semibold shadow hover:opacity-90" data-i18n="cta_buy">Acheter SDM</a>
+          <a href="./staking.html" class="px-5 py-3 rounded-2xl bg-gray-800/70 border border-white/20 font-semibold hover:bg-gray-700/60" data-i18n="cta_stake_now">Staker maintenant</a>
+        </div>
+        <div class="mt-6 text-sm text-white/80 space-y-1">
+          <p><span class="font-semibold" data-i18n="contract_label">Adresse contrat:</span>
+            <a class="underline" href="https://bscscan.com/token/0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9" target="_blank" rel="noreferrer">
+              0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9
+            </a>
+          </p>
+          <div class="flex gap-4 flex-wrap justify-center md:justify-start">
+            <a class="brand-link" href="https://bscscan.com/token/0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9" target="_blank" rel="noreferrer">BSCScan</a>
+            <a class="brand-link" href="https://pancakeswap.finance/swap?outputCurrency=0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9&inputCurrency=USDT" target="_blank" rel="noreferrer">PancakeSwap</a>
+            <a class="brand-link" href="https://x.com/DogeSami" target="_blank" rel="noreferrer">Twitter/X</a>
+            <a class="brand-link" href="https://www.reddit.com/r/SamDoge/" target="_blank" rel="noreferrer">Reddit</a>
+            <a class="brand-link" href="https://t.me/" target="_blank" rel="noreferrer" data-i18n="telegram">Telegram</a>
+          </div>
+        </div>
+      </div>
+      <div class="relative">
+        <img src="./banner.jpg" alt="SamDoge Banner" class="rounded-3xl border border-white/15 shadow-xl" />
+        <div class="absolute -bottom-6 -right-6 hidden md:block">
+          <div class="rounded-2xl px-4 py-2 bg-white text-gray-900 shadow" data-i18n="badge_audit">Audité ✦ Liquidité verrouillée</div>
+        </div>
+      </div>
+    </div>
+  </section> <!-- About --> <section class="container px-6 py-16" id="about">
+    <h2 class="text-3xl md:text-4xl font-bold" data-i18n="about_title">À propos de SamDoge</h2>
+    <p class="mt-4 text-lg text-gray-700" data-i18n="about_text">
+      SamDoge (SDM) est un token communautaire inspiré par l’esprit du Doge. Notre objectif est simple : créer une monnaie fun, transparente et portée par sa communauté. Avec une offre claire, un staking accessible et une équipe active, SamDoge vise à rassembler les passionnés autour d’un projet crypto positif.
+    </p>
+  </section> <!-- Tokenomics --> <section class="container px-6 py-16" id="tokenomics">
+    <h2 class="text-3xl md:text-4xl font-bold" data-i18n="tokenomics_title">Tokenomics</h2>
+    <p class="mt-2 text-gray-600" data-i18n="tokenomics_note">Paramètres indicatifs — à adapter à votre configuration finale.</p>
+    <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="rounded-2xl border border-gray-200 p-5 shadow-sm bg-white">
+        <div class="text-gray-500 text-sm" data-i18n="supply_label">Offre totale</div>
+        <div class="text-xl font-semibold mt-1">1 000 000 000 SDM</div>
+      </div>
+      <div class="rounded-2xl border border-gray-200 p-5 shadow-sm bg-white">
+        <div class="text-gray-500 text-sm" data-i18n="pool_label">Pool DEX initial</div>
+        <div class="text-xl font-semibold mt-1">300 000 000 SDM</div>
+      </div>
+      <div class="rounded-2xl border border-gray-200 p-5 shadow-sm bg-white">
+        <div class="text-gray-500 text-sm" data-i18n="tax_label">Taxes (achat/vente)</div>
+        <div class="text-xl font-semibold mt-1" data-i18n="tax_value">2% / 2% (exemple)</div>
+      </div>
+      <div class="rounded-2xl border border-gray-200 p-5 shadow-sm bg-white">
+        <div class="text-gray-500 text-sm" data-i18n="lock_label">Liquidité verrouillée</div>
+        <div class="text-xl font-semibold mt-1" data-i18n="lock_value">60% pendant 6–12 mois</div>
+      </div>
+    </div>
+  </section> <!-- How to buy --> <section class="container px-6 py-16" id="buy">
+    <h2 class="text-3xl md:text-4xl font-bold" data-i18n="buy_title">Comment acheter</h2>
+    <ol class="mt-6 space-y-4 text-gray-700">
+      <li class="flex gap-3"><span class="font-semibold">1.</span> <span data-i18n-html="buy_step1">Ajoutez la <strong>BSC</strong> à MetaMask et rechargez en BNB.</span></li>
+      <li class="flex gap-3"><span class="font-semibold">2.</span> <span data-i18n-html="buy_step2">Ouvrez <a class='brand-link' href='https://pancakeswap.finance/swap?outputCurrency=0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9&inputCurrency=USDT' target='_blank' rel='noreferrer'>PancakeSwap</a> et importez le token via l'adresse contrat.</span></li>
+      <li class="flex gap-3"><span class="font-semibold">3.</span> <span data-i18n-html="buy_step3">Sélectionnez le pair <strong>SDM/USDT</strong>, définissez le slippage si nécessaire, puis swap.</span></li>
+    </ol>
+    <div class="mt-6">
+      <a class="inline-block px-5 py-3 rounded-2xl bg-indigo-600 text-white font-semibold hover:bg-indigo-500"
+         href="https://pancakeswap.finance/swap?outputCurrency=0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9&inputCurrency=USDT"
+         target="_blank" rel="noreferrer" data-i18n="buy_button">
+         Acheter SDM/USDT sur PancakeSwap
+      </a>
+    </div>
+  </section> <!-- Footer --> <footer class="border-t border-gray-200 bg-gray-50">
+    <div class="container px-6 py-10 text-sm text-gray-600 flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
+      <div>© <span id="year"></span> <span data-i18n="brand">SamDoge</span> — <span data-i18n="footer_note">Projet communautaire.</span></div>
+      <div class="flex gap-4">
+        <a class="underline" href="#about" rel="noreferrer" data-i18n="nav_about">À propos</a>
+        <a class="underline" href="#tokenomics" rel="noreferrer" data-i18n="nav_tokenomics">Tokenomics</a>
+        <a class="underline" href="#buy" rel="noreferrer" data-i18n="nav_buy">Acheter</a>
+        <a class="underline" href="#roadmap" rel="noreferrer" data-i18n="nav_roadmap">Feuille de route</a>
+        <a class="underline" href="./staking.html" rel="noreferrer" data-i18n="nav_staking">Staking</a>
+      </div>
+    </div>
+  </footer> <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script></body></html><!-- =====================
+File: staking.html (multilingue FR/EN/HR) — style harmonisé + pair SDM/USDT + BscScan
+===================== --><!doctype html>
+
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
@@ -8,14 +148,15 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link rel="icon" href="./logo.png" type="image/png" />
   <style>
+    :root{ --brand:#F6A62D; --brand-dark:#d78500; }
     .container{max-width:72rem;margin-left:auto;margin-right:auto}
-    .lang-btn{padding:.35rem .6rem;border-radius:.75rem;border:1px solid rgba(255,255,255,.35)}
-    .lang-active{background:#fff;color:#111;border-color:#fff}
+    .lang-btn{padding:.35rem .6rem;border-radius:.75rem;border:1px solid #fff;background:#fff;color:#111}
+    .lang-active{background:#111;color:#fff;border-color:#111}
+    .brand-link{color:var(--brand);text-decoration:underline}
+    .brand-link:hover{color:var(--brand-dark)}
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
-
-  <!-- Nav -->
   <header class="sticky top-0 z-50 backdrop-blur bg-gradient-to-r from-indigo-600/80 to-fuchsia-600/80 text-white">
     <div class="container flex items-center justify-between p-3">
       <a href="./index.html" class="flex items-center gap-2">
@@ -28,7 +169,6 @@
         <a href="./index.html#buy" class="px-3 py-2 rounded-xl hover:bg-white/20" data-i18n="nav_buy">Acheter</a>
         <a href="./index.html#roadmap" class="px-3 py-2 rounded-xl hover:bg-white/20" data-i18n="nav_roadmap">Roadmap</a>
         <a href="./staking.html" class="px-3 py-2 rounded-xl bg-white/90 text-gray-900 shadow" data-i18n="nav_staking">Staking</a>
-        <!-- Boutons langue visibles mobile + desktop -->
         <div class="ml-2 flex items-center gap-2">
           <button class="lang-btn" data-lang="fr">FR</button>
           <button class="lang-btn" data-lang="en">EN</button>
@@ -36,55 +176,31 @@
         </div>
       </nav>
     </div>
-  </header>
-
-  <!-- Staking -->
-  <main>
+  </header> <main>
     <section class="container px-6 py-10">
       <h1 class="text-3xl md:text-4xl font-bold" data-i18n="title">Staking SamDoge</h1>
-      <p class="mt-2 text-gray-600" data-i18n="subtitle">
-        Connectez votre wallet et verrouillez vos SDM pour gagner des récompenses.
-      </p>
+      <p class="mt-2 text-gray-600" data-i18n="subtitle">Connectez votre wallet et verrouillez vos SDM pour gagner des récompenses.</p><div class="mt-4 text-sm text-gray-700">
+    <span class="font-semibold" data-i18n="contract_label">Adresse contrat:</span>
+    <a class="brand-link" href="https://bscscan.com/token/0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9" target="_blank" rel="noreferrer">
+      0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9
+    </a>
+  </div>
 
-      <!-- Adresse du contrat -->
-      <div class="mt-4 text-sm text-gray-700">
-        <span class="font-semibold" data-i18n="contract_label">Adresse contrat:</span>
-        <a class="underline" href="https://bscscan.com/token/0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9" target="_blank" rel="noreferrer">
-          0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9
-        </a>
-      </div>
+  <div class="mt-4">
+    <a href="https://pancakeswap.finance/swap?outputCurrency=0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9&inputCurrency=USDT" target="_blank" rel="noreferrer" class="inline-block px-5 py-3 rounded-2xl bg-indigo-600 text-white font-semibold hover:bg-indigo-500" data-i18n="buy_button">Acheter SDM/USDT sur PancakeSwap</a>
+  </div>
 
-      <!-- Bouton acheter SDM/USDT -->
-      <div class="mt-4">
-        <a href="https://pancakeswap.finance/swap?outputCurrency=0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9&inputCurrency=USDT"
-           target="_blank" rel="noreferrer"
-           class="inline-block px-5 py-3 rounded-2xl bg-indigo-600 text-white font-semibold hover:bg-indigo-500"
-           data-i18n="buy_button">
-          Acheter SDM/USDT sur PancakeSwap
-        </a>
-      </div>
+  <div class="mt-6 rounded-2xl overflow-hidden border border-gray-200 shadow bg-white">
+    <iframe title="SamDoge Staking" src="https://danlel1.github.io/samdoge-staking/" class="w-full" style="height:80vh;border:0;"></iframe>
+  </div>
 
-      <!-- dApp Staking -->
-      <div class="mt-6 rounded-2xl overflow-hidden border border-gray-200 shadow bg-white">
-        <iframe
-          title="SamDoge Staking"
-          src="https://danlel1.github.io/samdoge-staking/"
-          class="w-full"
-          style="height:80vh;border:0;"
-        ></iframe>
-      </div>
+  <div class="mt-4 text-sm text-gray-600">
+    <span data-i18n="fallback_prefix">Si l'iframe ne s'affiche pas,</span>
+    <a class="brand-link" href="https://danlel1.github.io/samdoge-staking/" target="_blank" rel="noreferrer" data-i18n="fallback_link">ouvre la page de staking dans un nouvel onglet</a>.
+  </div>
+</section>
 
-      <div class="mt-4 text-sm text-gray-600">
-        <span data-i18n="fallback_prefix">Si l'iframe ne s'affiche pas,</span>
-        <a class="underline" href="https://danlel1.github.io/samdoge-staking/" target="_blank" rel="noreferrer" data-i18n="fallback_link">
-          ouvre la page de staking dans un nouvel onglet
-        </a>.
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer class="border-t border-gray-200 bg-gray-50">
+  </main> <footer class="border-t border-gray-200 bg-gray-50">
     <div class="container px-6 py-10 text-sm text-gray-600 flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
       <div>© <span id="year"></span> <span data-i18n="brand">SamDoge</span> — <span data-i18n="footer_note">Projet communautaire.</span></div>
       <div class="flex gap-4">
@@ -95,67 +211,23 @@
         <a class="underline" href="./staking.html" data-i18n="nav_staking">Staking</a>
       </div>
     </div>
-  </footer>
-
-  <script>
-    // Dictionnaire i18n
+  </footer> <script>
     const I18N = {
-      fr: {
-        brand:"SamDoge",
-        nav_about:"À propos", nav_tokenomics:"Tokenomics", nav_buy:"Acheter", nav_roadmap:"Roadmap", nav_staking:"Staking",
-        title:"Staking SamDoge",
-        subtitle:"Connectez votre wallet et verrouillez vos SDM pour gagner des récompenses.",
-        contract_label:"Adresse contrat:",
-        buy_button:"Acheter SDM/USDT sur PancakeSwap",
-        fallback_prefix:"Si l'iframe ne s'affiche pas,",
-        fallback_link:"ouvre la page de staking dans un nouvel onglet",
-        footer_note:"Projet communautaire."
-      },
-      en: {
-        brand:"SamDoge",
-        nav_about:"About", nav_tokenomics:"Tokenomics", nav_buy:"Buy", nav_roadmap:"Roadmap", nav_staking:"Staking",
-        title:"SamDoge Staking",
-        subtitle:"Connect your wallet and lock your SDM to earn rewards.",
-        contract_label:"Contract address:",
-        buy_button:"Buy SDM/USDT on PancakeSwap",
-        fallback_prefix:"If the iframe doesn't load,",
-        fallback_link:"open the staking page in a new tab",
-        footer_note:"Community project."
-      },
-      hr: {
-        brand:"SamDoge",
-        nav_about:"O projektu", nav_tokenomics:"Tokenomika", nav_buy:"Kupi", nav_roadmap:"Plan", nav_staking:"Staking",
-        title:"SamDoge Staking",
-        subtitle:"Poveži novčanik i zaključaj SDM kako bi zarađivao nagrade.",
-        contract_label:"Adresa ugovora:",
-        buy_button:"Kupi SDM/USDT na PancakeSwapu",
-        fallback_prefix:"Ako se iframe ne prikaže,",
-        fallback_link:"otvori staking stranicu u novom prozoru",
-        footer_note:"Projekt zajednice."
-      }
+      fr:{brand:"SamDoge",nav_about:"À propos",nav_tokenomics:"Tokenomics",nav_buy:"Acheter",nav_roadmap:"Roadmap",nav_staking:"Staking",title:"Staking SamDoge",subtitle:"Connectez votre wallet et verrouillez vos SDM pour gagner des récompenses.",contract_label:"Adresse contrat:",buy_button:"Acheter SDM/USDT sur PancakeSwap",fallback_prefix:"Si l'iframe ne s'affiche pas,",fallback_link:"ouvre la page de staking dans un nouvel onglet",footer_note:"Projet communautaire."},
+      en:{brand:"SamDoge",nav_about:"About",nav_tokenomics:"Tokenomics",nav_buy:"Buy",nav_roadmap:"Roadmap",nav_staking:"Staking",title:"SamDoge Staking",subtitle:"Connect your wallet and lock your SDM to earn rewards.",contract_label:"Contract address:",buy_button:"Buy SDM/USDT on PancakeSwap",fallback_prefix:"If the iframe doesn't load,",fallback_link:"open the staking page in a new tab",footer_note:"Community project."},
+      hr:{brand:"SamDoge",nav_about:"O projektu",nav_tokenomics:"Tokenomika",nav_buy:"Kupi",nav_roadmap:"Plan",nav_staking:"Staking",title:"SamDoge Staking",subtitle:"Poveži novčanik i zaključaj SDM kako bi zarađivao nagrade.",contract_label:"Adresa ugovora:",buy_button:"Kupi SDM/USDT na PancakeSwapu",fallback_prefix:"Ako se iframe ne prikaže,",fallback_link:"otvori staking stranicu u novom prozoru",footer_note:"Projekt zajednice."}
     };
-
     function applyLang(lang){
-      const d = I18N[lang] || I18N.fr;
-      document.documentElement.lang = lang;
-      document.querySelectorAll("[data-i18n]").forEach(el=>{
-        const k = el.getAttribute("data-i18n");
-        if (d[k] !== undefined) el.textContent = d[k];
-      });
-      document.querySelectorAll(".lang-btn").forEach(b=>{
-        b.classList.toggle("lang-active", b.dataset.lang===lang);
-      });
-      localStorage.setItem("samdoge_lang", lang);
+      const d = I18N[lang]||I18N.fr; document.documentElement.lang=lang;
+      document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n'); if(d[k]!==undefined) el.textContent=d[k];});
+      document.querySelectorAll('.lang-btn').forEach(b=>{b.classList.toggle('lang-active', b.dataset.lang===lang);});
+      localStorage.setItem('samdoge_lang', lang);
     }
-
-    document.addEventListener("DOMContentLoaded", ()=>{
-      document.getElementById("year").textContent = new Date().getFullYear();
-      const saved = localStorage.getItem("samdoge_lang") || "fr";
-      applyLang(saved);
-      document.querySelectorAll(".lang-btn").forEach(b=>{
-        b.addEventListener("click", ()=> applyLang(b.dataset.lang));
-      });
+    document.addEventListener('DOMContentLoaded',()=>{
+      document.getElementById('year').textContent=new Date().getFullYear();
+      const saved=localStorage.getItem('samdoge_lang')||'fr'; applyLang(saved);
+      document.querySelectorAll('.lang-btn').forEach(b=> b.addEventListener('click',()=>applyLang(b.dataset.lang)));
     });
-  </script>
-</body>
+  </script></body>
 </html>
+
