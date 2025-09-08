@@ -1,5 +1,4 @@
 <!doctype html>
-
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
@@ -14,7 +13,10 @@
     .lang-active{background:#fff;color:#111;border-color:#fff}
   </style>
 </head>
-<body class="bg-gray-50 text-gray-900"> <!-- Nav --> <header class="sticky top-0 z-50 backdrop-blur bg-gradient-to-r from-indigo-600/80 to-fuchsia-600/80 text-white">
+<body class="bg-gray-50 text-gray-900">
+
+  <!-- Nav -->
+  <header class="sticky top-0 z-50 backdrop-blur bg-gradient-to-r from-indigo-600/80 to-fuchsia-600/80 text-white">
     <div class="container flex items-center justify-between p-3">
       <a href="./index.html" class="flex items-center gap-2">
         <img src="./logo.png" alt="SamDoge Logo" class="h-10 w-10 rounded-full" />
@@ -26,52 +28,63 @@
         <a href="./index.html#buy" class="px-3 py-2 rounded-xl hover:bg-white/20" data-i18n="nav_buy">Acheter</a>
         <a href="./index.html#roadmap" class="px-3 py-2 rounded-xl hover:bg-white/20" data-i18n="nav_roadmap">Roadmap</a>
         <a href="./staking.html" class="px-3 py-2 rounded-xl bg-white/90 text-gray-900 shadow" data-i18n="nav_staking">Staking</a>
-        <div class="ml-2 hidden sm:flex items-center gap-2">
+        <!-- Boutons langue visibles mobile + desktop -->
+        <div class="ml-2 flex items-center gap-2">
           <button class="lang-btn" data-lang="fr">FR</button>
           <button class="lang-btn" data-lang="en">EN</button>
           <button class="lang-btn" data-lang="hr">HR</button>
         </div>
       </nav>
     </div>
-  </header> <!-- Staking --> <main>
+  </header>
+
+  <!-- Staking -->
+  <main>
     <section class="container px-6 py-10">
       <h1 class="text-3xl md:text-4xl font-bold" data-i18n="title">Staking SamDoge</h1>
       <p class="mt-2 text-gray-600" data-i18n="subtitle">
-        Connectez votre wallet et verrouillez vos SAMD pour gagner des récompenses.
-      </p><!-- Adresse du contrat -->
-  <div class="mt-4 text-sm text-gray-700">
-    <span class="font-semibold" data-i18n="contract_label">Adresse contrat:</span>
-    <a class="underline" href="https://bscscan.com/token/0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9" target="_blank" rel="noreferrer">
-      0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9
-    </a>
-  </div>
+        Connectez votre wallet et verrouillez vos SDM pour gagner des récompenses.
+      </p>
 
-  <!-- Bouton acheter -->
-  <div class="mt-4">
-    <a href="https://pancakeswap.finance/swap?outputCurrency=0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9" target="_blank" rel="noreferrer"
-       class="inline-block px-5 py-3 rounded-2xl bg-indigo-600 text-white font-semibold hover:bg-indigo-500">
-      Acheter sur PancakeSwap
-    </a>
-  </div>
+      <!-- Adresse du contrat -->
+      <div class="mt-4 text-sm text-gray-700">
+        <span class="font-semibold" data-i18n="contract_label">Adresse contrat:</span>
+        <a class="underline" href="https://bscscan.com/token/0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9" target="_blank" rel="noreferrer">
+          0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9
+        </a>
+      </div>
 
-  <div class="mt-6 rounded-2xl overflow-hidden border border-gray-200 shadow bg-white">
-    <iframe
-      title="SamDoge Staking"
-      src="https://danlel1.github.io/samdoge-staking/"
-      class="w-full"
-      style="height:80vh;border:0;"
-    ></iframe>
-  </div>
+      <!-- Bouton acheter SDM/USDT -->
+      <div class="mt-4">
+        <a href="https://pancakeswap.finance/swap?outputCurrency=0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9&inputCurrency=USDT"
+           target="_blank" rel="noreferrer"
+           class="inline-block px-5 py-3 rounded-2xl bg-indigo-600 text-white font-semibold hover:bg-indigo-500"
+           data-i18n="buy_button">
+          Acheter SDM/USDT sur PancakeSwap
+        </a>
+      </div>
 
-  <div class="mt-4 text-sm text-gray-600">
-    <span data-i18n="fallback_prefix">Si l'iframe ne s'affiche pas,</span>
-    <a class="underline" href="https://danlel1.github.io/samdoge-staking/" target="_blank" rel="noreferrer" data-i18n="fallback_link">
-      ouvre la page de staking dans un nouvel onglet
-    </a>.
-  </div>
-</section>
+      <!-- dApp Staking -->
+      <div class="mt-6 rounded-2xl overflow-hidden border border-gray-200 shadow bg-white">
+        <iframe
+          title="SamDoge Staking"
+          src="https://danlel1.github.io/samdoge-staking/"
+          class="w-full"
+          style="height:80vh;border:0;"
+        ></iframe>
+      </div>
 
-  </main> <!-- Footer --> <footer class="border-t border-gray-200 bg-gray-50">
+      <div class="mt-4 text-sm text-gray-600">
+        <span data-i18n="fallback_prefix">Si l'iframe ne s'affiche pas,</span>
+        <a class="underline" href="https://danlel1.github.io/samdoge-staking/" target="_blank" rel="noreferrer" data-i18n="fallback_link">
+          ouvre la page de staking dans un nouvel onglet
+        </a>.
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-200 bg-gray-50">
     <div class="container px-6 py-10 text-sm text-gray-600 flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
       <div>© <span id="year"></span> <span data-i18n="brand">SamDoge</span> — <span data-i18n="footer_note">Projet communautaire.</span></div>
       <div class="flex gap-4">
@@ -82,7 +95,67 @@
         <a class="underline" href="./staking.html" data-i18n="nav_staking">Staking</a>
       </div>
     </div>
-  </footer> <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script></body>
+  </footer>
+
+  <script>
+    // Dictionnaire i18n
+    const I18N = {
+      fr: {
+        brand:"SamDoge",
+        nav_about:"À propos", nav_tokenomics:"Tokenomics", nav_buy:"Acheter", nav_roadmap:"Roadmap", nav_staking:"Staking",
+        title:"Staking SamDoge",
+        subtitle:"Connectez votre wallet et verrouillez vos SDM pour gagner des récompenses.",
+        contract_label:"Adresse contrat:",
+        buy_button:"Acheter SDM/USDT sur PancakeSwap",
+        fallback_prefix:"Si l'iframe ne s'affiche pas,",
+        fallback_link:"ouvre la page de staking dans un nouvel onglet",
+        footer_note:"Projet communautaire."
+      },
+      en: {
+        brand:"SamDoge",
+        nav_about:"About", nav_tokenomics:"Tokenomics", nav_buy:"Buy", nav_roadmap:"Roadmap", nav_staking:"Staking",
+        title:"SamDoge Staking",
+        subtitle:"Connect your wallet and lock your SDM to earn rewards.",
+        contract_label:"Contract address:",
+        buy_button:"Buy SDM/USDT on PancakeSwap",
+        fallback_prefix:"If the iframe doesn't load,",
+        fallback_link:"open the staking page in a new tab",
+        footer_note:"Community project."
+      },
+      hr: {
+        brand:"SamDoge",
+        nav_about:"O projektu", nav_tokenomics:"Tokenomika", nav_buy:"Kupi", nav_roadmap:"Plan", nav_staking:"Staking",
+        title:"SamDoge Staking",
+        subtitle:"Poveži novčanik i zaključaj SDM kako bi zarađivao nagrade.",
+        contract_label:"Adresa ugovora:",
+        buy_button:"Kupi SDM/USDT na PancakeSwapu",
+        fallback_prefix:"Ako se iframe ne prikaže,",
+        fallback_link:"otvori staking stranicu u novom prozoru",
+        footer_note:"Projekt zajednice."
+      }
+    };
+
+    function applyLang(lang){
+      const d = I18N[lang] || I18N.fr;
+      document.documentElement.lang = lang;
+      document.querySelectorAll("[data-i18n]").forEach(el=>{
+        const k = el.getAttribute("data-i18n");
+        if (d[k] !== undefined) el.textContent = d[k];
+      });
+      document.querySelectorAll(".lang-btn").forEach(b=>{
+        b.classList.toggle("lang-active", b.dataset.lang===lang);
+      });
+      localStorage.setItem("samdoge_lang", lang);
+    }
+
+    document.addEventListener("DOMContentLoaded", ()=>{
+      document.getElementById("year").textContent = new Date().getFullYear();
+      const saved = localStorage.getItem("samdoge_lang") || "fr";
+      applyLang(saved);
+      document.querySelectorAll(".lang-btn").forEach(b=>{
+        b.addEventListener("click", ()=> applyLang(b.dataset.lang));
+      });
+    });
+  </script>
+</body>
 </html>
