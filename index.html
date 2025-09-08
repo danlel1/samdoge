@@ -1,6 +1,4 @@
-<!-- =====================
-File: index.html (multilingue FR/EN/HR) — corrigé avec pair SDM/USDT + lien PancakeSwap
-===================== --><!doctype html>
+<!doctype html>
 
 <html lang="fr">
 <head>
@@ -11,9 +9,18 @@ File: index.html (multilingue FR/EN/HR) — corrigé avec pair SDM/USDT + lien P
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link rel="icon" href="./logo.png" type="image/png" />
   <style>
-    .lang-btn{padding:.35rem .6rem;border-radius:.75rem;border:1px solid rgba(255,255,255,.35)}
-    .lang-active{background:#fff;color:#111;border-color:#fff}
-    .container{max-width:72rem;margin-left:auto;margin-right:auto}
+    :root{
+      --brand:#F6A62D; /* couleur SamDoge */
+      --brand-dark:#d78500; /* hover */
+    }
+    .container{max-width:72rem;margin-left:auto;margin-right:auto}/* Boutons langue */
+.lang-btn{padding:.35rem .6rem;border-radius:.75rem;border:1px solid #fff;background:#fff;color:#111}
+.lang-active{background:#111;color:#fff;border-color:#111}
+
+/* Liens brand */
+.brand-link{color:var(--brand);text-decoration:underline}
+.brand-link:hover{color:var(--brand-dark)}
+
   </style>
 </head>
 <body class="bg-gradient-to-b from-white to-gray-50 text-gray-900">
@@ -39,13 +46,17 @@ File: index.html (multilingue FR/EN/HR) — corrigé avec pair SDM/USDT + lien P
     </div>
   </header> <!-- Hero --> <section class="bg-gradient-to-br from-gray-900 via-indigo-900 to-gray-900 text-white">
     <div class="container px-6 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
-      <div>
+      <div class="text-center md:text-left">
         <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
           <span data-i18n="hero_title_main">SamDoge</span>
-          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-fuchsia-300" data-i18n="hero_title_sub">La mascotte de la communauté</span>
+          <span
+            class="block text-transparent bg-clip-text"
+            style="background-image:linear-gradient(to right, var(--brand), #FFD36E)"
+            data-i18n="hero_title_sub"
+          >La mascotte de la communauté</span>
         </h1>
         <p class="mt-4 text-lg md:text-xl text-white/90" data-i18n="hero_tagline">Meme coin fun, tokenomics claires, utilités simples et staking en un clic. Rejoignez la meute !</p>
-        <div class="mt-6 flex flex-wrap gap-3">
+        <div class="mt-6 flex flex-wrap gap-3 justify-center md:justify-start">
           <a href="#buy" class="px-5 py-3 rounded-2xl bg-white text-gray-900 font-semibold shadow hover:opacity-90" data-i18n="cta_buy">Acheter SDM</a>
           <a href="./staking.html" class="px-5 py-3 rounded-2xl bg-gray-800/70 border border-white/20 font-semibold hover:bg-gray-700/60" data-i18n="cta_stake_now">Staker maintenant</a>
         </div>
@@ -55,12 +66,12 @@ File: index.html (multilingue FR/EN/HR) — corrigé avec pair SDM/USDT + lien P
               0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9
             </a>
           </p>
-          <div class="flex gap-4 flex-wrap">
-            <a class="underline hover:no-underline" href="https://bscscan.com/token/0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9" target="_blank" rel="noreferrer">BSCScan</a>
-            <a class="underline hover:no-underline" href="https://pancakeswap.finance/swap?outputCurrency=0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9&inputCurrency=USDT" target="_blank" rel="noreferrer">PancakeSwap</a>
-            <a class="underline hover:no-underline" href="https://x.com/DogeSami" target="_blank" rel="noreferrer">Twitter/X</a>
-            <a class="underline hover:no-underline" href="https://www.reddit.com/r/SamDoge/" target="_blank" rel="noreferrer">Reddit</a>
-            <a class="underline hover:no-underline" href="https://t.me/" target="_blank" rel="noreferrer" data-i18n="telegram">Telegram</a>
+          <div class="flex gap-4 flex-wrap justify-center md:justify-start">
+            <a class="brand-link" href="https://bscscan.com/token/0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9" target="_blank" rel="noreferrer">BSCScan</a>
+            <a class="brand-link" href="https://pancakeswap.finance/swap?outputCurrency=0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9&inputCurrency=USDT" target="_blank" rel="noreferrer">PancakeSwap</a>
+            <a class="brand-link" href="https://x.com/DogeSami" target="_blank" rel="noreferrer">Twitter/X</a>
+            <a class="brand-link" href="https://www.reddit.com/r/SamDoge/" target="_blank" rel="noreferrer">Reddit</a>
+            <a class="brand-link" href="https://t.me/" target="_blank" rel="noreferrer" data-i18n="telegram">Telegram</a>
           </div>
         </div>
       </div>
@@ -101,7 +112,7 @@ File: index.html (multilingue FR/EN/HR) — corrigé avec pair SDM/USDT + lien P
     <h2 class="text-3xl md:text-4xl font-bold" data-i18n="buy_title">Comment acheter</h2>
     <ol class="mt-6 space-y-4 text-gray-700">
       <li class="flex gap-3"><span class="font-semibold">1.</span> <span data-i18n-html="buy_step1">Ajoutez la <strong>BSC</strong> à MetaMask et rechargez en BNB.</span></li>
-      <li class="flex gap-3"><span class="font-semibold">2.</span> <span data-i18n-html="buy_step2">Ouvrez <a class='underline' href='https://pancakeswap.finance/swap?outputCurrency=0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9&inputCurrency=USDT' target='_blank' rel='noreferrer'>PancakeSwap</a> et importez le token via l'adresse contrat.</span></li>
+      <li class="flex gap-3"><span class="font-semibold">2.</span> <span data-i18n-html="buy_step2">Ouvrez <a class='brand-link' href='https://pancakeswap.finance/swap?outputCurrency=0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9&inputCurrency=USDT' target='_blank' rel='noreferrer'>PancakeSwap</a> et importez le token via l'adresse contrat.</span></li>
       <li class="flex gap-3"><span class="font-semibold">3.</span> <span data-i18n-html="buy_step3">Sélectionnez le pair <strong>SDM/USDT</strong>, définissez le slippage si nécessaire, puis swap.</span></li>
     </ol>
     <div class="mt-6">
@@ -123,61 +134,6 @@ File: index.html (multilingue FR/EN/HR) — corrigé avec pair SDM/USDT + lien P
       </div>
     </div>
   </footer> <script>
-  // i18n dictionary
-  const I18N = {
-    fr: {
-      brand:"SamDoge", nav_about:"À propos", nav_tokenomics:"Tokenomics", nav_buy:"Acheter", nav_roadmap:"Roadmap", nav_staking:"Staking",
-      hero_title_main:"SamDoge", hero_title_sub:"La mascotte de la communauté", hero_tagline:"Meme coin fun, tokenomics claires, utilités simples et staking en un clic. Rejoignez la meute !",
-      cta_buy:"Acheter SDM", cta_stake_now:"Staker maintenant", contract_label:"Adresse contrat:", telegram:"Telegram", badge_audit:"Audité ✦ Liquidité verrouillée",
-      about_title:"À propos de SamDoge", about_text:"SamDoge (SDM) est un token communautaire inspiré par l’esprit du Doge. Notre objectif est simple : créer une monnaie fun, transparente et portée par sa communauté. Avec une offre claire, un staking accessible et une équipe active, SamDoge vise à rassembler les passionnés autour d’un projet crypto positif.",
-      tokenomics_title:"Tokenomics", tokenomics_note:"Paramètres indicatifs — à adapter à votre configuration finale.", supply_label:"Offre totale", pool_label:"Pool DEX initial", tax_label:"Taxes (achat/vente)", tax_value:"2% / 2% (exemple)", lock_label:"Liquidité verrouillée", lock_value:"60% pendant 6–12 mois",
-      buy_title:"Comment acheter", buy_step1:"Ajoutez la <strong>BSC</strong> à MetaMask et rechargez en BNB.", buy_step2:"Ouvrez <a class='underline' href='https://pancakeswap.finance/swap?outputCurrency=0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9&inputCurrency=USDT' target='_blank' rel='noreferrer'>PancakeSwap</a> et importez le token via l'adresse contrat.", buy_step3:"Sélectionnez le pair <strong>SDM/USDT</strong>, définissez le slippage si nécessaire, puis swap.", buy_button:"Acheter SDM/USDT sur PancakeSwap",
-      footer_note:"Projet communautaire."
-    },
-    en: {
-      brand:"SamDoge", nav_about:"About", nav_tokenomics:"Tokenomics", nav_buy:"Buy", nav_roadmap:"Roadmap", nav_staking:"Staking",
-      hero_title_main:"SamDoge", hero_title_sub:"The community's mascot", hero_tagline:"Fun meme coin, clear tokenomics, simple utilities and one‑click staking. Join the pack!",
-      cta_buy:"Buy SDM", cta_stake_now:"Stake now", contract_label:"Contract address:", telegram:"Telegram", badge_audit:"Audited ✦ Liquidity locked",
-      about_title:"About SamDoge", about_text:"SamDoge (SDM) is a community‑driven token inspired by the Doge spirit. Our goal is simple: build a fun, transparent, community‑powered coin. With a clear supply, easy staking, and an active team, SamDoge aims to unite enthusiasts around a positive crypto project.",
-      tokenomics_title:"Tokenomics", tokenomics_note:"Indicative settings — adapt to your final configuration.", supply_label:"Total supply", pool_label:"Initial DEX pool", tax_label:"Taxes (buy/sell)", tax_value:"2% / 2% (example)", lock_label:"Liquidity lock", lock_value:"60% for 6–12 months",
-      buy_title:"How to buy", buy_step1:"Add <strong>BSC</strong> to MetaMask and top up BNB.", buy_step2:"Open <a class='underline' href='https://pancakeswap.finance/swap?outputCurrency=0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9&inputCurrency=USDT' target='_blank' rel='noreferrer'>PancakeSwap</a> and import the token via the contract address.", buy_step3:"Select the <strong>SDM/USDT</strong> pair, set slippage if needed, then swap.", buy_button:"Buy SDM/USDT on PancakeSwap",
-      footer_note:"Community project."
-    },
-    hr: {
-      brand:"SamDoge", nav_about:"O projektu", nav_tokenomics:"Tokenomika", nav_buy:"Kupi", nav_roadmap:"Plan", nav_staking:"Staking",
-      hero_title_main:"SamDoge", hero_title_sub:"Maskota zajednice", hero_tagline:"Zabavan meme coin, jasna tokenomika, jednostavne funkcije i staking jednim klikom. Pridruži se čoporu!",
-      cta_buy:"Kupi SDM", cta_stake_now:"Stakeaj sada", contract_label:"Adresa ugovora:", telegram:"Telegram", badge_audit:"Auditan ✦ Likvidnost zaključana",
-      about_title:"O SamDoge‑u", about_text:"SamDoge (SDM) je token zajednice inspiriran duhom Doge‑a. Naš je cilj jednostavan: stvoriti zabavnu, transparentnu i zajednicom vođenu kripto. Uz jasnu ponudu, jednostavan staking i aktivan tim, SamDoge okuplja entuzijaste oko pozitivnog kripto projekta.",
-      tokenomics_title:"Tokenomika", tokenomics_note:"Okvirne postavke — prilagodite konačnoj konfiguraciji.", supply_label:"Ukupna ponuda", pool_label:"Početni DEX pool", tax_label:"Porezi (kupnja/prodaja)", tax_value:"2% / 2% (primjer)", lock_label:"Zaključana likvidnost", lock_value:"60% na 6–12 mjeseci",
-      buy_title:"Kako kupiti", buy_step1:"Dodajte <strong>BSC</strong> u MetaMask i nadopunite BNB.", buy_step2:"Otvorite <a class='underline' href='https://pancakeswap.finance/swap?outputCurrency=0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9&inputCurrency=USDT' target='_blank' rel='noreferrer'>PancakeSwap</a> i uvezite token putem adrese ugovora.", buy_step3:"Odaberite par <strong>SDM/USDT</strong>, postavite slippage po potrebi, zatim zamijenite.", buy_button:"Kupi SDM/USDT na PancakeSwapu",
-      footer_note:"Projekt zajednice."
-    }
-  };
-
-  function applyLang(lang){
-    const d = I18N[lang] || I18N.fr;
-    document.documentElement.lang = lang;
-    document.querySelectorAll('[data-i18n]').forEach(el=>{
-      const k = el.getAttribute('data-i18n');
-      if (d[k] !== undefined) el.textContent = d[k];
-    });
-    document.querySelectorAll('[data-i18n-html]').forEach(el=>{
-      const k = el.getAttribute('data-i18n-html');
-      if (d[k] !== undefined) el.innerHTML = d[k];
-    });
-    document.querySelectorAll('.lang-btn').forEach(b=>{
-      b.classList.toggle('lang-active', b.dataset.lang===lang);
-    });
-    localStorage.setItem('samdoge_lang', lang);
-  }
-
-  document.addEventListener('DOMContentLoaded', ()=>{
     document.getElementById('year').textContent = new Date().getFullYear();
-    const saved = localStorage.getItem('samdoge_lang') || 'fr';
-    applyLang(saved);
-    document.querySelectorAll('.lang-btn').forEach(b=>{
-      b.addEventListener('click', ()=> applyLang(b.dataset.lang));
-    });
-  });
-</script></body>
+  </script></body>
 </html>
