@@ -1,221 +1,125 @@
 <!doctype html>
-
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SamDoge Staking</title>
+  <title>SamDoge — Site Officiel</title>
+  <meta name="description" content="SamDoge — Meme coin communautaire sur BSC avec staking." />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="icon" href="./logo.png" type="image/png" />
   <style>
-    :root{--bg:#0b1020;--card:#111831;--text:#eaf1ff;--muted:#9fb1d9;--accent:#5e8cff;--ok:#35c08a;--warn:#ffb020;--danger:#ff5d5d}
-    *{box-sizing:border-box}
-    body{margin:0;background:linear-gradient(180deg,#0b1020,#0a0f1d);color:var(--text);font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial}
-    .wrap{max-width:980px;margin:0 auto;padding:24px}
-    .row{display:grid;gap:16px}
-    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .card{background:var(--card);border:1px solid #1b2444;border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.3)}
-    .btn{appearance:none;border:0;border-radius:12px;padding:10px 14px;font-weight:600;cursor:pointer;color:white;background:var(--accent)}
-    .btn:disabled{opacity:.6;cursor:not-allowed}
-    .btn.ok{background:var(--ok)}
-    .btn.warn{background:var(--warn);color:#0d0f14}
-    .btn.danger{background:var(--danger)}
-    input{width:100%;padding:10px 12px;border-radius:12px;background:#0d1530;border:1px solid #202a53;color:var(--text)}
-    .muted{color:var(--muted);font-size:13px}
-    .title{display:flex;align-items:center;gap:10px}
-    .title h1{margin:0;font-size:22px}
-    .pill{padding:6px 10px;border-radius:999px;background:#0e1733;border:1px solid #223063;color:var(--muted);font-size:12px}
-    .rowcenter{display:flex;align-items:center;gap:10px}
-    .right{margin-left:auto}
-    .mt{margin-top:16px}
+    .lang-btn{padding:.35rem .6rem;border-radius:.75rem;border:1px solid rgba(255,255,255,.35)}
+    .lang-active{background:#fff;color:#111;border-color:#fff}
+    .container{max-width:72rem;margin-left:auto;margin-right:auto}
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.min.js"></script>
 </head>
-<body>
-  <div class="wrap">
-    <header class="row card">
-      <div class="title">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9 9-4.03 9-9S16.97 3 12 3Zm3.5 10.5h-2V16h-3v-2.5h-2L12 7l3.5 6.5Z" fill="#5e8cff"/></svg>
-        <h1>SamDoge Staking</h1>
-        <span id="status" class="pill">Déconnecté</span>
-        <button id="connect" class="btn right">Connecter MetaMask</button>
+<body class="bg-gradient-to-b from-white to-gray-50 text-gray-900">
+
+  <!-- Nav -->
+  <header class="sticky top-0 z-50 backdrop-blur bg-gradient-to-r from-indigo-600/80 to-fuchsia-600/80 text-white">
+    <div class="container flex items-center justify-between p-3">
+      <a href="./index.html" class="flex items-center gap-2">
+        <img src="./logo.png" alt="SamDoge Logo" class="h-10 w-10 rounded-full" />
+        <span class="font-bold text-lg md:text-xl tracking-wide">SamDoge</span>
+      </a>
+      <nav class="flex items-center gap-2 text-sm md:text-base">
+        <a href="#about" class="px-3 py-2 rounded-xl hover:bg-white/20">À propos</a>
+        <a href="#tokenomics" class="px-3 py-2 rounded-xl hover:bg-white/20">Tokenomics</a>
+        <a href="#buy" class="px-3 py-2 rounded-xl hover:bg-white/20">Acheter</a>
+        <a href="#roadmap" class="px-3 py-2 rounded-xl hover:bg-white/20">Roadmap</a>
+        <a href="./staking.html" class="px-3 py-2 rounded-xl bg-white/90 text-gray-900 shadow">Staking</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-gray-900 via-indigo-900 to-gray-900 text-white">
+    <div class="container px-6 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+          SamDoge
+          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-fuchsia-300">
+            La mascotte de la communauté
+          </span>
+        </h1>
+        <p class="mt-4 text-lg md:text-xl text-white/90">
+          Meme coin fun, tokenomics claires, utilités simples et staking en un clic. Rejoignez la meute !
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="#buy" class="px-5 py-3 rounded-2xl bg-white text-gray-900 font-semibold shadow hover:opacity-90">Acheter SAMD</a>
+          <a href="./staking.html" class="px-5 py-3 rounded-2xl bg-gray-800/70 border border-white/20 font-semibold hover:bg-gray-700/60">Staker maintenant</a>
+        </div>
+        <div class="mt-6 text-sm text-white/80 space-y-1">
+          <p><span class="font-semibold">Adresse contrat:</span> <code class="bg-white/10 px-2 py-1 rounded">0xVotreAdresseContratIci</code></p>
+          <div class="flex gap-4 flex-wrap">
+            <a class="underline hover:no-underline" href="https://bscscan.com/" target="_blank" rel="noreferrer">BSCScan</a>
+            <a class="underline hover:no-underline" href="https://pancakeswap.finance/" target="_blank" rel="noreferrer">PancakeSwap</a>
+            <a class="underline hover:no-underline" href="https://x.com/DogeSami/status/1962961774166049272" target="_blank" rel="noreferrer">Twitter/X</a>
+            <a class="underline hover:no-underline" href="https://www.reddit.com/r/SamDoge/" target="_blank" rel="noreferrer">Reddit</a>
+            <a class="underline hover:no-underline" href="https://t.me/" target="_blank" rel="noreferrer">Telegram</a>
+          </div>
+        </div>
       </div>
-      <div class="muted">Stake ton token et réclame des rewards. Remplace les adresses dans le script si besoin.</div>
-    </header><section class="row grid-3 mt">
-  <div class="card">
-    <div class="muted">Total staké</div>
-    <div id="totalStaked" style="font-size:20px;font-weight:700">0</div>
-  </div>
-  <div class="card">
-    <div class="muted">Ton stake</div>
-    <div id="userStaked" style="font-size:20px;font-weight:700">0</div>
-  </div>
-  <div class="card">
-    <div class="muted">Rewards non réclamées</div>
-    <div id="earned" style="font-size:20px;font-weight:700">0</div>
-  </div>
-</section>
-
-<section class="card mt">
-  <div class="rowcenter">
-    <div class="muted">Statut du pool</div>
-    <button id="refresh" class="btn pill right" style="background:#20306b">Actualiser</button>
-  </div>
-  <div id="hint" class="mt"></div>
-  <div id="period" class="muted mt"></div>
-</section>
-
-<section class="row grid-2 mt">
-  <div class="card">
-    <div style="font-weight:700;margin-bottom:6px">Stake</div>
-    <div class="muted">Solde : <span id="balance">0</span></div>
-    <div class="mt"><input id="amountIn" placeholder="Montant" /></div>
-    <div class="rowcenter mt">
-      <button id="approve" class="btn">Approuver</button>
-      <button id="stake" class="btn ok">Stake</button>
-      <button id="claim" class="btn" style="background:#2aa0ff">Claim</button>
+      <div class="relative">
+        <img src="./banner.jpg" alt="SamDoge Banner" class="rounded-3xl border border-white/15 shadow-xl" />
+        <div class="absolute -bottom-6 -right-6 hidden md:block">
+          <div class="rounded-2xl px-4 py-2 bg-white text-gray-900 shadow">Audité ✦ Liquidité verrouillée</div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="card">
-    <div style="font-weight:700;margin-bottom:6px">Withdraw</div>
-    <div class="muted">Staké : <span id="stakedSmall">0</span></div>
-    <div class="mt"><input id="amountOut" placeholder="Montant" /></div>
-    <div class="rowcenter mt">
-      <button id="withdraw" class="btn danger">Withdraw</button>
-      <button id="exit" class="btn warn">Exit (All + Claim)</button>
+  </section>
+
+  <!-- About -->
+  <section class="container px-6 py-16" id="about">
+    <h2 class="text-3xl md:text-4xl font-bold">À propos de SamDoge</h2>
+    <p class="mt-4 text-lg text-gray-700">
+      SamDoge (SMD) est un token communautaire inspiré par l’esprit du Doge.
+      Notre objectif est simple : créer une monnaie fun, transparente et portée par sa communauté.
+      Avec une offre claire, un staking accessible et une équipe active, SamDoge vise à rassembler
+      les passionnés autour d’un projet crypto positif.
+    </p>
+  </section>
+
+  <!-- Tokenomics -->
+  <section class="container px-6 py-16" id="tokenomics">
+    <h2 class="text-3xl md:text-4xl font-bold">Tokenomics</h2>
+    <p class="mt-2 text-gray-600">Paramètres indicatifs — à adapter à votre configuration finale.</p>
+    <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="rounded-2xl border border-gray-200 p-5 shadow-sm bg-white">
+        <div class="text-gray-500 text-sm">Offre totale</div>
+        <div class="text-xl font-semibold mt-1">1 000 000 000 SAMD</div>
+      </div>
+      <div class="rounded-2xl border border-gray-200 p-5 shadow-sm bg-white">
+        <div class="text-gray-500 text-sm">Pool DEX initial</div>
+        <div class="text-xl font-semibold mt-1">300 000 000 SAMD</div>
+      </div>
+      <div class="rounded-2xl border border-gray-200 p-5 shadow-sm bg-white">
+        <div class="text-gray-500 text-sm">Taxes (achat/vente)</div>
+        <div class="text-xl font-semibold mt-1">2% / 2% (exemple)</div>
+      </div>
+      <div class="rounded-2xl border border-gray-200 p-5 shadow-sm bg-white">
+        <div class="text-gray-500 text-sm">Liquidité verrouillée</div>
+        <div class="text-xl font-semibold mt-1">60% pendant 6–12 mois</div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<footer class="muted mt">Assure-toi de définir STAKING_CONTRACT_ADDRESS et TOKEN_ADDRESS ci-dessous. Fonctionne avec MetaMask (BSC Testnet/Mainnet).</footer>
+  <!-- Footer -->
+  <footer class="border-t border-gray-200 bg-gray-50">
+    <div class="container px-6 py-10 text-sm text-gray-600 flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
+      <div>© <span id="year"></span> SamDoge — Projet communautaire.</div>
+      <div class="flex gap-4">
+        <a class="underline" href="#about">À propos</a>
+        <a class="underline" href="#tokenomics">Tokenomics</a>
+        <a class="underline" href="#buy">Acheter</a>
+        <a class="underline" href="#roadmap">Feuille de route</a>
+        <a class="underline" href="./staking.html">Staking</a>
+      </div>
+    </div>
+  </footer>
 
-  </div>  <script>
-    // ====== CONFIG À REMPLACER ======
-    const STAKING_CONTRACT_ADDRESS = "0xYourStakingContract"; // TODO
-    const TOKEN_ADDRESS = "0xYourSAMDOGE"; // TODO (token staké)
-
-    // ====== ABIs minimales ======
-    const STAKING_ABI = [
-      "function totalStaked() view returns (uint256)",
-      "function periodFinish() view returns (uint256)",
-      "function rewardRate() view returns (uint256)",
-      "function rewardPerToken() view returns (uint256)",
-      "function earned(address) view returns (uint256)",
-      "function balances(address) view returns (uint256)",
-      "function stake(uint256)",
-      "function withdraw(uint256)",
-      "function getReward()",
-      "function exit()",
-      "function paused() view returns (bool)"
-    ];
-    const ERC20_ABI = [
-      "function symbol() view returns (string)",
-      "function decimals() view returns (uint8)",
-      "function balanceOf(address) view returns (uint256)",
-      "function allowance(address,address) view returns (uint256)",
-      "function approve(address,uint256) returns (bool)"
-    ];
-
-    // ====== Helpers ======
-    const $ = (id) => document.getElementById(id);
-    let provider, signer, staking, token, account, decimals = 18, symbol = "TOKEN";
-
-    function fmt(n, d = 6){
-      try { return ethers.formatUnits(n??0n, decimals).split(".").map((p,i)=> i? p.slice(0,d):p).join("."); } catch { return "0" }
-    }
-    function parse(v){ try { return ethers.parseUnits(String(v||"0"), decimals); } catch { return 0n } }
-
-    async function connect(){
-      if(!window.ethereum){ alert('MetaMask non détecté'); return; }
-      provider = new ethers.BrowserProvider(window.ethereum);
-      signer = await provider.getSigner();
-      account = await signer.getAddress();
-      staking = new ethers.Contract(STAKING_CONTRACT_ADDRESS, STAKING_ABI, signer);
-      token = new ethers.Contract(TOKEN_ADDRESS, ERC20_ABI, signer);
-      $('status').textContent = 'Connecté: '+account.slice(0,6)+'…'+account.slice(-4);
-      $('connect').disabled = true;
-      await loadMeta();
-      await refresh();
-    }
-
-    async function loadMeta(){
-      try{
-        decimals = await token.decimals();
-        symbol = await token.symbol();
-      }catch(e){ console.error(e); }
-    }
-
-    async function refresh(){
-      if(!staking || !token) return;
-      try{
-        const [ts, us, ub, er, alw, rr, pf, paused] = await Promise.all([
-          staking.totalStaked(),
-          staking.balances(account||ethers.ZeroAddress),
-          token.balanceOf(account||ethers.ZeroAddress),
-          staking.earned(account||ethers.ZeroAddress),
-          token.allowance(account||ethers.ZeroAddress, STAKING_CONTRACT_ADDRESS),
-          staking.rewardRate(),
-          staking.periodFinish(),
-          staking.paused(),
-        ]);
-        $('totalStaked').textContent = fmt(ts)+ ' '+symbol;
-        $('userStaked').textContent = fmt(us)+ ' '+symbol;
-        $('stakedSmall').textContent = fmt(us)+ ' '+symbol;
-        $('earned').textContent = fmt(er)+ ' '+symbol;
-        $('balance').textContent = fmt(ub)+ ' '+symbol;
-        const now = Math.floor(Date.now()/1000);
-        $('period').textContent = pf>0 ? 'Fin des rewards: '+ new Date(Number(pf)*1000).toLocaleString() : '';
-        $('hint').textContent = (Number(pf)>now && Number(rr)>0 && !paused) ? 'Pool actif' : (paused? 'Contrat en pause' : 'Pool inactif');
-      }catch(e){ console.error(e); }
-    }
-
-    async function approve(){
-      try{
-        const amt = parse($('amountIn').value);
-        const tx = await token.approve(STAKING_CONTRACT_ADDRESS, amt);
-        await tx.wait();
-        await refresh();
-      }catch(e){ console.error(e); alert('Approve échoué'); }
-    }
-    async function stake(){
-      try{
-        const amt = parse($('amountIn').value);
-        const tx = await staking.stake(amt);
-        await tx.wait();
-        $('amountIn').value = '';
-        await refresh();
-      }catch(e){ console.error(e); alert('Stake échoué'); }
-    }
-    async function withdraw(){
-      try{
-        const amt = parse($('amountOut').value);
-        const tx = await staking.withdraw(amt);
-        await tx.wait();
-        $('amountOut').value='';
-        await refresh();
-      }catch(e){ console.error(e); alert('Withdraw échoué'); }
-    }
-    async function claim(){
-      try{
-        const tx = await staking.getReward();
-        await tx.wait();
-        await refresh();
-      }catch(e){ console.error(e); alert('Claim échoué'); }
-    }
-    async function exit(){
-      try{
-        const tx = await staking.exit();
-        await tx.wait();
-        await refresh();
-      }catch(e){ console.error(e); alert('Exit échoué'); }
-    }
-
-    // Bind UI
-    $('connect').onclick = connect;
-    $('refresh').onclick = refresh;
-    $('approve').onclick = approve;
-    $('stake').onclick = stake;
-    $('withdraw').onclick = withdraw;
-    $('claim').onclick = claim;
-    $('exit').onclick = exit;
-  </script></body>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
 </html>
