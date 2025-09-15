@@ -10,7 +10,7 @@
   <link rel="canonical" href="https://samdoge.io/" />
   <meta name="theme-color" content="#0b1020" />
 
-  <!-- Favicons / PWA -->
+  <!-- Favicons -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -33,13 +33,14 @@
   <style>
     :root{
       --bg1:#0b1020; --bg2:#121a37; --txt:#fff; --muted:#cfd5e3;
-      --brand:#f59e0b; --link:#4a6cf7; --card:rgba(255,255,255,.05);
-      --border:rgba(255,255,255,.12); --shadow:0 10px 30px rgba(0,0,0,.35);
-      --radius:18px; --ok:#22c55e;
+      --brand:#f59e0b; --brand-2:#ffcc4d; --link:#4a6cf7;
+      --card:rgba(255,255,255,.05); --border:rgba(255,255,255,.12);
+      --shadow:0 10px 30px rgba(0,0,0,.35); --radius:18px;
+      --ok:#22c55e;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;max-width:100%;overflow-x:hidden;}
-    img{max-width:100%;height:auto;display:block;}
+    html,body{margin:0;max-width:100%;overflow-x:hidden;} /* stop horizontal scroll */
+    img{max-width:100%;height:auto;display:block;}         /* images responsives */
 
     body{
       font-family:system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;
@@ -50,39 +51,52 @@
     a:hover{text-decoration:underline}
     .container{max-width:1120px;margin:0 auto;padding:20px}
 
-    /* HEADER + BURGER */
-    .site-header{position:sticky;top:0;z-index:60;background:rgba(8,12,26,.7);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:14px}
-    .brand{display:flex;align-items:center;gap:10px;color:#fff}
-    .brand img{height:40px;width:40px;border-radius:12px;box-shadow:var(--shadow)}
-    .brand span{font-weight:800}
-    .lang{display:flex;gap:8px;align-items:center}
-    .chip{padding:6px 12px;border-radius:999px;border:1px solid var(--border);background:var(--card);font-size:13px;color:#fff}
-    .chip.active{outline:2px solid var(--brand)}
+    /* ===== HEADER PRO + BURGER ===== */
+    .site-header{
+      position:sticky; top:0; z-index:60;
+      background:rgba(8,12,26,.7); backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{ display:flex; align-items:center; justify-content:space-between; gap:14px; }
+    .brand{ display:flex; align-items:center; gap:10px; color:#fff; text-decoration:none }
+    .brand img{ height:40px; width:40px; border-radius:12px; box-shadow:var(--shadow) }
+    .brand span{ font-weight:800; letter-spacing:.2px }
+    .lang{ display:flex; gap:8px }
+    .chip{ padding:6px 12px; border-radius:999px; border:1px solid var(--border); background:var(--card); font-size:13px; color:#fff }
+    .chip.active{ outline:2px solid var(--brand) }
 
-    /* bouton Installer app (caché par défaut) */
-    .install-btn{display:none;padding:6px 12px;border-radius:12px;border:1px solid var(--border);background:var(--card);color:#fff;font-weight:700}
-    .install-btn.show{display:inline-block}
+    .hamburger{
+      display:none;
+      height:40px; width:44px; border:1px solid var(--border);
+      background:var(--card); border-radius:10px; padding:8px;
+    }
+    .hamburger span{ display:block; height:2px; background:#fff; margin:5px 0; transition:.2s }
+    .hamburger[aria-expanded="true"] span:nth-child(1){ transform:translateY(7px) rotate(45deg) }
+    .hamburger[aria-expanded="true"] span:nth-child(2){ opacity:0 }
+    .hamburger[aria-expanded="true"] span:nth-child(3){ transform:translateY(-7px) rotate(-45deg) }
 
-    .hamburger{display:none;height:40px;width:44px;border:1px solid var(--border);background:var(--card);border-radius:10px;padding:8px}
-    .hamburger span{display:block;height:2px;background:#fff;margin:5px 0;transition:.2s}
-    .hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-    .hamburger[aria-expanded="true"] span:nth-child(2){opacity:0}
-    .hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .nav-links{
+      display:flex; gap:12px; align-items:center; justify-content:center;
+      padding:10px 20px; border-top:1px solid var(--border);
+    }
+    .nav-links a{
+      color:#fff; font-weight:600; padding:8px 12px;
+      border:1px solid var(--border); background:var(--card);
+      border-radius:10px; text-decoration:none; white-space:nowrap;
+    }
+    .nav-links a:hover{ background:rgba(255,255,255,.1) }
 
-    .nav-links{display:flex;gap:12px;align-items:center;justify-content:center;padding:10px 20px;border-top:1px solid var(--border)}
-    .nav-links a{color:#fff;font-weight:600;padding:8px 12px;border:1px solid var(--border);background:var(--card);border-radius:10px;white-space:nowrap}
-    .nav-links a:hover{background:rgba(255,255,255,.1)}
-
-    @media (max-width:760px){
-      .hamburger{display:block}
-      .brand span{font-size:16px}
-      .nav-links{display:block;overflow:hidden;max-height:0;padding:0 20px;transition:max-height .25s ease}
-      .nav-links.open{max-height:220px;padding:10px 20px}
-      .nav-links a{display:block;width:100%;text-align:center;margin:8px 0}
+    @media (max-width: 760px){
+      .hamburger{ display:block }
+      .brand span{ font-size:16px }
+      .nav-links{
+        display:block; overflow:hidden; max-height:0; padding:0 20px; transition:max-height .25s ease;
+      }
+      .nav-links.open{ max-height:220px; padding:10px 20px; }
+      .nav-links a{ display:block; width:100%; text-align:center; margin:8px 0; }
     }
 
-    /* MAIN */
+    /* ===== MAIN ===== */
     .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:center;padding:28px 0}
     .card{border:1px solid var(--border);background:var(--card);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
     h1{font-size:clamp(28px,4.5vw,44px);margin:0 0 10px;text-align:center}
@@ -104,17 +118,19 @@
     .center{text-align:center}
 
     .card.art{display:grid;place-items:center}
-    .hero-img{max-height:360px;object-fit:cover;border-radius:14px;border:1px solid var(--border)}
+    .hero-img{
+      max-height:360px;object-fit:cover;border-radius:14px;border:1px solid var(--border);
+    }
 
     .badge{display:inline-block;margin-left:8px;padding:4px 8px;border-radius:999px;background:linear-gradient(90deg,var(--ok),#86efac);color:#052e13;font-size:12px;font-weight:900}
     footer{margin-top:36px;border-top:1px solid var(--border);padding:28px 0;color:var(--muted);text-align:center}
 
-    @media (max-width:920px){ .hero{grid-template-columns:1fr} .grid{grid-template-columns:1fr} }
-    @media (max-width:520px){ .stats{grid-template-columns:1fr 1fr} .lang{gap:6px} }
+    @media (max-width: 920px){ .hero{grid-template-columns:1fr} .grid{grid-template-columns:1fr} }
+    @media (max-width: 520px){ .stats{grid-template-columns:1fr 1fr} .lang{gap:6px} }
   </style>
 </head>
 <body id="top">
-  <!-- HEADER -->
+  <!-- ===== HEADER ===== -->
   <header class="site-header">
     <div class="container nav">
       <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
@@ -127,7 +143,6 @@
       </a>
 
       <div class="lang">
-        <button id="installBtn" class="install-btn">Installer l’app</button>
         <button class="chip active" data-setlang="fr">FR</button>
         <button class="chip" data-setlang="en">EN</button>
         <button class="chip" data-setlang="hr">HR</button>
@@ -161,13 +176,8 @@
 
       <div class="card art">
         <img class="hero-img" src="banner.jpg" alt="Bannière SamDoge">
-
         <p class="lead" style="margin-top:10px" data-i18n="contract_label">Adresse contrat :</p>
-        <!-- Bouton pour révéler l'adresse -->
-        <button id="showContract" class="btn secondary">Voir l’adresse</button>
-
-        <!-- Adresse masquée au chargement -->
-        <p id="contractAddr" style="display:none;margin-top:10px;word-break:break-all;">
+        <p>
           <a href="https://bscscan.com/address/0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9" target="_blank">
             0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9
           </a>
@@ -314,9 +324,11 @@
       });
       document.documentElement.lang = lang;
     };
+
     document.querySelectorAll("[data-setlang]").forEach(btn=>{
       btn.addEventListener("click", ()=>applyLang(btn.getAttribute("data-setlang")));
     });
+
     applyLang("fr");
 
     // Burger toggle
@@ -327,43 +339,6 @@
         const open = burger.getAttribute('aria-expanded') === 'true';
         burger.setAttribute('aria-expanded', String(!open));
         nav.classList.toggle('open', !open);
-      });
-    }
-
-    // Révéler l'adresse contrat
-    const revealBtn = document.getElementById('showContract');
-    const addr = document.getElementById('contractAddr');
-    if(revealBtn && addr){
-      revealBtn.addEventListener('click', ()=>{
-        addr.style.display='block';
-        revealBtn.style.display='none';
-      });
-    }
-
-    // PWA : bouton Installer l’app
-    let deferredPrompt = null;
-    const installBtn = document.getElementById('installBtn');
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      installBtn.classList.add('show'); // rend le bouton visible
-    });
-
-    if (installBtn) {
-      installBtn.addEventListener('click', async () => {
-        if (!deferredPrompt) return;
-        deferredPrompt.prompt();
-        const choice = await deferredPrompt.userChoice;
-        deferredPrompt = null;
-        installBtn.classList.remove('show');
-      });
-    }
-
-    // Enregistrer le service worker (requis pour l’installabilité)
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').catch(()=>{});
       });
     }
   </script>
