@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SamDoge – Hors ligne</title>
+  <meta name="theme-color" content="#0a1133">
+  <link rel="icon" href="favicon.ico">
+  <style>
+    :root{--bg:#0a1133;--card:#0f1847;--txt:#eaf0ff;--muted:#97a0c3;--border:rgba(255,255,255,.08);--radius:20px}
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:var(--bg);color:var(--txt);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+    .wrap{max-width:760px;margin:0 auto;padding:24px}
+    .card{margin-top:12vh;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center}
+    h1{margin:0 0 6px}
+    p{color:var(--muted)}
+    .actions{margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+    a,button{color:var(--txt);background:#121c54;border:1px solid var(--border);border-radius:12px;padding:10px 14px;text-decoration:none;cursor:pointer}
+    .hint{margin-top:14px;font-size:.9rem;color:#cbd3ff}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Vous êtes hors-ligne</h1>
+      <p>Aucune connexion Internet. Réessayez quand vous serez connecté.</p>
+      <div class="actions">
+        <button onclick="location.reload()">Réessayer</button>
+        <a href="index.html">Accueil</a>
+        <a href="staking.html">Staking</a>
+      </div>
+      <p class="hint">Astuce : l’app SamDoge garde en cache les pages principales pour fonctionner même sans réseau.</p>
+    </div>
+  </div>
+</body>
+</html>
