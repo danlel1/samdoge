@@ -2,362 +2,427 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>SamDoge (SDM) — Meme coin fun sur BSC</title>
-  <meta name="description" content="SamDoge (SDM) — Meme coin fun sur BSC avec tokenomics claires, utilités simples et staking." />
-  <meta name="theme-color" content="#0b1220" />
-  <meta name="color-scheme" content="dark" />
 
-  <!-- SEO / Open Graph -->
+  <!-- SEO / Social -->
+  <meta name="description" content="SamDoge (SDM) : meme coin fun sur BSC avec tokenomics claires, utilités simples et staking." />
   <meta property="og:title" content="SamDoge (SDM)" />
-  <meta property="og:description" content="Rejoignez la meute : tokenomics claires, utilités simples et staking." />
+  <meta property="og:description" content="Meme coin fun sur BSC avec tokenomics claires, utilités simples et staking." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://samdoge.io/" />
   <meta property="og:image" content="banner.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Favicon & PWA -->
-  <link rel="icon" href="favicon-32x32.png" sizes="32x32" />
-  <link rel="icon" href="favicon-16x16.png" sizes="16x16" />
-  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="manifest" href="site.webmanifest" />
+  <link rel="icon" href="favicon-32x32.png" sizes="32x32">
+  <link rel="icon" href="favicon-16x16.png" sizes="16x16">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#0e1525">
 
   <style>
     :root{
-      --bg:#0b1220; --bg-soft:#111a2b; --card:#0f1829; --card-2:#121d33;
-      --txt:#e7edf7; --muted:#a9b3c7; --accent:#f4a019; --accent-2:#2b7cff;
-      --ok:#22c55e; --chip:#1b2740; --shadow:0 10px 30px rgba(0,0,0,.35);
-      --radius:16px;
+      --bg:#0e1525; --panel:#121a2b; --panel-2:#0f1727;
+      --txt:#e9eef8; --muted:#b9c3d6; --brand:#f6a623; --brand-2:#2b3345;
+      --stroke:rgba(255,255,255,.06); --round:16px; --shadow:0 8px 24px rgba(0,0,0,.35)
     }
     *{box-sizing:border-box}
-    html,body{margin:0; padding:0; background:var(--bg); color:var(--txt); font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Ubuntu,Arial,sans-serif; line-height:1.45; overflow-x:hidden}
-    a{color:var(--accent-2); text-decoration:none}
-    img{max-width:100%; display:block}
-    .wrap{max-width:1100px; margin:0 auto; padding:100px 18px 32px}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--txt);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
 
-    /* Header fixe */
-    header{position:sticky; top:0; z-index:1000; background:linear-gradient(180deg,#0b1220ee,#0b1220c0 70%,transparent); backdrop-filter:saturate(1.2) blur(6px)}
-    .nav{max-width:1100px; margin:0 auto; padding:14px 18px; display:flex; align-items:center; gap:12px}
-    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px}
-    .brand img{width:28px; height:28px}
-
-    /* Burger + nav links */
-    .spacer{flex:1}
-    .langs button,.burger,.nav a.btnlink{border:1px solid #22304c; background:#0e1730; color:var(--txt)}
-    .langs{display:flex; gap:8px; align-items:center}
-    .langs button{padding:8px 12px; border-radius:999px; cursor:pointer}
-    .langs button.active{border-color:var(--accent); box-shadow:0 0 0 2px #000 inset}
-    .burger{font-size:22px; padding:8px 12px; border-radius:10px; cursor:pointer; display:none}
-    .menu{display:flex; gap:10px}
-    .menu .btnlink{padding:10px 14px; border-radius:12px; white-space:nowrap}
-
-    /* Mobile menu (drawer) */
-    .drawer{position:fixed; top:58px; right:12px; background:var(--card-2); border:1px solid #21314f; border-radius:14px; box-shadow:var(--shadow); padding:10px; display:none; flex-direction:column; gap:8px}
-    .drawer.open{display:flex}
-    .drawer a{border:1px solid #22304c; background:#0e1730; color:var(--txt); padding:10px 12px; border-radius:10px}
-
-    /* Hero */
-    .hero{display:grid; grid-template-columns:1.05fr .95fr; gap:20px}
-    .card{background:var(--card); border:1px solid #1e2a44; border-radius:var(--radius); box-shadow:var(--shadow)}
-    .hero .left{padding:26px}
-    .kicker{letter-spacing:.12em; color:#9fb2d5; text-transform:uppercase; font-weight:700}
-    h1{font-size:42px; margin:8px 0 12px}
-    .lead{color:var(--muted); font-size:18px; margin:0 0 18px}
-    .cta{display:flex; gap:12px; flex-wrap:wrap}
-    .btn{background:var(--accent); color:#1a1207; font-weight:800; border:none; padding:14px 18px; border-radius:14px; cursor:pointer}
-    .btn.secondary{background:#1a2642; color:var(--txt); border:1px solid #26365a}
-    .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:18px}
-    .pill{background:var(--chip); border:1px solid #1f2c49; padding:14px; border-radius:14px; text-align:center}
-    .pill b{font-size:18px; color:#ffd089}
-    .note{margin-top:12px; color:#b9c3d6; font-size:14px}
-
-    .hero .right{padding:22px}
-    .contract{margin-top:18px}
-    .contract .box{background:var(--card-2); border:1px solid #223255; border-radius:12px; padding:12px; color:#8db1ff; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size:12.5px; word-break:break-all; display:none}
-    .contract .toggle{margin-top:10px}
-
-    /* Sections */
-    section{margin-top:26px}
-    h2{margin:0 0 12px}
-    .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
-    .tile{padding:18px}
-    .list{margin:8px 0 0 0; padding-left:18px; color:var(--muted)}
-    .ok{color:var(--ok); font-weight:800}
-
-    /* Footer */
-    footer{margin:36px 0 20px; text-align:center; color:#8aa0c4}
-
-    /* Responsive */
-    @media (max-width:1020px){
-      .menu{display:none}
-      .burger{display:block}
-      .hero{grid-template-columns:1fr}
-      .cards{grid-template-columns:1fr}
+    /* ====== NAV BAR (fixe) ====== */
+    .nav{
+      position:sticky; top:0; z-index:1000;
+      background:linear-gradient(180deg,#0d1424 0%, #0e1525 100%);
+      border-bottom:1px solid var(--stroke);
+      backdrop-filter:saturate(140%) blur(8px);
     }
+    .nav-inner{
+      max-width:1080px; margin:0 auto; padding:12px 16px;
+      display:flex; align-items:center; gap:12px;
+    }
+    .brand{display:flex; align-items:center; gap:10px; margin-right:auto}
+    .brand img{width:28px;height:28px;border-radius:8px}
+    .brand span{font-weight:700}
+
+    .lang{display:flex; gap:8px}
+    .chip{
+      padding:8px 12px;border-radius:999px;background:var(--panel-2);border:1px solid var(--stroke);
+      color:var(--muted);cursor:pointer
+    }
+    .chip.active{color:#fff;outline:2px solid rgba(246,166,35,.25); background:linear-gradient(180deg,#1a2132,#161d2e)}
+
+    .nav-links{display:flex; gap:10px; margin-left:16px}
+    .btn-link{
+      padding:10px 14px; border-radius:12px; background:var(--panel-2); border:1px solid var(--stroke);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.04); color:#fff
+    }
+
+    /* hamburger */
+    .burger{display:none; margin-left:8px}
+    .burger button{
+      width:44px;height:44px;border-radius:12px;border:1px solid var(--stroke);
+      background:var(--panel-2); color:#fff; font-size:22px; line-height:1
+    }
+    /* menu slide on mobile */
+    .drawer{
+      display:none; border-top:1px solid var(--stroke); background:var(--panel);
+    }
+    .drawer .nav-links{padding:12px 16px; flex-direction:column}
+    .drawer .btn-link{width:100%; text-align:left}
+
+    @media (max-width: 880px){
+      .nav-links{display:none}
+      .burger{display:block}
+      .drawer.show{display:block}
+    }
+
+    /* ====== LAYOUT ====== */
+    .wrap{max-width:1080px;margin:0 auto;padding:18px 16px}
+    .card{
+      background:linear-gradient(180deg,var(--panel),#0c1322);
+      border:1px solid var(--stroke);
+      border-radius:var(--round);
+      box-shadow:var(--shadow)
+    }
+
+    /* ====== HERO (centré, propre) ====== */
+    .hero{display:grid; grid-template-columns:1fr; gap:18px}
+    .hero .left{padding:24px; text-align:center}
+    .kicker{color:var(--muted); letter-spacing:.25em; font-weight:600}
+    h1{font-size:40px; margin:6px 0 10px}
+    .lead{color:var(--muted); font-size:17px; max-width:720px; margin:0 auto 16px}
+
+    .cta{display:flex; justify-content:center; gap:10px; flex-wrap:wrap}
+    .btn{
+      padding:14px 18px; border-radius:14px; border:1px solid var(--stroke);
+      background:linear-gradient(180deg,#1b2234,#121a2b); color:#fff; font-weight:700
+    }
+    .btn.primary{background:linear-gradient(180deg,#ffbb33,#f6a623); color:#151515; border-color:#ffbb33}
+    .btn.secondary{background:linear-gradient(180deg,#1a2234,#121a2b)}
+
+    .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:14px}
+    .pill{padding:16px;border-radius:14px;background:var(--panel-2);border:1px solid var(--stroke);text-align:center}
+    .k{color:var(--muted); font-weight:600}
+    .v{font-size:22px; font-weight:800}
+
+    .note{margin-top:12px; color:#b9c3d6; font-size:14px; text-align:center}
+
+    .hero .right{padding:18px; display:flex; flex-direction:column; align-items:center}
+    .hero .right img{width:100%; height:auto; border-radius:12px}
+    .contract{margin-top:14px; text-align:center}
+    .box{
+      display:none; margin-top:8px; padding:12px 14px; border-radius:10px;
+      background:#0c1322; border:1px dashed #2b3953; font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace
+    }
+
+    @media (min-width: 992px){
+      .hero{grid-template-columns:1.05fr .95fr; align-items:center}
+    }
+
+    /* ====== SECTIONS ====== */
+    .section{margin-top:22px; padding:22px}
+    .section h2{margin:0 0 12px}
+    .tiles{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+    .tile{padding:16px;border-radius:14px;background:var(--panel);border:1px solid var(--stroke)}
+    .links .btn{display:inline-block; margin:6px 8px 0 0}
+
+    @media (max-width: 820px){
+      .tiles{grid-template-columns:1fr}
+    }
+
+    .footer{padding:26px 0; text-align:center; color:var(--muted)}
   </style>
 </head>
 <body>
 
-<header>
-  <div class="nav">
-    <div class="brand">
-      <img src="logo.png" alt="SMD">
-      <span>SamDoge (SDM)</span>
-    </div>
+  <!-- ===== NAV ===== -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="SamDoge">
+        <img src="logo.png" alt="SMD">
+        <span>SamDoge (SDM)</span>
+      </a>
 
-    <div class="spacer"></div>
-
-    <!-- menu desktop -->
-    <nav class="menu" aria-label="Navigation principale">
-      <a class="btnlink" href="#buy" data-i18n="nav_buy">Acheter</a>
-      <a class="btnlink" href="#staking" data-i18n="nav_stake">Staking</a>
-      <a class="btnlink" href="#roadmap" data-i18n="nav_roadmap">Feuille de route</a>
-      <a class="btnlink" href="#links" data-i18n="nav_links">Liens</a>
-    </nav>
-
-    <!-- langues -->
-    <div class="langs" role="group" aria-label="Langue">
-      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
-      <button id="btn-en" onclick="setLang('en')">EN</button>
-      <button id="btn-hr" onclick="setLang('hr')">HR</button>
-    </div>
-
-    <!-- burger (mobile/app) -->
-    <button class="burger" aria-label="Menu" onclick="toggleDrawer()">☰</button>
-  </div>
-
-  <!-- drawer -->
-  <div id="drawer" class="drawer" aria-label="Menu mobile">
-    <a href="#buy" onclick="closeDrawer()" data-i18n="nav_buy">Acheter</a>
-    <a href="#staking" onclick="closeDrawer()" data-i18n="nav_stake">Staking</a>
-    <a href="#roadmap" onclick="closeDrawer()" data-i18n="nav_roadmap">Feuille de route</a>
-    <a href="#links" onclick="closeDrawer()" data-i18n="nav_links">Liens</a>
-  </div>
-</header>
-
-<main class="wrap">
-
-  <!-- HERO -->
-  <section class="hero" id="buy">
-    <div class="left card">
-      <div class="kicker" data-i18n="kicker">La mascotte de la communauté</div>
-      <h1>SamDoge</h1>
-      <p class="lead" data-i18n="lead">
-        Meme coin fun, tokenomics claires, utilités simples et staking. Rejoignez la meute !
-      </p>
-
-      <div class="cta">
-        <a class="btn" href="https://pancakeswap.finance/swap?outputCurrency=0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9" target="_blank" rel="noopener" data-i18n="cta_buy">Acheter SDM (USDT)</a>
-        <a class="btn secondary" href="#staking" data-i18n="cta_stake">Staker maintenant</a>
-        <button id="installBtn" class="btn secondary" style="display:none" onclick="promptInstall()" data-i18n="cta_install">Installer l’app</button>
+      <div class="lang">
+        <button class="chip active" data-lang="fr">FR</button>
+        <button class="chip" data-lang="en">EN</button>
+        <button class="chip" data-lang="hr">HR</button>
       </div>
 
-      <div class="grid3">
-        <div class="pill">
-          <div class="muted" data-i18n="k_network">Réseau</div>
-          <b>BSC</b>
+      <nav class="nav-links" aria-label="Navigation principale">
+        <a class="btn-link" href="#buy" data-i18n="nav_buy">Acheter</a>
+        <a class="btn-link" href="#staking" data-i18n="nav_stake">Staking</a>
+        <a class="btn-link" href="#roadmap" data-i18n="nav_roadmap">Feuille de route</a>
+        <a class="btn-link" href="#links" data-i18n="nav_links">Liens</a>
+      </nav>
+
+      <div class="burger">
+        <button id="burgerBtn" aria-label="Ouvrir le menu">≡</button>
+      </div>
+    </div>
+    <div id="drawer" class="drawer">
+      <nav class="nav-links">
+        <a class="btn-link" href="#buy" data-i18n="nav_buy">Acheter</a>
+        <a class="btn-link" href="#staking" data-i18n="nav_stake">Staking</a>
+        <a class="btn-link" href="#roadmap" data-i18n="nav_roadmap">Feuille de route</a>
+        <a class="btn-link" href="#links" data-i18n="nav_links">Liens</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="wrap">
+
+    <!-- ===== HERO ===== -->
+    <section id="buy" class="hero">
+      <div class="left card">
+        <div class="kicker" data-i18n="kicker">LA MASCOTTE DE LA COMMUNAUTÉ</div>
+        <h1>SamDoge</h1>
+        <p class="lead" data-i18n="lead">
+          Meme coin fun, tokenomics claires, utilités simples et staking. Rejoignez la meute !
+        </p>
+
+        <div class="cta">
+          <a class="btn primary" target="_blank" rel="noopener"
+             href="https://pancakeswap.finance/?outputCurrency=USDT"
+             data-i18n="cta_buy">Acheter SDM (USDT)</a>
+          <a class="btn secondary" href="#staking" data-i18n="cta_stake">Staker maintenant</a>
+          <button id="installBtn" class="btn secondary" style="display:none" data-i18n="cta_pwa">Installer l’app</button>
         </div>
-        <div class="pill">
-          <div class="muted" data-i18n="k_supply">Offre totale</div>
-          <b>1 000 000 000</b>
+
+        <div class="grid3">
+          <div class="pill">
+            <div class="k" data-i18n="stat_net_k">Réseau</div>
+            <div class="v">BSC</div>
+          </div>
+          <div class="pill">
+            <div class="k" data-i18n="stat_supply_k">Offre totale</div>
+            <div class="v">1 000 000 000</div>
+          </div>
+          <div class="pill">
+            <div class="k" data-i18n="stat_tax_k">Taxes prévente / après</div>
+            <div class="v">0% / 5%</div>
+          </div>
         </div>
-        <div class="pill">
-          <div class="muted" data-i18n="k_tax">Taxes prévente / après</div>
-          <b>0% / 5%</b>
+
+        <div class="note" data-i18n="tax_note">
+          5% après prévente = 2% LP, 2% marketing, 1% staking
         </div>
       </div>
 
-      <p class="note" data-i18n="tax_note">
-        5% après prévente = 2% LP, 2% marketing, 1% staking
-      </p>
-    </div>
-
-    <div class="right card">
-      <img src="banner.jpg" alt="SamDoge banner">
-      <div class="contract">
-        <button class="btn secondary toggle" onclick="toggleAddr()" data-i18n="btn_show">Voir l’adresse</button>
-        <div id="addrBox" class="box">0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9</div>
+      <div class="right card">
+        <img src="banner.jpg" alt="SamDoge (SMD) banner">
+        <div class="contract">
+          <div class="muted" style="margin-bottom:6px" data-i18n="label_addr">Adresse contrat :</div>
+          <button class="btn secondary" onclick="toggleAddr()" data-i18n="btn_show">Voir l’adresse</button>
+          <div id="addrBox" class="box">0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9</div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- TOKENOMICS / LINKS / STAKING -->
-  <section class="cards">
-    <article class="card tile">
-      <h2 data-i18n="tok_title">Tokenomics</h2>
-      <ul class="list">
-        <li data-i18n="tok_supply"><b>Offre :</b> 1 000 000 000 SDM</li>
-        <li data-i18n="tok_liq">Liquidité : ajoutée & verrouillée après la prévente/listing</li>
-        <li data-i18n="tok_alloc">Allocations : communauté, LP, marketing, CEX (détails publics)</li>
-        <li data-i18n="tok_tax"><b>Taxes après prévente :</b> 5% (2% liquidité, 2% marketing, 1% staking)</li>
-      </ul>
-    </article>
+    <!-- ===== HOW TO BUY ===== -->
+    <section class="section card">
+      <h2 data-i18n="how_title">Comment acheter</h2>
+      <ol>
+        <li data-i18n="how_1">Ajoutez la BSC à MetaMask et rechargez en USDT.</li>
+        <li data-i18n="how_2">Ouvrez PancakeSwap et importez le token via l’adresse contrat.</li>
+        <li data-i18n="how_3">Sélectionnez le pair <b>SDM/USDT</b>, ajustez le slippage si besoin, puis swap.</li>
+      </ol>
+      <a class="btn primary" target="_blank" rel="noopener"
+         href="https://pancakeswap.finance/?outputCurrency=USDT"
+         data-i18n="how_cta">Acheter SDM/USDT sur PancakeSwap</a>
+    </section>
 
-    <article id="links" class="card tile">
-      <h2 data-i18n="links_title">Liens officiels</h2>
-      <div class="cta">
-        <a class="btn secondary" href="https://bscscan.com" target="_blank" rel="noopener">BscScan</a>
-        <a class="btn secondary" href="https://pancakeswap.finance/swap?outputCurrency=0xca4bdeb1e713be6b50e3800e0cb0263852ebefd9" target="_blank" rel="noopener">PancakeSwap</a>
-        <a class="btn secondary" href="https://x.com/DogeSami" target="_blank" rel="noopener">Twitter/X</a>
-        <a class="btn secondary" href="https://www.reddit.com/r/SamDoge" target="_blank" rel="noopener">Reddit</a>
+    <!-- ===== INFO / LINKS / STAKING ===== -->
+    <section id="links" class="tiles">
+      <div class="tile">
+        <h3 data-i18n="tokenomics">Tokenomics</h3>
+        <ul style="margin:0;padding-left:18px">
+          <li data-i18n="t_supply">Offre : 1 000 000 000 SDM</li>
+          <li data-i18n="t_liq">Liquidité : ajoutée & verrouillée après la prévente/listing</li>
+          <li data-i18n="t_alloc">Allocations : communauté, LP, marketing, CEX (détails publics)</li>
+          <li data-i18n="t_tax">Taxes après prévente : 5% (2% liquidité, 2% marketing, 1% staking)</li>
+        </ul>
       </div>
-    </article>
 
-    <article id="staking" class="card tile">
-      <h2>Staking</h2>
-      <p data-i18n="staking_desc">Le staking SamDoge est accessible via notre dApp.</p>
-      <a class="btn" href="staking.html" data-i18n="staking_open">Ouvrir la page de staking</a>
-    </article>
-  </section>
+      <div class="tile links">
+        <h3 data-i18n="official">Liens officiels</h3>
+        <a class="btn" target="_blank" rel="noopener" href="https://bscscan.com/" aria-label="BscScan">BscScan</a>
+        <a class="btn" target="_blank" rel="noopener" href="https://pancakeswap.finance/" aria-label="PancakeSwap">PancakeSwap</a>
+        <a class="btn" target="_blank" rel="noopener" href="https://x.com/DogeSami" aria-label="Twitter/X">Twitter/X</a>
+        <a class="btn" target="_blank" rel="noopener" href="https://www.reddit.com/" aria-label="Reddit">Reddit</a>
+      </div>
 
-  <!-- ROADMAP -->
-  <section id="roadmap" class="cards">
-    <article class="card tile">
-      <h2>Phase 1 — <span data-i18n="p1">Lancement</span> <span class="ok">✔︎</span></h2>
-      <ul class="list">
-        <li class="ok" data-i18n="p1_t1">Token SDM déployé (BSC)</li>
-        <li class="ok" data-i18n="p1_t2">Site web créé (samdoge.io)</li>
-        <li class="ok" data-i18n="p1_t3">Réseaux sociaux ouverts</li>
-      </ul>
-    </article>
+      <div id="staking" class="tile">
+        <h3>Staking</h3>
+        <p data-i18n="stake_text">Le staking SamDoge est accessible via notre dApp.</p>
+        <a class="btn primary" href="staking.html" data-i18n="stake_open">Ouvrir la page de staking</a>
+      </div>
+    </section>
 
-    <article class="card tile">
-      <h2>Phase 2 — <span data-i18n="p2">Croissance</span></h2>
-      <ul class="list">
-        <li data-i18n="p2_c1">La pièce est déjà créée (SDM)</li>
-        <li data-i18n="p2_c2"><b>Prévente bientôt</b></li>
-        <li data-i18n="p2_c3">Partenariats, utilités (outils/NFT)</li>
-        <li data-i18n="p2_c4">Staking public & récompenses</li>
-        <li data-i18n="p2_c5">Demandes de listings CEX</li>
-      </ul>
-    </article>
+    <!-- ===== ROADMAP ===== -->
+    <section id="roadmap" class="tiles" style="margin-top:14px">
+      <div class="tile">
+        <h3>Phase 1 — <span data-i18n="p1">Lancement</span> <span style="color:#70ffa5">✔︎</span></h3>
+        <ul style="margin:6px 0 0 18px">
+          <li data-i18n="p1_1">Token SDM déployé (BSC)</li>
+          <li data-i18n="p1_2">Site web créé (samdoge.io)</li>
+          <li data-i18n="p1_3">Réseaux sociaux ouverts</li>
+        </ul>
+      </div>
+      <div class="tile">
+        <h3>Phase 2 — <span data-i18n="p2">Croissance</span></h3>
+        <ul style="margin:6px 0 0 18px">
+          <li data-i18n="p2_0">La pièce est déjà créée (SDM)</li>
+          <li data-i18n="p2_1">Prévente bientôt</li>
+          <li data-i18n="p2_2">Partenariats, utilités (outils/NFT)</li>
+          <li data-i18n="p2_3">Staking public & récompenses</li>
+          <li data-i18n="p2_4">Demandes de listings CEX</li>
+        </ul>
+      </div>
+      <div class="tile">
+        <h3>Phase 3 — <span data-i18n="p3">Expansion</span></h3>
+        <ul style="margin:6px 0 0 18px">
+          <li data-i18n="p3_1">dApps additionnelles / mini-jeu</li>
+          <li data-i18n="p3_2">Marketing international (FR/EN/HR)</li>
+          <li data-i18n="p3_3">Événements & communauté</li>
+        </ul>
+      </div>
+    </section>
 
-    <article class="card tile">
-      <h2>Phase 3 — <span data-i18n="p3">Expansion</span></h2>
-      <ul class="list">
-        <li data-i18n="p3_c1">dApps additionnelles / mini-jeu</li>
-        <li data-i18n="p3_c2">Marketing international (FR/EN/HR)</li>
-        <li data-i18n="p3_c3">Événements & communauté</li>
-      </ul>
-    </article>
-  </section>
+  </main>
 
-  <footer>© 2025 SamDoge — Tous droits réservés.</footer>
-</main>
+  <footer class="footer">© 2025 SamDoge — Tous droits réservés.</footer>
 
-<script>
-  /* ===== Menu burger (app + mobile) ===== */
-  function toggleDrawer(){ document.getElementById('drawer').classList.toggle('open'); }
-  function closeDrawer(){ document.getElementById('drawer').classList.remove('open'); }
+  <script>
+    /* ===== Langues ===== */
+    const i18n = {
+      fr:{
+        nav_buy:"Acheter", nav_stake:"Staking", nav_roadmap:"Feuille de route", nav_links:"Liens",
+        kicker:"LA MASCOTTE DE LA COMMUNAUTÉ",
+        lead:"Meme coin fun, tokenomics claires, utilités simples et staking. Rejoignez la meute !",
+        cta_buy:"Acheter SDM (USDT)", cta_stake:"Staker maintenant", cta_pwa:"Installer l’app",
+        stat_net_k:"Réseau", stat_supply_k:"Offre totale", stat_tax_k:"Taxes prévente / après",
+        tax_note:"5% après prévente = 2% LP, 2% marketing, 1% staking",
+        label_addr:"Adresse contrat :", btn_show:"Voir l’adresse",
+        how_title:"Comment acheter",
+        how_1:"Ajoutez la BSC à MetaMask et rechargez en USDT.",
+        how_2:"Ouvrez PancakeSwap et importez le token via l’adresse contrat.",
+        how_3:"Sélectionnez le pair SDM/USDT, ajustez le slippage si besoin, puis swap.",
+        how_cta:"Acheter SDM/USDT sur PancakeSwap",
+        tokenomics:"Tokenomics", t_supply:"Offre : 1 000 000 000 SDM",
+        t_liq:"Liquidité : ajoutée & verrouillée après la prévente/listing",
+        t_alloc:"Allocations : communauté, LP, marketing, CEX (détails publics)",
+        t_tax:"Taxes après prévente : 5% (2% liquidité, 2% marketing, 1% staking)",
+        official:"Liens officiels",
+        stake_text:"Le staking SamDoge est accessible via notre dApp.",
+        stake_open:"Ouvrir la page de staking",
+        p1:"Lancement", p2:"Croissance", p3:"Expansion",
+        p1_1:"Token SDM déployé (BSC)", p1_2:"Site web créé (samdoge.io)", p1_3:"Réseaux sociaux ouverts",
+        p2_0:"La pièce est déjà créée (SDM)", p2_1:"Prévente bientôt",
+        p2_2:"Partenariats, utilités (outils/NFT)", p2_3:"Staking public & récompenses", p2_4:"Demandes de listings CEX"
+      },
+      en:{
+        nav_buy:"Buy", nav_stake:"Staking", nav_roadmap:"Roadmap", nav_links:"Links",
+        kicker:"THE COMMUNITY MASCOT",
+        lead:"Fun meme coin with clear tokenomics, simple utilities and staking. Join the pack!",
+        cta_buy:"Buy SDM (USDT)", cta_stake:"Stake now", cta_pwa:"Install app",
+        stat_net_k:"Network", stat_supply_k:"Total supply", stat_tax_k:"Taxes presale / after",
+        tax_note:"5% after presale = 2% LP, 2% marketing, 1% staking",
+        label_addr:"Contract address:", btn_show:"Show address",
+        how_title:"How to buy",
+        how_1:"Add BSC to MetaMask and fund with USDT.",
+        how_2:"Open PancakeSwap and import the token using the contract address.",
+        how_3:"Select SDM/USDT pair, set slippage if needed, then swap.",
+        how_cta:"Buy SDM/USDT on PancakeSwap",
+        tokenomics:"Tokenomics", t_supply:"Supply: 1,000,000,000 SDM",
+        t_liq:"Liquidity: added & locked after presale/listing",
+        t_alloc:"Allocations: community, LP, marketing, CEX (public details)",
+        t_tax:"Taxes after presale: 5% (2% liquidity, 2% marketing, 1% staking)",
+        official:"Official links",
+        stake_text:"SamDoge staking is available via our dApp.",
+        stake_open:"Open staking page",
+        p1:"Launch", p2:"Growth", p3:"Expansion",
+        p1_1:"SDM token deployed (BSC)", p1_2:"Website created (samdoge.io)", p1_3:"Socials opened",
+        p2_0:"The coin is already created (SDM)", p2_1:"Presale soon",
+        p2_2:"Partnerships, utilities (tools/NFT)", p2_3:"Public staking & rewards", p2_4:"CEX listing requests"
+      },
+      hr:{
+        nav_buy:"Kupi", nav_stake:"Staking", nav_roadmap:"Plan", nav_links:"Linkovi",
+        kicker:"MASKOTA ZAJEDNICE",
+        lead:"Zabavni meme coin s jasnom tokenomikom, jednostavnim uslugama i stakingom. Pridruži se čoporu!",
+        cta_buy:"Kupi SDM (USDT)", cta_stake:"Stakaj sada", cta_pwa:"Instaliraj aplikaciju",
+        stat_net_k:"Mreža", stat_supply_k:"Ukupna ponuda", stat_tax_k:"Porezi presale / poslije",
+        tax_note:"5% nakon presalea = 2% LP, 2% marketing, 1% staking",
+        label_addr:"Adresa ugovora:", btn_show:"Prikaži adresu",
+        how_title:"Kako kupiti",
+        how_1:"Dodaj BSC u MetaMask i dopuni USDT-om.",
+        how_2:"Otvori PancakeSwap i uvezi token putem adrese ugovora.",
+        how_3:"Odaberi par SDM/USDT, postavi slippage po potrebi, zatim swap.",
+        how_cta:"Kupi SDM/USDT na PancakeSwapu",
+        tokenomics:"Tokenomika", t_supply:"Ponuda: 1,000,000,000 SDM",
+        t_liq:"Likvidnost: dodana i zaključana nakon presalea/listinga",
+        t_alloc:"Alokacije: zajednica, LP, marketing, CEX (javne pojedinosti)",
+        t_tax:"Porezi nakon presalea: 5% (2% likvidnost, 2% marketing, 1% staking)",
+        official:"Službene veze",
+        stake_text:"SamDoge staking dostupan je preko naše dApp.",
+        stake_open:"Otvori stranicu za staking",
+        p1:"Lansiranje", p2:"Rast", p3:"Ekspanzija",
+        p1_1:"SDM token implementiran (BSC)", p1_2:"Web stranica kreirana (samdoge.io)", p1_3:"Otvorene društvene mreže",
+        p2_0:"Coin je već kreiran (SDM)", p2_1:"Presale uskoro",
+        p2_2:"Partnerstva, korisnosti (alata/NFT)", p2_3:"Javni staking i nagrade", p2_4:"Zahtjevi za CEX listing"
+      }
+    };
 
-  /* ===== Contrat: afficher/masquer ===== */
-  function toggleAddr(){
-    const box = document.getElementById('addrBox');
-    const btn = document.querySelector('.toggle');
-    const isHidden = getComputedStyle(box).display === 'none';
-    box.style.display = isHidden ? 'block' : 'none';
-    btn.textContent = isHidden ? i18n[current].btn_hide : i18n[current].btn_show;
-  }
-
-  /* ===== i18n simple ===== */
-  const i18n = {
-    fr:{
-      nav_buy:"Acheter", nav_stake:"Staking", nav_roadmap:"Feuille de route", nav_links:"Liens",
-      kicker:"La mascotte de la communauté",
-      lead:"Meme coin fun, tokenomics claires, utilités simples et staking. Rejoignez la meute !",
-      cta_buy:"Acheter SDM (USDT)", cta_stake:"Staker maintenant", cta_install:"Installer l’app",
-      k_network:"Réseau", k_supply:"Offre totale", k_tax:"Taxes prévente / après",
-      tax_note:"5% après prévente = 2% LP, 2% marketing, 1% staking",
-      btn_show:"Voir l’adresse", btn_hide:"Masquer l’adresse",
-      tok_title:"Tokenomics",
-      tok_supply:"Offre : 1 000 000 000 SDM",
-      tok_liq:"Liquidité : ajoutée & verrouillée après la prévente/listing",
-      tok_alloc:"Allocations : communauté, LP, marketing, CEX (détails publics)",
-      tok_tax:"Taxes après prévente : 5% (2% liquidité, 2% marketing, 1% staking)",
-      links_title:"Liens officiels",
-      staking_desc:"Le staking SamDoge est accessible via notre dApp.",
-      staking_open:"Ouvrir la page de staking",
-      p1:"Lancement", p2:"Croissance", p3:"Expansion",
-      p1_t1:"Token SDM déployé (BSC)", p1_t2:"Site web créé (samdoge.io)", p1_t3:"Réseaux sociaux ouverts",
-      p2_c1:"La pièce est déjà créée (SDM)", p2_c2:"Prévente bientôt",
-      p2_c3:"Partenariats, utilités (outils/NFT)", p2_c4:"Staking public & récompenses", p2_c5:"Demandes de listings CEX",
-      p3_c1:"dApps additionnelles / mini-jeu", p3_c2:"Marketing international (FR/EN/HR)", p3_c3:"Événements & communauté"
-    },
-    en:{
-      nav_buy:"Buy", nav_stake:"Staking", nav_roadmap:"Roadmap", nav_links:"Links",
-      kicker:"Community Mascot",
-      lead:"Fun meme coin with clear tokenomics, simple utilities and staking. Join the pack!",
-      cta_buy:"Buy SDM (USDT)", cta_stake:"Stake now", cta_install:"Install app",
-      k_network:"Network", k_supply:"Total supply", k_tax:"Taxes presale / post",
-      tax_note:"5% after presale = 2% LP, 2% marketing, 1% staking",
-      btn_show:"Show address", btn_hide:"Hide address",
-      tok_title:"Tokenomics",
-      tok_supply:"Supply: 1,000,000,000 SDM",
-      tok_liq:"Liquidity: added & locked after presale/listing",
-      tok_alloc:"Allocations: community, LP, marketing, CEX (public details)",
-      tok_tax:"Post-presale tax: 5% (2% LP, 2% marketing, 1% staking)",
-      links_title:"Official links",
-      staking_desc:"SamDoge staking is available via our dApp.",
-      staking_open:"Open staking page",
-      p1:"Launch", p2:"Growth", p3:"Expansion",
-      p1_t1:"SDM token deployed (BSC)", p1_t2:"Website created (samdoge.io)", p1_t3:"Socials opened",
-      p2_c1:"The coin is already created (SDM)", p2_c2:"Presale soon",
-      p2_c3:"Partnerships, utilities (tools/NFT)", p2_c4:"Public staking & rewards", p2_c5:"CEX listing requests",
-      p3_c1:"Additional dApps / mini-game", p3_c2:"International marketing (FR/EN/HR)", p3_c3:"Events & community"
-    },
-    hr:{
-      nav_buy:"Kupi", nav_stake:"Staking", nav_roadmap:"Plan", nav_links:"Linkovi",
-      kicker:"Maskota zajednice",
-      lead:"Zabavni meme coin s jasnom tokenomikom, jednostavnim uslugama i stakingom. Pridruži se čoporu!",
-      cta_buy:"Kupi SDM (USDT)", cta_stake:"Stakeaj sada", cta_install:"Instaliraj aplikaciju",
-      k_network:"Mreža", k_supply:"Ukupna ponuda", k_tax:"Porezi presale / poslije",
-      tax_note:"5% nakon presalea = 2% LP, 2% marketing, 1% staking",
-      btn_show:"Prikaži adresu", btn_hide:"Sakrij adresu",
-      tok_title:"Tokenomika",
-      tok_supply:"Ponuda: 1.000.000.000 SDM",
-      tok_liq:"Likvidnost: dodana i zaključana nakon presalea/listinga",
-      tok_alloc:"Alokacije: zajednica, LP, marketing, CEX (javni detalji)",
-      tok_tax:"Porez nakon presalea: 5% (2% LP, 2% marketing, 1% staking)",
-      links_title:"Službene poveznice",
-      staking_desc:"SamDoge staking dostupan je kroz našu dApp.",
-      staking_open:"Otvori stranicu za staking",
-      p1:"Lansiranje", p2:"Rast", p3:"Ekspanzija",
-      p1_t1:"SDM token implementiran (BSC)", p1_t2:"Web stranica izrađena (samdoge.io)", p1_t3:"Otvorene društvene mreže",
-      p2_c1:"Coin je već napravljen (SDM)", p2_c2:"Presale uskoro",
-      p2_c3:"Partnerstva, korisnosti (alati/NFT)", p2_c4:"Javni staking i nagrade", p2_c5:"Zahtjevi za CEX listing",
-      p3_c1:"Dodatne dApp / mini-igra", p3_c2:"Međunarodni marketing (FR/EN/HR)", p3_c3:"Događaji i zajednica"
+    function applyLang(lang){
+      document.querySelectorAll("[data-i18n]").forEach(el=>{
+        const key = el.getAttribute("data-i18n");
+        if(i18n[lang] && i18n[lang][key]) el.innerHTML = i18n[lang][key];
+      });
+      document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("active", c.dataset.lang===lang));
+      document.documentElement.lang = lang;
+      localStorage.setItem("lang", lang);
     }
-  };
-  let current = (localStorage.getItem('lang')||'fr');
-  function setLang(code){
-    current = code; localStorage.setItem('lang', code);
-    ['btn-fr','btn-en','btn-hr'].forEach(id=>document.getElementById(id)?.classList.remove('active'));
-    document.getElementById('btn-'+code)?.classList.add('active');
-    document.querySelectorAll('[data-i18n]').forEach(el=>{
-      const key = el.getAttribute('data-i18n');
-      if(i18n[code][key]) el.textContent = i18n[code][key];
+    document.querySelectorAll(".chip").forEach(btn=>{
+      btn.addEventListener("click", ()=>applyLang(btn.dataset.lang));
     });
-  }
-  setLang(current);
+    applyLang(localStorage.getItem("lang") || "fr");
 
-  /* ===== PWA install prompt ===== */
-  let deferredPrompt=null;
-  window.addEventListener('beforeinstallprompt', (e)=>{
-    e.preventDefault(); deferredPrompt=e;
-    document.getElementById('installBtn').style.display='inline-block';
-  });
-  async function promptInstall(){
-    if(!deferredPrompt) return;
-    deferredPrompt.prompt();
-    await deferredPrompt.userChoice;
-    deferredPrompt=null;
-    document.getElementById('installBtn').style.display='none';
-  }
+    /* Menu hamburger */
+    const drawer = document.getElementById("drawer");
+    document.getElementById("burgerBtn").addEventListener("click", ()=>{
+      drawer.classList.toggle("show");
+    });
 
-  /* ===== Service Worker ===== */
-  if('serviceWorker' in navigator){
-    navigator.serviceWorker.register('sw.js').catch(()=>{});
-  }
-</script>
+    /* Adresse contrat : toggle */
+    function toggleAddr(){
+      const box = document.getElementById("addrBox");
+      box.style.display = (box.style.display==="block" ? "none" : "block");
+    }
+    window.toggleAddr = toggleAddr;
 
+    /* PWA install prompt */
+    let deferredPrompt;
+    const installBtn = document.getElementById("installBtn");
+    window.addEventListener('beforeinstallprompt',(e)=>{
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = 'inline-block';
+    });
+    installBtn.addEventListener('click', async ()=>{
+      if(!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      installBtn.style.display='none';
+    });
+
+    /* Service worker */
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.register('sw.js').catch(()=>{});
+    }
+  </script>
 </body>
 </html>
