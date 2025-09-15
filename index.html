@@ -18,6 +18,7 @@
     body{margin:0;font-family:system-ui,Arial,sans-serif;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--txt)}
     .container{max-width:1120px;margin:0 auto;padding:20px}
     .card{border:1px solid var(--border);background:var(--card);border-radius:var(--radius);padding:22px}
+    h1{text-align:center;margin:0 0 12px}
     h2{margin:0 0 12px}
     .list{margin:8px 0 0;padding-left:18px;color:var(--muted)}
     .list li{margin:8px 0}/* Style coche verte uniquement pour Phase 1 */
@@ -28,35 +29,91 @@
   </style>
 </head>
 <body>
-  <main class="container">
-    <section id="roadmap" class="grid" style="margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px">
-      <div class="card">
-        <h2>Phase 1 — Lancement ✅</h2>
-        <ul class="list">
-          <li>Pièce SDM créée</li>
-          <li>Token SDM déployé (BSC)</li>
-          <li>Site web créé (samdoge.io)</li>
-          <li>Réseaux sociaux ouverts</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h2>Phase 2 — Croissance</h2>
-        <ul class="list">
-          <li>Partenariats, utilités (outils/NFT)</li>
-          <li>Staking public & récompenses</li>
-          <li>Demandes de listings CEX</li>
-          <li>Pré-vente bientôt sur <a href="https://www.pinksale.finance" target="_blank">PinkSale</a></li>
-        </ul>
-      </div>
-      <div class="card">
-        <h2>Phase 3 — Expansion</h2>
-        <ul class="list">
-          <li>dApps additionnelles / mini-jeu</li>
-          <li>Marketing international (FR/EN/HR)</li>
-          <li>Événements & communauté</li>
-        </ul>
-      </div>
-    </section>
+  <header class="container">
+    <h1>SamDoge (SDM)</h1>
+    <nav>
+      <a href="#acheter">Acheter</a> |
+      <a href="#staking">Staking</a> |
+      <a href="#roadmap">Feuille de route</a> |
+      <a href="#liens">Liens</a>
+    </nav>
+  </header>  <main class="container">
+    <!-- HERO -->
+    <section class="card">
+      <h2>Bienvenue</h2>
+      <p>SamDoge est la mascotte de la communauté : un meme coin fun avec des tokenomics claires, des utilités simples et du staking. Rejoignez la meute !</p>
+    </section><!-- COMMENT ACHETER -->
+<section id="acheter" class="card" style="margin-top:18px">
+  <h2>Comment acheter</h2>
+  <ol>
+    <li>Ajoutez la BSC à MetaMask et rechargez en USDT.</li>
+    <li>Ouvrez <a href="https://pancakeswap.finance/" target="_blank">PancakeSwap</a> et importez le token via l’adresse du contrat.</li>
+    <li>Sélectionnez le pair SDM/USDT, définissez le slippage si nécessaire et validez l’échange.</li>
+  </ol>
+  <p><a href="https://pancakeswap.finance/" target="_blank">Acheter SDM/USDT sur PancakeSwap</a></p>
+  <p>Taxe actuelle : <b>0%</b>. Après la vente : <b>5%</b> (achat/vente). Les paramètres de taxe et d’anti-bot peuvent évoluer ; toute mise à jour sera annoncée publiquement.</p>
+</section>
+
+<!-- TOKENOMICS / LIENS / STAKING -->
+<section id="liens" class="grid" style="margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px">
+  <div class="card">
+    <h2>Tokenomics</h2>
+    <ul class="list">
+      <li>Offre : 1 000 000 000 SDM</li>
+      <li>Liquidité : ajoutée & verrouillée après la prévente/listing</li>
+      <li>Allocations : communauté, LP, marketing, CEX (détails publics)</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>Liens officiels</h2>
+    <p>
+      <a href="https://bscscan.com/" target="_blank">BscScan</a> |
+      <a href="https://pancakeswap.finance/" target="_blank">PancakeSwap</a> |
+      <a href="https://x.com/DogeSami" target="_blank">Twitter/X</a> |
+      <a href="https://www.reddit.com/r/SamDoge/" target="_blank">Reddit</a>
+    </p>
+  </div>
+  <div class="card" id="staking">
+    <h2>Staking</h2>
+    <p>Le staking SamDoge est accessible via notre dApp.</p>
+    <a href="staking.html">Ouvrir la page de staking</a>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap" class="grid" style="margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px">
+  <div class="card">
+    <h2>Phase 1 — Lancement ✅</h2>
+    <ul class="list">
+      <li>Pièce SDM créée</li>
+      <li>Token SDM déployé (BSC)</li>
+      <li>Site web créé (samdoge.io)</li>
+      <li>Réseaux sociaux ouverts</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>Phase 2 — Croissance</h2>
+    <ul class="list">
+      <li>Partenariats, utilités (outils/NFT)</li>
+      <li>Staking public & récompenses</li>
+      <li>Demandes de listings CEX</li>
+      <li>Pré-vente bientôt sur <a href="https://www.pinksale.finance" target="_blank">PinkSale</a></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>Phase 3 — Expansion</h2>
+    <ul class="list">
+      <li>dApps additionnelles / mini-jeu</li>
+      <li>Marketing international (FR/EN/HR)</li>
+      <li>Événements & communauté</li>
+    </ul>
+  </div>
+</section>
+
+<footer style="margin-top:24px;text-align:center;color:var(--muted)">
+  © 2025 SamDoge — Tous droits réservés.
+</footer>
+
   </main>
 </body>
 </html>
