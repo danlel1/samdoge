@@ -4,24 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SamDoge (SDM) – Meme coin de la communauté</title>
-  <meta name="description" content="SamDoge (SDM) – communauté, roadmap claire, tokenomics transparentes, PWA installable, FR/EN/HR." />
+  <meta name="description" content="SamDoge (SDM) – communauté, roadmap claire, tokenomics transparentes, app installable (PWA), FR/EN/HR." />
   <meta name="theme-color" content="#0a1133" />
 
-  <!-- Aperçu social -->
-<link rel="canonical" href="https://samdoge.io/" />
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="SamDoge (SDM)">
-<meta property="og:title" content="SamDoge (SDM) — A community token with the spirit of Doge">
-<meta property="og:description" content="Meme coin fun et transparent. Tokenomics, roadmap, app (PWA), FR/EN/HR.">
-<meta property="og:url" content="https://samdoge.io/">
-<meta property="og:image" content="https://samdoge.io/social-card.png">
-<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SamDoge (SDM) — A community token with the spirit of Doge">
-<meta name="twitter:description" content="Meme coin fun et transparent. Tokenomics, roadmap, PWA, FR/EN/HR.">
-<meta name="twitter:image" content="https://samdoge.io/social-card.png">
-<meta name="twitter:site" content="@DogeSami">
-  
   <!-- 🔁 REMPLACE UNIQUEMENT CETTE VALEUR PAR TON CONTRAT -->
   <meta name="contract-address" content="0xYOURCONTRACTADDRESSHERE" />
 
@@ -31,6 +16,22 @@
   <link rel="icon" href="favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+
+  <!-- 🔥 Social preview (Open Graph + Twitter) -->
+  <link rel="canonical" href="https://samdoge.io/" />
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SamDoge (SDM)">
+  <meta property="og:title" content="SamDoge (SDM) — A community token with the spirit of Doge">
+  <meta property="og:description" content="Meme coin fun et transparent. Tokenomics, roadmap, app (PWA), FR/EN/HR.">
+  <meta property="og:url" content="https://samdoge.io/">
+  <meta property="og:image" content="https://samdoge.io/social-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SamDoge (SDM) — A community token with the spirit of Doge">
+  <meta name="twitter:description" content="Meme coin fun et transparent. Tokenomics, roadmap, PWA, FR/EN/HR.">
+  <meta name="twitter:image" content="https://samdoge.io/social-card.png">
+  <meta name="twitter:site" content="@DogeSami">
 
   <style>
     :root{
@@ -101,13 +102,12 @@
     .socials{display:flex;gap:10px;flex-wrap:wrap}
     .socials a{padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:#121c54}
     .ios-hint{font-size:.9rem;background:#101a4f;border:1px solid var(--border);padding:10px;border-radius:12px;margin-top:10px;display:none}
-  <style>
-    /* ... ton CSS déjà existant ... */
 
-    /* Desktop uniquement : bannière moins haute */
+    /* ✅ Desktop uniquement : bannière plus compacte */
     @media (min-width: 1024px){
       .hero .banner{
-        max-height: 420px;   /* tu peux ajuster : 360–480px */
+        max-height: 340px;   /* ajuste 320–360 si besoin */
+        object-fit: cover;
         margin: 0 auto;
       }
     }
@@ -399,7 +399,7 @@
         buy_3:"Otvori PancakeSwap i odaberi par BNB ↔ SDM. (link pri listingu)",
         buy_4a:"Dodaj SDM ugovor:",
         buy_reveal:"Prikaži adresu ugovora",
-      buy_5:"Tijekom pretprodaje: 0% porez (0–1% slippage). Nakon lansiranja: 5% (5–7% slippage).",
+        buy_5:"Tijekom pretprodaje: 0% porez (0–1% slippage). Nakon lansiranja: 5% (5–7% slippage).",
         road_title:"Plan puta",
         r1_1:"SDM token kreiran", r1_2:"SDM token implementiran", r1_3:"Web stranica izrađena", r1_4:"Otvorene društvene mreže",
         r2_1:"Audit i KYC", r2_2:"Pretprodaja uskoro na PinkSale", r2_3:"Zaključavanje likvidnosti", r2_4:"Početni marketing",
@@ -415,7 +415,7 @@
       document.querySelectorAll('[data-i18n]').forEach(el=>{
         const key = el.getAttribute('data-i18n');
         if (!strings[key]) return;
-        el.innerHTML = strings[key]; // permet <b> dans les textes
+        el.innerHTML = strings[key]; // autorise <b>
       });
       localStorage.setItem('sdm_lang', lang);
       document.querySelectorAll('.langs button').forEach(b=>b.classList.toggle('active', b.dataset.lang===lang));
