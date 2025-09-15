@@ -20,26 +20,10 @@
     .card{border:1px solid var(--border);background:var(--card);border-radius:var(--radius);padding:22px}
     h2{margin:0 0 12px}
     .list{margin:8px 0 0;padding-left:18px;color:var(--muted)}
-    .list li{margin:8px 0}/* Style coche verte uniquement pour roadmap */
-#roadmap .list li{list-style:none;position:relative;padding-left:26px;color:#fff;opacity:0;animation:fadeInUp .8s forwards}
-#roadmap .list li::before{content:"";position:absolute;left:0;top:.35em;width:16px;height:16px;border-radius:4px;background:#0f2916;border:1px solid #1f8f49;opacity:0;animation:fadeIn .8s forwards}
-#roadmap .list li::after{content:"✔";position:absolute;left:2px;top:.02em;font-size:14px;color:var(--ok);font-weight:900;opacity:0;animation:fadeIn .8s .2s forwards}
-
-/* Animations */
-@keyframes fadeInUp{
-  from{opacity:0;transform:translateY(8px)}
-  to{opacity:1;transform:translateY(0)}
-}
-@keyframes fadeIn{
-  from{opacity:0}
-  to{opacity:1}
-}
-
-/* Décalage progressif */
-#roadmap .list li:nth-child(1){animation-delay:.1s}
-#roadmap .list li:nth-child(2){animation-delay:.3s}
-#roadmap .list li:nth-child(3){animation-delay:.5s}
-#roadmap .list li:nth-child(4){animation-delay:.7s}
+    .list li{margin:8px 0}/* Style coche verte uniquement pour Phase 1 */
+#roadmap .card:nth-child(1) .list li{list-style:none;position:relative;padding-left:26px;color:#fff}
+#roadmap .card:nth-child(1) .list li::before{content:"";position:absolute;left:0;top:.35em;width:16px;height:16px;border-radius:4px;background:#0f2916;border:1px solid #1f8f49}
+#roadmap .card:nth-child(1) .list li::after{content:"✔";position:absolute;left:2px;top:.02em;font-size:14px;color:var(--ok);font-weight:900}
 
   </style>
 </head>
@@ -56,7 +40,7 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Phase 2 — Croissance ✅</h2>
+        <h2>Phase 2 — Croissance</h2>
         <ul class="list">
           <li>Partenariats, utilités (outils/NFT)</li>
           <li>Staking public & récompenses</li>
@@ -65,7 +49,7 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Phase 3 — Expansion ✅</h2>
+        <h2>Phase 3 — Expansion</h2>
         <ul class="list">
           <li>dApps additionnelles / mini-jeu</li>
           <li>Marketing international (FR/EN/HR)</li>
