@@ -87,6 +87,17 @@
     .socials a{padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:#121c54}
     .ios-hint{font-size:.9rem;background:#101a4f;border:1px solid var(--border);padding:10px;border-radius:12px;margin-top:10px;display:none}
   </style>
+  <style>
+    /* ... ton CSS déjà existant ... */
+
+    /* Desktop uniquement : bannière moins haute */
+    @media (min-width: 1024px){
+      .hero .banner{
+        max-height: 420px;   /* tu peux ajuster : 360–480px */
+        margin: 0 auto;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- Topbar (brand cliquable vers l'accueil) -->
