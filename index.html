@@ -41,7 +41,17 @@
     .chip.active{outline:2px solid var(--brand)}
     .install-btn{display:none;padding:6px 10px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:#fff;font-weight:700}
     .install-btn.show{display:inline-block}
-    @media(max-width:480px){.install-btn{font-size:12px;padding:6px 8px}.brand span{font-size:14px}}
+    #langSelect{
+      background:var(--card);color:#fff;border:1px solid var(--border);
+      border-radius:999px;padding:6px 10px
+    }
+    /* Desktop: montre le select, cache les chips */
+    @media(min-width:641px){
+      .right-head .chip[data-setlang]{ display:none; }
+      #langSelect{ display:inline-block; }
+    }
+    /* Mobile: cache le select, garde les chips */
+    @media(max-width:640px){ #langSelect{ display:none; } }
 
     .nav-links{position:relative;z-index:1;display:flex;gap:10px;justify-content:center;padding:10px 0;border-top:1px solid var(--border)}
     .nav-links a{color:#fff;font-weight:600;padding:8px 12px;border:1px solid var(--border);background:var(--card);border-radius:10px}
@@ -78,9 +88,18 @@
       </a>
       <div class="right-head">
         <button id="installBtn" class="install-btn" type="button" data-i18n="install">Installer l’app</button>
+
+        <!-- chips (mobiles) -->
         <button class="chip active" data-setlang="fr" type="button">FR</button>
         <button class="chip" data-setlang="en" type="button">EN</button>
         <button class="chip" data-setlang="hr" type="button">HR</button>
+
+        <!-- select (desktop) -->
+        <select id="langSelect" class="chip" aria-label="Language">
+          <option value="fr">FR</option>
+          <option value="en">EN</option>
+          <option value="hr">HR</option>
+        </select>
       </div>
     </div>
     <nav class="nav-links">
@@ -104,8 +123,11 @@
         <div class="stats">
           <div class="stat"><div class="v" data-i18n="stat_net_v">BSC</div><div data-i18n="stat_net_t">Réseau</div></div>
           <div class="stat"><div class="v">1 000 000 000</div><div data-i18n="stat_supply">Offre totale</div></div>
-          <div class="stat"><div class="v" data-i18n="stat_tax_v">0% (prévente)</div><div data-i18n="stat_tax_t">Taxes actuelles</div></div>
+          <div class="stat"><div class="v" data-i18n="stat_tax_v">0% / 5%</div><div data-i18n="stat_tax_t">Taxes prévente / après</div></div>
         </div>
+        <p class="lead" style="margin-top:8px;color:#cfd5e3;font-size:14px">
+          5% après prévente = 2% LP, 2% marketing, 1% staking
+        </p>
       </div>
 
       <div class="card">
@@ -234,7 +256,7 @@
         h_sub:"La mascotte de la communauté : meme coin fun, tokenomics claires, utilités simples et staking. Rejoignez la meute !",
         cta_buy:"Acheter SDM (USDT)", cta_stake:"Staker maintenant",
         stat_net_v:"BSC", stat_net_t:"Réseau", stat_supply:"Offre totale",
-        stat_tax_v:"0% (prévente)", stat_tax_t:"Taxes actuelles",
+        stat_tax_v:"0% / 5%", stat_tax_t:"Taxes prévente / après",
         contract_label:"Adresse contrat :", contract_btn:"Voir l’adresse",
         buy_title:"Comment acheter",
         buy_1:"Ajoutez la <b>BSC</b> à MetaMask et rechargez en <b>USDT</b>.",
@@ -264,7 +286,7 @@
         h_sub:"The community mascot: fun meme coin, clear tokenomics, simple utilities and staking. Join the pack!",
         cta_buy:"Buy SDM (USDT)", cta_stake:"Stake now",
         stat_net_v:"BSC", stat_net_t:"Network", stat_supply:"Total supply",
-        stat_tax_v:"0% (presale)", stat_tax_t:"Current taxes",
+        stat_tax_v:"0% / 5%", stat_tax_t:"Presale / after taxes",
         contract_label:"Contract address:", contract_btn:"Show address",
         buy_title:"How to buy",
         buy_1:"Add <b>BSC</b> to MetaMask and fund with <b>USDT</b>.",
@@ -294,7 +316,7 @@
         h_sub:"Maskota zajednice: zabavni meme coin, jasna tokenomika, jednostavne usluge i staking. Pridruži se čoporu!",
         cta_buy:"Kupi SDM (USDT)", cta_stake:"Stakaj sada",
         stat_net_v:"BSC", stat_net_t:"Mreža", stat_supply:"Ukupna ponuda",
-        stat_tax_v:"0% (pretprodaja)", stat_tax_t:"Trenutni porezi",
+        stat_tax_v:"0% / 5%", stat_tax_t:"Porezi prije / poslije",
         contract_label:"Adresa ugovora:", contract_btn:"Prikaži adresu",
         buy_title:"Kako kupiti",
         buy_1:"Dodaj <b>BSC</b> u MetaMask i dopuni s <b>USDT</b>.",
@@ -329,19 +351,22 @@
       document.querySelectorAll('.chip[data-setlang]').forEach(b=>{
         b.classList.toggle('active', b.dataset.setlang===lang);
       });
+      const sel = document.getElementById('langSelect');
+      if (sel) sel.value = lang;
       document.documentElement.lang = lang;
     }
     function setActiveLang(lang){ localStorage.setItem('lang', lang); applyLang(lang); }
 
-    // clics FR/EN/HR
+    // clics FR/EN/HR (chips)
     document.querySelectorAll('.chip[data-setlang]').forEach(btn=>{
       btn.addEventListener('click',()=> setActiveLang(btn.dataset.setlang));
     });
+    // select (desktop)
+    const langSel = document.getElementById('langSelect');
+    if (langSel) langSel.addEventListener('change', (e)=> setActiveLang(e.target.value));
+
     // au chargement
     setActiveLang(localStorage.getItem('lang') || 'fr');
-
-    // Année dans le footer (au cas où la langue change)
-    new MutationObserver(()=>{}); // placeholder si besoin d’étendre plus tard
   </script>
 </body>
 </html>
