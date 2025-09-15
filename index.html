@@ -7,7 +7,7 @@
   <meta name="description" content="SamDoge (SDM) – communauté, roadmap claire, tokenomics transparentes, app installable (PWA), FR/EN/HR." />
   <meta name="theme-color" content="#0a1133" />
 
-  <!-- 🔁 REMPLACE UNIQUEMENT CETTE VALEUR PAR TON CONTRAT -->
+  <!-- 🔁 Adresse du contrat (à remplacer) -->
   <meta name="contract-address" content="0xYOURCONTRACTADDRESSHERE" />
 
   <!-- PWA -->
@@ -41,8 +41,7 @@
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--txt);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
-    a{color:#c9d6ff;text-decoration:none}
-    a:hover{text-decoration:underline}
+    a{color:#c9d6ff;text-decoration:none} a:hover{text-decoration:underline}
     img{max-width:100%;display:block}
     .wrap{max-width:var(--max);margin:0 auto;padding:20px}
 
@@ -67,10 +66,9 @@
 
     /* Hero */
     .hero{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--border);margin:16px 0}
-    /* ✅ bannière en <img> pour ne rien couper */
     .hero .banner{
       width:100%;
-      height:auto;
+      height:auto;      /* image responsive : pas de coupe de lettres */
       display:block;
       background:#091035;
       border-bottom:1px solid var(--border);
@@ -79,7 +77,7 @@
     .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
     .chip{font-size:.83rem;padding:6px 10px;background:#121c54;border:1px solid var(--border);border-radius:999px}
 
-    /* Grid sections */
+    /* Cards & grids */
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);margin-top:var(--gap)}
     @media (max-width:860px){ .grid{grid-template-columns:1fr} }
     .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
@@ -95,18 +93,16 @@
     .li .txt{flex:1}
     .ok{color:var(--accent)}
     .orange{color:var(--orange)}
-    .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;background:#0b153f;padding:3px 6px;border:1px dashed var(--border);border-radius:8px}
-    .center{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-    .copy{cursor:pointer}
-    footer{margin:40px 0 30px;color:#9aa8e2;text-align:center}
+    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#0b153f;padding:3px 6px;border:1px dashed var(--border);border-radius:8px}
     .socials{display:flex;gap:10px;flex-wrap:wrap}
     .socials a{padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:#121c54}
     .ios-hint{font-size:.9rem;background:#101a4f;border:1px solid var(--border);padding:10px;border-radius:12px;margin-top:10px;display:none}
+    footer{margin:40px 0 30px;color:#9aa8e2;text-align:center}
 
-    /* ✅ Desktop uniquement : bannière plus compacte */
+    /* ✅ Desktop uniquement : bannière plus compacte (sans effet mobile) */
     @media (min-width: 1024px){
       .hero .banner{
-        max-height: 480px;   /* ajuste 320–360 si besoin */
+        max-height: 560px;  /* hauteur demandée */
         object-fit: cover;
         margin: 0 auto;
       }
@@ -114,7 +110,7 @@
   </style>
 </head>
 <body>
-  <!-- Topbar (brand cliquable vers l'accueil) -->
+  <!-- Topbar -->
   <div class="topbar">
     <div class="nav wrap">
       <a href="index.html" class="brand" aria-label="Retour accueil SamDoge">
@@ -141,10 +137,9 @@
     </div>
   </div>
 
-  <!-- Hero -->
+  <!-- HERO -->
   <div class="wrap">
     <section class="hero">
-      <!-- ✅ image responsive -->
       <img class="banner" src="banniere.jpg" alt="Bannière SamDoge" />
       <div class="content">
         <h1 data-i18n="hero_title">SamDoge – La mascotte de la communauté</h1>
@@ -283,47 +278,56 @@
   </div>
 
   <script>
-    // ---------- Mobile menu
+    // ---------- Menu mobile
     const hamb = document.getElementById('hamb');
     const navlinks = document.getElementById('navlinks');
     hamb.addEventListener('click', () => navlinks.classList.toggle('open'));
 
-    // ---------- PWA SW
+    // ---------- Service Worker (PWA)
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js').catch(()=>{});
       });
     }
 
-    // ---------- Install prompt
+    // ---------- Install prompt (PWA)
     let deferredPrompt = null;
     const installCard = document.getElementById('installCard');
     const installBtn  = document.getElementById('installBtn');
     const iosHint = document.getElementById('iosHint');
-    const installState = document.getElementById('installState');
 
-    function isStandalone(){
-      return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    function isStandaloneMode(){
+      if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) return true; // Android/Chrome
+      if (window.navigator.standalone === true) return true; // iOS PWA
+      if (document.referrer && document.referrer.startsWith('android-app://')) return true;
+      return false;
     }
-    function isiOS(){ return /iphone|ipad|ipod/i.test(window.navigator.userAgent); }
 
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault(); deferredPrompt = e;
-      if (!isStandalone()){ installCard.style.display = 'block'; }
+      if (!isStandaloneMode() && installCard){ installCard.style.display = 'block'; }
     });
 
     installBtn?.addEventListener('click', async () => {
-      if (!deferredPrompt && isiOS()){ iosHint.style.display = 'block'; return; }
-      if (deferredPrompt){
-        deferredPrompt.prompt();
-        await deferredPrompt.userChoice;
-        deferredPrompt = null;
-        installCard.style.display = 'none';
+      if (!deferredPrompt){
+        if (/iphone|ipad|ipod/i.test(navigator.userAgent) && iosHint){ iosHint.style.display='block'; }
+        return;
       }
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      if (installCard) installCard.style.display = 'none';
     });
 
-    if (isStandalone()){ installState.textContent = 'App : installée'; }
-    else { installState.textContent = 'App : non installée'; if (isiOS()){ installCard.style.display = 'block'; iosHint.style.display='block'; } }
+    // ---------- Badge "App installée"
+    function updateInstallBadge(){
+      const el = document.getElementById('installState');
+      if (!el) return;
+      el.textContent = isStandaloneMode() ? 'App : installée ✅' : 'App : non installée';
+    }
+    document.addEventListener('DOMContentLoaded', updateInstallBadge);
+    window.addEventListener('visibilitychange', updateInstallBadge);
+    window.addEventListener('appinstalled', updateInstallBadge);
 
     // ---------- Contrat : révélation + copie
     const meta = document.querySelector('meta[name="contract-address"]');
@@ -394,7 +398,7 @@
         tok_supply:"Ukupna ponuda: 1,000,000,000 SDM", tok_liq:"Likvidnost (DEX): 30% – bit će zaključana", tok_presale:"Pretprodaja: 30% (PinkSale)", tok_stake:"Staking / Nagrade: 20%", tok_mkt:"Marketing i partnerstva: 10%", tok_treasury:"Riznica / Razvoj: 10%",
         tok_lock:"Likvidnost se zaključava pri lansiranju.", tok_audit:"Audit i KYC planirani prije listinga.", tok_toggle:"Porez se uključuje nakon pretprodaje (0% ➜ 5%).",
         buy_title:"Kako kupiti",
-        buy_1:"Instaliraj MetaMask i prebacI na BNB Smart Chain (BSC).",
+        buy_1:"Instaliraj MetaMask i prebaci na BNB Smart Chain (BSC).",
         buy_2:"Nadopuni novčanik s BNB.",
         buy_3:"Otvori PancakeSwap i odaberi par BNB ↔ SDM. (link pri listingu)",
         buy_4a:"Dodaj SDM ugovor:",
@@ -414,8 +418,7 @@
       document.documentElement.lang = lang;
       document.querySelectorAll('[data-i18n]').forEach(el=>{
         const key = el.getAttribute('data-i18n');
-        if (!strings[key]) return;
-        el.innerHTML = strings[key]; // autorise <b>
+        if (strings[key]) el.innerHTML = strings[key]; // autorise <b>
       });
       localStorage.setItem('sdm_lang', lang);
       document.querySelectorAll('.langs button').forEach(b=>b.classList.toggle('active', b.dataset.lang===lang));
@@ -424,7 +427,7 @@
     applyLang(saved);
     document.querySelectorAll('.langs button').forEach(b=> b.addEventListener('click', ()=>applyLang(b.dataset.lang)));
 
-    // ---------- Footer année
+    // Footer année
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
