@@ -51,29 +51,52 @@
     a:hover{text-decoration:underline}
     .container{max-width:1120px;margin:0 auto;padding:20px}
 
-    header{position:sticky;top:0;z-index:50;background:rgba(8,12,26,.55);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
-    .brand{display:flex;align-items:center;gap:10px}
-    .brand img{height:42px;width:42px;border-radius:12px;box-shadow:var(--shadow)}
-    .brand span{font-weight:800;letter-spacing:.2px}
-
-    /* MENU visible aussi sur mobile : défilable si nécessaire */
-    .main-menu{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-    .main-menu a{
-      color:#fff;opacity:.92;font-weight:600;padding:6px 10px;border-radius:10px;
-      border:1px solid var(--border);background:var(--card);white-space:nowrap;
+    /* ===== HEADER PRO + BURGER ===== */
+    .site-header{
+      position:sticky; top:0; z-index:60;
+      background:rgba(8,12,26,.7); backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
     }
-    .main-menu a:hover{opacity:1;text-decoration:none}
-    @media (max-width: 720px){
-      .main-menu{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;}
-      .main-menu::-webkit-scrollbar{height:6px}
-      .main-menu::-webkit-scrollbar-thumb{background:var(--border);border-radius:6px}
+    .nav{ display:flex; align-items:center; justify-content:space-between; gap:14px; }
+    .brand{ display:flex; align-items:center; gap:10px; color:#fff; text-decoration:none }
+    .brand img{ height:40px; width:40px; border-radius:12px; box-shadow:var(--shadow) }
+    .brand span{ font-weight:800; letter-spacing:.2px }
+    .lang{ display:flex; gap:8px }
+    .chip{ padding:6px 12px; border-radius:999px; border:1px solid var(--border); background:var(--card); font-size:13px; color:#fff }
+    .chip.active{ outline:2px solid var(--brand) }
+
+    .hamburger{
+      display:none;
+      height:40px; width:44px; border:1px solid var(--border);
+      background:var(--card); border-radius:10px; padding:8px;
+    }
+    .hamburger span{ display:block; height:2px; background:#fff; margin:5px 0; transition:.2s }
+    .hamburger[aria-expanded="true"] span:nth-child(1){ transform:translateY(7px) rotate(45deg) }
+    .hamburger[aria-expanded="true"] span:nth-child(2){ opacity:0 }
+    .hamburger[aria-expanded="true"] span:nth-child(3){ transform:translateY(-7px) rotate(-45deg) }
+
+    .nav-links{
+      display:flex; gap:12px; align-items:center; justify-content:center;
+      padding:10px 20px; border-top:1px solid var(--border);
+    }
+    .nav-links a{
+      color:#fff; font-weight:600; padding:8px 12px;
+      border:1px solid var(--border); background:var(--card);
+      border-radius:10px; text-decoration:none; white-space:nowrap;
+    }
+    .nav-links a:hover{ background:rgba(255,255,255,.1) }
+
+    @media (max-width: 760px){
+      .hamburger{ display:block }
+      .brand span{ font-size:16px }
+      .nav-links{
+        display:block; overflow:hidden; max-height:0; padding:0 20px; transition:max-height .25s ease;
+      }
+      .nav-links.open{ max-height:220px; padding:10px 20px; }
+      .nav-links a{ display:block; width:100%; text-align:center; margin:8px 0; }
     }
 
-    .lang{display:flex;gap:8px;flex-wrap:wrap}
-    .chip{padding:6px 12px;border-radius:999px;border:1px solid var(--border);background:var(--card);font-size:13px;color:#fff}
-    .chip.active{outline:2px solid var(--brand);}
-
+    /* ===== MAIN ===== */
     .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:center;padding:28px 0}
     .card{border:1px solid var(--border);background:var(--card);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
     h1{font-size:clamp(28px,4.5vw,44px);margin:0 0 10px;text-align:center}
@@ -106,30 +129,32 @@
     @media (max-width: 520px){ .stats{grid-template-columns:1fr 1fr} .lang{gap:6px} }
   </style>
 </head>
-<body>
-  <!-- NAV -->
-  <header>
+<body id="top">
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
     <div class="container nav">
-      <div class="brand">
+      <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <a class="brand" href="#top" aria-label="SamDoge (SDM)">
         <img src="logo.png" alt="Logo SamDoge" />
         <span>SamDoge (SDM)</span>
-      </div>
+      </a>
 
-      <!-- Menu (désormais visible aussi sur mobile) -->
-      <nav class="main-menu">
-        <a href="#acheter" data-i18n="menu_buy">Acheter</a>
-        <a href="staking.html" data-i18n="menu_stake">Staking</a>
-        <a href="#roadmap" data-i18n="menu_roadmap">Feuille de route</a>
-        <a href="#liens" data-i18n="menu_links">Liens</a>
-      </nav>
-
-      <!-- Langues -->
       <div class="lang">
         <button class="chip active" data-setlang="fr">FR</button>
         <button class="chip" data-setlang="en">EN</button>
         <button class="chip" data-setlang="hr">HR</button>
       </div>
     </div>
+
+    <nav class="nav-links" id="mainNav">
+      <a href="#acheter" data-i18n="menu_buy">Acheter</a>
+      <a href="staking.html" data-i18n="menu_stake">Staking</a>
+      <a href="#roadmap" data-i18n="menu_roadmap">Feuille de route</a>
+      <a href="#liens" data-i18n="menu_links">Liens</a>
+    </nav>
   </header>
 
   <main class="container">
@@ -237,10 +262,10 @@
   </main>
 
   <script>
-    // Year
+    // Année
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // i18n dictionnaire (même contenu que précédemment, conservé)
+    // i18n
     const dict = {
       fr:{menu_buy:"Acheter",menu_stake:"Staking",menu_roadmap:"Feuille de route",menu_links:"Liens",
           hero_title:"SamDoge",hero_sub:"La mascotte de la communauté : meme coin fun, tokenomics claires, utilités simples et staking. Rejoignez la meute !",
@@ -305,6 +330,17 @@
     });
 
     applyLang("fr");
+
+    // Burger toggle
+    const burger = document.querySelector('.hamburger');
+    const nav = document.getElementById('mainNav');
+    if (burger && nav) {
+      burger.addEventListener('click', () => {
+        const open = burger.getAttribute('aria-expanded') === 'true';
+        burger.setAttribute('aria-expanded', String(!open));
+        nav.classList.toggle('open', !open);
+      });
+    }
   </script>
 </body>
 </html>
