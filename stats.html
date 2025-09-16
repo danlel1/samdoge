@@ -1,48 +1,106 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Statistiques des visiteurs - SamDoge</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SamDoge (SDM) – Statistiques visiteurs</title>
   <style>
     body {
-      background-color: #0A192F;
-      color: #ffffff;
+      margin: 0;
       font-family: Arial, sans-serif;
+      background-color: #0A192F;
+      color: #fff;
       text-align: center;
-      padding: 20px;
     }
-    h1 {
-      margin-bottom: 20px;
+    header {
+      background-color: #112240;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    header img {
+      height: 50px;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: #00aaff;
+    }
+    .banner {
+      background: url("banner.jpg") no-repeat center/cover;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .banner h1 {
+      background-color: rgba(10, 25, 47, 0.7);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 28px;
+    }
+    .content {
+      padding: 30px 20px;
     }
     .counter {
-      margin: 0 auto;
-      padding: 10px;
+      margin: 20px auto;
+      padding: 15px;
       background-color: #0A192F;
       border: 2px solid #0A192F;
       display: inline-block;
     }
-    a {
-      color: #00aaff;
-      text-decoration: none;
+    .counter img {
+      max-width: 100%;
+      height: auto;
     }
-    a:hover {
-      text-decoration: underline;
+    footer {
+      background-color: #112240;
+      color: #aaa;
+      padding: 15px;
+      margin-top: 30px;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
-  <h1>🌍 Statistiques des visiteurs</h1>
-  <p>Nombre de visiteurs par pays :</p>
+  <!-- Barre du haut -->
+  <header>
+    <img src="logo.png" alt="SamDoge Logo" />
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="tokenomics.html">Tokenomics</a>
+      <a href="staking.html">Staking</a>
+      <a href="roadmap.html">Feuille de route</a>
+      <a href="stats.html">Statistiques</a>
+      <a href="https://bscscan.com" target="_blank">Lien officiel</a>
+    </nav>
+  </header>
 
-  <div class="counter">
-    <!-- Flag Counter -->
-    <a href="http://s01.flagcounter.com/more/w9px">
-      <img src="https://s01.flagcounter.com/count2/w9px/bg_0A192F/txt_FFFFFF/border_0A192F/columns_3/maxflags_12/viewers_0/labels_1/pageviews_0/flags_0/percent_0/" 
-      alt="Flag Counter" border="0">
-    </a>
+  <!-- Bannière -->
+  <div class="banner">
+    <h1>🌍 Statistiques des visiteurs</h1>
   </div>
 
-  <p><a href="index.html">⬅ Retour à l'accueil</a></p>
+  <!-- Contenu principal -->
+  <div class="content">
+    <p>Nombre de visiteurs par pays :</p>
+    <div class="counter">
+      <a href="http://s01.flagcounter.com/more/w9px">
+        <img src="https://s01.flagcounter.com/count2/w9px/bg_0A192F/txt_FFFFFF/border_0A192F/columns_3/maxflags_12/viewers_0/labels_1/pageviews_0/flags_0/percent_0/"
+        alt="Flag Counter" border="0">
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 SamDoge – Tous droits réservés.
+  </footer>
 </body>
 </html>
