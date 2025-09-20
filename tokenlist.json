@@ -8,9 +8,9 @@
   "tokens": [
     {
       "chainId": 56,
-      "address": "0xB02bE67dBfD500011C5bBb435fEf555Ad3F37f8", // <-- en checksum !
+      "address": "0xb02be67dbfbd500011c5bbb435fef555ad3f37f8",
       "name": "SamDoge",
-      "symbol": "SDM", // vérifie bien ton symbole on-chain
+      "symbol": "SDM",
       "decimals": 18,
       "logoURI": "https://danlel1.github.io/samdoge/assets/smd/logo.png",
       "tags": ["community", "meme"]
