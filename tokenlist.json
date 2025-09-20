@@ -1,0 +1,22 @@
+{
+  "name": "SamDoge Official List",
+  "logoURI": "https://samdoge.io/logo.png",
+  "keywords": ["samdoge", "smd", "meme", "bsc"],
+  "timestamp": "2025-09-19T00:00:00+00:00",
+  "version": { "major": 1, "minor": 0, "patch": 0 },
+  "tokens": [
+    {
+      "chainId": 56,
+      "address": "0xb02be67dbfd500011c5bbb435fef555ad3f37f8",
+      "name": "SamDoge",
+      "symbol": "SMD",
+      "decimals": 18,
+      "logoURI": "https://samdoge.io/logo.png",
+      "tags": ["community", "meme"]
+    }
+  ],
+  "tags": {
+    "community": { "name": "Community", "description": "Community-driven tokens" },
+    "meme": { "name": "Meme", "description": "Meme coin" }
+  }
+}
