@@ -1,0 +1,17 @@
+{
+  "name": "SamDoge",
+  "symbol": "SMD",
+  "type": "BEP20",
+  "decimals": 18,
+  "description": "SamDoge (SMD) is a community-driven meme token on BNB Smart Chain.",
+  "website": "https://samdoge.io",
+  "explorer": "https://bscscan.com/token/0xb02be67dbfd500011c5bbb435fef555ad3f37f8",
+  "status": "active",
+  "id": "0xb02be67dbfd500011c5bbb435fef555ad3f37f8",
+  "logo": "https://samdoge.io/logo.png",
+  "links": [
+    { "name": "twitter", "url": "https://twitter.com/" },
+    { "name": "telegram", "url": "https://t.me/" },
+    { "name": "github", "url": "https://github.com/TON_ORG/TON_REPO" }
+  ]
+}
