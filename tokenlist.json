@@ -1,4 +1,3 @@
-
 {
   "name": "SamDoge Official List",
   "logoURI": "https://danlel1.github.io/samdoge/assets/smd/logo.png",
@@ -8,7 +7,7 @@
   "tokens": [
     {
       "chainId": 56,
-      "address": "0xb02be67dbfbd500011c5bbb435fef555ad3f37f8",
+      "address": "0x0b02bE67dbFd500011c5bbb435feF555ad3f37f8",
       "name": "SamDoge",
       "symbol": "SDM",
       "decimals": 18,
