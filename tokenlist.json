@@ -1,17 +1,18 @@
+
 {
   "name": "SamDoge Official List",
-  "logoURI": "https://danle1.github.io/samdoge/assets/smd/logo.png",
+  "logoURI": "https://danlel1.github.io/samdoge/assets/smd/logo.png",
   "keywords": ["samdoge", "sdm", "meme", "bsc"],
   "timestamp": "2025-09-19T00:00:00+00:00",
   "version": { "major": 1, "minor": 0, "patch": 0 },
   "tokens": [
     {
       "chainId": 56,
-      "address": "0xb02be67dbfbd500011c5bbb435fef555ad3f37f8",
+      "address": "0xB02bE67dBfD500011C5bBb435fEf555Ad3F37f8", // <-- en checksum !
       "name": "SamDoge",
-      "symbol": "SDM",
+      "symbol": "SDM", // vérifie bien ton symbole on-chain
       "decimals": 18,
-      "logoURI": "https://danle1.github.io/samdoge/assets/smd/logo.png",
+      "logoURI": "https://danlel1.github.io/samdoge/assets/smd/logo.png",
       "tags": ["community", "meme"]
     }
   ],
