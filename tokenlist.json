@@ -1,6 +1,6 @@
 {
     "name": "SamDoge Official List",
-    "logoURI": "https://danlel1.github.io/samdoge/assets/smd/logo.png",
+    "logoURI": "https://danlel1.github.io/samdoge/assets/smd/logo.svg",
     "keywords": [
         "samdoge",
         "sdm",
@@ -20,7 +20,7 @@
             "name": "SamDoge",
             "symbol": "SDM",
             "decimals": 18,
-            "logoURI": "https://danlel1.github.io/samdoge/assets/smd/logo.png",
+            "logoURI": "https://danlel1.github.io/samdoge/assets/smd/logo.svg",
             "tags": [
                 "community",
                 "meme"
