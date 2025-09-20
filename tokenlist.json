@@ -1,40 +1,23 @@
 {
-    "name": "SamDoge Official List",
-    "logoURI": "https://raw.githubusercontent.com/danlel1/samdoge/main/assets/smd/logo.png",
-    "keywords": [
-        "samdoge",
-        "sdm",
-        "meme",
-        "bsc"
-    ],
-    "timestamp": "2025-09-19T00:00:00+00:00",
-    "version": {
-        "major": 1,
-        "minor": 0,
-        "patch": 0
-    },
-    "tokens": [
-        {
-            "chainId": 56,
-            "address": "0xb02bE67dbFd500011c5bbb435feF555ad3f37f8",
-            "name": "SamDoge",
-            "symbol": "SDM",
-            "decimals": 18,
-            "logoURI": "https://raw.githubusercontent.com/danlel1/samdoge/main/assets/smd/logo.png",
-            "tags": [
-                "community",
-                "meme"
-            ]
-        }
-    ],
-    "tags": {
-        "community": {
-            "name": "Community",
-            "description": "Community-driven tokens"
-        },
-        "meme": {
-            "name": "Meme",
-            "description": "Meme coin"
-        }
+  "name": "SamDoge Official List",
+  "logoURI": "https://danlel1.github.io/samdoge/assets/smd/logo.png",
+  "keywords": ["samdoge", "smd", "meme", "bsc"],
+  "timestamp": "2025-09-20T00:00:00Z",
+  "version": { "major": 1, "minor": 0, "patch": 0 },
+  "tokens": [
+    {
+      "chainId": 56,
+      "address": "0xb02bE67dbFbD500011c5BBB435FeF555AD3f37f8",
+      "name": "SamDoge",
+      "symbol": "SDM",
+      "decimals": 18,
+      "logoURI": "https://danlel1.github.io/samdoge/assets/smd/logo.png",
+      "tags": ["community", "meme"]
     }
+  ],
+  "tags": {
+    "community": { "name": "Community", "description": "Community-driven tokens" },
+    "meme": { "name": "Meme", "description": "Meme coin" }
+  }
 }
+
