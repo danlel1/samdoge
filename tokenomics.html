@@ -1,215 +1,345 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SamDoge (SDM) — Tokenomics</title>
-  <meta name="description" content="Tokenomics officielles de SamDoge (SDM) sur BNB Smart Chain. Total supply, répartition, taxe de transaction et liens d'explorateur." />
-  <link rel="icon" href="/logo.png">
+  <title>SamDoge (SMD) — Tokenomics</title>
+  <meta name="description" content="Découvrez les tokenomics officielles de SamDoge (SMD) : supply, répartition, taxes, liquidité et verrous." />
+  <meta name="theme-color" content="#101114" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="SamDoge (SMD) — Tokenomics" />
+  <meta property="og:description" content="Supply, répartition, taxes, liquidité et verrous." />
+  <meta property="og:image" content="/assets/banner-smd.jpg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.samdoge.io/tokenomics.html" />
+
+  <!-- Favicon (optionnel) -->
+  <link rel="icon" href="/assets/logo-smd.png" type="image/png" />
+
+  <!-- Chart.js pour le donut -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" defer></script>
+
   <style>
     :root{
-      --bg:#0b0f17;--card:#111826;--muted:#9aa4b2;--text:#e5ecf4;--accent:#ffd166;--line:#1f2837;
+      --bg:#0b0c0f;
+      --card:#12141a;
+      --muted:#9aa3b2;
+      --text:#e9edf4;
+      --primary:#f5b455; /* doré doux */
+      --accent:#ffcf6e;
+      --success:#4ade80;
+      --danger:#ef4444;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --max:1100px;
     }
     *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
-    a{color:#89d1ff;text-decoration:none} a:hover{text-decoration:underline}
-    .wrap{max-width:1050px;margin:auto;padding:28px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
-    .grid{display:grid;gap:18px}
-    @media(min-width:900px){.grid{grid-template-columns:1.4fr 1fr}}
-    h1{font-size:2.1rem;margin:.2rem 0 1rem}
-    h2{font-size:1.25rem;margin:0 0 .5rem}
-    .tag{display:inline-block;background:#1a2434;border:1px solid var(--line);padding:.25rem .5rem;border-radius:999px;color:var(--muted);font-size:.82rem}
-    .kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
-    .kpi{background:#0f1522;border:1px solid var(--line);padding:14px;border-radius:12px;text-align:center}
-    .kpi b{display:block;font-size:1.1rem}
-    table{width:100%;border-collapse:collapse;background:#0f1522;border:1px solid var(--line);border-radius:12px;overflow:hidden}
-    th,td{padding:12px;border-bottom:1px solid var(--line)}
-    th{background:#0e1320;text-align:left;color:#c7d2e0}
-    tr:last-child td{border-bottom:0}
-    .note{color:var(--muted);font-size:.9rem}
-    .row{display:flex;gap:10px;flex-wrap:wrap}
-    .btn{background:#1a2434;border:1px solid var(--line);color:#cfe8ff;padding:10px 14px;border-radius:10px;display:inline-flex;align-items:center;gap:8px}
-    .btn:hover{background:#1f2a3d}
-    .lang{float:right;display:flex;gap:8px}
-    .hidden{display:none}
-    .donut{width:100%;max-width:420px;aspect-ratio:1/1;margin:auto;display:block}
-    footer{margin:40px 0 10px;color:var(--muted);font-size:.9rem;text-align:center}
-    code{background:#0f1522;border:1px solid var(--line);padding:.15rem .35rem;border-radius:6px}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:radial-gradient(1200px 600px at 80% -10%, rgba(245,180,85,.08), transparent 60%), var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    /* NAV */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      background:rgba(11,12,15,.8);
+      backdrop-filter:saturate(140%) blur(8px);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav-inner{
+      max-width:var(--max); margin:0 auto; padding:10px 16px;
+      display:flex; align-items:center; gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text);
+    }
+    .brand img{width:36px; height:36px; border-radius:50%}
+    .brand span{font-weight:800; letter-spacing:.5px}
+    .links{margin-left:auto; display:flex; gap:16px; flex-wrap:wrap}
+    .links a{
+      color:var(--muted); text-decoration:none; font-weight:600; padding:8px 10px; border-radius:10px;
+    }
+    .links a:hover{background:rgba(255,255,255,.06); color:var(--text)}
+
+    /* HERO */
+    .hero{
+      position:relative; overflow:hidden;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .hero-inner{
+      max-width:var(--max); margin:0 auto; padding:48px 16px 36px;
+      display:grid; grid-template-columns:1.2fr .8fr; gap:28px;
+    }
+    .hero h1{
+      font-size:clamp(28px, 4vw, 40px);
+      line-height:1.15; margin:0 0 10px;
+    }
+    .hero p{color:var(--muted); margin:0 0 18px}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      background:linear-gradient(135deg, rgba(245,180,85,.18), rgba(255,207,110,.12));
+      color:#ffe6b6; border:1px solid rgba(255,207,110,.28);
+      padding:6px 10px; border-radius:999px; font-weight:700; font-size:13px;
+      margin-bottom:14px;
+    }
+    .hero-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      display:flex; align-items:center; justify-content:center;
+      min-height:220px; position:relative; overflow:hidden;
+    }
+    .hero-card img{
+      max-width:65%; height:auto; object-fit:contain; filter:drop-shadow(0 8px 20px rgba(0,0,0,.4));
+    }
+    .hero-card::after{
+      content:""; position:absolute; inset:-30%;
+      background:url('/assets/banner-smd.jpg') center/cover no-repeat;
+      opacity:.06; transform:rotate(-3deg);
+    }
+    .cta-row{display:flex; gap:12px; flex-wrap:wrap}
+    .btn{
+      appearance:none; border:none; cursor:pointer;
+      text-decoration:none; font-weight:800; letter-spacing:.3px;
+      padding:12px 16px; border-radius:12px; transition:.2s transform, .2s opacity, .2s background;
+      display:inline-flex; align-items:center; gap:10px;
+    }
+    .btn-primary{background:linear-gradient(135deg, var(--primary), var(--accent)); color:#120b00}
+    .btn-outline{background:transparent; color:var(--text); border:1px solid rgba(255,255,255,.18)}
+    .btn:hover{transform:translateY(-1px)}
+    .tag{font-size:12px; color:var(--muted)}
+
+    /* WRAPPER & CARDS */
+    .wrap{max-width:var(--max); margin:30px auto; padding:0 16px}
+    .grid{display:grid; gap:18px; grid-template-columns:1.2fr .8fr}
+    .card{
+      background:var(--card); border:1px solid rgba(255,255,255,.06);
+      border-radius:var(--radius); padding:18px; box-shadow:var(--shadow);
+    }
+    .card h2{margin:0 0 10px; font-size:22px}
+    .kvs{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px; margin-top:10px}
+    .kv{
+      background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06);
+      padding:12px; border-radius:12px;
+    }
+    .kv .label{font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.6px}
+    .kv .value{font-weight:800; font-size:18px}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+    .copy{
+      color:var(--primary); background:rgba(245,180,85,.12); border:1px dashed rgba(245,180,85,.45);
+      padding:10px; border-radius:12px; margin-top:10px; word-break:break-all;
+    }
+
+    table{width:100%; border-collapse:collapse}
+    th,td{padding:12px 10px; text-align:left; border-bottom:1px solid rgba(255,255,255,.06)}
+    th{color:#cfd6e3; font-size:13px; text-transform:uppercase; letter-spacing:.6px}
+
+    .note{color:var(--muted); font-size:14px}
+    .list{margin:8px 0 0 18px}
+    .list li{margin:4px 0}
+
+    .footer{margin:40px 0 60px; color:var(--muted); text-align:center; font-size:14px}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-inner{grid-template-columns:1fr; padding-top:36px}
+      .hero-card{min-height:180px}
+      .grid{grid-template-columns:1fr}
+      .kvs{grid-template-columns:1fr}
+      .links{display:none} /* menu compact — à toi d’ajouter un burger si besoin */
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="lang">
-      <button class="btn" id="btn-fr">FR</button>
-      <button class="btn" id="btn-en">EN</button>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="/">
+        <img src="/assets/logo-smd.png" alt="SamDoge logo">
+        <span>SamDoge</span>
+      </a>
+      <div class="links">
+        <a href="/">Accueil</a>
+        <a href="/tokenomics.html">Tokenomics</a>
+        <a href="/roadmap.html">Roadmap</a>
+        <a href="/whitepaper.pdf" target="_blank" rel="noopener">Whitepaper</a>
+        <a href="https://pancakeswap.finance/swap?outputCurrency=0xb02Be67DbfbD500011c5bBB435fEf555AD3f37F8" target="_blank" rel="noopener">Acheter (DEX)</a>
+        <a href="/contact.html">Contact</a>
+      </div>
     </div>
+  </nav>
 
-    <!-- HERO -->
-    <header class="card" style="margin-top:8px">
-      <div class="row" style="align-items:center;justify-content:space-between">
-        <h1><img src="/logo.png" alt="SamDoge" style="height:38px;vertical-align:-8px;margin-right:10px"> SamDoge (SDM) — <span data-i18n="title">Tokenomics</span></h1>
-        <span class="tag">BNB Smart Chain • BEP-20</span>
-      </div>
-      <p class="note" id="updated"></p>
-
-      <div class="kpis">
-        <div class="kpi"><span data-i18n="totalSupplyLabel" class="note">Total supply</span><b>1,000,000,000 SDM</b></div>
-        <div class="kpi"><span data-i18n="circLabel" class="note">Circulating (at launch)</span><b>201,000 SDM</b></div>
-        <div class="kpi"><span data-i18n="taxLabel" class="note">Transaction tax</span><b>5% (3% Marketing • 2% Dev)</b></div>
-      </div>
-    </header>
-
-    <!-- GRID -->
-    <section class="grid" style="margin-top:18px">
-      <!-- Distribution -->
-      <div class="card">
-        <h2 data-i18n="distribution">Distribution</h2>
-        <svg class="donut" viewBox="0 0 42 42" role="img" aria-label="Token distribution donut chart">
-          <!-- Base ring -->
-          <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#1f2837" stroke-width="6"></circle>
-          <!-- Order matters: LP 30, Community 20, Marketing 5, Team 10, Future 35 -->
-          <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#ffd166" stroke-width="6"
-                  stroke-dasharray="30 70" stroke-dashoffset="25"></circle>
-          <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#8fe3a7" stroke-width="6"
-                  stroke-dasharray="20 80" stroke-dashoffset="-5"></circle>
-          <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#89d1ff" stroke-width="6"
-                  stroke-dasharray="5 95" stroke-dashoffset="-25"></circle>
-          <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#f29fb4" stroke-width="6"
-                  stroke-dasharray="10 90" stroke-dashoffset="-30"></circle>
-          <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#c9b6ff" stroke-width="6"
-                  stroke-dasharray="35 65" stroke-dashoffset="-40"></circle>
-        </svg>
-
-        <table style="margin-top:14px">
-          <thead>
-            <tr>
-              <th data-i18n="bucket">Catégorie</th>
-              <th>%</th>
-              <th data-i18n="notes">Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>Liquidity Pool (LP)</td><td>30%</td><td data-i18n="lpNote">Liquidité PancakeSwap au lancement.</td></tr>
-            <tr><td>Community Rewards / Staking</td><td>20%</td><td data-i18n="commNote">Récompenses de staking et incentives communauté.</td></tr>
-            <tr><td>Marketing & Development</td><td>5%</td><td data-i18n="mktNote">Financé par la taxe de 5% (3% MKT / 2% DEV).</td></tr>
-            <tr><td>Team & Reserve</td><td>10%</td><td data-i18n="teamNote">Vérouillé pour stabilité de l’écosystème.</td></tr>
-            <tr><td>Future Utility & Partnerships</td><td>35%</td><td data-i18n="futureNote">Réservé aux utilités et partenariats futurs.</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Contract & Links -->
-      <div class="card">
-        <h2 data-i18n="contract">Contrat & Liens</h2>
-        <p class="note" style="margin-top:-6px" data-i18n="contractNote">
-          Vérifiez toujours l’adresse ci-dessous avant toute interaction.
-        </p>
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="badge">Tokenomics officielles</div>
+        <h1>La mécanique de <span style="color:var(--primary)">SamDoge (SMD)</span></h1>
         <p>
-          <b>Token Address:</b><br>
-          <code>0xb02Be67DbfbD500011c5bBB435fEf555AD3f37F8</code>
+          Offre fixe, tokenomics transparentes, frais ajustables (0–5%), et liquidité verrouillée.
+          Tout est pensé pour la durabilité du projet et la confiance de la communauté.
         </p>
-        <div class="row">
-          <a class="btn" href="https://bscscan.com/token/0xb02Be67DbfbD500011c5bBB435fEf555AD3f37F8" target="_blank" rel="noopener">BscScan (token)</a>
-          <a class="btn" href="https://bscscan.com/token/0xb02Be67DbfbD500011c5bBB435fEf555AD3f37F8#balances" target="_blank" rel="noopener" data-i18n="holders">Top holders</a>
-          <a class="btn" href="https://pancakeswap.finance/swap?chain=bnb&outputCurrency=0xb02Be67DbfbD500011c5bBB435fEf555AD3f37F8" target="_blank" rel="noopener">Trade on PancakeSwap</a>
-          <a class="btn" href="https://samdoge.io" target="_blank" rel="noopener">samdoge.io</a>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://bscscan.com/token/0xb02Be67DbfbD500011c5bBB435fEf555AD3f37F8" target="_blank" rel="noopener">Voir sur BscScan</a>
+          <a class="btn btn-outline" href="https://pancakeswap.finance/swap?outputCurrency=0xb02Be67DbfbD500011c5bBB435fEf555AD3f37F8" target="_blank" rel="noopener">Acheter sur PancakeSwap</a>
+        </div>
+        <div class="tag">BSC (BEP-20) • Contrat vérifié</div>
+      </div>
+      <div class="hero-card">
+        <!-- logo en « focus » -->
+        <img src="/assets/logo-smd.png" alt="SMD">
+      </div>
+    </div>
+  </header>
+
+  <!-- WRAP -->
+  <main class="wrap">
+    <div class="grid">
+      <!-- FICHE RAPIDE -->
+      <section class="card">
+        <h2>Fiche rapide</h2>
+        <div class="kvs">
+          <div class="kv">
+            <div class="label">Réseau</div>
+            <div class="value">BNB Smart Chain (BEP-20)</div>
+          </div>
+          <div class="kv">
+            <div class="label">Symbole</div>
+            <div class="value">SMD</div>
+          </div>
+          <div class="kv">
+            <div class="label">Total Supply</div>
+            <div class="value">1 000 000 000 SMD</div>
+          </div>
+          <div class="kv">
+            <div class="label">Taxe (achat/vente)</div>
+            <div class="value">0–5% (actuel : 5%)</div>
+          </div>
         </div>
 
-        <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
-        <h2 data-i18n="tax">Taxe de transaction</h2>
-        <ul class="note" style="margin-top:6px">
-          <li>5% par transaction : <b>3% Marketing</b> + <b>2% Développement/Reserve</b>.</li>
-          <li data-i18n="dexOnly">Applicable sur les échanges DEX (ex. PancakeSwap).</li>
-        </ul>
+        <div class="copy mono">
+          Contrat : 0xb02Be67DbfbD500011c5bBB435fEf555AD3f37F8
+        </div>
+        <p class="note" style="margin-top:10px">
+          La taxe peut être ajustée (0–5%) par gouvernance si nécessaire (marketing, LP, développement).
+        </p>
+      </section>
+
+      <!-- CHART + DONUT -->
+      <section class="card">
+        <h2>Répartition (aperçu)</h2>
+        <canvas id="allocChart" height="220" aria-label="Répartition des tokens"></canvas>
+        <p class="note">
+          Modèle indicatif : Liquidity Pool 30% (verrouillé), Trésorerie & Communauté 50% (déblocages progressifs),
+          CEX Listings 10%, Équipe/Dev 10% (verrouillé & vesting). Les chiffres exacts s’alignent avec les annonces officielles.
+        </p>
+      </section>
+    </div>
+
+    <!-- TOKENOMICS DÉTAILLÉES -->
+    <section class="card" style="margin-top:18px">
+      <h2>Tokenomics détaillées</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Catégorie</th>
+            <th>Pourcentage</th>
+            <th>Vesting / Verrou</th>
+            <th>Détails</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Liquidity Pool (PancakeSwap)</td>
+            <td><strong>30%</strong></td>
+            <td>LP verrouillé</td>
+            <td>Liquidité ajoutée sur PancakeSwap et verrouillée pour sécuriser le marché.</td>
+          </tr>
+          <tr>
+            <td>Trésorerie & Communauté</td>
+            <td><strong>50%</strong></td>
+            <td>Déblocages programmés</td>
+            <td>Fonds pour marketing, partenariats, airdrops, récompenses, croissance de l’écosystème.</td>
+          </tr>
+          <tr>
+            <td>Listings CEX</td>
+            <td><strong>10%</strong></td>
+            <td>Selon accords</td>
+            <td>Réservé aux cotations centralisées et liquidité connexe.</td>
+          </tr>
+          <tr>
+            <td>Équipe & Développement</td>
+            <td><strong>10%</strong></td>
+            <td>Vesting (ex. 12–18 mois)</td>
+            <td>Aligne l’équipe sur la vision long terme ; libérations échelonnées.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin:18px 0 8px">Frais de transaction (0–5%)</h3>
+      <ul class="list">
+        <li><strong>Marketing/Trésor</strong> : soutien aux campagnes et intégrations.</li>
+        <li><strong>Liquidité</strong> : renforce la profondeur du carnet sur DEX.</li>
+        <li><strong>Développement</strong> : maintenance, audits, utilités.</li>
+      </ul>
+
+      <h3 style="margin:18px 0 8px">Transparence</h3>
+      <ul class="list">
+        <li>Contrat SMD : <a href="https://bscscan.com/token/0xb02Be67DbfbD500011c5bBB435fEf555AD3f37F8" target="_blank" rel="noopener">BscScan</a></li>
+        <li>Pool DEX : PancakeSwap (V2) — lien d’achat ci-dessus.</li>
+        <li>Liquidité : LP verrouillé (preuve/tx rendue publique).</li>
+      </ul>
+    </section>
+
+    <!-- CTAs -->
+    <section class="card" style="margin-top:18px">
+      <h2>Liens rapides</h2>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://bscscan.com/token/0xb02Be67DbfbD500011c5bBB435fEf555AD3f37F8" target="_blank" rel="noopener">BscScan (Contrat)</a>
+        <a class="btn btn-outline" href="https://pancakeswap.finance/swap?outputCurrency=0xb02Be67DbfbD500011c5bBB435fEf555AD3f37F8" target="_blank" rel="noopener">PancakeSwap (Acheter)</a>
+        <a class="btn btn-outline" href="https://t.me/tonTelegramIci" target="_blank" rel="noopener">Telegram</a>
+        <a class="btn btn-outline" href="https://twitter.com/tonTwitterIci" target="_blank" rel="noopener">Twitter/X</a>
       </div>
     </section>
 
-    <!-- FAQ -->
-    <section class="card" style="margin-top:18px">
-      <h2 data-i18n="faq">FAQ rapide</h2>
-      <p><b data-i18n="q1">Pourquoi le circulating supply est 201 000 SDM ?</b><br>
-      <span class="note" data-i18n="a1">C’est la quantité ajoutée initialement à la liquidité PancakeSwap au lancement.</span></p>
-
-      <p><b data-i18n="q2">La taxe de 5% signifie-t-elle qu’il y a 5% pour l’équipe ?</b><br>
-      <span class="note" data-i18n="a2">Non. La taxe est répartie entre marketing (3%) et développement/réserve (2%) afin de soutenir la croissance et la stabilité du projet.</span></p>
-    </section>
-
-    <footer>
-      © <span id="year"></span> SamDoge • BNB Smart Chain • SDM
-    </footer>
-  </div>
+    <p class="footer">© <span id="y"></span> SamDoge • SMD sur BNB Smart Chain</p>
+  </main>
 
   <script>
-    // Lang toggle (FR/EN)
-    const dict = {
-      fr:{
-        title:"Tokenomics",
-        distribution:"Distribution",
-        bucket:"Catégorie",
-        notes:"Notes",
-        lpNote:"Liquidité PancakeSwap au lancement.",
-        commNote:"Récompenses de staking et incentives communauté.",
-        mktNote:"Financé par la taxe de 5% (3% MKT / 2% DEV).",
-        teamNote:"Vérouillé pour stabilité de l’écosystème.",
-        futureNote:"Réservé aux utilités et partenariats futurs.",
-        contract:"Contrat & Liens",
-        contractNote:"Vérifiez toujours l’adresse ci-dessous avant toute interaction.",
-        holders:"Top holders",
-        tax:"Taxe de transaction",
-        dexOnly:"Applicable sur les échanges DEX (ex. PancakeSwap).",
-        faq:"FAQ rapide",
-        q1:"Pourquoi le circulating supply est 201 000 SDM ?",
-        a1:"C’est la quantité ajoutée initialement à la liquidité PancakeSwap au lancement.",
-        q2:"La taxe de 5% signifie-t-elle qu’il y a 5% pour l’équipe ?",
-        a2:"Non. La taxe est répartie entre marketing (3%) et développement/réserve (2%) afin de soutenir la croissance et la stabilité du projet.",
-        totalSupplyLabel:"Total supply",
-        circLabel:"Circulating (au lancement)",
-        taxLabel:"Taxe de transaction"
-      },
-      en:{
-        title:"Tokenomics",
-        distribution:"Distribution",
-        bucket:"Bucket",
-        notes:"Notes",
-        lpNote:"Initial PancakeSwap liquidity at launch.",
-        commNote:"Staking rewards and community incentives.",
-        mktNote:"Funded by 5% tax (3% MKT / 2% DEV).",
-        teamNote:"Locked for ecosystem stability.",
-        futureNote:"Reserved for future utilities and partnerships.",
-        contract:"Contract & Links",
-        contractNote:"Always verify the address below before interacting.",
-        holders:"Top holders",
-        tax:"Transaction Tax",
-        dexOnly:"Applies on DEX trades (e.g., PancakeSwap).",
-        faq:"Quick FAQ",
-        q1:"Why is circulating supply 201,000 SDM?",
-        a1:"That’s the amount initially added to PancakeSwap liquidity at launch.",
-        q2:"Does the 5% tax mean 5% goes to the team?",
-        a2:"No. The tax is split between marketing (3%) and development/reserve (2%) to support growth and stability.",
-        totalSupplyLabel:"Total supply",
-        circLabel:"Circulating (at launch)",
-        taxLabel:"Transaction tax"
-      }
-    };
+    // année footer
+    document.getElementById('y').textContent = new Date().getFullYear();
 
-    function setLang(lang){
-      document.querySelectorAll("[data-i18n]").forEach(el=>{
-        const key = el.getAttribute("data-i18n");
-        el.textContent = (dict[lang]||dict.fr)[key] || el.textContent;
+    // Donut allocations (exemple indicatif — adapte si besoin)
+    window.addEventListener('DOMContentLoaded', () => {
+      const ctx = document.getElementById('allocChart');
+      if(!ctx) return;
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['LP (30%)', 'Trésorerie & Communauté (50%)', 'Listings CEX (10%)', 'Équipe & Dev (10%)'],
+          datasets: [{
+            data: [30, 50, 10, 10],
+            // couleurs automatiques (Chart.js) ; si tu veux tes couleurs, dé-commente ci-dessous:
+            // backgroundColor: ['#f5b455','#5aa9e6','#a78bfa','#4ade80'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          plugins: {
+            legend: { position: 'bottom', labels: { color: '#cfd6e3' } },
+            tooltip: { enabled: true }
+          },
+          cutout: '65%'
+        }
       });
-      localStorage.setItem("sdm_lang", lang);
-      document.documentElement.lang = lang === "en" ? "en" : "fr";
-    }
-    document.getElementById("btn-fr").onclick=()=>setLang("fr");
-    document.getElementById("btn-en").onclick=()=>setLang("en");
-    setLang(localStorage.getItem("sdm_lang")||"fr");
-
-    // Last updated + year
-    const d = new Date();
-    document.getElementById("updated").textContent = (document.documentElement.lang==="en"?"Last updated: ":"Dernière mise à jour : ")+
-      d.toLocaleDateString(document.documentElement.lang,{year:"numeric",month:"short",day:"2-digit"});
-    document.getElementById("year").textContent = d.getFullYear();
+    });
   </script>
 </body>
 </html>
