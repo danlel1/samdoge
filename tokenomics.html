@@ -5,128 +5,66 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Tokenomics – SamDoge (SMD)</title>
 <meta name="theme-color" content="#0b1320" />
-
 <style>
   :root{
     --bg:#0b1320;
     --bg-2:#0e1830;
     --card:#101d36;
-    --text:#f5f7ff;
+    --text:#f6f8ff;
     --muted:#a8b2c8;
-    --brand:#ffa51f;     /* orange plus lumineux */
-    --brand-2:#ff7a00;   /* hover */
+    --brand:#ffa51f;
+    --brand-2:#ff7a00;
     --stroke:#1e2b4a;
-    --ok:#27c07d;
   }
+  *{box-sizing:border-box} html,body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
+  img{max-width:100%;display:block} a{color:inherit;text-decoration:none} button{font:inherit}
 
-  /* reset minimal */
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
-  img{max-width:100%;display:block}
-  a{color:inherit;text-decoration:none}
-  button{font:inherit}
-
-  /* header */
-  .nav{
-    position:sticky;top:0;z-index:50;
-    background:linear-gradient(180deg,#0c162a 0%, #0c162a 70%, transparent 100%);
-    border-bottom:1px solid var(--stroke);
-  }
-  .nav .wrap{
-    max-width:1100px;margin:auto;
-    display:flex;align-items:center;gap:14px;
-    padding:14px 16px;
-  }
+  /* HEADER */
+  .nav{position:sticky;top:0;z-index:50;background:#0c162a;border-bottom:1px solid var(--stroke)}
+  .nav .wrap{max-width:1100px;margin:auto;padding:14px 16px;display:flex;align-items:center;gap:12px}
   .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px}
   .brand img{width:30px;height:30px}
   .grow{flex:1}
   .menu{display:flex;gap:22px}
   .menu a{color:var(--muted);font-weight:600}
   .menu a.active{color:var(--brand)}
-  .hamb{display:none;background:none;border:0;color:var(--text);font-size:28px;line-height:1}
+  .hamb{display:none;background:none;border:0;color:#fff;font-size:28px}
+  @media(max-width:880px){.menu{display:none}.hamb{display:block;margin-left:auto}}
 
-  /* mobile drawer */
-  .drawer{
-    position:fixed;inset:60px 16px auto 16px; /* sous la barre */
-    background:linear-gradient(180deg,#0e1830 0%, #0b1320 100%);
-    border:1px solid var(--stroke);border-radius:14px;
-    box-shadow:0 12px 40px rgba(0,0,0,.4);
-    padding:24px;display:none;z-index:60;
-  }
-  .drawer a{display:block;padding:12px 6px;color:#e6edff;font-weight:700}
+  /* DRAWER */
+  .drawer{position:fixed;left:16px;right:16px;top:64px;display:none;z-index:60;
+          background:linear-gradient(180deg,#0e1830 0%,#0b1320 100%);border:1px solid var(--stroke);
+          border-radius:14px;box-shadow:0 10px 40px rgba(0,0,0,.45);padding:18px}
+  .drawer a{display:block;padding:12px 6px;color:#e9efff;font-weight:700}
   .drawer a.active{color:var(--brand)}
-  .drawer .cta{margin-top:14px;height:52px;border-radius:12px;border:0;background:var(--brand);color:#fff;font-weight:800}
+  .drawer .cta{margin-top:10px;width:100%;height:50px;border-radius:12px;border:0;background:var(--brand);color:#fff;font-weight:800}
 
-  /* hero */
-  .hero{
-    position:relative;isolation:isolate;overflow:hidden;
-    background:linear-gradient(180deg,#0e1830 0%, #0b1320 70%);
-    border-bottom:1px solid var(--stroke);
-  }
-  .hero .bg{
-    position:absolute;inset:0;z-index:-1;opacity:.25;
-    background:url("banniere.jpg") center/cover no-repeat;
-  }
-  .container{max-width:1100px;margin:auto;padding:28px 16px}
-  .kicker{color:var(--brand);text-transform:uppercase;letter-spacing:.12em;font-weight:800;margin:0 0 6px}
-  h1{font-size:38px;line-height:1.15;margin:0 0 8px}
-  .lead{color:#e4e9f8;max-width:780px}
+  /* HERO (image seule, sans texte) */
+  .hero{position:relative;isolation:isolate;background:#0c162a;border-bottom:1px solid var(--stroke)}
+  .hero .img{aspect-ratio:21/7;min-height:180px;background:url("banniere.jpg") center/cover no-repeat;opacity:.9}
+  .container{max-width:1100px;margin:auto;padding:24px 16px}
+  h1{font-size:34px;line-height:1.15;margin:0 0 6px}
+  .muted{color:var(--muted)}
 
-  /* action bar */
-  .bar{
-    background:#0c1730;border-top:1px solid var(--stroke);border-bottom:1px solid var(--stroke);
-  }
-  .bar .row{max-width:1100px;margin:auto;display:flex;gap:12px;flex-wrap:wrap;padding:14px 16px}
-  .btn, .btn-outline{
-    height:48px;padding:0 16px;border-radius:12px;font-weight:800;
-    display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;
-  }
+  /* ACTION BAR */
+  .bar{background:#0c1730;border-top:1px solid var(--stroke);border-bottom:1px solid var(--stroke)}
+  .row{max-width:1100px;margin:auto;display:flex;gap:12px;flex-wrap:wrap;padding:14px 16px}
+  .btn,.btn-outline{height:48px;padding:0 16px;border-radius:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}
   .btn{background:var(--brand);color:#fff;border:0}
   .btn:hover{background:var(--brand-2)}
   .btn-outline{background:transparent;border:1px solid var(--stroke);color:#e9efff}
   .btn-outline:hover{border-color:#2b3b64}
 
-  /* sections */
-  h2{font-size:26px;margin:26px 0 10px}
-  .muted{color:var(--muted)}
-  .card{
-    background:var(--card);border:1px solid var(--stroke);border-radius:16px;
-    padding:18px;
-  }
-
-  /* grid avantages */
+  /* CARDS / SECTIONS */
+  .card{background:var(--card);border:1px solid var(--stroke);border-radius:16px;padding:18px}
+  h2{font-size:26px;margin:22px 0 10px}
   .grid{display:grid;gap:14px}
   @media(min-width:750px){.grid{grid-template-columns:repeat(2,1fr)}}
 
-  /* donut chart */
-  .donut-wrap{
-    display:grid;gap:20px;align-items:center;
-  }
-  @media(min-width:900px){.donut-wrap{grid-template-columns:380px 1fr}}
-  .legend{display:grid;gap:10px}
-  .legend .item{
-    display:flex;align-items:center;gap:10px;background:#0f1b30;border:1px solid var(--stroke);
-    padding:10px 12px;border-radius:12px
-  }
-  .dot{width:14px;height:14px;border-radius:50%}
-  .item b{margin-left:auto}
-  .small{font-size:13px;color:var(--muted)}
-
-  /* footer */
-  footer{
-    border-top:1px solid var(--stroke);margin-top:40px
-  }
-  .foot{
-    max-width:1100px;margin:auto;padding:20px 16px;color:var(--muted);display:flex;gap:8px;justify-content:space-between;align-items:center
-  }
+  /* FOOTER */
+  footer{border-top:1px solid var(--stroke);margin-top:40px}
+  .foot{max-width:1100px;margin:auto;padding:20px 16px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
   .foot .brand img{width:22px;height:22px}
-
-  /* responsive */
-  @media(max-width:880px){
-    .menu{display:none}
-    .hamb{display:block;margin-left:auto}
-    h1{font-size:32px}
-  }
 </style>
 </head>
 <body>
@@ -143,12 +81,10 @@
       <a href="/roadmap">Roadmap</a>
       <a href="https://t.me/samdoge" target="_blank" rel="noopener">Telegram</a>
     </nav>
-    <button class="hamb" id="hamb" aria-label="Menu">☰</button>
+    <button id="hamb" class="hamb" aria-label="Menu">☰</button>
   </div>
 </header>
-
-<!-- DRAWER MOBILE -->
-<div class="drawer" id="drawer" hidden>
+<div id="drawer" class="drawer" hidden>
   <a href="/">Accueil</a>
   <a class="active" href="/tokenomics">Tokenomics</a>
   <a href="/staking">Staking</a>
@@ -157,29 +93,26 @@
   <button class="cta" onclick="window.location.href='https://pancakeswap.finance/swap?outputCurrency=0xb02Be67DbfbD500011c5bBB435fEf555AD3f37F8'">Acheter SMD</button>
 </div>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="bg" aria-hidden="true"></div>
-  <div class="container">
-    <p class="kicker">Tokenomics</p>
-    <h1>Tokenomics SamDoge (SMD)</h1>
-    <p class="lead">Transparence, simplicité et focus communauté.</p>
-  </div>
+<!-- HERO (image seule) -->
+<section class="hero"><div class="img" aria-hidden="true"></div></section>
+
+<!-- TITRE -->
+<section class="container">
+  <h1>Tokenomics SamDoge (SMD)</h1>
+  <p class="muted">Transparence, simplicité et focus communauté.</p>
 </section>
 
-<!-- ACTION BAR -->
-<section class="bar" id="actions">
+<!-- ACTIONS + CONTRAT MASQUÉ -->
+<section class="bar">
   <div class="row">
     <button class="btn-outline" onclick="toggleContract()">Afficher le contrat</button>
     <button class="btn-outline" onclick="copyContract()">Copier le contrat</button>
     <a class="btn" href="https://pancakeswap.finance/swap?outputCurrency=0xb02Be67DbfbD500011c5bBB435fEf555AD3f37F8" target="_blank" rel="noopener">Acheter sur PancakeSwap</a>
     <a class="btn-outline" href="https://dexscreener.com/bsc/0xb02be67dbfbd500011c5bbb435fef555ad3f37f8" target="_blank" rel="noopener">Voir le chart</a>
   </div>
-
-  <!-- contrat (caché par défaut) -->
-  <div class="row" id="contractRow" style="display:none;padding-top:0">
+  <div id="contractRow" class="row" style="display:none;padding-top:0">
     <div class="card" style="flex:1">
-      <div class="small">Adresse du contrat</div>
+      <div class="muted" style="font-size:13px">Adresse du contrat</div>
       <div style="word-break:break-all;font-family:ui-monospace,Menlo,Consolas,monospace;margin-top:6px">
         <span id="contractTxt">0xb02Be67DbfbD500011c5bBB435fEf555AD3f37F8</span>
       </div>
@@ -187,112 +120,72 @@
   </div>
 </section>
 
-<!-- RÉPARTITION CHIFFRÉE -->
-<section class="container">
+<!-- RÉPARTITION (IMAGE + FALLBACK) -->
+<section class="container" id="repartition">
   <h2>Répartition</h2>
-  <p class="muted" style="margin-top:-6px">Aperçu simple de l’utilisation des tokens. Les chiffres côté communauté/marketing sont indicatifs et peuvent évoluer par vote.</p>
-
-  <div class="grid" style="margin-top:12px">
-    <div class="card"><h3 style="margin:0 0 6px">💧 30% – Liquidité (LP)</h3><p class="muted">Mise en liquidité sur PancakeSwap pour assurer la profondeur et réduire la volatilité.</p></div>
-    <div class="card"><h3 style="margin:0 0 6px">🔥 20% – Burn</h3><p class="muted">Envoi progressif au wallet burn afin de réduire l’offre totale.</p></div>
-    <div class="card"><h3 style="margin:0 0 6px">🎁 30% – Communauté & Marketing</h3><p class="muted">Airdrops, concours, partenariats, notations et market-making léger.</p></div>
-    <div class="card"><h3 style="margin:0 0 6px">🧰 10% – Team & Développement</h3><p class="muted">Vesting 6–12 mois. Déblocages mensuels pour garantir un alignement long-terme.</p></div>
-    <div class="card"><h3 style="margin:0 0 6px">🔒 10% – Réserves</h3><p class="muted">Coussins techniques (liquidité additionnelle, listings, sécurité).</p></div>
+  <div id="repImageWrap" class="card" style="padding:0;overflow:hidden">
+    <img id="repImg" src="repartition.jpg" alt="Répartition des tokens SMD (image)" loading="lazy">
   </div>
-</section>
 
-<!-- RÉPARTITION (DONUT) -->
-<section class="container">
-  <h2>Répartition (graphique)</h2>
-  <div class="donut-wrap card">
-    <div>
-      <svg id="donut" width="360" height="360" viewBox="0 0 42 42" role="img" aria-label="Répartition du supply">
-        <circle cx="21" cy="21" r="15.9155" fill="none" stroke="#0b1320" stroke-width="6"></circle>
-        <!-- segments injectés via JS -->
-        <text x="21" y="22" text-anchor="middle" fill="#fff" font-size="4.2" font-weight="800">SMD</text>
-      </svg>
+  <!-- Fallback si l’image n’existe pas -->
+  <div id="repFallback" style="display:none;margin-top:14px">
+    <p class="muted" style="margin:0 0 10px">Aperçu simple de l’utilisation des tokens (fallback).</p>
+    <div class="grid">
+      <div class="card"><h3 style="margin:0 0 6px">💧 30% – Liquidité (LP)</h3><p class="muted">Liquidité PancakeSwap pour profondeur & stabilité.</p></div>
+      <div class="card"><h3 style="margin:0 0 6px">🔥 20% – Burn</h3><p class="muted">Envoi progressif au wallet burn pour réduire l’offre.</p></div>
+      <div class="card"><h3 style="margin:0 0 6px">🎁 30% – Communauté & Marketing</h3><p class="muted">Airdrops, concours, partenariats, notations.</p></div>
+      <div class="card"><h3 style="margin:0 0 6px">🧰 10% – Team & Développement</h3><p class="muted">Vesting 6–12 mois, déblocages mensuels.</p></div>
+      <div class="card"><h3 style="margin:0 0 6px">🔒 10% – Réserves</h3><p class="muted">Coussin technique (listings, sécurité, liquidité).</p></div>
     </div>
-    <div class="legend" id="legend"></div>
   </div>
-  <p class="small" style="margin-top:10px">Total supply&nbsp;: 1 000 000 000 SMD. Taxes à l’échange : 5% (2% LP, 3% marketing).</p>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div class="foot">
     <div class="brand"><img src="logo.png" alt=""> <span>SamDoge</span></div>
-    <div class="small">© <span id="y"></span> SamDoge. Tous droits réservés.</div>
+    <div class="muted">© <span id="y"></span> SamDoge</div>
   </div>
 </footer>
 
 <script>
-  /* config */
   const CONTRACT = "0xb02Be67DbfbD500011c5bBB435fEf555AD3f37F8";
 
-  /* menu mobile */
+  // menu mobile
   const hamb = document.getElementById('hamb');
   const drawer = document.getElementById('drawer');
-  hamb.addEventListener('click', () => {
-    const open = drawer.style.display === 'block';
+  hamb.addEventListener('click', ()=>{
+    const open = drawer.style.display==='block';
     drawer.style.display = open ? 'none' : 'block';
     drawer.toggleAttribute('hidden', open);
   });
-  document.addEventListener('click', (e)=>{
-    if (!drawer.contains(e.target) && !hamb.contains(e.target)) {
-      drawer.style.display = 'none'; drawer.setAttribute('hidden','');
+  document.addEventListener('click',(e)=>{
+    if(!drawer.contains(e.target) && !hamb.contains(e.target)){
+      drawer.style.display='none'; drawer.setAttribute('hidden','');
     }
   });
 
-  /* contrat */
+  // contrat (toggle/copie)
   const contractRow = document.getElementById('contractRow');
-  function toggleContract(){ contractRow.style.display = (contractRow.style.display==='none' || !contractRow.style.display) ? 'block' : 'none'; }
+  function toggleContract(){ contractRow.style.display = (contractRow.style.display==='none'||!contractRow.style.display)?'block':'none'; }
   function copyContract(){
     navigator.clipboard.writeText(CONTRACT).then(()=>{
-      const old = actions.textContent;
-      const btns = document.querySelectorAll('.btn-outline');
-      btns.forEach(b=>{ if(b.textContent.includes('Copier')){ b.textContent='Copié ✓'; setTimeout(()=>b.textContent='Copier le contrat',1400); }});
+      const btns=document.querySelectorAll('.btn-outline');
+      btns.forEach(b=>{ if(b.textContent.includes('Copier')){ b.textContent='Copié ✓'; setTimeout(()=>b.textContent='Copier le contrat',1400);} });
     });
   }
   document.getElementById('contractTxt').textContent = CONTRACT;
 
-  /* footer year */
+  // footer year
   document.getElementById('y').textContent = new Date().getFullYear();
 
-  /* DONUT DATA */
-  const data = [
-    { label:"Liquidité (LP)", value:30, color:"#4cc9f0" },
-    { label:"Burn",           value:20, color:"#ff6b6b" },
-    { label:"Communauté & Marketing", value:30, color:"#ffd166" },
-    { label:"Team & Dev",     value:10, color:"#9b5de5" },
-    { label:"Réserves",       value:10, color:"#2ec4b6" },
-  ];
-
-  // build donut
-  const circle = 2 * Math.PI * 15.9155;
-  let cum = 0;
-  const svg = document.getElementById('donut');
-  data.forEach((d, i)=>{
-    const p = (d.value/100);
-    const seg = document.createElementNS("http://www.w3.org/2000/svg","circle");
-    seg.setAttribute("cx","21"); seg.setAttribute("cy","21"); seg.setAttribute("r","15.9155");
-    seg.setAttribute("fill","none"); seg.setAttribute("stroke", d.color);
-    seg.setAttribute("stroke-width","6");
-    seg.setAttribute("stroke-dasharray", (p*circle) + " " + ((1-p)*circle));
-    seg.setAttribute("stroke-dashoffset", (-(cum)*circle));
-    seg.setAttribute("transform","rotate(-90 21 21)");
-    svg.insertBefore(seg, svg.firstChild);
-    cum += p;
-  });
-
-  // legend
-  const legend = document.getElementById('legend');
-  data.forEach(d=>{
-    const row = document.createElement('div');
-    row.className = 'item';
-    row.innerHTML = `<span class="dot" style="background:${d.color}"></span>
-                     <span>${d.label}</span>
-                     <b>${d.value}%</b>`;
-    legend.appendChild(row);
+  // Répartition : si l’image n’existe pas, afficher le fallback
+  const repImg = document.getElementById('repImg');
+  const repImageWrap = document.getElementById('repImageWrap');
+  const repFallback = document.getElementById('repFallback');
+  repImg.addEventListener('error', ()=>{
+    repImageWrap.style.display='none';
+    repFallback.style.display='block';
   });
 </script>
 </body>
