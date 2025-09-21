@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SamDoge (SMD) – Meme coin de la communauté</title>
-  <meta name="description" content="SamDoge (SMD) – communauté, roadmap claire, tokenomics transparentes, app installable (PWA), FR/EN/HR." />
+  <meta name="description" content="SamDoge (SMD) — communauté, app (PWA), tokenomics transparentes et feuille de route détaillée." />
   <meta name="theme-color" content="#0a1133" />
 
-  <!-- Adresses -->
+  <!-- Adresses (⚠️ la LP doit être l’adresse de la PAIRE) -->
   <meta name="samdoge:token" content="0xb02Be67DbfbD500011c5bBB435fEf555AD3f37F8" />
   <meta name="samdoge:lp"    content="0xc85A95a4ee2DDdFe2Bd2970C71E17c56a2BA3104" />
 
-  <!-- PWA (optionnel) -->
+  <!-- PWA (optionnel si tu as ces fichiers) -->
   <link rel="manifest" href="site.webmanifest" />
   <link rel="icon" href="favicon.ico" sizes="any" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
@@ -21,7 +21,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SamDoge (SMD)">
   <meta property="og:title" content="SamDoge (SMD) — A community token with the spirit of Doge">
-  <meta property="og:description" content="Meme coin fun et transparent. Tokenomics, roadmap, app (PWA), FR/EN/HR.">
+  <meta property="og:description" content="Meme coin fun et transparent. App (PWA), tokenomics, roadmap et plus.">
   <meta property="og:url" content="https://samdoge.io/">
   <meta property="og:image" content="https://samdoge.io/social-card.png">
   <meta name="twitter:card" content="summary_large_image">
@@ -98,7 +98,7 @@
         <a href="index.html">Accueil</a>
         <a href="tokenomics.html">Tokenomics</a>
         <a href="staking.html">Staking</a>
-        <a href="roadmap.html">Roadmap</a>
+        <a href="#roadmap">Roadmap</a>
         <a href="stats.html">Statistiques</a>
         <a class="cta" id="buyCta" target="_blank" rel="noopener">Acheter SMD</a>
       </div>
@@ -115,6 +115,7 @@
         <div class="chips">
           <span class="chip">BSC</span>
           <span class="chip">1,000,000,000 SMD</span>
+          <span class="chip" id="installState">App : non installée</span>
           <span class="chip">Contrat : <code id="addrShort">…</code></span>
         </div>
       </div>
@@ -141,7 +142,7 @@
       </div>
     </section>
 
-    <!-- Taxes + (slot install PWA si besoin) -->
+    <!-- Taxes + Installer l’app -->
     <section class="grid">
       <div class="card" id="taxCard">
         <h3>Paramètres de taxe</h3>
@@ -160,14 +161,14 @@
       </div>
     </section>
 
-    <!-- Tokenomics -->
+    <!-- Tokenomics (résumé) -->
     <section class="card" id="tokenomics">
       <h3>Tokenomics</h3>
       <div class="grid">
         <div>
           <div class="list">
             <div class="li"><div class="icon">🪙</div><div class="txt"><b>Offre totale :</b> 1,000,000,000 SMD</div></div>
-            <div class="li"><div class="icon">💧</div><div class="txt"><b>Liquidité (DEX) :</b> 30% – lock prévu</div></div>
+            <div class="li"><div class="icon">💧</div><div class="txt"><b>Liquidité :</b> 30% — lock prévu</div></div>
             <div class="li"><div class="icon">🏅</div><div class="txt"><b>Staking / Récompenses :</b> 20%</div></div>
           </div>
         </div>
@@ -175,7 +176,7 @@
           <div class="list">
             <div class="li"><div class="icon">📣</div><div class="txt"><b>Marketing & Partenariats :</b> 10%</div></div>
             <div class="li"><div class="icon">🏦</div><div class="txt"><b>Treasury / Développement :</b> 10%</div></div>
-            <div class="li"><div class="icon">🔒</div><div class="txt">Liquidité verrouillée à la mise en ligne.</div></div>
+            <div class="li"><div class="icon">🔒</div><div class="txt">Liquidité verrouillée au lancement.</div></div>
           </div>
         </div>
       </div>
@@ -199,42 +200,45 @@
             </span>
           </div>
         </li>
-        <li class="li"><div class="icon">5️⃣</div><div class="txt">Pendant pré-lancement : taxe 0% (slippage 0–1%). Après lancement : taxe 5%.</div></li>
+        <li class="li"><div class="icon">5️⃣</div><div class="txt">Avant listing : taxe 0% (slippage 0–1%). Après lancement : taxe 5%.</div></li>
       </ol>
     </section>
 
-    <!-- Roadmap (Phases 1 → 4) -->
+    <!-- Roadmap complète -->
     <section class="card" id="roadmap">
       <h3>Feuille de route</h3>
       <div class="grid">
         <div>
-          <h4>Phase 1</h4>
+          <h4>Phase 1 — Lancements</h4>
           <div class="list">
-            <div class="li"><div class="icon">✅</div><div class="txt">Création & déploiement du token</div></div>
-            <div class="li"><div class="icon">✅</div><div class="txt">Site web / Branding / Réseaux</div></div>
+            <div class="li"><div class="icon">✅</div><div class="txt">Création & déploiement du token SMD</div></div>
+            <div class="li"><div class="icon">✅</div><div class="txt">Site web, branding & réseaux sociaux</div></div>
+            <div class="li"><div class="icon">🧪</div><div class="txt">Tests internes / configuration initiale</div></div>
           </div>
         </div>
         <div>
-          <h4>Phase 2</h4>
+          <h4>Phase 2 — Sécurité & Pré-lancement</h4>
           <div class="list">
             <div class="li"><div class="icon">🧾</div><div class="txt">Audit & KYC</div></div>
-            <div class="li"><div class="icon">🔒</div><div class="txt">Verrouillage de la liquidité</div></div>
-            <div class="li"><div class="icon">📣</div><div class="txt">Campagnes marketing initiales</div></div>
+            <div class="li"><div class="icon">🔒</div><div class="txt">Verrouillage de la liquidité (LP)</div></div>
+            <div class="li"><div class="icon">📣</div><div class="txt">Campagnes marketing pré-listing</div></div>
           </div>
         </div>
         <div>
-          <h4>Phase 3</h4>
+          <h4>Phase 3 — Lancement DEX</h4>
           <div class="list">
-            <div class="li"><div class="icon">💧</div><div class="txt">Listing PancakeSwap</div></div>
-            <div class="li"><div class="icon">🏅</div><div class="txt">Staking (voir onglet Staking)</div></div>
-            <div class="li"><div class="icon">📈</div><div class="txt">Demandes CMC / CoinGecko</div></div>
+            <div class="li"><div class="icon">💧</div><div class="txt">Listing PancakeSwap + pair LP</div></div>
+            <div class="li"><div class="icon">🏅</div><div class="txt">Mise en ligne du Staking</div></div>
+            <div class="li"><div class="icon">📈</div><div class="txt">Demandes CoinGecko / CoinMarketCap</div></div>
+            <div class="li"><div class="icon">🤝</div><div class="txt">Premiers partenariats & events communauté</div></div>
           </div>
         </div>
         <div>
-          <h4>Phase 4</h4>
+          <h4>Phase 4 — Croissance</h4>
           <div class="list">
-            <div class="li"><div class="icon">🤝</div><div class="txt">Partenariats & events communauté</div></div>
-            <div class="li"><div class="icon">🧩</div><div class="txt">Utilities additionnelles / Mini-dapps</div></div>
+            <div class="li"><div class="icon">🧩</div><div class="txt">Utilities additionnelles (mini-dapps)</div></div>
+            <div class="li"><div class="icon">📢</div><div class="txt">Marketing élargi / influenceurs</div></div>
+            <div class="li"><div class="icon">🏛️</div><div class="txt">Candidatures CEX (selon volume)</div></div>
           </div>
         </div>
       </div>
@@ -245,13 +249,13 @@
       <h3>Liens officiels</h3>
       <div class="list">
         <div class="li"><div class="icon">🔗</div><div class="txt"><a id="buyLink2"   target="_blank" rel="noopener">Acheter SMD</a></div></div>
-        <div class="li"><div class="icon">🔗</div><div class="txt"><a id="chartLink2" target="_blank" rel="noopener">Voir le chart</a></div></div>
-        <div class="li"><div class="icon">🔗</div><div class="txt"><a href="https://github.com/danlel1/samdoge-staking" target="_blank" rel="noopener">GitHub</a></div></div>
-        <div class="li"><div class="icon">🔗</div><div class="txt"><a id="tokenBsc2"  target="_blank" rel="noopener">BscScan (token)</a></div></div>
         <div class="li"><div class="icon">🔗</div><div class="txt"><a id="lpBsc2"     target="_blank" rel="noopener">BscScan (paire LP)</a></div></div>
+        <div class="li"><div class="icon">🔗</div><div class="txt"><a id="tokenBsc2"  target="_blank" rel="noopener">BscScan (token)</a></div></div>
+        <div class="li"><div class="icon">🔗</div><div class="txt"><a href="https://github.com/danlel1/samdoge-staking" target="_blank" rel="noopener">GitHub</a></div></div>
         <div class="li"><div class="icon">🔗</div><div class="txt"><a href="https://SamDoge.io" target="_blank" rel="noopener">SamDoge.io</a></div></div>
         <div class="li"><div class="icon">🔗</div><div class="txt"><a href="https://t.me/samdoge" target="_blank" rel="noopener">Telegram</a></div></div>
         <div class="li"><div class="icon">🔗</div><div class="txt"><a href="https://x.com/DogeSami" target="_blank" rel="noopener">Twitter / X</a></div></div>
+        <div class="li"><div class="icon">🔗</div><div class="txt"><a id="chartLink2" target="_blank" rel="noopener">Voir le chart</a></div></div>
       </div>
     </section>
 
@@ -261,33 +265,73 @@
   </div>
 
   <script>
-    // Adresses depuis meta
+    // --------- Adresses depuis <meta>
     const TOKEN = document.querySelector('meta[name="samdoge:token"]').content.trim();
     const LP    = document.querySelector('meta[name="samdoge:lp"]').content.trim();
 
-    // Liens dynamiques
+    // --------- Liens dynamiques (LP pour Dexscreener)
     const buyUrl   = `https://pancakeswap.finance/swap?outputCurrency=${TOKEN}`;
-    const chartUrl = `https://dexscreener.com/bsc/${LP}`; // Dexscreener = adresse LP
+    const chartUrl = `https://dexscreener.com/bsc/${LP}`;
     const bscTok   = `https://bscscan.com/token/${TOKEN}`;
     const bscLp    = `https://bscscan.com/address/${LP}`;
 
-    // Injecte les href (menu + liens officiels + actions)
     const setHref = (id,url)=>{ const el=document.getElementById(id); if(el) el.href=url; };
-    setHref('buyCta',   buyUrl);
-    setHref('buyLink',  buyUrl);
-    setHref('buyLink2', buyUrl);
-    setHref('chartLink',  chartUrl);
-    setHref('chartLink2', chartUrl);
-    setHref('tokenBsc',  bscTok);
-    setHref('tokenBsc2', bscTok);
-    setHref('lpBsc',     bscLp);
-    setHref('lpBsc2',    bscLp);
+    ['buyCta','buyLink','buyLink2'].forEach(id=>setHref(id,buyUrl));
+    ['chartLink','chartLink2'].forEach(id=>setHref(id,chartUrl));
+    ['tokenBsc','tokenBsc2'].forEach(id=>setHref(id,bscTok));
+    ['lpBsc','lpBsc2'].forEach(id=>setHref(id,bscLp));
 
-    // Adresse courte dans le hero
+    // --------- Menu mobile
+    document.getElementById('hamb').addEventListener('click',()=>document.getElementById('navlinks').classList.toggle('open'));
+
+    // --------- Badge App installée / non installée
+    function isStandalone(){
+      if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) return true;
+      if (navigator.standalone === true) return true; // iOS
+      if (document.referrer && document.referrer.startsWith('android-app://')) return true;
+      return false;
+    }
+    function updateInstallBadge(){
+      const el = document.getElementById('installState');
+      if (!el) return;
+      el.textContent = isStandalone() ? 'App : installée ✅' : 'App : non installée';
+    }
+    updateInstallBadge();
+    document.addEventListener('visibilitychange', updateInstallBadge);
+    window.addEventListener('appinstalled', updateInstallBadge);
+
+    // --------- PWA : SW + prompt install
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(()=>{});
+      });
+    }
+    let deferredPrompt=null;
+    const installCard=document.getElementById('installCard');
+    const installBtn=document.getElementById('installBtn');
+    const iosHint=document.getElementById('iosHint');
+
+    window.addEventListener('beforeinstallprompt',(e)=>{
+      e.preventDefault(); deferredPrompt=e;
+      if(!isStandalone()){ installCard.style.display='block'; }
+    });
+    installBtn?.addEventListener('click', async ()=>{
+      if(!deferredPrompt){
+        if(/iphone|ipad|ipod/i.test(navigator.userAgent)) iosHint.style.display='block';
+        return;
+      }
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt=null;
+      installCard.style.display='none';
+      updateInstallBadge();
+    });
+
+    // --------- Adresse courte dans le hero
     const short = a => a ? a.slice(0,6)+'…'+a.slice(-4) : '';
     document.getElementById('addrShort').textContent = short(TOKEN);
 
-    // ----- Actions rapides : toggle + copie
+    // --------- Actions rapides : toggle + copie
     const toggleAddr = document.getElementById('toggleAddr');
     const addrWrap   = document.getElementById('addrWrap');
     const addrFull   = document.getElementById('addrFull');
@@ -303,7 +347,7 @@
       try{ await navigator.clipboard.writeText(TOKEN); addrCopy.textContent='✅ Copié'; setTimeout(()=>addrCopy.textContent='📋 Copier',1200);}catch(e){}
     });
 
-    // ----- “Comment acheter” : toggle Afficher/Masquer + copie
+    // --------- “Comment acheter” : toggle + copie
     const revealBtn = document.getElementById('revealBtn');
     const hideBtn   = document.getElementById('hideBtn');
     const wrap      = document.getElementById('contractWrap');
@@ -314,7 +358,7 @@
       txt.textContent = TOKEN;
       wrap.style.display = 'inline-flex';
       revealBtn.style.display = 'none';
-      hideBtn.style.display = 'inline-flex';
+      hideBtn.style.display   = 'inline-flex';
     });
     hideBtn.addEventListener('click',()=>{
       wrap.style.display = 'none';
@@ -325,20 +369,8 @@
       try{ await navigator.clipboard.writeText(TOKEN); copyBtn.textContent='✅ Copié'; setTimeout(()=>copyBtn.textContent='📋 Copier',1200);}catch(e){}
     });
 
-    // Menu mobile
-    document.getElementById('hamb').addEventListener('click',()=>document.getElementById('navlinks').classList.toggle('open'));
-
-    // PWA install (si besoin)
-    let deferredPrompt=null;
-    const installCard=document.getElementById('installCard');
-    const installBtn=document.getElementById('installBtn');
-    const iosHint=document.getElementById('iosHint');
-    function isStandalone(){ if(window.matchMedia('(display-mode: standalone)').matches) return true; if(window.navigator.standalone) return true; return false; }
-    window.addEventListener('beforeinstallprompt',(e)=>{ e.preventDefault(); deferredPrompt=e; if(!isStandalone()) installCard.style.display='block'; });
-    installBtn?.addEventListener('click', async ()=>{ if(!deferredPrompt){ iosHint.style.display='block'; return; } deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; installCard.style.display='none'; });
-
-    // Année footer
+    // --------- Année footer
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
-          </html>
+</html>
