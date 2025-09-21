@@ -63,7 +63,7 @@
     .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
     .chip{font-size:.83rem;padding:6px 10px;background:#121c54;border:1px solid var(--border);border-radius:999px}
 
-    /* Cards & grids */
+    /* Grids & cards */
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);margin-top:var(--gap)}
     @media (max-width:860px){ .grid{grid-template-columns:1fr} }
     .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
@@ -76,9 +76,9 @@
     .li{display:flex;gap:10px;align-items:flex-start}
     .li .icon{width:20px}
     .li .txt{flex:1}
-    .ok{color:var(--accent)}
     .kbd{font-family:ui-monospace,Menlo,Consolas,monospace;background:#0b153f;padding:3px 6px;border:1px dashed var(--border);border-radius:8px}
     footer{margin:40px 0 30px;color:#9aa8e2;text-align:center}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--border);border-radius:999px;background:#121c54}
   </style>
 </head>
 <body>
@@ -105,8 +105,8 @@
     </div>
   </div>
 
-  <!-- HERO -->
   <div class="wrap">
+    <!-- HERO -->
     <section class="hero">
       <img class="banner" src="banniere.jpg" alt="Bannière SamDoge" />
       <div class="content">
@@ -116,6 +116,27 @@
           <span class="chip">BSC</span>
           <span class="chip">1,000,000,000 SMD</span>
           <span class="chip">Contrat : <code id="addrShort">…</code></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTIONS RAPIDES -->
+    <section class="card">
+      <h3>Actions rapides</h3>
+      <div class="list">
+        <div class="li"><div class="icon">🛒</div><div class="txt"><a id="buyLink" class="pill" target="_blank" rel="noopener">Acheter sur PancakeSwap</a></div></div>
+        <div class="li"><div class="icon">📊</div><div class="txt"><a id="chartLink" class="pill" target="_blank" rel="noopener">Voir le chart (Dexscreener)</a></div></div>
+        <div class="li"><div class="icon">🔎</div><div class="txt"><a id="tokenBsc" class="pill" target="_blank" rel="noopener">BscScan (token)</a></div></div>
+        <div class="li"><div class="icon">💧</div><div class="txt"><a id="lpBsc" class="pill" target="_blank" rel="noopener">BscScan (paire LP)</a></div></div>
+        <div class="li">
+          <div class="icon">🧾</div>
+          <div class="txt">
+            <button class="btn" id="toggleAddr">Afficher l’adresse du contrat</button>
+            <span id="addrWrap" style="display:none">
+              <code class="kbd" id="addrFull"></code>
+              <button class="btn" id="addrCopy">📋 Copier</button>
+            </span>
+          </div>
         </div>
       </div>
     </section>
@@ -169,11 +190,12 @@
         <li class="li"><div class="icon">3️⃣</div><div class="txt">Ouvre PancakeSwap et choisis la paire BNB ↔ SMD.</div></li>
         <li class="li"><div class="icon">4️⃣</div>
           <div class="txt">
-            Ajoute le contrat SMD :
-            <button class="btn" id="revealBtn"><span>Voir l’adresse du contrat</span></button>
+            Adresse du contrat :
+            <button class="btn" id="revealBtn"><span>Afficher</span></button>
+            <button class="btn" id="hideBtn" style="display:none"><span>Masquer</span></button>
             <span id="contractWrap" style="display:none">
               <code class="kbd" id="contractTxt"></code>
-              <span class="btn" id="copyBtn" title="Copier">📋 Copier</span>
+              <button class="btn" id="copyBtn">📋 Copier</button>
             </span>
           </div>
         </li>
@@ -181,23 +203,23 @@
       </ol>
     </section>
 
-    <!-- Roadmap -->
+    <!-- Roadmap (Phases 1 → 4) -->
     <section class="card" id="roadmap">
       <h3>Feuille de route</h3>
       <div class="grid">
         <div>
           <h4>Phase 1</h4>
           <div class="list">
-            <div class="li"><div class="icon ok">✅</div><div class="txt">Token SMD créé & déployé</div></div>
-            <div class="li"><div class="icon ok">✅</div><div class="txt">Site web & réseaux ouverts</div></div>
+            <div class="li"><div class="icon">✅</div><div class="txt">Création & déploiement du token</div></div>
+            <div class="li"><div class="icon">✅</div><div class="txt">Site web / Branding / Réseaux</div></div>
           </div>
         </div>
         <div>
           <h4>Phase 2</h4>
           <div class="list">
             <div class="li"><div class="icon">🧾</div><div class="txt">Audit & KYC</div></div>
-            <div class="li"><div class="icon">🔒</div><div class="txt">Lock de la liquidité</div></div>
-            <div class="li"><div class="icon">📣</div><div class="txt">Marketing initial</div></div>
+            <div class="li"><div class="icon">🔒</div><div class="txt">Verrouillage de la liquidité</div></div>
+            <div class="li"><div class="icon">📣</div><div class="txt">Campagnes marketing initiales</div></div>
           </div>
         </div>
         <div>
@@ -208,6 +230,13 @@
             <div class="li"><div class="icon">📈</div><div class="txt">Demandes CMC / CoinGecko</div></div>
           </div>
         </div>
+        <div>
+          <h4>Phase 4</h4>
+          <div class="list">
+            <div class="li"><div class="icon">🤝</div><div class="txt">Partenariats & events communauté</div></div>
+            <div class="li"><div class="icon">🧩</div><div class="txt">Utilities additionnelles / Mini-dapps</div></div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -215,11 +244,11 @@
     <section class="card" id="links">
       <h3>Liens officiels</h3>
       <div class="list">
-        <div class="li"><div class="icon">🔗</div><div class="txt"><a id="buyLink"   target="_blank" rel="noopener">Acheter SMD</a></div></div>
-        <div class="li"><div class="icon">🔗</div><div class="txt"><a id="chartLink" target="_blank" rel="noopener">Voir le chart</a></div></div>
+        <div class="li"><div class="icon">🔗</div><div class="txt"><a id="buyLink2"   target="_blank" rel="noopener">Acheter SMD</a></div></div>
+        <div class="li"><div class="icon">🔗</div><div class="txt"><a id="chartLink2" target="_blank" rel="noopener">Voir le chart</a></div></div>
         <div class="li"><div class="icon">🔗</div><div class="txt"><a href="https://github.com/danlel1/samdoge-staking" target="_blank" rel="noopener">GitHub</a></div></div>
-        <div class="li"><div class="icon">🔗</div><div class="txt"><a id="tokenBsc"  target="_blank" rel="noopener">BscScan (token)</a></div></div>
-        <div class="li"><div class="icon">🔗</div><div class="txt"><a id="lpBsc"     target="_blank" rel="noopener">BscScan (paire LP)</a></div></div>
+        <div class="li"><div class="icon">🔗</div><div class="txt"><a id="tokenBsc2"  target="_blank" rel="noopener">BscScan (token)</a></div></div>
+        <div class="li"><div class="icon">🔗</div><div class="txt"><a id="lpBsc2"     target="_blank" rel="noopener">BscScan (paire LP)</a></div></div>
         <div class="li"><div class="icon">🔗</div><div class="txt"><a href="https://SamDoge.io" target="_blank" rel="noopener">SamDoge.io</a></div></div>
         <div class="li"><div class="icon">🔗</div><div class="txt"><a href="https://t.me/samdoge" target="_blank" rel="noopener">Telegram</a></div></div>
         <div class="li"><div class="icon">🔗</div><div class="txt"><a href="https://x.com/DogeSami" target="_blank" rel="noopener">Twitter / X</a></div></div>
@@ -238,27 +267,63 @@
 
     // Liens dynamiques
     const buyUrl   = `https://pancakeswap.finance/swap?outputCurrency=${TOKEN}`;
-    const chartUrl = `https://dexscreener.com/bsc/${LP}`; // Dexscreener attend l'adresse LP
+    const chartUrl = `https://dexscreener.com/bsc/${LP}`; // Dexscreener = adresse LP
     const bscTok   = `https://bscscan.com/token/${TOKEN}`;
     const bscLp    = `https://bscscan.com/address/${LP}`;
 
-    // Injecte les href
+    // Injecte les href (menu + liens officiels + actions)
     const setHref = (id,url)=>{ const el=document.getElementById(id); if(el) el.href=url; };
-    setHref('buyCta',  buyUrl);
-    setHref('buyLink', buyUrl);
-    setHref('chartLink', chartUrl);
-    setHref('tokenBsc', bscTok);
-    setHref('lpBsc', bscLp);
+    setHref('buyCta',   buyUrl);
+    setHref('buyLink',  buyUrl);
+    setHref('buyLink2', buyUrl);
+    setHref('chartLink',  chartUrl);
+    setHref('chartLink2', chartUrl);
+    setHref('tokenBsc',  bscTok);
+    setHref('tokenBsc2', bscTok);
+    setHref('lpBsc',     bscLp);
+    setHref('lpBsc2',    bscLp);
 
-    // Affichage adresse + copie
+    // Adresse courte dans le hero
     const short = a => a ? a.slice(0,6)+'…'+a.slice(-4) : '';
     document.getElementById('addrShort').textContent = short(TOKEN);
+
+    // ----- Actions rapides : toggle + copie
+    const toggleAddr = document.getElementById('toggleAddr');
+    const addrWrap   = document.getElementById('addrWrap');
+    const addrFull   = document.getElementById('addrFull');
+    const addrCopy   = document.getElementById('addrCopy');
+    let addrShown = false;
+    toggleAddr.addEventListener('click',()=>{
+      addrShown = !addrShown;
+      addrWrap.style.display = addrShown ? 'inline-flex' : 'none';
+      addrFull.textContent = TOKEN;
+      toggleAddr.textContent = addrShown ? 'Masquer l’adresse du contrat' : 'Afficher l’adresse du contrat';
+    });
+    addrCopy.addEventListener('click',async()=>{
+      try{ await navigator.clipboard.writeText(TOKEN); addrCopy.textContent='✅ Copié'; setTimeout(()=>addrCopy.textContent='📋 Copier',1200);}catch(e){}
+    });
+
+    // ----- “Comment acheter” : toggle Afficher/Masquer + copie
     const revealBtn = document.getElementById('revealBtn');
-    const wrap = document.getElementById('contractWrap');
-    const txt  = document.getElementById('contractTxt');
-    const copy = document.getElementById('copyBtn');
-    revealBtn.addEventListener('click',()=>{ txt.textContent=TOKEN; wrap.style.display='inline-flex'; revealBtn.style.display='none'; });
-    copy.addEventListener('click',async()=>{ try{ await navigator.clipboard.writeText(TOKEN); copy.textContent='✅ Copié'; setTimeout(()=>copy.textContent='📋 Copier',1200);}catch(e){} });
+    const hideBtn   = document.getElementById('hideBtn');
+    const wrap      = document.getElementById('contractWrap');
+    const txt       = document.getElementById('contractTxt');
+    const copyBtn   = document.getElementById('copyBtn');
+
+    revealBtn.addEventListener('click',()=>{
+      txt.textContent = TOKEN;
+      wrap.style.display = 'inline-flex';
+      revealBtn.style.display = 'none';
+      hideBtn.style.display = 'inline-flex';
+    });
+    hideBtn.addEventListener('click',()=>{
+      wrap.style.display = 'none';
+      hideBtn.style.display = 'none';
+      revealBtn.style.display = 'inline-flex';
+    });
+    copyBtn.addEventListener('click',async()=>{
+      try{ await navigator.clipboard.writeText(TOKEN); copyBtn.textContent='✅ Copié'; setTimeout(()=>copyBtn.textContent='📋 Copier',1200);}catch(e){}
+    });
 
     // Menu mobile
     document.getElementById('hamb').addEventListener('click',()=>document.getElementById('navlinks').classList.toggle('open'));
@@ -276,4 +341,4 @@
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
-</html>
+          </html>
