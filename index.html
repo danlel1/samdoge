@@ -11,7 +11,7 @@
   <meta name="samdoge:token" content="0xb02Be67DbfbD500011c5bBB435fEf555AD3f37F8" />
   <meta name="samdoge:lp"    content="0xc85A95a4ee2DDdFe2Bd2970C71E17c56a2BA3104" />
 
-  <!-- PWA de base (facultatif si pas encore utilisé) -->
+  <!-- PWA (optionnel) -->
   <link rel="manifest" href="site.webmanifest" />
   <link rel="icon" href="favicon.ico" sizes="any" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
@@ -30,8 +30,7 @@
   <style>
     :root{
       --bg:#0a1133; --card:#0f1847; --muted:#97a0c3; --accent:#28d17c;
-      --primary:#ffb84d; /* doré doux */
-      --txt:#eaf0ff; --txt-strong:#ffffff; --border:rgba(255,255,255,.08);
+      --primary:#ffb84d; --txt:#eaf0ff; --txt-strong:#ffffff; --border:rgba(255,255,255,.08);
       --shadow:0 10px 24px rgba(0,0,0,.25); --radius:20px; --gap:18px; --max:1100px;
     }
     *{box-sizing:border-box}
@@ -78,6 +77,7 @@
     .li .icon{width:20px}
     .li .txt{flex:1}
     .ok{color:var(--accent)}
+    .kbd{font-family:ui-monospace,Menlo,Consolas,monospace;background:#0b153f;padding:3px 6px;border:1px dashed var(--border);border-radius:8px}
     footer{margin:40px 0 30px;color:#9aa8e2;text-align:center}
   </style>
 </head>
@@ -120,42 +120,106 @@
       </div>
     </section>
 
-    <!-- Boutons rapides -->
+    <!-- Taxes + (slot install PWA si besoin) -->
     <section class="grid">
-      <div class="card">
-        <h3>Actions rapides</h3>
+      <div class="card" id="taxCard">
+        <h3>Paramètres de taxe</h3>
         <div class="list">
-          <div class="li"><div class="icon">🛒</div><div class="txt"><a id="buyLink" target="_blank" rel="noopener">Acheter sur PancakeSwap</a></div></div>
-          <div class="li"><div class="icon">📈</div><div class="txt"><a id="chartLink" target="_blank" rel="noopener">Voir le chart (Dexscreener)</a></div></div>
-          <div class="li"><div class="icon">🔎</div><div class="txt"><a id="tokenBsc" target="_blank" rel="noopener">BscScan (token)</a></div></div>
-          <div class="li"><div class="icon">💧</div><div class="txt"><a id="lpBsc" target="_blank" rel="noopener">BscScan (paire LP)</a></div></div>
-          <div class="li"><div class="icon">📋</div>
-            <div class="txt">
-              <span>Adresse du contrat :</span>
-              <code class="chip" id="addrFull"></code>
-              <button class="btn" id="copyBtn">Copier</button>
-            </div>
-          </div>
+          <div class="li"><div class="icon">🟢</div><div class="txt">Actuellement : <b>0%</b> (avant listing)</div></div>
+          <div class="li"><div class="icon">📈</div><div class="txt">Après lancement DEX : <b>5%</b> total (achat/vente/transfert)</div></div>
+          <div class="li"><div class="icon">ℹ️</div><div class="txt">Slippage conseillé après lancement : 5–7%.</div></div>
         </div>
       </div>
 
-      <div class="card">
-        <h3>Paramètres</h3>
-        <div class="list">
-          <div class="li"><div class="icon">🪙</div><div class="txt"><b>Offre totale :</b> 1,000,000,000 SMD</div></div>
-          <div class="li"><div class="icon">💧</div><div class="txt"><b>LP initial :</b> 30% • lock prévu</div></div>
-          <div class="li"><div class="icon">⚙️</div><div class="txt"><b>Taxe après lancement :</b> 5% (achat/vente/transfert)</div></div>
+      <div class="card" id="installCard" style="display:none">
+        <h3>Installer l’app SamDoge</h3>
+        <p class="muted">Détectée comme application web. Clique pour installer.</p>
+        <button class="btn" id="installBtn">Installer l’app</button>
+        <div class="muted" id="iosHint" style="display:none">Sur iPhone/iPad : Safari → <b>Partager</b> → <b>Ajouter à l’écran d’accueil</b>.</div>
+      </div>
+    </section>
+
+    <!-- Tokenomics -->
+    <section class="card" id="tokenomics">
+      <h3>Tokenomics</h3>
+      <div class="grid">
+        <div>
+          <div class="list">
+            <div class="li"><div class="icon">🪙</div><div class="txt"><b>Offre totale :</b> 1,000,000,000 SMD</div></div>
+            <div class="li"><div class="icon">💧</div><div class="txt"><b>Liquidité (DEX) :</b> 30% – lock prévu</div></div>
+            <div class="li"><div class="icon">🏅</div><div class="txt"><b>Staking / Récompenses :</b> 20%</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="list">
+            <div class="li"><div class="icon">📣</div><div class="txt"><b>Marketing & Partenariats :</b> 10%</div></div>
+            <div class="li"><div class="icon">🏦</div><div class="txt"><b>Treasury / Développement :</b> 10%</div></div>
+            <div class="li"><div class="icon">🔒</div><div class="txt">Liquidité verrouillée à la mise en ligne.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comment acheter -->
+    <section class="card" id="howto">
+      <h3>Comment acheter</h3>
+      <ol class="list" style="margin-left:6px">
+        <li class="li"><div class="icon">1️⃣</div><div class="txt">Installe MetaMask et sélectionne le réseau BNB Smart Chain (BSC).</div></li>
+        <li class="li"><div class="icon">2️⃣</div><div class="txt">Approvisionne ton wallet en BNB.</div></li>
+        <li class="li"><div class="icon">3️⃣</div><div class="txt">Ouvre PancakeSwap et choisis la paire BNB ↔ SMD.</div></li>
+        <li class="li"><div class="icon">4️⃣</div>
+          <div class="txt">
+            Ajoute le contrat SMD :
+            <button class="btn" id="revealBtn"><span>Voir l’adresse du contrat</span></button>
+            <span id="contractWrap" style="display:none">
+              <code class="kbd" id="contractTxt"></code>
+              <span class="btn" id="copyBtn" title="Copier">📋 Copier</span>
+            </span>
+          </div>
+        </li>
+        <li class="li"><div class="icon">5️⃣</div><div class="txt">Pendant pré-lancement : taxe 0% (slippage 0–1%). Après lancement : taxe 5%.</div></li>
+      </ol>
+    </section>
+
+    <!-- Roadmap -->
+    <section class="card" id="roadmap">
+      <h3>Feuille de route</h3>
+      <div class="grid">
+        <div>
+          <h4>Phase 1</h4>
+          <div class="list">
+            <div class="li"><div class="icon ok">✅</div><div class="txt">Token SMD créé & déployé</div></div>
+            <div class="li"><div class="icon ok">✅</div><div class="txt">Site web & réseaux ouverts</div></div>
+          </div>
+        </div>
+        <div>
+          <h4>Phase 2</h4>
+          <div class="list">
+            <div class="li"><div class="icon">🧾</div><div class="txt">Audit & KYC</div></div>
+            <div class="li"><div class="icon">🔒</div><div class="txt">Lock de la liquidité</div></div>
+            <div class="li"><div class="icon">📣</div><div class="txt">Marketing initial</div></div>
+          </div>
+        </div>
+        <div>
+          <h4>Phase 3</h4>
+          <div class="list">
+            <div class="li"><div class="icon">💧</div><div class="txt">Listing PancakeSwap</div></div>
+            <div class="li"><div class="icon">🏅</div><div class="txt">Staking (voir onglet Staking)</div></div>
+            <div class="li"><div class="icon">📈</div><div class="txt">Demandes CMC / CoinGecko</div></div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Liens officiels (ordre alphabétique) -->
-    <section class="card" id="links" style="margin-top:18px">
+    <section class="card" id="links">
       <h3>Liens officiels</h3>
       <div class="list">
-        <div class="li"><div class="icon">🔗</div><div class="txt"><a id="buyLink2" target="_blank" rel="noopener">Acheter SMD</a></div></div>
-        <div class="li"><div class="icon">🔗</div><div class="txt"><a id="chartLink2" target="_blank" rel="noopener">Voir le chart</a></div></div>
+        <div class="li"><div class="icon">🔗</div><div class="txt"><a id="buyLink"   target="_blank" rel="noopener">Acheter SMD</a></div></div>
+        <div class="li"><div class="icon">🔗</div><div class="txt"><a id="chartLink" target="_blank" rel="noopener">Voir le chart</a></div></div>
         <div class="li"><div class="icon">🔗</div><div class="txt"><a href="https://github.com/danlel1/samdoge-staking" target="_blank" rel="noopener">GitHub</a></div></div>
+        <div class="li"><div class="icon">🔗</div><div class="txt"><a id="tokenBsc"  target="_blank" rel="noopener">BscScan (token)</a></div></div>
+        <div class="li"><div class="icon">🔗</div><div class="txt"><a id="lpBsc"     target="_blank" rel="noopener">BscScan (paire LP)</a></div></div>
         <div class="li"><div class="icon">🔗</div><div class="txt"><a href="https://SamDoge.io" target="_blank" rel="noopener">SamDoge.io</a></div></div>
         <div class="li"><div class="icon">🔗</div><div class="txt"><a href="https://t.me/samdoge" target="_blank" rel="noopener">Telegram</a></div></div>
         <div class="li"><div class="icon">🔗</div><div class="txt"><a href="https://x.com/DogeSami" target="_blank" rel="noopener">Twitter / X</a></div></div>
@@ -168,37 +232,45 @@
   </div>
 
   <script>
-    // Constantes à partir des meta
+    // Adresses depuis meta
     const TOKEN = document.querySelector('meta[name="samdoge:token"]').content.trim();
     const LP    = document.querySelector('meta[name="samdoge:lp"]').content.trim();
 
-    // Raccourci adresse pour la puce
-    const short = (a)=> a ? a.slice(0,6)+'…'+a.slice(-4) : '';
-    document.getElementById('addrShort').textContent = short(TOKEN);
-    document.getElementById('addrFull').textContent  = TOKEN;
-
     // Liens dynamiques
     const buyUrl   = `https://pancakeswap.finance/swap?outputCurrency=${TOKEN}`;
-    const chartUrl = `https://dexscreener.com/bsc/${LP}`;
+    const chartUrl = `https://dexscreener.com/bsc/${LP}`; // Dexscreener attend l'adresse LP
     const bscTok   = `https://bscscan.com/token/${TOKEN}`;
     const bscLp    = `https://bscscan.com/address/${LP}`;
 
-    // Injection des href
-    ['buyLink','buyLink2','buyCta'].forEach(id=>{ const el=document.getElementById(id); if(el){el.href=buyUrl;} });
-    ['chartLink','chartLink2'].forEach(id=>{ const el=document.getElementById(id); if(el){el.href=chartUrl;} });
-    const tokenBsc = document.getElementById('tokenBsc'); if(tokenBsc) tokenBsc.href=bscTok;
-    const lpBsc    = document.getElementById('lpBsc');    if(lpBsc)    lpBsc.href=bscLp;
+    // Injecte les href
+    const setHref = (id,url)=>{ const el=document.getElementById(id); if(el) el.href=url; };
+    setHref('buyCta',  buyUrl);
+    setHref('buyLink', buyUrl);
+    setHref('chartLink', chartUrl);
+    setHref('tokenBsc', bscTok);
+    setHref('lpBsc', bscLp);
 
-    // Copie adresse
-    document.getElementById('copyBtn').addEventListener('click', async ()=>{
-      try{ await navigator.clipboard.writeText(TOKEN);
-           const b = document.getElementById('copyBtn'); const t=b.textContent; b.textContent='Copié !';
-           setTimeout(()=>b.textContent=t,1200);
-      }catch(e){ alert('Copie impossible : '+e.message); }
-    });
+    // Affichage adresse + copie
+    const short = a => a ? a.slice(0,6)+'…'+a.slice(-4) : '';
+    document.getElementById('addrShort').textContent = short(TOKEN);
+    const revealBtn = document.getElementById('revealBtn');
+    const wrap = document.getElementById('contractWrap');
+    const txt  = document.getElementById('contractTxt');
+    const copy = document.getElementById('copyBtn');
+    revealBtn.addEventListener('click',()=>{ txt.textContent=TOKEN; wrap.style.display='inline-flex'; revealBtn.style.display='none'; });
+    copy.addEventListener('click',async()=>{ try{ await navigator.clipboard.writeText(TOKEN); copy.textContent='✅ Copié'; setTimeout(()=>copy.textContent='📋 Copier',1200);}catch(e){} });
 
     // Menu mobile
     document.getElementById('hamb').addEventListener('click',()=>document.getElementById('navlinks').classList.toggle('open'));
+
+    // PWA install (si besoin)
+    let deferredPrompt=null;
+    const installCard=document.getElementById('installCard');
+    const installBtn=document.getElementById('installBtn');
+    const iosHint=document.getElementById('iosHint');
+    function isStandalone(){ if(window.matchMedia('(display-mode: standalone)').matches) return true; if(window.navigator.standalone) return true; return false; }
+    window.addEventListener('beforeinstallprompt',(e)=>{ e.preventDefault(); deferredPrompt=e; if(!isStandalone()) installCard.style.display='block'; });
+    installBtn?.addEventListener('click', async ()=>{ if(!deferredPrompt){ iosHint.style.display='block'; return; } deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; installCard.style.display='none'; });
 
     // Année footer
     document.getElementById('year').textContent = new Date().getFullYear();
