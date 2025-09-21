@@ -75,9 +75,9 @@
         <a href="#howto" data-i18n="nav_how">Comment acheter</a>
         <a href="#roadmap" data-i18n="nav_roadmap">Feuille de route</a>
         <a href="#links" data-i18n="nav_links">Liens officiels</a>
-        <a href="#stats" data-i18n="nav_stats">Statistiques</a>
         <a href="staking.html" data-i18n="nav_staking">Staking</a>
-        <a href="#tokenomics" data-i18n="nav_tokenomics">Tokenomics</a>
+        <a href="#stats" data-i18n="nav_stats">Statistiques</a>
+        <a href="tokenomics.html" data-i18n="nav_tokenomics">Tokenomics</a>
         <div class="langs">
           <button data-lang="fr" class="active">FR</button>
           <button data-lang="en">EN</button>
@@ -257,11 +257,11 @@
     }
     window.addEventListener('beforeinstallprompt',e=>{
       e.preventDefault(); deferredPrompt=e;
-      if(!isStandalone()) installCard.style.display='block';
+      if(!isStandalone() && installCard) installCard.style.display='block';
     });
     installBtn?.addEventListener('click',async()=>{
-      if(!deferredPrompt){ iosHint.style.display='block'; return;}
-      deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; installCard.style.display='none';
+      if(!deferredPrompt){ if (iosHint) iosHint.style.display='block'; return;}
+      deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; if (installCard) installCard.style.display='none';
     });
     window.addEventListener('appinstalled',updateBadge);
     document.addEventListener('DOMContentLoaded',updateBadge);
@@ -276,7 +276,8 @@
     toggleAdr?.addEventListener('click',()=>{
       const show = adrEl.style.display==='none' || adrEl.style.display==='';
       adrEl.style.display = show ? 'inline' : 'none';
-      toggleAdr.querySelector('span').textContent = show ? 'Masquer' : 'Afficher';
+      const span = toggleAdr.querySelector('span');
+      if (span) span.textContent = show ? 'Masquer' : 'Afficher';
     });
     copyAdr?.addEventListener('click',async()=>{
       try{ await navigator.clipboard.writeText(CONTRACT); copyAdr.innerHTML='✅ Copié'; setTimeout(()=>copyAdr.innerHTML='📋 Copier',900);}catch(e){}
@@ -288,7 +289,7 @@
     const txt=document.getElementById('contractTxt');
     const copyBtn=document.getElementById('copyBtn');
     revealBtn?.addEventListener('click',()=>{
-      txt.textContent=CONTRACT; wrap.style.display='inline-flex'; revealBtn.style.display='none';
+      txt.textContent=CONTRACT; if (wrap) wrap.style.display='inline-flex'; if (revealBtn) revealBtn.style.display='none';
     });
     copyBtn?.addEventListener('click',async()=>{
       try{ await navigator.clipboard.writeText(CONTRACT); copyBtn.innerHTML='✅ Copié'; setTimeout(()=>copyBtn.innerHTML='📋 Copier',900);}catch(e){}
