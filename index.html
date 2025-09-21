@@ -7,8 +7,8 @@
   <meta name="description" content="SamDoge (SDM) – communauté, roadmap claire, tokenomics transparentes, app installable (PWA), FR/EN/HR." />
   <meta name="theme-color" content="#0a1133" />
 
-  <!-- 🔁 Adresse du contrat (à remplacer) -->
-  <meta name="contract-address" content="0xYOURCONTRACTADDRESSHERE" />
+  <!-- ✅ Adresse du contrat -->
+  <meta name="contract-address" content="0xb02Be67DbfbD500011c5bBB435fEf555AD3f37F8" />
 
   <!-- PWA -->
   <link rel="manifest" href="site.webmanifest" />
@@ -17,7 +17,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
 
-  <!-- 🔥 Social preview -->
+  <!-- Social preview -->
   <link rel="canonical" href="https://samdoge.io/" />
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SamDoge (SDM)">
@@ -36,7 +36,7 @@
   <style>
     :root{
       --bg:#0a1133; --card:#0f1847; --muted:#97a0c3; --accent:#28d17c;
-      --orange:#ff8a00; --txt:#eaf0ff; --txt-strong:#ffffff; --border:rgba(255,255,255,.08);
+      --orange:#ffb547; --txt:#eaf0ff; --txt-strong:#ffffff; --border:rgba(255,255,255,.08);
       --shadow:0 10px 24px rgba(0,0,0,.25); --radius:20px; --gap:18px; --max:1100px;
     }
     *{box-sizing:border-box}
@@ -51,37 +51,23 @@
     .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
     .brand img{width:36px;height:36px;border-radius:10px}
     .brand b{color:var(--txt-strong);letter-spacing:.3px}
-
     .navlinks{display:flex;gap:14px;align-items:center}
     .navlinks a{padding:8px 12px;border:1px solid var(--border);border-radius:999px}
-    .navlinks a.current{outline:2px solid rgba(255,255,255,.18)} /* pour l’onglet courant */
-
-    /* bouton clair = même style que sur tokenomics */
-    .btn-buy{
-      background:#ffffff;color:#0b1020;border:1px solid rgba(255,255,255,.12);
-      padding:8px 14px;border-radius:999px;font-weight:800;text-decoration:none;
-    }
-    .btn-buy:hover{background:#e5e7eb;text-decoration:none}
-
+    .navlinks a.cta{background:linear-gradient(180deg,#2a36a3,#1c277a);border-color:transparent;font-weight:700}
     .langs{display:flex;gap:8px}
     .langs button{padding:8px 12px;border-radius:999px;border:1px solid var(--border);background:#111948;color:var(--txt);cursor:pointer}
     .langs button.active{outline:2px solid var(--accent)}
-
     .hamb{display:none;flex-direction:column;gap:4px;cursor:pointer}
     .hamb span{width:22px;height:2px;background:#eaf0ff;border-radius:2px}
     @media (max-width:820px){
       .navlinks{display:none;position:absolute;left:0;right:0;top:58px;background:#0b153f;padding:12px;border-bottom:1px solid var(--border)}
-      .navlinks.open{display:flex;flex-direction:column;gap:10px}
-      .navlinks a,.btn-buy{width:100%;text-align:center}
-      .langs{justify-content:center}
+      .navlinks.open{display:flex;flex-direction:column}
       .hamb{display:flex}
     }
 
     /* Hero */
     .hero{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--border);margin:16px 0}
-    .hero .banner{
-      width:100%;height:auto;display:block;background:#091035;border-bottom:1px solid var(--border);
-    }
+    .hero .banner{width:100%;height:auto;background:#091035;border-bottom:1px solid var(--border)}
     .hero .content{padding:18px}
     .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
     .chip{font-size:.83rem;padding:6px 10px;background:#121c54;border:1px solid var(--border);border-radius:999px}
@@ -94,24 +80,16 @@
     .muted{color:var(--muted)}
     .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid var(--border);background:#121c54;color:var(--txt);cursor:pointer}
     .btn.primary{background:linear-gradient(180deg,#2a36a3,#1c277a)}
-    .btn.install{background:#121c54}
     .btn:active{transform:translateY(1px)}
     .list{display:grid;gap:8px;margin:10px 0}
     .li{display:flex;gap:10px;align-items:flex-start}
     .li .icon{width:20px}
     .li .txt{flex:1}
     .ok{color:var(--accent)}
-    .orange{color:var(--orange)}
     .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#0b153f;padding:3px 6px;border:1px dashed var(--border);border-radius:8px}
     .socials{display:flex;gap:10px;flex-wrap:wrap}
     .socials a{padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:#121c54}
-    .ios-hint{font-size:.9rem;background:#101a4f;border:1px solid var(--border);padding:10px;border-radius:12px;margin-top:10px;display:none}
     footer{margin:40px 0 30px;color:#9aa8e2;text-align:center}
-
-    /* Desktop : bannière plus compacte */
-    @media (min-width:1024px){
-      .hero .banner{max-height:520px;object-fit:cover;margin:0 auto;}
-    }
   </style>
 </head>
 <body>
@@ -127,16 +105,14 @@
         <span></span><span></span><span></span>
       </div>
 
-      <!-- ✅ MENU UNIFIÉ (pages réelles) -->
       <div class="navlinks" id="navlinks">
-        <a href="index.html" data-i18n="nav_home" class="current">Accueil</a>
-        <a href="tokenomics.html" data-i18n="nav_tokenomics">Tokenomics</a>
-        <a href="staking.html" data-i18n="nav_staking">Staking</a>
-        <a href="roadmap.html" data-i18n="nav_roadmap">Roadmap</a>
-        <a href="stats.html" data-i18n="nav_stats">Statistiques</a>
-        <a href="https://t.me/samdoge" target="_blank" rel="noopener" data-i18n="nav_telegram">Telegram</a>
-        <a class="btn-buy" href="https://pancakeswap.finance/swap?outputCurrency=0xYOURCONTRACTADDRESSHERE" target="_blank" rel="noopener">Acheter SMD</a>
-
+        <a href="tokenomics.html">Tokenomics</a>
+        <a href="#howto">Comment acheter</a>
+        <a href="staking.html">Staking</a>
+        <a href="#roadmap">Feuille de route</a>
+        <a href="#links">Liens officiels</a>
+        <a href="stats.html">Statistiques</a>
+        <a class="cta" id="buyTop" href="#" target="_blank" rel="noopener">Acheter SDM</a>
         <div class="langs">
           <button data-lang="fr" class="active">FR</button>
           <button data-lang="en">EN</button>
@@ -178,34 +154,7 @@
       <div class="card" id="installCard" style="display:none">
         <h3 data-i18n="install_title">Installer l’app SamDoge</h3>
         <p class="muted" data-i18n="install_text">Détectée comme application web. Clique pour installer.</p>
-        <button class="btn install" id="installBtn" data-i18n="install_btn">Installer l’app</button>
-        <div class="ios-hint" id="iosHint" data-i18n="install_ios">
-          Sur iPhone/iPad : Safari → <b>Partager</b> → <b>Ajouter à l’écran d’accueil</b>.
-        </div>
-      </div>
-    </section>
-
-    <!-- Tokenomics -->
-    <section class="card" id="tokenomics">
-      <h3>Tokenomics</h3>
-      <div class="grid">
-        <div>
-          <div class="list">
-            <div class="li"><div class="icon">🪙</div><div class="txt" data-i18n="tok_supply"><b>Offre totale :</b> 1,000,000,000 SDM</div></div>
-            <div class="li"><div class="icon">💧</div><div class="txt" data-i18n="tok_liq"><b>Liquidité (DEX) :</b> 30% – verrouillage prévu</div></div>
-            <div class="li"><div class="icon">🎯</div><div class="txt" data-i18n="tok_presale"><b>Prévente :</b> 30% (PinkSale)</div></div>
-            <div class="li"><div class="icon">🏅</div><div class="txt" data-i18n="tok_stake"><b>Staking / Récompenses :</b> 20%</div></div>
-            <div class="li"><div class="icon">📣</div><div class="txt" data-i18n="tok_mkt"><b>Marketing & Partenariats :</b> 10%</div></div>
-            <div class="li"><div class="icon">🏦</div><div class="txt" data-i18n="tok_treasury"><b>Treasury / Développement :</b> 10%</div></div>
-          </div>
-        </div>
-        <div>
-          <div class="list">
-            <div class="li"><div class="icon">🔒</div><div class="txt" data-i18n="tok_lock">Liquidité verrouillée à la mise en ligne.</div></div>
-            <div class="li"><div class="icon">🧾</div><div class="txt" data-i18n="tok_audit">Audit & KYC prévus avant le listing.</div></div>
-            <div class="li"><div class="icon">⚙️</div><div class="txt" data-i18n="tok_toggle">Taxe activable après la prévente (0% ➜ 5%).slippage après lancement : 5% – 7%</div></div>
-          </div>
-        </div>
+        <button class="btn primary" id="installBtn" data-i18n="install_btn">Installer l’app</button>
       </div>
     </section>
 
@@ -215,11 +164,11 @@
       <ol class="list" style="margin-left:6px">
         <li class="li"><div class="icon">1️⃣</div><div class="txt" data-i18n="buy_1">Installe MetaMask et sélectionne le réseau BNB Smart Chain (BSC).</div></li>
         <li class="li"><div class="icon">2️⃣</div><div class="txt" data-i18n="buy_2">Approvisionne ton wallet en BNB.</div></li>
-        <li class="li"><div class="icon">3️⃣</div><div class="txt" data-i18n="buy_3">Ouvre PancakeSwap et choisis la paire BNB ↔ SDM. (Lien DEX lors du listing)</div></li>
+        <li class="li"><div class="icon">3️⃣</div><div class="txt" data-i18n="buy_3">Ouvre PancakeSwap et choisis la paire BNB ↔ SDM (lien actif au listing).</div></li>
         <li class="li"><div class="icon">4️⃣</div>
           <div class="txt">
             <span data-i18n="buy_4a">Ajoute le contrat SDM :</span>
-            <button class="btn" id="revealBtn"><span class="orange" data-i18n="buy_reveal">Voir l’adresse du contrat</span></button>
+            <button class="btn" id="revealBtn"><span data-i18n="buy_reveal">Voir l’adresse du contrat</span></button>
             <span id="contractWrap" style="display:none">
               <code class="kbd" id="contractTxt"></code>
               <span class="copy" id="copyBtn" title="Copier">📋</span>
@@ -228,6 +177,10 @@
         </li>
         <li class="li"><div class="icon">5️⃣</div><div class="txt" data-i18n="buy_5">Pendant prévente : taxe 0% (slippage 0–1%). Après lancement : taxe 5%.</div></li>
       </ol>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+        <a id="buyBtn" class="btn primary" href="#" target="_blank" rel="noopener">Acheter SDM</a>
+        <a id="chartBtn" class="btn" href="#" target="_blank" rel="noopener">Voir le chart</a>
+      </div>
     </section>
 
     <!-- Roadmap -->
@@ -268,12 +221,13 @@
         </div>
       </div>
     </section>
-<!-- Liens officiels -->
+
+    <!-- Liens officiels -->
     <section class="card" id="links">
       <h3 data-i18n="links_title">Liens officiels</h3>
       <div class="socials">
-        <a href="https://pancakeswap.finance/swap?outputCurrency=0xYOURCONTRACTADDRESSHERE" target="_blank" rel="noopener">Acheter SDM</a>
-        <a href="https://dexscreener.com/bsc/0xYOURCONTRACTADDRESSHERE" target="_blank" rel="noopener">Voir le chart</a>
+        <a id="buyLink"   href="#" target="_blank" rel="noopener">Acheter SDM</a>
+        <a id="chartLink" href="#" target="_blank" rel="noopener">Voir le chart</a>
         <a href="https://github.com/danlel1/samdoge-staking" target="_blank" rel="noopener">GitHub</a>
         <a href="https://SamDoge.io" target="_blank" rel="noopener">SamDoge.io</a>
         <a href="staking.html">Staking</a>
@@ -282,9 +236,9 @@
         <a href="https://www.reddit.com/r/SamDoge" target="_blank" rel="noopener">Reddit</a>
       </div>
     </section>
-    
+
     <footer>
-      © <span id="year"></span> SamDoge • <span class="muted" data-i18n="foot_note">Projet communautaire. Ceci n’est pas un conseil financier.</span>
+      © <span id="year"></span> SamDoge • <span class="muted">Projet communautaire. Ceci n’est pas un conseil financier.</span>
     </footer>
   </div>
 
@@ -293,17 +247,6 @@
     const hamb = document.getElementById('hamb');
     const navlinks = document.getElementById('navlinks');
     hamb.addEventListener('click', () => navlinks.classList.toggle('open'));
-
-    // ---------- Marquage de l'onglet courant
-    (function(){
-      const here = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
-      document.querySelectorAll('#navlinks a[href]').forEach(a=>{
-        const href=a.getAttribute('href');
-        if (!href) return;
-        const page = href.split('#')[0];
-        if (page && page.toLowerCase()===here) a.classList.add('current');
-      });
-    })();
 
     // ---------- Service Worker (PWA)
     if ('serviceWorker' in navigator) {
@@ -316,7 +259,6 @@
     let deferredPrompt = null;
     const installCard = document.getElementById('installCard');
     const installBtn  = document.getElementById('installBtn');
-    const iosHint = document.getElementById('iosHint');
 
     function isStandaloneMode(){
       if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) return true;
@@ -324,24 +266,17 @@
       if (document.referrer && document.referrer.startsWith('android-app://')) return true;
       return false;
     }
-
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault(); deferredPrompt = e;
       if (!isStandaloneMode() && installCard){ installCard.style.display = 'block'; }
     });
-
     installBtn?.addEventListener('click', async () => {
-      if (!deferredPrompt){
-        if (/iphone|ipad|ipod/i.test(navigator.userAgent) && iosHint){ iosHint.style.display='block'; }
-        return;
-      }
+      if (!deferredPrompt) return;
       deferredPrompt.prompt();
       await deferredPrompt.userChoice;
       deferredPrompt = null;
       if (installCard) installCard.style.display = 'none';
     });
-
-    // ---------- Badge "App installée"
     function updateInstallBadge(){
       const el = document.getElementById('installState');
       if (!el) return;
@@ -351,9 +286,23 @@
     window.addEventListener('visibilitychange', updateInstallBadge);
     window.addEventListener('appinstalled', updateInstallBadge);
 
-    // ---------- Contrat : révélation + copie
+    // ---------- Contrat + liens dynamiques
     const meta = document.querySelector('meta[name="contract-address"]');
     const CONTRACT = (meta ? meta.content : '').trim() || '0xYOURCONTRACTADDRESSHERE';
+
+    const buyTop   = document.getElementById('buyTop');
+    const buyBtn   = document.getElementById('buyBtn');
+    const buyLink  = document.getElementById('buyLink');
+    const chartBtn = document.getElementById('chartBtn');
+    const chartLink= document.getElementById('chartLink');
+
+    const PCS = `https://pancakeswap.finance/swap?outputCurrency=${CONTRACT}`;
+    const DEX = `https://dexscreener.com/bsc/token/${CONTRACT}`; // si tu as l'adresse du pair LP, remplace par /bsc/PAIR_ADDRESS
+
+    [buyTop,buyBtn,buyLink].forEach(a=>{ if(a) a.href = PCS; });
+    [chartBtn,chartLink].forEach(a=>{ if(a) a.href = DEX; });
+
+    // Révélation + copie contrat
     const revealBtn = document.getElementById('revealBtn');
     const wrap = document.getElementById('contractWrap');
     const txt = document.getElementById('contractTxt');
@@ -370,71 +319,43 @@
 
     // ---------- I18N FR/EN/HR
     const dict = {
-      fr:{nav_home:"Accueil", nav_tokenomics:"Tokenomics", nav_staking:"Staking", nav_roadmap:"Feuille de route", nav_stats:"Statistiques", nav_telegram:"Telegram",
-        hero_title:"SamDoge – La mascotte de la communauté",
-        hero_sub:"Un meme coin fun, transparent et utile. Installe l’app, choisis ta langue et rejoins l’aventure SDM.",
-        tax_title:"Paramètres de taxe", tax_now:"Actuellement : <b>0%</b> (prévente / avant listing)", tax_after:"Après lancement DEX : <b>5%</b> total (achat/vente/transfer)", tax_note:"Slippage conseillé après lancement : 5–7%.",
-        install_title:"Installer l’app SamDoge", install_text:"Détectée comme application web. Clique pour installer.", install_btn:"Installer l’app", install_ios:"Sur iPhone/iPad : Safari → Partager → Ajouter à l’écran d’accueil.",
-        tok_supply:"Offre totale : 1,000,000,000 SDM", tok_liq:"Liquidité (DEX) : 30% – verrouillage prévu", tok_presale:"Prévente : 30% (PinkSale)", tok_stake:"Staking / Récompenses : 20%", tok_mkt:"Marketing & Partenariats : 10%", tok_treasury:"Treasury / Développement : 10%",
-        tok_lock:"Liquidité verrouillée à la mise en ligne.", tok_audit:"Audit & KYC prévus avant le listing.", tok_toggle:"Taxe activable après la prévente (0% ➜ 5%).",
-        buy_title:"Comment acheter",
-        buy_1:"Installe MetaMask et sélectionne le réseau BNB Smart Chain (BSC).",
-        buy_2:"Approvisionne ton wallet en BNB.",
-        buy_3:"Ouvre PancakeSwap et choisis la paire BNB ↔ SDM. (Lien DEX lors du listing)",
-        buy_4a:"Ajoute le contrat SDM :",
-        buy_reveal:"Voir l’adresse du contrat",
-        buy_5:"Pendant prévente : taxe 0% (slippage 0–1%). Après lancement : taxe 5% (slippage 5–7%).",
-        road_title:"Feuille de route",
-        r1_1:"Token SDM créé", r1_2:"Token SDM déployé", r1_3:"Site web créé", r1_4:"Réseaux sociaux ouverts",
-        r2_1:"Audit & KYC", r2_2:"Prévente bientôt sur PinkSale", r2_3:"Verrouillage de liquidité", r2_4:"Campagne marketing initiale",
-        r3_1:"Listing PancakeSwap", r3_2:"Staking en ligne (voir onglet Staking)", r3_3:"Demandes CMC / CoinGecko", r3_4:"Partenariats & événements communauté",
-        links_title:"Liens officiels",
-        foot_note:"Projet communautaire. Ceci n’est pas un conseil financier."
+      fr:{hero_title:"SamDoge – La mascotte de la communauté", hero_sub:"Un meme coin fun, transparent et utile. Installe l’app, choisis ta langue et rejoins l’aventure SDM.",
+          tax_title:"Paramètres de taxe", tax_now:"Actuellement : <b>0%</b> (prévente / avant listing)", tax_after:"Après lancement DEX : <b>5%</b> total (achat/vente/transfer)", tax_note:"Slippage conseillé après lancement : 5–7%.",
+          install_title:"Installer l’app SamDoge", install_text:"Détectée comme application web. Clique pour installer.", install_btn:"Installer l’app",
+          buy_title:"Comment acheter", buy_1:"Installe MetaMask et sélectionne le réseau BNB Smart Chain (BSC).", buy_2:"Approvisionne ton wallet en BNB.",
+          buy_3:"Ouvre PancakeSwap et choisis la paire BNB ↔ SDM (lien actif au listing).", buy_4a:"Ajoute le contrat SDM :", buy_reveal:"Voir l’adresse du contrat",
+          buy_5:"Pendant prévente : taxe 0% (slippage 0–1%). Après lancement : taxe 5%.",
+          road_title:"Feuille de route",
+          r1_1:"Token SDM créé", r1_2:"Token SDM déployé", r1_3:"Site web créé", r1_4:"Réseaux sociaux ouverts",
+          r2_1:"Audit & KYC", r2_2:"Prévente bientôt sur PinkSale", r2_link:"lien bientôt", r2_3:"Verrouillage de liquidité", r2_4:"Campagne marketing initiale",
+          r3_1:"Listing PancakeSwap", r3_2:"Staking en ligne (voir onglet Staking)", r3_3:"Demandes CMC / CoinGecko", r3_4:"Partenariats & événements communauté",
+          links_title:"Liens officiels"
       },
-      en:{nav_home:"Home", nav_tokenomics:"Tokenomics", nav_staking:"Staking", nav_roadmap:"Roadmap", nav_stats:"Stats", nav_telegram:"Telegram",
-        hero_title:"SamDoge – The community mascot",
-        hero_sub:"A fun, transparent and useful meme coin. Install the app, pick your language and join SDM.",
-        tax_title:"Tax parameters", tax_now:"Currently: <b>0%</b> (presale / before listing)", tax_after:"After DEX launch: <b>5%</b> total (buy/sell/transfer)", tax_note:"Suggested slippage after launch: 5–7%.",
-        install_title:"Install SamDoge App", install_text:"Web app detected. Tap to install.", install_btn:"Install app", install_ios:"On iPhone/iPad: Safari → Share → Add to Home Screen.",
-        tok_supply:"Total supply: 1,000,000,000 SDM", tok_liq:"Liquidity (DEX): 30% – to be locked", tok_presale:"Presale: 30% (PinkSale)", tok_stake:"Staking / Rewards: 20%", tok_mkt:"Marketing & Partnerships: 10%", tok_treasury:"Treasury / Development: 10%",
-        tok_lock:"Liquidity locked at launch.", tok_audit:"Audit & KYC planned pre-listing.", tok_toggle:"Tax toggled after presale (0% ➜ 5%).",
-        buy_title:"How to buy",
-        buy_1:"Install MetaMask and switch to BNB Smart Chain (BSC).",
-        buy_2:"Fund your wallet with BNB.",
-        buy_3:"Open PancakeSwap and choose BNB ↔ SDM. (DEX link on listing)",
-        buy_4a:"Add the SDM contract:",
-        buy_reveal:"Reveal contract address",
-        buy_5:"During presale: 0% tax (0–1% slippage). After launch: 5% tax (5–7% slippage).",
-        road_title:"Roadmap",
-        r1_1:"SDM token created", r1_2:"SDM token deployed", r1_3:"Website created", r1_4:"Socials opened",
-        r2_1:"Audit & KYC", r2_2:"Presale soon on PinkSale", r2_3:"Liquidity lock", r2_4:"Initial marketing",
-        r3_1:"PancakeSwap listing", r3_2:"Staking live (see Staking tab)", r3_3:"CMC / CoinGecko requests", r3_4:"Partnerships & community events",
-        links_title:"Official links",
-        foot_note:"Community project. Not financial advice."
+      en:{hero_title:"SamDoge – The community mascot", hero_sub:"A fun, transparent and useful meme coin. Install the app, pick your language and join SDM.",
+          tax_title:"Tax parameters", tax_now:"Currently: <b>0%</b> (presale / before listing)", tax_after:"After DEX launch: <b>5%</b> total (buy/sell/transfer)", tax_note:"Suggested slippage after launch: 5–7%.",
+          install_title:"Install SamDoge App", install_text:"Web app detected. Tap to install.", install_btn:"Install app",
+          buy_title:"How to buy", buy_1:"Install MetaMask and switch to BNB Smart Chain (BSC).", buy_2:"Fund your wallet with BNB.",
+          buy_3:"Open PancakeSwap and choose BNB ↔ SDM (link live on listing).", buy_4a:"Add the SDM contract:", buy_reveal:"Reveal contract address",
+          buy_5:"During presale: 0% tax (0–1% slippage). After launch: 5% tax.",
+          road_title:"Roadmap",
+          r1_1:"SDM token created", r1_2:"SDM token deployed", r1_3:"Website created", r1_4:"Socials opened",
+          r2_1:"Audit & KYC", r2_2:"Presale soon on PinkSale", r2_link:"link soon", r2_3:"Liquidity lock", r2_4:"Initial marketing",
+          r3_1:"PancakeSwap listing", r3_2:"Staking live (see Staking tab)", r3_3:"CMC / CoinGecko requests", r3_4:"Partnerships & community events",
+          links_title:"Official links"
       },
-      hr:{nav_home:"Početna", nav_tokenomics:"Tokenomika", nav_staking:"Staking", nav_roadmap:"Plan puta", nav_stats:"Statistika", nav_telegram:"Telegram",
-        hero_title:"SamDoge – maskota zajednice",
-        hero_sub:"Zabavan, transparentan i koristan meme coin. Instaliraj aplikaciju, odaberi jezik i pridruži se SDM-u.",
-        tax_title:"Postavke poreza", tax_now:"Trenutno: <b>0%</b> (pretprodaja / prije listinga)", tax_after:"Nakon DEX lansiranja: <b>5%</b> ukupno (kupnja/prodaja/prijenos)", tax_note:"Preporučeni slippage nakon lansiranja: 5–7%.",
-        install_title:"Instaliraj SamDoge aplikaciju", install_text:"Web aplikacija je otkrivena. Klikni za instalaciju.", install_btn:"Instaliraj", install_ios:"Na iPhone/iPad: Safari → Dijeli → Dodaj na početni zaslon.",
-        tok_supply:"Ukupna ponuda: 1,000,000,000 SDM", tok_liq:"Likvidnost (DEX): 30% – bit će zaključana", tok_presale:"Pretprodaja: 30% (PinkSale)", tok_stake:"Staking / Nagrade: 20%", tok_mkt:"Marketing i partnerstva: 10%", tok_treasury:"Riznica / Razvoj: 10%",
-        tok_lock:"Likvidnost se zaključava pri lansiranju.", tok_audit:"Audit i KYC planirani prije listinga.", tok_toggle:"Porez se uključuje nakon pretprodaje (0% ➜ 5%).",
-        buy_title:"Kako kupiti",
-        buy_1:"Instaliraj MetaMask i prebaci na BNB Smart Chain (BSC).",
-        buy_2:"Nadopuni novčanik s BNB.",
-        buy_3:"Otvori PancakeSwap i odaberi par BNB ↔ SDM. (link pri listingu)",
-        buy_4a:"Dodaj SDM ugovor:",
-        buy_reveal:"Prikaži adresu ugovora",
-        buy_5:"Tijekom pretprodaje: 0% porez (0–1% slippage). Nakon lansiranja: 5% (5–7% slippage).",
-        road_title:"Plan puta",
-        r1_1:"SDM token kreiran", r1_2:"SDM token implementiran", r1_3:"Web stranica izrađena", r1_4:"Otvorene društvene mreže",
-        r2_1:"Audit i KYC", r2_2:"Pretprodaja uskoro na PinkSale", r2_3:"Zaključavanje likvidnosti", r2_4:"Početni marketing",
-        r3_1:"PancakeSwap listing", r3_2:"Staking aktivan (kartica Staking)", r3_3:"CMC / CoinGecko zahtjevi", r3_4:"Partnerstva i događaji zajednice",
-        links_title:"Službene veze",
-        foot_note:"Zajednički projekt. Nije financijski savjet."
+      hr:{hero_title:"SamDoge – maskota zajednice", hero_sub:"Zabavan, transparentan i koristan meme coin. Instaliraj aplikaciju i pridruži se SDM-u.",
+          tax_title:"Postavke poreza", tax_now:"Trenutno: <b>0%</b> (pretprodaja / prije listinga)", tax_after:"Nakon DEX lansiranja: <b>5%</b> ukupno", tax_note:"Preporučen slippage: 5–7%.",
+          install_title:"Instaliraj SamDoge aplikaciju", install_text:"Web aplikacija otkrivena. Klikni za instalaciju.", install_btn:"Instaliraj",
+          buy_title:"Kako kupiti", buy_1:"Instaliraj MetaMask i prebaci na BSC.", buy_2:"Nadopuni novčanik s BNB.",
+          buy_3:"Otvori PancakeSwap i odaberi BNB ↔ SDM (link pri listingu).", buy_4a:"Dodaj SDM ugovor:", buy_reveal:"Prikaži adresu ugovora",
+          buy_5:"Tijekom pretprodaje: 0% porez. Nakon lansiranja: 5%.",
+          road_title:"Plan puta",
+          r1_1:"SDM token kreiran", r1_2:"SDM token implementiran", r1_3:"Web stranica izrađena", r1_4:"Otvorene društvene mreže",
+          r2_1:"Audit i KYC", r2_2:"Pretprodaja uskoro na PinkSale", r2_link:"uskoro link", r2_3:"Zaključavanje likvidnosti", r2_4:"Početni marketing",
+          r3_1:"PancakeSwap listing", r3_2:"Staking aktivan", r3_3:"CMC / CoinGecko zahtjevi", r3_4:"Partnerstva i događaji zajednice",
+          links_title:"Službene veze"
       }
     };
-
     function applyLang(lang){
       const strings = dict[lang] || dict.fr;
       document.documentElement.lang = lang;
