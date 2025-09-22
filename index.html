@@ -31,34 +31,32 @@
     .brand{display:flex;align-items:center;gap:10px}
     .brand img{width:36px;height:36px;border-radius:10px}
     .brand b{letter-spacing:.2px}
-
-    /* Hamburger visible partout (desktop + mobile) */
-    .hamb{display:flex;flex-direction:column;gap:4px;cursor:pointer}
-    .hamb span{width:22px;height:2px;background:var(--txt);border-radius:2px}
-
-    /* Menu replié par défaut */
-    .navlinks{
-      display:none; position:absolute; left:0; right:0; top:58px;
-      background:#0b153f; border-bottom:1px solid var(--border); padding:12px;
-      flex-direction:column; align-items:stretch; gap:10px;
-    }
-    .navlinks.open{display:flex}
-    .navlinks a{padding:8px 12px;border:1px solid var(--border);border-radius:999px;background:#121c54}
+    .navlinks{display:flex;align-items:center;gap:10px}
+    .navlinks a{padding:8px 12px;border:1px solid var(--border);border-radius:999px;background:#121c54;display:inline-flex;align-items:center;gap:6px}
+    .navlinks a .badge{font-size:.75rem;background:#1a2466;border:1px solid var(--border);padding:2px 6px;border-radius:999px;color:#aecdff}
     .navlinks a.active{outline:2px solid var(--green)}
     .langs{display:flex;gap:6px;margin-left:6px}
     .langs button{padding:8px 10px;border-radius:999px;border:1px solid var(--border);background:#121c54;color:var(--txt);cursor:pointer}
     .langs button.active{outline:2px solid var(--green)}
-
-    /* Badge visiteurs */
-    .badge{
-      display:inline-flex;align-items:center;gap:6px;margin-left:8px;
-      padding:2px 8px;border-radius:999px;background:#0f1847;border:1px solid var(--border);
-      font-size:.85rem;color:#cfe1ff
+    .hamb{display:none;flex-direction:column;gap:4px;cursor:pointer}
+    .hamb span{width:22px;height:2px;background:var(--txt);border-radius:2px}
+    @media (max-width:860px){
+      .navlinks{display:none;position:absolute;left:0;right:0;top:58px;background:#0b153f;border-bottom:1px solid var(--border);padding:12px}
+      .navlinks.open{display:flex;flex-direction:column;align-items:stretch}
+      .hamb{display:flex}
     }
 
     /* Blocks */
     .hero{border-radius:var(--r);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);margin:16px 0}
-    .hero img{width:100%;height:auto;background:#091035}
+    .hero img{
+      width:100%;
+      height:auto;
+      background:#091035;
+      object-fit:cover;
+    }
+    @media (min-width:861px){
+      .hero img{max-height:450px;object-fit:cover;}
+    }
     .hero .txt{padding:18px}
     .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
     .chip{font-size:.85rem;padding:6px 10px;border:1px solid var(--border);border-radius:999px;background:#121c54}
@@ -79,23 +77,17 @@
     <div class="nav wrap">
       <a class="brand" href="index.html"><img src="logo.png" alt="SamDoge"><b>SamDoge (SMD)</b></a>
 
-      <div class="hamb" id="hamb" aria-label="Menu"><span></span><span></span><span></span></div>
+      <div class="hamb" id="hamb"><span></span><span></span><span></span></div>
 
       <!-- MENU (ordre alphabétique FR) -->
       <nav class="navlinks" id="navlinks">
         <a href="#howto" data-i18n="nav_how">Comment acheter</a>
         <a href="#roadmap" data-i18n="nav_roadmap">Feuille de route</a>
         <a href="#links" data-i18n="nav_links">Liens officiels</a>
-        <a href="staking.html" data-i18n="nav_staking">Staking</a>
-        <a href="#stats" data-i18n="nav_stats">Statistiques</a>
-        <a href="stats.html" data-i18n="nav_stats_page">Stats</a>
+        <a href="#stats" data-i18n="nav_stats" id="statsLink">Statistiques <span class="badge" id="visitsBadge">—</span></a>
+        <a href="#staking" data-i18n="nav_staking">Staking</a>
         <a href="tokenomics.html" data-i18n="nav_tokenomics">Tokenomics</a>
-
-        <!-- Badge visiteurs (global si possible, sinon local) -->
-        <span class="badge" id="visitBadge" title="Nombre de visiteurs">
-          👥 <span id="visitCount">—</span>
-        </span>
-
+        <a href="stats.html" title="Stats détaillées">Stats.html</a>
         <div class="langs">
           <button data-lang="fr" class="active">FR</button>
           <button data-lang="en">EN</button>
@@ -228,6 +220,14 @@
       </div>
     </section>
 
+    <!-- STAKING (section interne) -->
+    <section class="card" id="staking">
+      <h3 data-i18n="nav_staking">Staking</h3>
+      <p class="muted">Le staking SMD arrive très vite. Récompenses prévues : 20% de l’offre totale dédiées sur plusieurs pools. Restez connectés !</p>
+      <!-- Si tu as déjà le dApp, tu peux ajouter un iframe ici plus tard -->
+      <!-- <iframe src="https://app.samdoge.io/staking" title="Staking SMD" style="width:100%;height:560px;border:1px solid var(--border);border-radius:12px"></iframe> -->
+    </section>
+
     <!-- LIENS OFFICIELS (ordre alphabétique) -->
     <section class="card" id="links">
       <h3 data-i18n="links_title">Liens officiels</h3>
@@ -241,10 +241,15 @@
       </ul>
     </section>
 
-    <!-- STATS (placeholder) -->
+    <!-- STATS -->
     <section class="card" id="stats">
       <h3>Statistiques</h3>
-      <p class="muted">À venir : widgets prix, MC, holders…</p>
+      <ul style="margin:0;padding-left:18px;line-height:1.9">
+        <li>👥 <b>Visiteurs uniques</b> : <span id="visitorsCount">—</span></li>
+        <li>🪙 <b>Offre totale</b> : 1 000 000 000 SMD</li>
+        <li>⚙️ <b>Taxe post-lancement</b> : 5% (achat/vente/transfert)</li>
+      </ul>
+      <p class="muted" style="margin-top:10px">Le compteur utilise un service public (CountAPI). Il incrémente une fois par navigateur.</p>
     </section>
 
     <footer>
@@ -253,23 +258,36 @@
   </div>
 
   <script>
-    // ====== Menu hamburger
+    // ====== Menu mobile
     const hamb=document.getElementById('hamb');
     const navlinks=document.getElementById('navlinks');
     hamb.addEventListener('click',()=>navlinks.classList.toggle('open'));
-    navlinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navlinks.classList.remove('open')));
-    document.addEventListener('click',(e)=>{ if(!navlinks.contains(e.target)&&!hamb.contains(e.target)) navlinks.classList.remove('open'); });
 
     // ====== PWA install
     let deferredPrompt=null;
     const installCard=document.getElementById('installCard');
     const installBtn=document.getElementById('installBtn');
     const iosHint=document.getElementById('iosHint');
-    const isStandalone=()=> (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone;
-    const updateBadge=()=>{ const b=document.getElementById('installState'); if (b) b.textContent=isStandalone()?'App : installée ✅':'App : non installée'; };
-    window.addEventListener('beforeinstallprompt',e=>{ e.preventDefault(); deferredPrompt=e; if(!isStandalone() && installCard) installCard.style.display='block'; });
-    installBtn?.addEventListener('click',async()=>{ if(!deferredPrompt){ if(iosHint) iosHint.style.display='block'; return; } deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; if(installCard) installCard.style.display='none'; });
-    window.addEventListener('appinstalled',updateBadge); document.addEventListener('DOMContentLoaded',updateBadge);
+
+    function isStandalone(){
+      if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) return true;
+      if (navigator.standalone) return true;
+      return false;
+    }
+    function updateBadge(){
+      const b=document.getElementById('installState');
+      if (b) b.textContent = isStandalone() ? 'App : installée ✅' : 'App : non installée';
+    }
+    window.addEventListener('beforeinstallprompt',e=>{
+      e.preventDefault(); deferredPrompt=e;
+      if(!isStandalone() && installCard) installCard.style.display='block';
+    });
+    installBtn?.addEventListener('click',async()=>{
+      if(!deferredPrompt){ if (iosHint) iosHint.style.display='block'; return;}
+      deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; if (installCard) installCard.style.display='none';
+    });
+    window.addEventListener('appinstalled',updateBadge);
+    document.addEventListener('DOMContentLoaded',updateBadge);
 
     // ====== Adresse (afficher/masquer + copier)
     const adrEl=document.getElementById('adr');
@@ -277,20 +295,32 @@
     const copyAdr=document.getElementById('copyAdr');
     const CONTRACT=(document.querySelector('meta[name="contract-address"]')?.content||'').trim();
     if (adrEl) adrEl.textContent = CONTRACT;
-    toggleAdr?.addEventListener('click',()=>{ const show=adrEl.style.display==='none'||adrEl.style.display===''; adrEl.style.display=show?'inline':'none'; const s=toggleAdr.querySelector('span'); if(s) s.textContent=show?'Masquer':'Afficher'; });
-    copyAdr?.addEventListener('click',async()=>{ try{ await navigator.clipboard.writeText(CONTRACT); copyAdr.innerHTML='✅ Copié'; setTimeout(()=>copyAdr.innerHTML='📋 Copier',900);}catch(e){} });
+
+    toggleAdr?.addEventListener('click',()=>{
+      const show = adrEl.style.display==='none' || adrEl.style.display==='';
+      adrEl.style.display = show ? 'inline' : 'none';
+      const span = toggleAdr.querySelector('span');
+      if (span) span.textContent = show ? 'Masquer' : 'Afficher';
+    });
+    copyAdr?.addEventListener('click',async()=>{
+      try{ await navigator.clipboard.writeText(CONTRACT); copyAdr.innerHTML='✅ Copié'; setTimeout(()=>copyAdr.innerHTML='📋 Copier',900);}catch(e){}
+    });
 
     // ====== Comment acheter : révélation + copie
     const revealBtn=document.getElementById('revealBtn');
     const wrap=document.getElementById('contractWrap');
     const txt=document.getElementById('contractTxt');
     const copyBtn=document.getElementById('copyBtn');
-    revealBtn?.addEventListener('click',()=>{ txt.textContent=CONTRACT; if(wrap) wrap.style.display='inline-flex'; if(revealBtn) revealBtn.style.display='none'; });
-    copyBtn?.addEventListener('click',async()=>{ try{ await navigator.clipboard.writeText(CONTRACT); copyBtn.innerHTML='✅ Copié'; setTimeout(()=>copyBtn.innerHTML='📋 Copier',900);}catch(e){} });
+    revealBtn?.addEventListener('click',()=>{
+      txt.textContent=CONTRACT; if (wrap) wrap.style.display='inline-flex'; if (revealBtn) revealBtn.style.display='none';
+    });
+    copyBtn?.addEventListener('click',async()=>{
+      try{ await navigator.clipboard.writeText(CONTRACT); copyBtn.innerHTML='✅ Copié'; setTimeout(()=>copyBtn.innerHTML='📋 Copier',900);}catch(e){}
+    });
 
     // ====== I18N
     const dict={
-      fr:{nav_how:"Comment acheter",nav_roadmap:"Feuille de route",nav_links:"Liens officiels",nav_stats:"Statistiques",nav_stats_page:"Stats",nav_staking:"Staking",nav_tokenomics:"Tokenomics",
+      fr:{nav_how:"Comment acheter",nav_roadmap:"Feuille de route",nav_links:"Liens officiels",nav_stats:"Statistiques",nav_staking:"Staking",nav_tokenomics:"Tokenomics",
         hero_title:"SamDoge — La mascotte de la communauté",hero_sub:"Un meme coin fun, transparent et utile. Installe l’app, choisis ta langue et rejoins l’aventure SMD.",
         quick_title:"Actions rapides",quick_buy:"Acheter sur PancakeSwap",quick_chart:"Voir le chart (Dexscreener)",quick_contract:"Adresse du contrat :",show:"Afficher",copy:"Copier",
         param_supply:"Offre totale",param_lp:"LP initial",param_lock:"lock prévu",param_tax:"Taxe après lancement",
@@ -299,7 +329,7 @@
         buy_4a:"Ajoute le contrat SMD :",buy_5:"Pendant prévente : 0%. Après lancement : 5% (slippage 5–7%).",
         road_title:"Feuille de route",links_title:"Liens officiels",foot_note:"Projet communautaire. Ceci n’est pas un conseil financier."
       },
-      en:{nav_how:"How to buy",nav_roadmap:"Roadmap",nav_links:"Official links",nav_stats:"Statistics",nav_stats_page:"Stats",nav_staking:"Staking",nav_tokenomics:"Tokenomics",
+      en:{nav_how:"How to buy",nav_roadmap:"Roadmap",nav_links:"Official links",nav_stats:"Statistics",nav_staking:"Staking",nav_tokenomics:"Tokenomics",
         hero_title:"SamDoge — The community mascot",hero_sub:"A fun, transparent and useful meme coin. Install the app, pick your language and join SMD.",
         quick_title:"Quick actions",quick_buy:"Buy on PancakeSwap",quick_chart:"View chart (Dexscreener)",quick_contract:"Contract address:",show:"Show",copy:"Copy",
         param_supply:"Total supply",param_lp:"Initial LP",param_lock:"to be locked",param_tax:"Post-launch tax",
@@ -308,7 +338,7 @@
         buy_4a:"Add the SMD contract:",buy_5:"During presale: 0%. After launch: 5% (5–7% slippage).",
         road_title:"Roadmap",links_title:"Official links",foot_note:"Community project. Not financial advice."
       },
-      hr:{nav_how:"Kako kupiti",nav_roadmap:"Plan puta",nav_links:"Službene veze",nav_stats:"Statistika",nav_stats_page:"Statistika",nav_staking:"Staking",nav_tokenomics:"Tokenomika",
+      hr:{nav_how:"Kako kupiti",nav_roadmap:"Plan puta",nav_links:"Službene veze",nav_stats:"Statistika",nav_staking:"Staking",nav_tokenomics:"Tokenomika",
         hero_title:"SamDoge — maskota zajednice",hero_sub:"Zabavan, transparentan i koristan meme coin. Instaliraj aplikaciju i pridruži se SMD-u.",
         quick_title:"Brze akcije",quick_buy:"Kupi na PancakeSwapu",quick_chart:"Pogledaj graf (Dexscreener)",quick_contract:"Adresa ugovora:",show:"Prikaži",copy:"Kopiraj",
         param_supply:"Ukupna ponuda",param_lp:"Početni LP",param_lock:"bit će zaključan",param_tax:"Porez nakon lansiranja",
@@ -327,30 +357,29 @@
     const saved=localStorage.getItem('smd_lang')||'fr'; applyLang(saved);
     document.querySelectorAll('.langs button').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));
 
-    // ====== Compteur visiteurs
-    // 1) essai "global" via CountAPI (zéro setup) — change le namespace si tu veux
-    const BADGE=document.getElementById('visitCount');
-    async function tryCountAPI(){
-      try{
-        const ns='samdoge.io'; const key='global-visitors';
-        const r=await fetch(`https://api.countapi.xyz/hit/${encodeURIComponent(ns)}/${encodeURIComponent(key)}`);
-        if(!r.ok) throw new Error('countapi fail');
-        const data=await r.json();
-        if (typeof data.value==='number'){ BADGE.textContent=data.value.toLocaleString('fr-FR'); return true; }
-      }catch(_){ /* ignore */ }
-      return false;
-    }
-    // 2) fallback local (visites sur cet appareil)
-    function localFallback(){
-      const k='smd_local_visits';
-      const n=(parseInt(localStorage.getItem(k)||'0',10)||0)+1;
-      localStorage.setItem(k,String(n));
-      BADGE.textContent=`~${n.toLocaleString('fr-FR')}`;
-    }
-    (async()=>{ const ok=await tryCountAPI(); if(!ok) localFallback(); })();
-
     // Année footer
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ====== Compteur de visiteurs (CountAPI)
+    // Namespace/key personnalisés pour samdoge.io :
+    const COUNT_NS = 'samdoge.io';
+    const COUNT_KEY = 'visits';
+    async function updateVisits(){
+      try{
+        // incrémente 1 fois par visite (compteur global)
+        const r = await fetch(`https://api.countapi.xyz/hit/${COUNT_NS}/${COUNT_KEY}`);
+        const data = await r.json();
+        const n = data?.value ?? '—';
+        const el = document.getElementById('visitorsCount');
+        if (el) el.textContent = n.toLocaleString('fr-FR');
+        const badge = document.getElementById('visitsBadge');
+        if (badge) badge.textContent = n.toLocaleString('fr-FR');
+      }catch(e){
+        const el = document.getElementById('visitorsCount');
+        if (el) el.textContent = 'N/A';
+      }
+    }
+    updateVisits();
   </script>
 </body>
 </html>
