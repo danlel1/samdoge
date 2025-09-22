@@ -30,12 +30,6 @@
     .hamb{display:flex;flex-direction:column;gap:4px;cursor:pointer}
     .hamb span{width:22px;height:2px;background:var(--txt);border-radius:2px}
 
-    /* mini switcher langue dans la topbar (desktop) */
-    .top-langs{display:none;gap:6px;align-items:center}
-    .top-langs button{padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:#121c54;color:var(--txt);cursor:pointer}
-    .top-langs button.active{outline:2px solid #2ad07c}
-    @media (min-width:981px){ .top-langs{display:flex} }
-
     /* Drawer (hamburger) */
     .drawer-back{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:.2s;z-index:69}
     .drawer{position:fixed;top:0;right:-320px;height:100vh;width:320px;max-width:92vw;background:#0b153f;border-left:1px solid var(--border);box-shadow:var(--shadow);padding:16px;display:flex;flex-direction:column;gap:12px;z-index:71;transition:right .23s ease}
@@ -69,6 +63,10 @@
     .desktop-only{display:none}
     .mobile-only{display:block}
     @media (min-width:981px){ .desktop-only{display:block} .mobile-only{display:none} }
+
+    /* bloc facts à droite */
+    .facts-row{display:flex;justify-content:flex-end}
+    .facts-card{max-width:520px;width:100%}
   </style>
 </head>
 <body>
@@ -76,13 +74,7 @@
   <div class="topbar">
     <div class="nav wrap">
       <a class="brand" href="index.html"><img src="logo.png" alt="SamDoge"><b>SamDoge (SMD)</b></a>
-
-      <div class="top-langs" id="topLangs">
-        <button data-lang="fr" class="active">FR</button>
-        <button data-lang="en">EN</button>
-        <button data-lang="hr">HR</button>
-      </div>
-
+      <!-- plus de sélecteur langue dans la topbar -->
       <div class="hamb" id="hamb" aria-label="Menu"><span></span><span></span><span></span></div>
     </div>
   </div>
@@ -90,7 +82,7 @@
   <!-- Drawer -->
   <div class="drawer-back" id="drawerBack"></div>
   <aside class="drawer" id="drawer">
-    <!-- Langues en HAUT du menu (mobile) -->
+    <!-- Langues en haut du menu -->
     <div class="langs-row" id="drawerLangs">
       <button data-lang="fr" class="active">FR</button>
       <button data-lang="en">EN</button>
@@ -120,14 +112,16 @@
       </div>
     </section>
 
-    <!-- NOUVEAU BLOC (desktop) : les 3 lignes déplacées sous la photo -->
-    <section class="card desktop-only" id="facts">
-      <ul style="list-style:none;padding:0;margin:0;display:grid;gap:8px">
-        <li>🟡 <b data-i18n="param_supply">Offre totale</b> : 1,000,000,000 SMD</li>
-        <li>💧 <b data-i18n="param_lp">LP initial</b> : 30% • <span data-i18n="param_lock">lock prévu</span></li>
-        <li>⚙️ <b data-i18n="param_tax">Taxe après lancement</b> : 5% (achat/vente/transfert)</li>
-      </ul>
-    </section>
+    <!-- BLOC DÉPLACÉ & ALIGNÉ À DROITE (desktop) -->
+    <div class="facts-row desktop-only">
+      <section class="card facts-card" id="facts">
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:8px">
+          <li>🟡 <b data-i18n="param_supply">Offre totale</b> : 1,000,000,000 SMD</li>
+          <li>💧 <b data-i18n="param_lp">LP initial</b> : 30% • <span data-i18n="param_lock">lock prévu</span></li>
+          <li>⚙️ <b data-i18n="param_tax">Taxe après lancement</b> : 5% (achat/vente/transfert)</li>
+        </ul>
+      </section>
+    </div>
 
     <!-- ACTIONS RAPIDES -->
     <section class="grid">
@@ -148,7 +142,7 @@
           </div>
         </div>
 
-        <!-- VERSION MOBILE SEULEMENT des 3 lignes (plus de doublon desktop) -->
+        <!-- VERSION MOBILE de “Offre / LP / Taxe” (pas de doublon desktop) -->
         <hr class="mobile-only">
         <ul class="mobile-only" style="list-style:none;padding:0;margin:0;display:grid;gap:8px">
           <li>🟡 <b data-i18n="param_supply">Offre totale</b> : 1,000,000,000 SMD</li>
@@ -332,20 +326,16 @@
     function applyLang(lang){
       const t=dict[lang]||dict.fr; document.documentElement.lang=lang;
       document.querySelectorAll('[data-i18n]').forEach(el=>{ const k=el.getAttribute('data-i18n'); if(t[k]) el.innerHTML=t[k]; });
-      // synchro boutons (topbar + drawer)
       document.querySelectorAll('[data-lang]').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
       localStorage.setItem('smd_lang',lang);
     }
     const saved=localStorage.getItem('smd_lang')||'fr'; applyLang(saved);
 
-    // listeners langue (topbar + drawer)
-    function hookLang(containerId){
-      const root=document.getElementById(containerId);
-      root?.querySelectorAll('button[data-lang]').forEach(b=>{
-        b.addEventListener('click',()=>applyLang(b.dataset.lang));
-      });
-    }
-    hookLang('topLangs'); hookLang('drawerLangs');
+    // boutons langue (uniquement dans le drawer)
+    const drawerLangs=document.getElementById('drawerLangs');
+    drawerLangs?.querySelectorAll('button[data-lang]').forEach(b=>{
+      b.addEventListener('click',()=>applyLang(b.dataset.lang));
+    });
 
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
