@@ -8,61 +8,47 @@
   <meta name="theme-color" content="#0a1133" />
   <link rel="icon" href="favicon.ico" />
   <link rel="canonical" href="https://samdoge.io/" />
-
   <!-- Adresse du contrat -->
   <meta name="contract-address" content="0xb02Be67DbfbD500011c5bBB435fEf555AD3f37F8" />
 
   <style>
     :root{
       --bg:#0a1133; --card:#0f1847; --soft:#101a4f; --muted:#9aa8e2;
-      --txt:#eaf0ff; --white:#fff; --green:#2ad07c;
+      --txt:#eaf0ff; --white:#fff; --green:#2ad07c; --amber:#f6b352;
       --border:rgba(255,255,255,.08); --shadow:0 10px 24px rgba(0,0,0,.25);
       --r:18px; --max:1100px; --gap:18px;
     }
-    *{box-sizing:border-box}
-    html,body{margin:0;background:var(--bg);color:var(--txt);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
-    a{color:#c9d6ff;text-decoration:none}
-    img{max-width:100%;display:block}
+    *{box-sizing:border-box} html,body{margin:0;background:var(--bg);color:var(--txt);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+    a{color:#c9d6ff;text-decoration:none} img{max-width:100%;display:block}
     .wrap{max-width:var(--max);margin:0 auto;padding:20px}
 
     /* Topbar */
-    .topbar{position:sticky;top:0;z-index:60;background:rgba(10,17,51,.7);backdrop-filter:saturate(130%) blur(10px);border-bottom:1px solid var(--border)}
+    .topbar{position:sticky;top:0;z-index:70;background:rgba(10,17,51,.7);backdrop-filter:saturate(130%) blur(10px);border-bottom:1px solid var(--border)}
     .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px}
     .brand{display:flex;align-items:center;gap:10px}
     .brand img{width:36px;height:36px;border-radius:10px}
     .brand b{letter-spacing:.2px}
-
-    /* Hamburger : visible desktop & mobile */
-    .hamb{display:flex;flex-direction:column;gap:4px;cursor:pointer; padding:8px 10px; border:1px solid var(--border); border-radius:10px; background:#121c54}
+    .hamb{display:flex;flex-direction:column;gap:4px;cursor:pointer}
     .hamb span{width:22px;height:2px;background:var(--txt);border-radius:2px}
 
-    .rightside{display:flex;align-items:center;gap:10px}
-    .navlinks{display:flex;align-items:center;gap:10px}
-    .navlinks a{padding:8px 12px;border:1px solid var(--border);border-radius:999px;background:#121c54}
-    .navlinks a.active{outline:2px solid var(--green)}
-    .langs{display:flex;gap:6px;margin-left:6px}
+    /* Drawer (toujours hamburger: desktop & mobile) */
+    .drawer-back{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:.2s;z-index:69}
+    .drawer{position:fixed;top:0;right:-320px;height:100vh;width:320px;max-width:92vw;background:#0b153f;border-left:1px solid var(--border);box-shadow:var(--shadow);padding:16px;display:flex;flex-direction:column;gap:12px;z-index:71;transition:right .23s ease}
+    .drawer.open{right:0}
+    .drawer-back.open{opacity:1;pointer-events:auto}
+    .drawer a{display:block;padding:10px 12px;border:1px solid var(--border);border-radius:999px;background:#121c54;margin-bottom:8px}
+    .langs{display:flex;gap:6px;margin-top:auto}
     .langs button{padding:8px 10px;border-radius:999px;border:1px solid var(--border);background:#121c54;color:var(--txt);cursor:pointer}
     .langs button.active{outline:2px solid var(--green)}
 
-    /* Menu responsive */
-    @media (max-width:980px){
-      .navlinks{display:none;position:absolute;left:0;right:0;top:58px;background:#0b153f;border-bottom:1px solid var(--border);padding:12px}
-      .navlinks.open{display:flex;flex-direction:column;align-items:stretch}
-      .langs{margin-left:0}
-    }
-
     /* Blocks */
-    .hero{border-radius:var(--r);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);margin:16px 0}
-    .hero img{width:100%;height:auto;background:#091035;display:block}
-    /* Limiter la taille sur desktop */
-    @media (min-width:1024px){
-      .hero img{max-height:420px;object-fit:cover}
-    }
-    .hero .txt{padding:18px}
+    .hero{border-radius:var(--r);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);margin:16px 0;background:linear-gradient(180deg,#0b1646,#0a123a)}
+    .hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:center;padding:22px}
+    .hero img{width:100%;height:auto;border-radius:14px;border:1px solid var(--border)}
+    @media (max-width:980px){.hero-inner{grid-template-columns:1fr}}
     .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
     .chip{font-size:.85rem;padding:6px 10px;border:1px solid var(--border);border-radius:999px;background:#121c54}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
-    @media (max-width:860px){.grid{grid-template-columns:1fr}}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)} @media (max-width:860px){.grid{grid-template-columns:1fr}}
     .card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;box-shadow:var(--shadow)}
     .muted{color:var(--muted)}
     .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid var(--border);background:#121c54;color:var(--txt);cursor:pointer}
@@ -77,39 +63,39 @@
   <div class="topbar">
     <div class="nav wrap">
       <a class="brand" href="index.html"><img src="logo.png" alt="SamDoge"><b>SamDoge (SMD)</b></a>
-
-      <div class="rightside">
-        <!-- Hamburger toujours visible -->
-        <div class="hamb" id="hamb" aria-label="Menu"><span></span><span></span><span></span></div>
-
-        <!-- MENU (ordre alphabétique FR) -->
-        <nav class="navlinks" id="navlinks">
-          <a href="#howto" data-i18n="nav_how">Comment acheter</a>
-          <a href="#roadmap" data-i18n="nav_roadmap">Feuille de route</a>
-          <a href="#links" data-i18n="nav_links">Liens officiels</a>
-          <a href="#staking" data-i18n="nav_staking">Staking</a>
-          <a href="tokenomics.html" data-i18n="nav_tokenomics">Tokenomics</a>
-          <div class="langs">
-            <button data-lang="fr" class="active">FR</button>
-            <button data-lang="en">EN</button>
-            <button data-lang="hr">HR</button>
-          </div>
-        </nav>
-      </div>
+      <div class="hamb" id="hamb" aria-label="Menu"><span></span><span></span><span></span></div>
     </div>
   </div>
+  <!-- Drawer -->
+  <div class="drawer-back" id="drawerBack"></div>
+  <aside class="drawer" id="drawer">
+    <!-- MENU (ordre alphabétique FR) -->
+    <a href="#howto" data-i18n="nav_how">Comment acheter</a>
+    <a href="#roadmap" data-i18n="nav_roadmap">Feuille de route</a>
+    <a href="#links" data-i18n="nav_links">Liens officiels</a>
+    <a href="#staking" data-i18n="nav_staking">Staking</a>
+    <a href="#tokenomics" data-i18n="nav_tokenomics">Tokenomics</a>
+    <div style="height:8px"></div>
+    <div class="langs">
+      <button data-lang="fr" class="active">FR</button>
+      <button data-lang="en">EN</button>
+      <button data-lang="hr">HR</button>
+    </div>
+  </aside>
 
   <div class="wrap">
     <!-- HERO -->
     <section class="hero">
-      <img src="banniere.jpg" alt="Bannière SamDoge" />
-      <div class="txt">
-        <h1 data-i18n="hero_title">SamDoge — La mascotte de la communauté</h1>
-        <p class="muted" data-i18n="hero_sub">Un meme coin fun, transparent et utile. Installe l’app, choisis ta langue et rejoins l’aventure SMD.</p>
-        <div class="chips">
-          <span class="chip">BSC</span><span class="chip">1,000,000,000 SMD</span><span class="chip">PWA</span>
-          <span class="chip" id="installState">App : non installée</span>
+      <div class="hero-inner">
+        <div>
+          <h1 style="margin:0 0 6px" data-i18n="hero_title">SamDoge — La mascotte de la communauté</h1>
+          <p class="muted" data-i18n="hero_sub">Un meme coin fun, transparent et utile. Installe l’app, choisis ta langue et rejoins l’aventure SMD.</p>
+          <div class="chips">
+            <span class="chip">BSC</span><span class="chip">1,000,000,000 SMD</span><span class="chip">PWA</span>
+            <span class="chip" id="installState">App : non installée</span>
+          </div>
         </div>
+        <img src="banniere.jpg" alt="Bannière SamDoge" />
       </div>
     </section>
 
@@ -165,9 +151,18 @@
           </ul>
         </div>
         <div class="muted">
-          <p>Liquidité verrouillée au lancement. Audit & KYC avant listing. Taxe activable après prévente (0% → 5%).</p>
+          <p>Liquidité verrouillée au lancement. Audit &amp; KYC avant listing. Taxe activable après prévente (0% → 5%).</p>
         </div>
       </div>
+    </section>
+
+    <!-- STAKING (section interne) -->
+    <section class="card" id="staking">
+      <h3 data-i18n="stake_title">Staking (bientôt)</h3>
+      <p class="muted" data-i18n="stake_desc">
+        Les récompenses SMD seront disponibles après le lancement. Le dépôt/retrait se fera via notre dApp.
+      </p>
+      <a class="btn" href="https://github.com/danlel1/samdoge-staking" target="_blank" rel="noopener">📦 GitHub Staking</a>
     </section>
 
     <!-- COMMENT ACHETER -->
@@ -196,15 +191,15 @@
         <div>
           <h4>Phase 1</h4>
           <ul>
-            <li>✅ Token créé & déployé</li>
-            <li>✅ Site & réseaux ouverts</li>
+            <li>✅ Token créé &amp; déployé</li>
+            <li>✅ Site &amp; réseaux ouverts</li>
             <li>✅ Tokenomics publiques</li>
           </ul>
         </div>
         <div>
           <h4>Phase 2</h4>
           <ul>
-            <li>🧾 Audit & KYC</li>
+            <li>🧾 Audit &amp; KYC</li>
             <li>🚀 Prévente PinkSale (bientôt)</li>
             <li>🔒 Verrouillage de liquidité</li>
             <li>📣 Campagne marketing</li>
@@ -222,18 +217,7 @@
       </div>
     </section>
 
-    <!-- STAKING (dans la même page) -->
-    <section class="card" id="staking">
-      <h3>Staking</h3>
-      <p class="muted">Le module de staking sera ouvert après le listing. Les règles (APY, durées) seront annoncées et votées par la communauté.</p>
-      <ul style="margin:0;padding-left:18px">
-        <li>🔒 Dépôt / Retrait sans frais du protocole (hors gas chain)</li>
-        <li>🎁 Récompenses en SMD depuis l’allocation “Staking / Récompenses (20%)”</li>
-        <li>🗳️ Paramètres ajustables via vote communautaire</li>
-      </ul>
-    </section>
-
-    <!-- LIENS OFFICIELS -->
+    <!-- LIENS OFFICIELS (ordre alphabétique) -->
     <section class="card" id="links">
       <h3 data-i18n="links_title">Liens officiels</h3>
       <ul style="margin:0;padding-left:18px">
@@ -252,29 +236,35 @@
   </div>
 
   <script>
-    // ====== Menu mobile / desktop : le hamburger ouvre/ferme la nav même sur ordinateur
+    // ====== Drawer (hamburger sur PC & mobile)
     const hamb=document.getElementById('hamb');
-    const navlinks=document.getElementById('navlinks');
-    hamb.addEventListener('click',()=>navlinks.classList.toggle('open'));
+    const drawer=document.getElementById('drawer');
+    const back=document.getElementById('drawerBack');
+    function toggleDrawer(open){
+      drawer.classList.toggle('open',open);
+      back.classList.toggle('open',open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    hamb.addEventListener('click',()=>toggleDrawer(!drawer.classList.contains('open')));
+    back.addEventListener('click',()=>toggleDrawer(false));
+    // Fermer quand on clique un lien
+    drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>toggleDrawer(false)));
 
     // ====== PWA install
     let deferredPrompt=null;
     const installCard=document.getElementById('installCard');
     const installBtn=document.getElementById('installBtn');
     const iosHint=document.getElementById('iosHint');
-
     function isStandalone(){
       if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) return true;
-      if (navigator.standalone) return true;
-      return false;
+      if (navigator.standalone) return true; return false;
     }
     function updateBadge(){
       const b=document.getElementById('installState');
       if (b) b.textContent = isStandalone() ? 'App : installée ✅' : 'App : non installée';
     }
     window.addEventListener('beforeinstallprompt',e=>{
-      e.preventDefault(); deferredPrompt=e;
-      if(!isStandalone() && installCard) installCard.style.display='block';
+      e.preventDefault(); deferredPrompt=e; if(!isStandalone() && installCard) installCard.style.display='block';
     });
     installBtn?.addEventListener('click',async()=>{
       if(!deferredPrompt){ if (iosHint) iosHint.style.display='block'; return;}
@@ -289,12 +279,9 @@
     const copyAdr=document.getElementById('copyAdr');
     const CONTRACT=(document.querySelector('meta[name="contract-address"]')?.content||'').trim();
     if (adrEl) adrEl.textContent = CONTRACT;
-
     toggleAdr?.addEventListener('click',()=>{
-      const show = adrEl.style.display==='none' || adrEl.style.display==='';
-      adrEl.style.display = show ? 'inline' : 'none';
-      const span = toggleAdr.querySelector('span');
-      if (span) span.textContent = show ? 'Masquer' : 'Afficher';
+      const show = adrEl.style.display==='none' || adrEl.style.display===''; adrEl.style.display = show ? 'inline' : 'none';
+      const span = toggleAdr.querySelector('span'); if (span) span.textContent = show ? 'Masquer' : 'Afficher';
     });
     copyAdr?.addEventListener('click',async()=>{
       try{ await navigator.clipboard.writeText(CONTRACT); copyAdr.innerHTML='✅ Copié'; setTimeout(()=>copyAdr.innerHTML='📋 Copier',900);}catch(e){}
@@ -321,7 +308,8 @@
         install_title:"Installer l’app SamDoge",install_text:"Détectée comme application web. Clique pour installer.",install_btn:"Installer l’app",install_ios:"Sur iPhone/iPad : Safari → Partager → Ajouter à l’écran d’accueil.",
         buy_title:"Comment acheter",buy_1:"Installe MetaMask et sélectionne BNB Smart Chain (BSC).",buy_2:"Approvisionne ton wallet en BNB.",buy_3:"Ouvre PancakeSwap et choisis la paire BNB ↔ SMD.",
         buy_4a:"Ajoute le contrat SMD :",buy_5:"Pendant prévente : 0%. Après lancement : 5% (slippage 5–7%).",
-        road_title:"Feuille de route",links_title:"Liens officiels",foot_note:"Projet communautaire. Ceci n’est pas un conseil financier."
+        road_title:"Feuille de route",links_title:"Liens officiels",stake_title:"Staking (bientôt)",stake_desc:"Les récompenses SMD seront disponibles après le lancement. Le dépôt/retrait se fera via notre dApp.",
+        foot_note:"Projet communautaire. Ceci n’est pas un conseil financier."
       },
       en:{nav_how:"How to buy",nav_roadmap:"Roadmap",nav_links:"Official links",nav_staking:"Staking",nav_tokenomics:"Tokenomics",
         hero_title:"SamDoge — The community mascot",hero_sub:"A fun, transparent and useful meme coin. Install the app, pick your language and join SMD.",
@@ -330,7 +318,8 @@
         install_title:"Install SamDoge App",install_text:"Web app detected. Tap to install.",install_btn:"Install app",install_ios:"On iPhone/iPad: Safari → Share → Add to Home Screen.",
         buy_title:"How to buy",buy_1:"Install MetaMask and switch to BNB Smart Chain (BSC).",buy_2:"Fund your wallet with BNB.",buy_3:"Open PancakeSwap and pick BNB ↔ SMD.",
         buy_4a:"Add the SMD contract:",buy_5:"During presale: 0%. After launch: 5% (5–7% slippage).",
-        road_title:"Roadmap",links_title:"Official links",foot_note:"Community project. Not financial advice."
+        road_title:"Roadmap",links_title:"Official links",stake_title:"Staking (soon)",stake_desc:"SMD rewards will go live post-launch. Deposits/withdrawals via our dApp.",
+        foot_note:"Community project. Not financial advice."
       },
       hr:{nav_how:"Kako kupiti",nav_roadmap:"Plan puta",nav_links:"Službene veze",nav_staking:"Staking",nav_tokenomics:"Tokenomika",
         hero_title:"SamDoge — maskota zajednice",hero_sub:"Zabavan, transparentan i koristan meme coin. Instaliraj aplikaciju i pridruži se SMD-u.",
@@ -339,7 +328,8 @@
         install_title:"Instaliraj SamDoge aplikaciju",install_text:"Prepoznata web aplikacija. Klikni za instalaciju.",install_btn:"Instaliraj",install_ios:"Na iPhone/iPad: Safari → Dijeli → Dodaj na početni zaslon.",
         buy_title:"Kako kupiti",buy_1:"Instaliraj MetaMask i prebaci na BSC.",buy_2:"Nadopuni novčanik BNB-om.",buy_3:"Otvori PancakeSwap i odaberi par BNB ↔ SMD.",
         buy_4a:"Dodaj SMD ugovor:",buy_5:"Tijekom pretprodaje: 0%. Nakon lansiranja: 5% (5–7% slippage).",
-        road_title:"Plan puta",links_title:"Službene veze",foot_note:"Zajednički projekt. Nije financijski savjet."
+        road_title:"Plan puta",links_title:"Službene veze",stake_title:"Staking (uskoro)",stake_desc:"Nagrade SMD stižu nakon lansiranja. Depoziti/podizanja kroz dApp.",
+        foot_note:"Zajednički projekt. Nije financijski savjet."
       }
     };
     function applyLang(lang){
