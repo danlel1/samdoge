@@ -15,7 +15,7 @@
   <style>
     :root{
       --bg:#0a1133; --card:#0f1847; --soft:#101a4f; --muted:#9aa8e2;
-      --txt:#eaf0ff; --white:#fff; --green:#2ad07c; --amber:#f6b352;
+      --txt:#eaf0ff; --white:#fff; --green:#2ad07c;
       --border:rgba(255,255,255,.08); --shadow:0 10px 24px rgba(0,0,0,.25);
       --r:18px; --max:1100px; --gap:18px;
     }
@@ -31,31 +31,32 @@
     .brand{display:flex;align-items:center;gap:10px}
     .brand img{width:36px;height:36px;border-radius:10px}
     .brand b{letter-spacing:.2px}
+
+    /* Hamburger : visible desktop & mobile */
+    .hamb{display:flex;flex-direction:column;gap:4px;cursor:pointer; padding:8px 10px; border:1px solid var(--border); border-radius:10px; background:#121c54}
+    .hamb span{width:22px;height:2px;background:var(--txt);border-radius:2px}
+
+    .rightside{display:flex;align-items:center;gap:10px}
     .navlinks{display:flex;align-items:center;gap:10px}
-    .navlinks a{padding:8px 12px;border:1px solid var(--border);border-radius:999px;background:#121c54;display:inline-flex;align-items:center;gap:6px}
-    .navlinks a .badge{font-size:.75rem;background:#1a2466;border:1px solid var(--border);padding:2px 6px;border-radius:999px;color:#aecdff}
+    .navlinks a{padding:8px 12px;border:1px solid var(--border);border-radius:999px;background:#121c54}
     .navlinks a.active{outline:2px solid var(--green)}
     .langs{display:flex;gap:6px;margin-left:6px}
     .langs button{padding:8px 10px;border-radius:999px;border:1px solid var(--border);background:#121c54;color:var(--txt);cursor:pointer}
     .langs button.active{outline:2px solid var(--green)}
-    .hamb{display:none;flex-direction:column;gap:4px;cursor:pointer}
-    .hamb span{width:22px;height:2px;background:var(--txt);border-radius:2px}
-    @media (max-width:860px){
+
+    /* Menu responsive */
+    @media (max-width:980px){
       .navlinks{display:none;position:absolute;left:0;right:0;top:58px;background:#0b153f;border-bottom:1px solid var(--border);padding:12px}
       .navlinks.open{display:flex;flex-direction:column;align-items:stretch}
-      .hamb{display:flex}
+      .langs{margin-left:0}
     }
 
     /* Blocks */
     .hero{border-radius:var(--r);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);margin:16px 0}
-    .hero img{
-      width:100%;
-      height:auto;
-      background:#091035;
-      object-fit:cover;
-    }
-    @media (min-width:861px){
-      .hero img{max-height:450px;object-fit:cover;}
+    .hero img{width:100%;height:auto;background:#091035;display:block}
+    /* Limiter la taille sur desktop */
+    @media (min-width:1024px){
+      .hero img{max-height:420px;object-fit:cover}
     }
     .hero .txt{padding:18px}
     .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
@@ -77,23 +78,24 @@
     <div class="nav wrap">
       <a class="brand" href="index.html"><img src="logo.png" alt="SamDoge"><b>SamDoge (SMD)</b></a>
 
-      <div class="hamb" id="hamb"><span></span><span></span><span></span></div>
+      <div class="rightside">
+        <!-- Hamburger toujours visible -->
+        <div class="hamb" id="hamb" aria-label="Menu"><span></span><span></span><span></span></div>
 
-      <!-- MENU (ordre alphabétique FR) -->
-      <nav class="navlinks" id="navlinks">
-        <a href="#howto" data-i18n="nav_how">Comment acheter</a>
-        <a href="#roadmap" data-i18n="nav_roadmap">Feuille de route</a>
-        <a href="#links" data-i18n="nav_links">Liens officiels</a>
-        <a href="#stats" data-i18n="nav_stats" id="statsLink">Statistiques <span class="badge" id="visitsBadge">—</span></a>
-        <a href="#staking" data-i18n="nav_staking">Staking</a>
-        <a href="tokenomics.html" data-i18n="nav_tokenomics">Tokenomics</a>
-        <a href="stats.html" title="Stats détaillées">Stats.html</a>
-        <div class="langs">
-          <button data-lang="fr" class="active">FR</button>
-          <button data-lang="en">EN</button>
-          <button data-lang="hr">HR</button>
-        </div>
-      </nav>
+        <!-- MENU (ordre alphabétique FR) -->
+        <nav class="navlinks" id="navlinks">
+          <a href="#howto" data-i18n="nav_how">Comment acheter</a>
+          <a href="#roadmap" data-i18n="nav_roadmap">Feuille de route</a>
+          <a href="#links" data-i18n="nav_links">Liens officiels</a>
+          <a href="#staking" data-i18n="nav_staking">Staking</a>
+          <a href="tokenomics.html" data-i18n="nav_tokenomics">Tokenomics</a>
+          <div class="langs">
+            <button data-lang="fr" class="active">FR</button>
+            <button data-lang="en">EN</button>
+            <button data-lang="hr">HR</button>
+          </div>
+        </nav>
+      </div>
     </div>
   </div>
 
@@ -220,15 +222,18 @@
       </div>
     </section>
 
-    <!-- STAKING (section interne) -->
+    <!-- STAKING (dans la même page) -->
     <section class="card" id="staking">
-      <h3 data-i18n="nav_staking">Staking</h3>
-      <p class="muted">Le staking SMD arrive très vite. Récompenses prévues : 20% de l’offre totale dédiées sur plusieurs pools. Restez connectés !</p>
-      <!-- Si tu as déjà le dApp, tu peux ajouter un iframe ici plus tard -->
-      <!-- <iframe src="https://app.samdoge.io/staking" title="Staking SMD" style="width:100%;height:560px;border:1px solid var(--border);border-radius:12px"></iframe> -->
+      <h3>Staking</h3>
+      <p class="muted">Le module de staking sera ouvert après le listing. Les règles (APY, durées) seront annoncées et votées par la communauté.</p>
+      <ul style="margin:0;padding-left:18px">
+        <li>🔒 Dépôt / Retrait sans frais du protocole (hors gas chain)</li>
+        <li>🎁 Récompenses en SMD depuis l’allocation “Staking / Récompenses (20%)”</li>
+        <li>🗳️ Paramètres ajustables via vote communautaire</li>
+      </ul>
     </section>
 
-    <!-- LIENS OFFICIELS (ordre alphabétique) -->
+    <!-- LIENS OFFICIELS -->
     <section class="card" id="links">
       <h3 data-i18n="links_title">Liens officiels</h3>
       <ul style="margin:0;padding-left:18px">
@@ -241,24 +246,13 @@
       </ul>
     </section>
 
-    <!-- STATS -->
-    <section class="card" id="stats">
-      <h3>Statistiques</h3>
-      <ul style="margin:0;padding-left:18px;line-height:1.9">
-        <li>👥 <b>Visiteurs uniques</b> : <span id="visitorsCount">—</span></li>
-        <li>🪙 <b>Offre totale</b> : 1 000 000 000 SMD</li>
-        <li>⚙️ <b>Taxe post-lancement</b> : 5% (achat/vente/transfert)</li>
-      </ul>
-      <p class="muted" style="margin-top:10px">Le compteur utilise un service public (CountAPI). Il incrémente une fois par navigateur.</p>
-    </section>
-
     <footer>
       © <span id="year"></span> SamDoge • <span class="muted" data-i18n="foot_note">Projet communautaire. Ceci n’est pas un conseil financier.</span>
     </footer>
   </div>
 
   <script>
-    // ====== Menu mobile
+    // ====== Menu mobile / desktop : le hamburger ouvre/ferme la nav même sur ordinateur
     const hamb=document.getElementById('hamb');
     const navlinks=document.getElementById('navlinks');
     hamb.addEventListener('click',()=>navlinks.classList.toggle('open'));
@@ -320,7 +314,7 @@
 
     // ====== I18N
     const dict={
-      fr:{nav_how:"Comment acheter",nav_roadmap:"Feuille de route",nav_links:"Liens officiels",nav_stats:"Statistiques",nav_staking:"Staking",nav_tokenomics:"Tokenomics",
+      fr:{nav_how:"Comment acheter",nav_roadmap:"Feuille de route",nav_links:"Liens officiels",nav_staking:"Staking",nav_tokenomics:"Tokenomics",
         hero_title:"SamDoge — La mascotte de la communauté",hero_sub:"Un meme coin fun, transparent et utile. Installe l’app, choisis ta langue et rejoins l’aventure SMD.",
         quick_title:"Actions rapides",quick_buy:"Acheter sur PancakeSwap",quick_chart:"Voir le chart (Dexscreener)",quick_contract:"Adresse du contrat :",show:"Afficher",copy:"Copier",
         param_supply:"Offre totale",param_lp:"LP initial",param_lock:"lock prévu",param_tax:"Taxe après lancement",
@@ -329,7 +323,7 @@
         buy_4a:"Ajoute le contrat SMD :",buy_5:"Pendant prévente : 0%. Après lancement : 5% (slippage 5–7%).",
         road_title:"Feuille de route",links_title:"Liens officiels",foot_note:"Projet communautaire. Ceci n’est pas un conseil financier."
       },
-      en:{nav_how:"How to buy",nav_roadmap:"Roadmap",nav_links:"Official links",nav_stats:"Statistics",nav_staking:"Staking",nav_tokenomics:"Tokenomics",
+      en:{nav_how:"How to buy",nav_roadmap:"Roadmap",nav_links:"Official links",nav_staking:"Staking",nav_tokenomics:"Tokenomics",
         hero_title:"SamDoge — The community mascot",hero_sub:"A fun, transparent and useful meme coin. Install the app, pick your language and join SMD.",
         quick_title:"Quick actions",quick_buy:"Buy on PancakeSwap",quick_chart:"View chart (Dexscreener)",quick_contract:"Contract address:",show:"Show",copy:"Copy",
         param_supply:"Total supply",param_lp:"Initial LP",param_lock:"to be locked",param_tax:"Post-launch tax",
@@ -338,7 +332,7 @@
         buy_4a:"Add the SMD contract:",buy_5:"During presale: 0%. After launch: 5% (5–7% slippage).",
         road_title:"Roadmap",links_title:"Official links",foot_note:"Community project. Not financial advice."
       },
-      hr:{nav_how:"Kako kupiti",nav_roadmap:"Plan puta",nav_links:"Službene veze",nav_stats:"Statistika",nav_staking:"Staking",nav_tokenomics:"Tokenomika",
+      hr:{nav_how:"Kako kupiti",nav_roadmap:"Plan puta",nav_links:"Službene veze",nav_staking:"Staking",nav_tokenomics:"Tokenomika",
         hero_title:"SamDoge — maskota zajednice",hero_sub:"Zabavan, transparentan i koristan meme coin. Instaliraj aplikaciju i pridruži se SMD-u.",
         quick_title:"Brze akcije",quick_buy:"Kupi na PancakeSwapu",quick_chart:"Pogledaj graf (Dexscreener)",quick_contract:"Adresa ugovora:",show:"Prikaži",copy:"Kopiraj",
         param_supply:"Ukupna ponuda",param_lp:"Početni LP",param_lock:"bit će zaključan",param_tax:"Porez nakon lansiranja",
@@ -359,27 +353,6 @@
 
     // Année footer
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // ====== Compteur de visiteurs (CountAPI)
-    // Namespace/key personnalisés pour samdoge.io :
-    const COUNT_NS = 'samdoge.io';
-    const COUNT_KEY = 'visits';
-    async function updateVisits(){
-      try{
-        // incrémente 1 fois par visite (compteur global)
-        const r = await fetch(`https://api.countapi.xyz/hit/${COUNT_NS}/${COUNT_KEY}`);
-        const data = await r.json();
-        const n = data?.value ?? '—';
-        const el = document.getElementById('visitorsCount');
-        if (el) el.textContent = n.toLocaleString('fr-FR');
-        const badge = document.getElementById('visitsBadge');
-        if (badge) badge.textContent = n.toLocaleString('fr-FR');
-      }catch(e){
-        const el = document.getElementById('visitorsCount');
-        if (el) el.textContent = 'N/A';
-      }
-    }
-    updateVisits();
   </script>
 </body>
 </html>
