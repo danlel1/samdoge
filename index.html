@@ -12,9 +12,10 @@
 
   <style>
     :root{
-      --bg:#0a1133; --card:#0f1847; --soft:#101a4f; --muted:#9aa8e2;
-      --txt:#eaf0ff; --border:rgba(255,255,255,.08); --shadow:0 10px 24px rgba(0,0,0,.25);
+      --bg:#0a1133; --card:#0f1847; --soft:#101a4f; --muted:#9aa8e2; --txt:#eaf0ff;
+      --border:rgba(255,255,255,.08); --shadow:0 10px 24px rgba(0,0,0,.25);
       --r:18px; --max:1100px; --gap:18px;
+      --desktop:1024px;
     }
     *{box-sizing:border-box}
     html,body{margin:0;background:var(--bg);color:var(--txt);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
@@ -49,24 +50,22 @@
     .hero-img{width:100%;height:auto;border-radius:14px;border:1px solid var(--border)}
 
     /* Blocks */
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
-    @media (max-width:860px){.grid{grid-template-columns:1fr}}
-    .card{background:#0f1847;border:1px solid var(--border);border-radius:var(--r);padding:18px;box-shadow:var(--shadow)}
-    .muted{color:#9aa8e2}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;box-shadow:var(--shadow)}
+    .muted{color:var(--muted)}
     .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid var(--border);background:#121c54;color:var(--txt);cursor:pointer}
     .pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:#121c54;border:1px solid var(--border)}
-    .kbd{font-family:ui-monospace,Menlo,Consolas,monospace;background:#101a4f;border:1px dashed var(--border);padding:3px 6px;border-radius:8px}
-    footer{margin:32px 0 26px;text-align:center;color:#9aa8e2}
+    .kbd{font-family:ui-monospace,Menlo,Consolas,monospace;background:var(--soft);border:1px dashed var(--border);padding:3px 6px;border-radius:8px}
     hr{border:none;border-top:1px solid var(--border);margin:12px 0}
+    footer{margin:32px 0 26px;text-align:center;color:var(--muted)}
 
-    /* visibilité */
-    .desktop-only{display:none}
+    /* Grilles */
+    .main-grid{display:grid;grid-template-columns:1fr;gap:var(--gap)}
+    @media (min-width:1024px){ .main-grid{grid-template-columns:1fr 1fr} }
+
+    /* visibilité mobile/desktop (seuil 1024) */
     .mobile-only{display:block}
-    @media (min-width:981px){ .desktop-only{display:block} .mobile-only{display:none} }
-
-    /* bloc facts à droite */
-    .facts-row{display:flex;justify-content:flex-end}
-    .facts-card{max-width:520px;width:100%}
+    .desktop-only{display:none}
+    @media (min-width:1024px){ .mobile-only{display:none} .desktop-only{display:block} }
   </style>
 </head>
 <body>
@@ -74,7 +73,6 @@
   <div class="topbar">
     <div class="nav wrap">
       <a class="brand" href="index.html"><img src="logo.png" alt="SamDoge"><b>SamDoge (SMD)</b></a>
-      <!-- plus de sélecteur langue dans la topbar -->
       <div class="hamb" id="hamb" aria-label="Menu"><span></span><span></span><span></span></div>
     </div>
   </div>
@@ -82,13 +80,11 @@
   <!-- Drawer -->
   <div class="drawer-back" id="drawerBack"></div>
   <aside class="drawer" id="drawer">
-    <!-- Langues en haut du menu -->
     <div class="langs-row" id="drawerLangs">
       <button data-lang="fr" class="active">FR</button>
       <button data-lang="en">EN</button>
       <button data-lang="hr">HR</button>
     </div>
-    <!-- Menu -->
     <a href="#howto" data-i18n="nav_how">Comment acheter</a>
     <a href="#roadmap" data-i18n="nav_roadmap">Feuille de route</a>
     <a href="#links" data-i18n="nav_links">Liens officiels</a>
@@ -112,28 +108,18 @@
       </div>
     </section>
 
-    <!-- BLOC DÉPLACÉ & ALIGNÉ À DROITE (desktop) -->
-    <div class="facts-row desktop-only">
-      <section class="card facts-card" id="facts">
-        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:8px">
-          <li>🟡 <b data-i18n="param_supply">Offre totale</b> : 1,000,000,000 SMD</li>
-          <li>💧 <b data-i18n="param_lp">LP initial</b> : 30% • <span data-i18n="param_lock">lock prévu</span></li>
-          <li>⚙️ <b data-i18n="param_tax">Taxe après lancement</b> : 5% (achat/vente/transfert)</li>
-        </ul>
-      </section>
-    </div>
-
-    <!-- ACTIONS RAPIDES -->
-    <section class="grid">
+    <!-- GRILLE PRINCIPALE : gauche Actions, droite Facts (alignés) -->
+    <section class="main-grid">
+      <!-- Colonne gauche : Actions -->
       <div class="card">
         <h3 data-i18n="quick_title">Actions rapides</h3>
-        <div class="list" style="display:grid;gap:10px;margin-top:10px">
+        <div style="display:grid;gap:10px;margin-top:10px">
           <a class="pill" href="https://pancakeswap.finance/swap" target="_blank" rel="noopener">🛒 <span data-i18n="quick_buy">Acheter sur PancakeSwap</span></a>
           <a class="pill" href="https://dexscreener.com/search?q=0xb02Be67DbfbD500011c5bBB435fEf555AD3f37F8" target="_blank" rel="noopener">📈 <span data-i18n="quick_chart">Voir le chart (Dexscreener)</span></a>
           <a class="pill" href="https://bscscan.com/token/0xb02Be67DbfbD500011c5bBB435fEf555AD3f37F8" target="_blank" rel="noopener">🔎 BscScan (token)</a>
           <a class="pill" href="#" title="Bientôt">💧 BscScan (paire LP) — bientôt</a>
 
-          <!-- Adresse : Afficher/Masquer + Copier -->
+          <!-- Adresse -->
           <div class="pill" style="flex-wrap:wrap;gap:10px">
             <strong data-i18n="quick_contract">Adresse du contrat :</strong>
             <button class="btn" id="toggleAdr" style="margin-left:auto">👁️ <span data-i18n="show">Afficher</span></button>
@@ -142,7 +128,7 @@
           </div>
         </div>
 
-        <!-- VERSION MOBILE de “Offre / LP / Taxe” (pas de doublon desktop) -->
+        <!-- Version MOBILE du bloc infos (pas de doublon desktop) -->
         <hr class="mobile-only">
         <ul class="mobile-only" style="list-style:none;padding:0;margin:0;display:grid;gap:8px">
           <li>🟡 <b data-i18n="param_supply">Offre totale</b> : 1,000,000,000 SMD</li>
@@ -151,21 +137,20 @@
         </ul>
       </div>
 
-      <!-- Carte APP / PWA (mobile) -->
-      <div class="card mobile-only" id="installCard" style="display:none">
-        <h3 data-i18n="install_title">Installer l’app SamDoge</h3>
-        <p class="muted" data-i18n="install_text">Détectée comme application web. Clique pour installer.</p>
-        <button class="btn" id="installBtn" data-i18n="install_btn">Installer l’app</button>
-        <div class="muted" id="iosHint" style="display:none;margin-top:8px" data-i18n="install_ios">
-          Sur iPhone/iPad : Safari → Partager → Ajouter à l’écran d’accueil.
-        </div>
+      <!-- Colonne droite : Facts (desktop only) -->
+      <div class="card desktop-only">
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:8px">
+          <li>🟡 <b data-i18n="param_supply">Offre totale</b> : 1,000,000,000 SMD</li>
+          <li>💧 <b data-i18n="param_lp">LP initial</b> : 30% • <span data-i18n="param_lock">lock prévu</span></li>
+          <li>⚙️ <b data-i18n="param_tax">Taxe après lancement</b> : 5% (achat/vente/transfert)</li>
+        </ul>
       </div>
     </section>
 
     <!-- TOKENOMICS -->
     <section class="card" id="tokenomics">
       <h3>Tokenomics</h3>
-      <div class="grid">
+      <div class="main-grid">
         <div>
           <ul style="margin:0;padding-left:18px">
             <li>💧 30% — Liquidité DEX (lock)</li>
@@ -230,11 +215,7 @@
     const hamb=document.getElementById('hamb');
     const drawer=document.getElementById('drawer');
     const back=document.getElementById('drawerBack');
-    function toggleDrawer(open){
-      drawer.classList.toggle('open',open);
-      back.classList.toggle('open',open);
-      document.body.style.overflow = open ? 'hidden' : '';
-    }
+    function toggleDrawer(open){ drawer.classList.toggle('open',open); back.classList.toggle('open',open); document.body.style.overflow=open?'hidden':''; }
     hamb.addEventListener('click',()=>toggleDrawer(!drawer.classList.contains('open')));
     back.addEventListener('click',()=>toggleDrawer(false));
     drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>toggleDrawer(false)));
@@ -244,22 +225,10 @@
     const installCard=document.getElementById('installCard');
     const installBtn=document.getElementById('installBtn');
     const iosHint=document.getElementById('iosHint');
-    function isStandalone(){
-      if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) return true;
-      if (navigator.standalone) return true; return false;
-    }
-    function updateBadge(){
-      const b=document.getElementById('installState');
-      if (b) b.textContent = isStandalone() ? 'App : installée ✅' : 'App : non installée';
-    }
-    window.addEventListener('beforeinstallprompt',e=>{
-      e.preventDefault(); deferredPrompt=e;
-      if(!isStandalone() && installCard) installCard.style.display='block';
-    });
-    installBtn?.addEventListener('click',async()=>{
-      if(!deferredPrompt){ if (iosHint) iosHint.style.display='block'; return;}
-      deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; if (installCard) installCard.style.display='none';
-    });
+    function isStandalone(){ if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) return true; if (navigator.standalone) return true; return false; }
+    function updateBadge(){ const b=document.getElementById('installState'); if (b) b.textContent=isStandalone()?'App : installée ✅':'App : non installée'; }
+    window.addEventListener('beforeinstallprompt',e=>{ e.preventDefault(); deferredPrompt=e; if(!isStandalone() && installCard) installCard.style.display='block'; });
+    installBtn?.addEventListener('click',async()=>{ if(!deferredPrompt){ if(iosHint) iosHint.style.display='block'; return;} deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; if(installCard) installCard.style.display='none'; });
     window.addEventListener('appinstalled',updateBadge);
     document.addEventListener('DOMContentLoaded',updateBadge);
 
@@ -268,26 +237,17 @@
     const toggleAdr=document.getElementById('toggleAdr');
     const copyAdr=document.getElementById('copyAdr');
     const CONTRACT=(document.querySelector('meta[name="contract-address"]')?.content||'').trim();
-    if (adrEl) adrEl.textContent = CONTRACT;
-    toggleAdr?.addEventListener('click',()=>{
-      const show = adrEl.style.display==='none' || adrEl.style.display===''; adrEl.style.display = show ? 'inline' : 'none';
-      const span = toggleAdr.querySelector('span'); if (span) span.textContent = show ? 'Masquer' : 'Afficher';
-    });
-    copyAdr?.addEventListener('click',async()=>{
-      try{ await navigator.clipboard.writeText(CONTRACT); copyAdr.innerHTML='✅ Copié'; setTimeout(()=>copyAdr.innerHTML='📋 Copier',900);}catch(e){}
-    });
+    if (adrEl) adrEl.textContent=CONTRACT;
+    toggleAdr?.addEventListener('click',()=>{ const show=adrEl.style.display==='none'||adrEl.style.display===''; adrEl.style.display=show?'inline':'none'; const s=toggleAdr.querySelector('span'); if(s) s.textContent=show?'Masquer':'Afficher'; });
+    copyAdr?.addEventListener('click',async()=>{ try{ await navigator.clipboard.writeText(CONTRACT); copyAdr.innerHTML='✅ Copié'; setTimeout(()=>copyAdr.innerHTML='📋 Copier',900);}catch(e){} });
 
-    // How to buy : révéler + copier
+    // How to buy : révèler + copier
     const revealBtn=document.getElementById('revealBtn');
     const wrap=document.getElementById('contractWrap');
     const txt=document.getElementById('contractTxt');
     const copyBtn=document.getElementById('copyBtn');
-    revealBtn?.addEventListener('click',()=>{
-      txt.textContent=CONTRACT; if (wrap) wrap.style.display='inline-flex'; if (revealBtn) revealBtn.style.display='none';
-    });
-    copyBtn?.addEventListener('click',async()=>{
-      try{ await navigator.clipboard.writeText(CONTRACT); copyBtn.innerHTML='✅ Copié'; setTimeout(()=>copyBtn.innerHTML='📋 Copier',900);}catch(e){}
-    });
+    revealBtn?.addEventListener('click',()=>{ txt.textContent=CONTRACT; if(wrap) wrap.style.display='inline-flex'; if(revealBtn) revealBtn.style.display='none'; });
+    copyBtn?.addEventListener('click',async()=>{ try{ await navigator.clipboard.writeText(CONTRACT); copyBtn.innerHTML='✅ Copié'; setTimeout(()=>copyBtn.innerHTML='📋 Copier',900);}catch(e){} });
 
     // I18N
     const dict={
@@ -322,7 +282,6 @@
         foot_note:"Zajednički projekt. Nije financijski savjet."
       }
     };
-
     function applyLang(lang){
       const t=dict[lang]||dict.fr; document.documentElement.lang=lang;
       document.querySelectorAll('[data-i18n]').forEach(el=>{ const k=el.getAttribute('data-i18n'); if(t[k]) el.innerHTML=t[k]; });
@@ -330,15 +289,8 @@
       localStorage.setItem('smd_lang',lang);
     }
     const saved=localStorage.getItem('smd_lang')||'fr'; applyLang(saved);
-
-    // boutons langue (uniquement dans le drawer)
-    const drawerLangs=document.getElementById('drawerLangs');
-    drawerLangs?.querySelectorAll('button[data-lang]').forEach(b=>{
-      b.addEventListener('click',()=>applyLang(b.dataset.lang));
-    });
-
-    // Footer year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('drawerLangs')?.querySelectorAll('button[data-lang]').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));
+    document.getElementById('year').textContent=new Date().getFullYear();
   </script>
 </body>
 </html>
