@@ -18,8 +18,10 @@
       --border:rgba(255,255,255,.08); --shadow:0 10px 24px rgba(0,0,0,.25);
       --r:18px; --max:1100px; --gap:18px;
     }
-    *{box-sizing:border-box} html,body{margin:0;background:var(--bg);color:var(--txt);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
-    a{color:#c9d6ff;text-decoration:none} img{max-width:100%;display:block}
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--txt);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+    a{color:#c9d6ff;text-decoration:none}
+    img{max-width:100%;display:block}
     .wrap{max-width:var(--max);margin:0 auto;padding:20px}
 
     /* Topbar */
@@ -41,21 +43,35 @@
     .langs button{padding:8px 10px;border-radius:999px;border:1px solid var(--border);background:#121c54;color:var(--txt);cursor:pointer}
     .langs button.active{outline:2px solid var(--green)}
 
-    /* Blocks */
+    /* HERO */
     .hero{border-radius:var(--r);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);margin:16px 0;background:linear-gradient(180deg,#0b1646,#0a123a)}
-    .hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:center;padding:22px}
-    .hero img{width:100%;height:auto;border-radius:14px;border:1px solid var(--border)}
+    .hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:stretch;padding:22px}
     @media (max-width:980px){.hero-inner{grid-template-columns:1fr}}
+    .hero-left h1{margin:0 0 6px}
+    .hero-img{width:100%;height:auto;border-radius:14px;border:1px solid var(--border)}
+    .hero-right{display:flex;flex-direction:column;gap:12px}
+    .mini-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:14px;padding:12px}
+
+    /* Blocks */
     .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
     .chip{font-size:.85rem;padding:6px 10px;border:1px solid var(--border);border-radius:999px;background:#121c54}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)} @media (max-width:860px){.grid{grid-template-columns:1fr}}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
+    @media (max-width:860px){.grid{grid-template-columns:1fr}}
     .card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;box-shadow:var(--shadow)}
     .muted{color:var(--muted)}
     .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid var(--border);background:#121c54;color:var(--txt);cursor:pointer}
-    .btn.primary{background:linear-gradient(180deg,#2a36a3,#1c277a)}
     .pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:#121c54;border:1px solid var(--border)}
     .kbd{font-family:ui-monospace,Menlo,Consolas,monospace;background:var(--soft);border:1px dashed var(--border);padding:3px 6px;border-radius:8px}
     footer{margin:32px 0 26px;text-align:center;color:var(--muted)}
+    hr{border:none;border-top:1px solid var(--border);margin:12px 0}
+
+    /* Visibilité desktop/mobile pour éviter les doublons */
+    .desktop-only{display:none}
+    .mobile-only{display:block}
+    @media (min-width:981px){
+      .desktop-only{display:block}
+      .mobile-only{display:none}
+    }
   </style>
 </head>
 <body>
@@ -69,7 +85,7 @@
   <!-- Drawer -->
   <div class="drawer-back" id="drawerBack"></div>
   <aside class="drawer" id="drawer">
-    <!-- MENU (ordre alphabétique FR) -->
+    <!-- MENU -->
     <a href="#howto" data-i18n="nav_how">Comment acheter</a>
     <a href="#roadmap" data-i18n="nav_roadmap">Feuille de route</a>
     <a href="#links" data-i18n="nav_links">Liens officiels</a>
@@ -84,22 +100,44 @@
   </aside>
 
   <div class="wrap">
-    <!-- HERO -->
+    <!-- HERO (avec remplissage à droite sur desktop) -->
     <section class="hero">
       <div class="hero-inner">
-        <div>
-          <h1 style="margin:0 0 6px" data-i18n="hero_title">SamDoge — La mascotte de la communauté</h1>
+        <div class="hero-left">
+          <h1 data-i18n="hero_title">SamDoge — La mascotte de la communauté</h1>
           <p class="muted" data-i18n="hero_sub">Un meme coin fun, transparent et utile. Installe l’app, choisis ta langue et rejoins l’aventure SMD.</p>
           <div class="chips">
             <span class="chip">BSC</span><span class="chip">1,000,000,000 SMD</span><span class="chip">PWA</span>
             <span class="chip" id="installState">App : non installée</span>
           </div>
         </div>
-        <img src="banniere.jpg" alt="Bannière SamDoge" />
+
+        <div class="hero-right">
+          <img class="hero-img" src="banniere.jpg" alt="Bannière SamDoge" />
+
+          <!-- Résumé stats (desktop) -->
+          <div class="mini-card desktop-only">
+            <ul style="list-style:none;margin:0;padding:0;display:grid;gap:6px">
+              <li>🟡 <b data-i18n="param_supply">Offre totale</b> : 1,000,000,000 SMD</li>
+              <li>💧 <b data-i18n="param_lp">LP initial</b> : 30% • <span data-i18n="param_lock">lock prévu</span></li>
+              <li>⚙️ <b data-i18n="param_tax">Taxe après lancement</b> : 5% (achat/vente/transfert)</li>
+            </ul>
+          </div>
+
+          <!-- Install app (desktop) -->
+          <div class="mini-card desktop-only" id="installMini" style="display:none">
+            <b data-i18n="install_title">Installer l’app SamDoge</b>
+            <p class="muted" style="margin:6px 0" data-i18n="install_text">Détectée comme application web. Clique pour installer.</p>
+            <button class="btn" id="installBtnMini" data-i18n="install_btn">Installer l’app</button>
+            <div class="muted" id="iosHintMini" style="display:none;margin-top:6px" data-i18n="install_ios">
+              Sur iPhone/iPad : Safari → Partager → Ajouter à l’écran d’accueil.
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- ACTIONS RAPIDES + APP -->
+    <!-- ACTIONS RAPIDES -->
     <section class="grid">
       <div class="card">
         <h3 data-i18n="quick_title">Actions rapides</h3>
@@ -118,16 +156,17 @@
           </div>
         </div>
 
-        <hr style="border:none;border-top:1px solid var(--border);margin:14px 0">
-        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:8px">
+        <!-- La liste “stats” reste pour mobile uniquement -->
+        <hr class="mobile-only">
+        <ul class="mobile-only" style="list-style:none;padding:0;margin:0;display:grid;gap:8px">
           <li>🟡 <b data-i18n="param_supply">Offre totale</b> : 1,000,000,000 SMD</li>
           <li>💧 <b data-i18n="param_lp">LP initial</b> : 30% • <span data-i18n="param_lock">lock prévu</span></li>
           <li>⚙️ <b data-i18n="param_tax">Taxe après lancement</b> : 5% (achat/vente/transfert)</li>
         </ul>
       </div>
 
-      <!-- Carte APP / PWA -->
-      <div class="card" id="installCard" style="display:none">
+      <!-- Carte APP / PWA (mobile seulement) -->
+      <div class="card mobile-only" id="installCard" style="display:none">
         <h3 data-i18n="install_title">Installer l’app SamDoge</h3>
         <p class="muted" data-i18n="install_text">Détectée comme application web. Clique pour installer.</p>
         <button class="btn" id="installBtn" data-i18n="install_btn">Installer l’app</button>
@@ -156,7 +195,7 @@
       </div>
     </section>
 
-    <!-- STAKING (section interne) -->
+    <!-- STAKING -->
     <section class="card" id="staking">
       <h3 data-i18n="stake_title">Staking (bientôt)</h3>
       <p class="muted" data-i18n="stake_desc">
@@ -184,40 +223,7 @@
       </ol>
     </section>
 
-    <!-- FEUILLE DE ROUTE -->
-    <section class="card" id="roadmap">
-      <h3 data-i18n="road_title">Feuille de route</h3>
-      <div class="grid">
-        <div>
-          <h4>Phase 1</h4>
-          <ul>
-            <li>✅ Token créé &amp; déployé</li>
-            <li>✅ Site &amp; réseaux ouverts</li>
-            <li>✅ Tokenomics publiques</li>
-          </ul>
-        </div>
-        <div>
-          <h4>Phase 2</h4>
-          <ul>
-            <li>🧾 Audit &amp; KYC</li>
-            <li>🚀 Prévente PinkSale (bientôt)</li>
-            <li>🔒 Verrouillage de liquidité</li>
-            <li>📣 Campagne marketing</li>
-          </ul>
-        </div>
-        <div>
-          <h4>Phase 3</h4>
-          <ul>
-            <li>💧 Listing PancakeSwap</li>
-            <li>🏅 Staking en ligne</li>
-            <li>📈 Demandes CMC / CoinGecko</li>
-            <li>🤝 Partenariats, events</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- LIENS OFFICIELS (ordre alphabétique) -->
+    <!-- LIENS OFFICIELS -->
     <section class="card" id="links">
       <h3 data-i18n="links_title">Liens officiels</h3>
       <ul style="margin:0;padding-left:18px">
@@ -247,14 +253,18 @@
     }
     hamb.addEventListener('click',()=>toggleDrawer(!drawer.classList.contains('open')));
     back.addEventListener('click',()=>toggleDrawer(false));
-    // Fermer quand on clique un lien
     drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>toggleDrawer(false)));
 
-    // ====== PWA install
+    // ====== PWA install (badge + cartes mobile/desktop)
     let deferredPrompt=null;
-    const installCard=document.getElementById('installCard');
+    const installCard=document.getElementById('installCard');      // mobile card
     const installBtn=document.getElementById('installBtn');
     const iosHint=document.getElementById('iosHint');
+
+    const installMini=document.getElementById('installMini');      // desktop mini
+    const installBtnMini=document.getElementById('installBtnMini');
+    const iosHintMini=document.getElementById('iosHintMini');
+
     function isStandalone(){
       if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) return true;
       if (navigator.standalone) return true; return false;
@@ -264,12 +274,30 @@
       if (b) b.textContent = isStandalone() ? 'App : installée ✅' : 'App : non installée';
     }
     window.addEventListener('beforeinstallprompt',e=>{
-      e.preventDefault(); deferredPrompt=e; if(!isStandalone() && installCard) installCard.style.display='block';
+      e.preventDefault(); deferredPrompt=e;
+      if(!isStandalone()){
+        // Afficher la bonne variante selon viewport
+        if (window.matchMedia('(min-width:981px)').matches && installMini) installMini.style.display='block';
+        else if (installCard) installCard.style.display='block';
+      }
     });
-    installBtn?.addEventListener('click',async()=>{
-      if(!deferredPrompt){ if (iosHint) iosHint.style.display='block'; return;}
-      deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; if (installCard) installCard.style.display='none';
-    });
+
+    function handleInstall(btn,mini=false){
+      if(!deferredPrompt){
+        const hint = mini ? iosHintMini : iosHint;
+        if (hint) hint.style.display='block';
+        return;
+      }
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.finally(()=>{
+        deferredPrompt=null;
+        if (mini && installMini) installMini.style.display='none';
+        if (!mini && installCard) installCard.style.display='none';
+      });
+    }
+    installBtn?.addEventListener('click',()=>handleInstall(installBtn,false));
+    installBtnMini?.addEventListener('click',()=>handleInstall(installBtnMini,true));
+
     window.addEventListener('appinstalled',updateBadge);
     document.addEventListener('DOMContentLoaded',updateBadge);
 
