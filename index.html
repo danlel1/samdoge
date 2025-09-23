@@ -11,87 +11,51 @@
   <link rel="manifest" href="/site.webmanifest" />
   <style>
     :root{
-      --bg:#0b1020;            /* fond principal sombre */
-      --bg-soft:#0e152e;       /* surfaces */
-      --card:#121a38;          /* cartes */
-      --muted:#93a4bf;         /* texte secondaire */
-      --txt:#e6ecff;           /* texte principal */
-      --accent:#f59e0b;        /* orange SamDoge */
-      --accent-2:#ffcc4d;      /* jaune SamDoge */
-      --ok:#22c55e;            /* check */
-      --danger:#ef4444;
-      --glass: rgba(255,255,255,.06);
-      --border: rgba(255,255,255,.12);
-      --shadow: 0 10px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.03);
+      --bg:#0b1020; --bg-soft:#0e152e; --card:#121a38; --muted:#93a4bf; --txt:#e6ecff; --accent:#f59e0b; --accent-2:#ffcc4d; --ok:#22c55e; --glass: rgba(255,255,255,.06); --border: rgba(255,255,255,.12); --shadow: 0 10px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.03);
     }
     *{box-sizing:border-box}
-    html,body{margin:0; padding:0; background:radial-gradient(1000px 600px at 20% -10%, #1a2454 0%, transparent 60%),
-                                    radial-gradient(900px 600px at 120% 10%, #401c48 0%, transparent 55%),
-                                    linear-gradient(180deg, #0b1020 0%, #090e1a 100%);
-      color:var(--txt); font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
-      line-height:1.6;}
-    a{color:var(--accent)}
-    img{max-width:100%; height:auto}/* Layout */
-.container{width:min(1200px, 92%); margin-inline:auto}
-header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(140%) blur(8px); background:linear-gradient(180deg, rgba(11,16,32,.85), rgba(11,16,32,.35)); border-bottom:1px solid var(--border)}
-.nav{display:flex; align-items:center; gap:18px; padding:14px 0}
-.nav .brand{display:flex; align-items:center; gap:10px; text-decoration:none}
-.brand img{width:36px; height:36px}
-.brand span{font-weight:800; letter-spacing:.4px}
-.nav a{color:var(--txt); text-decoration:none; opacity:.8}
-.nav a:hover{opacity:1}
-.spacer{flex:1}
-.cta{display:inline-flex; align-items:center; gap:10px; border:1px solid var(--border); background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01)); padding:10px 14px; border-radius:14px; text-decoration:none; font-weight:600; box-shadow:var(--shadow)}
-.cta:hover{border-color:var(--accent); box-shadow:0 0 0 2px rgba(245,158,11,.15), var(--shadow)}
+    html,body{margin:0; padding:0; background:radial-gradient(1000px 600px at 20% -10%, #1a2454 0%, transparent 60%), radial-gradient(900px 600px at 120% 10%, #401c48 0%, transparent 55%), linear-gradient(180deg, #0b1020 0%, #090e1a 100%); color:var(--txt); font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial; line-height:1.6}
+    a{color:var(--accent)} img{max-width:100%; height:auto}
+    .container{width:min(1200px, 92%); margin-inline:auto}
+    header{position:sticky; top:0; z-index:60; backdrop-filter:saturate(140%) blur(8px); background:linear-gradient(180deg, rgba(11,16,32,.9), rgba(11,16,32,.45)); border-bottom:1px solid var(--border)}
+    .nav{display:flex; align-items:center; gap:18px; padding:10px 0}
+    .brand{display:flex; align-items:center; gap:12px; text-decoration:none}
+    .brand img{width:44px; height:44px}
+    .brand span{font-weight:900; letter-spacing:.6px}
+    nav.main{display:flex; gap:14px; align-items:center}
+    .spacer{flex:1}
+    .cta{display:inline-flex; align-items:center; gap:10px; padding:9px 14px; border-radius:12px; background:linear-gradient(180deg, rgba(245,158,11,.16), rgba(245,158,11,.06)); color:#1d1204; font-weight:700; text-decoration:none}
+    .lang-select{border:1px solid var(--border); padding:6px 8px; border-radius:10px; background:transparent}
+    /* improved menu: compact + hover underline */
+    nav.main a{position:relative; color:var(--txt); text-decoration:none; padding:8px}
+    nav.main a:after{content:''; position:absolute; left:12px; right:12px; bottom:6px; height:2px; background:transparent; border-radius:4px; transition:background .18s}
+    nav.main a:hover:after{background:linear-gradient(90deg,var(--accent),var(--accent-2))}/* Hero */
+.hero{position:relative; padding:48px 0 20px}
+.grid-hero{display:grid; grid-template-columns:1.1fr .9fr; gap:22px}
+.chip{display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border-radius:999px; background:linear-gradient(90deg, rgba(255,255,255,.02), rgba(255,255,255,.01)); border:1px solid var(--border)}
+.title{font-size:clamp(28px, 4.2vw, 52px); line-height:1.05; margin:12px 0}
+.subtitle{color:var(--muted); max-width:60ch}
+.panel{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid var(--border); border-radius:16px; padding:16px; box-shadow:var(--shadow)}
 
-/* Hero */
-.hero{position:relative; padding:64px 0 28px}
-.grid-hero{display:grid; grid-template-columns:1.1fr .9fr; gap:28px}
-.chip{display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border:1px solid var(--border); border-radius:999px; background:var(--glass)}
-.title{font-size:clamp(28px, 4.2vw, 54px); line-height:1.05; margin:14px 0}
-.subtitle{color:var(--muted); max-width:58ch}
-
-.panel{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid var(--border); border-radius:20px; padding:18px; box-shadow:var(--shadow)}
-.panel h3{margin:.2rem 0 .6rem}
-
-/* Contract row */
-.contract{display:flex; gap:10px; align-items:center; border:1px dashed rgba(245,158,11,.35); background:rgba(245,158,11,.08); padding:10px; border-radius:14px}
+.contract{display:flex; gap:10px; align-items:center; padding:10px; border-radius:12px}
 .addr{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; letter-spacing:.2px}
-.btn{cursor:pointer; display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:12px; border:1px solid var(--border); background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); color:var(--txt); font-weight:600; text-decoration:none; box-shadow:var(--shadow)}
-.btn:hover{border-color:var(--accent); box-shadow:0 0 0 2px rgba(245,158,11,.15), var(--shadow)}
-.btn.accent{border-color:rgba(245,158,11,.7); background:linear-gradient(180deg, rgba(245,158,11,.18), rgba(245,158,11,.08)); color:#1d1204}
-.btn.orange-link{color:var(--accent); border-color:rgba(245,158,11,.35); background:rgba(245,158,11,.06)}
+.btn{cursor:pointer; display:inline-flex; align-items:center; gap:8px; padding:9px 12px; border-radius:10px; border:1px solid var(--border); background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01)); color:var(--txt); font-weight:700; text-decoration:none}
+.btn.accent{background:linear-gradient(180deg, rgba(245,158,11,.18), rgba(245,158,11,.06)); color:#1d1204}
 
-/* Cards grid */
-.grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
-.card{border:1px solid var(--border); background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)); border-radius:20px; padding:18px; box-shadow:var(--shadow)}
-.card h3{margin:0 0 .4rem}
+.grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+.card{border:1px solid var(--border); background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)); border-radius:14px; padding:14px; box-shadow:var(--shadow)}
 .muted{color:var(--muted)}
 .list{margin:0; padding-left:18px}
-.list li{margin:.35rem 0}
 
-/* Tokenomics */
-.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
-.stat{border:1px solid var(--border); border-radius:16px; padding:14px; background:var(--glass)}
-.stat b{font-size:1.1rem}
+.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
+.stat{border-radius:12px; padding:12px; background:var(--glass)}
 
-/* Roadmap */
-.phases{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
-.phase{position:relative; border:1px solid var(--border); border-radius:18px; padding:16px; background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01))}
-.phase h4{margin:.2rem 0 .8rem}
-.check{color:var(--ok); font-weight:800}
-.todo{opacity:.7}
+.phases{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+.phase{border-radius:12px; padding:12px}
 
-/* Footer */
-footer{border-top:1px solid var(--border); margin-top:48px; padding:28px 0; color:var(--muted)}
+footer{border-top:1px solid var(--border); margin-top:36px; padding:20px 0; color:var(--muted)}
 
-/* Responsive */
-@media (max-width: 980px){
-  .grid-hero{grid-template-columns:1fr}
-  .grid{grid-template-columns:1fr}
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .phases{grid-template-columns:1fr}
-}
+@media (max-width:980px){.grid-hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.phases{grid-template-columns:1fr}}
 
   </style>
 </head>
@@ -100,185 +64,98 @@ footer{border-top:1px solid var(--border); margin-top:48px; padding:28px 0; colo
   <header>
     <div class="container nav">
       <a class="brand" href="#top" aria-label="SamDoge Home">
-        <img src="/assets/logo-512.png" alt="SamDoge logo" />
+        <img src="/assets/logo.png" alt="SamDoge logo" />
         <span>SamDoge (SDM)</span>
-      </a>
-      <nav style="display:flex; gap:14px; align-items:center">
-        <a href="#about">À propos</a>
-        <a href="#tokenomics">Tokenomics</a>
-        <a href="#howto">Comment acheter</a>
-        <a href="#roadmap">Feuille de route</a>
-        <a href="#links">Liens</a>
-      </nav>
-      <div class="spacer"></div>
-      <a class="cta" href="#buy" id="buyTop">
-        🚀 Acheter (bientôt)
-      </a>
-    </div>
-  </header>  <!-- HERO -->  <section class="hero container" id="top">
+      </a><nav class="main" aria-label="Main navigation">
+    <a href="#about">À propos</a>
+    <a href="#tokenomics">Tokenomics</a>
+    <a href="#howto">Comment acheter</a>
+    <a href="#roadmap">Feuille de route</a>
+    <a href="#links">Liens</a>
+  </nav>
+
+  <div class="spacer"></div>
+
+  <select id="lang" class="lang-select" title="Langue">
+    <option value="fr">FR</option>
+    <option value="en">EN</option>
+  </select>
+
+  <a class="cta" href="#buy">Acheter</a>
+</div>
+
+  </header>  <!-- HERO with banner -->  <section class="hero container" id="top">
+    <img src="/assets/banner.png" alt="SamDoge banner" style="width:100%; border-radius:12px; margin-bottom:12px; box-shadow:var(--shadow)"/>
     <div class="grid-hero">
       <div>
-        <div class="chip">⚡ BNB Smart Chain (BSC) • Contrat vérifié (à venir)</div>
-        <h1 class="title">La mascotte futuriste de la communauté crypto.</h1>
-        <p class="subtitle">SamDoge (SDM) est un meme coin propulsé par sa communauté, conçu pour une expérience simple: transparence, sécurité, et fun. Lancement sur BSC avec listing DEX prévu et taxes désactivées au départ.</p><div class="panel" style="margin-top:18px">
+        <div class="chip">⚡ BNB Smart Chain (BSC)</div>
+        <h1 class="title">SamDoge — la mascotte futuriste de la communauté</h1>
+        <p class="subtitle">SamDoge (SDM) est un meme coin communautaire sur BSC : transparence, sécurité, et roadmap claire. Taxes désactivées au départ — activables après annonce publique.</p><div class="panel" style="margin-top:12px">
       <h3>Adresse du contrat</h3>
       <div class="contract">
-        <code class="addr" id="contractAddr">0x0000000000000000000000000000000000000000</code>
-        <button class="btn orange-link" id="copyBtn">📋 Copier</button>
-        <a class="btn orange-link" id="bscscanBtn" target="_blank" rel="noopener">🔍 BscScan</a>
+        <code class="addr" id="contractAddrMasked">0xb02b...f37f8</code>
+        <button class="btn" id="revealAddr">👁️ Voir</button>
+        <button class="btn" id="copyBtn">📋 Copier</button>
+        <a class="btn" id="bscscanBtn" target="_blank" rel="noopener">🔍 BscScan</a>
       </div>
-      <small class="muted">* Remplacez l'adresse ci-dessus après déploiement mainnet. Le bouton « BscScan » s'activera automatiquement.</small>
+      <div style="margin-top:8px" class="muted">Suivi live: <a id="dexScreener" href="https://dexscreener.com/bsc/0xc85a95a4ee2dddfe2bd2970c71e17c56a2ba3104" target="_blank" rel="noopener">Dexscreener</a> • Audit: <a id="auditLink" href="https://blocksafu.com/token-scanner/56/0x32bFd701655EDF95809EaA5e525F0024ea571267" target="_blank" rel="noopener">BlockSafu</a></div>
     </div>
   </div>
 
   <div>
     <div class="panel">
-      <h3>Statut du listing</h3>
-      <p class="muted">Pré-vente via PinkSale (bientôt) → Listing PancakeSwap → Marketing & Staking.</p>
-      <div style="display:flex; gap:10px; flex-wrap:wrap">
-        <a class="btn accent" id="buyBtn" aria-disabled="true">Acheter sur PancakeSwap (bientôt)</a>
-        <a class="btn" href="#howto">Guide d'achat</a>
+      <h3>Statut</h3>
+      <p class="muted">Pré-vente & listing: PinkSale → PancakeSwap. Liquidity lock & audit publiés.</p>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px">
+        <a class="btn accent" id="buyBtn" href="https://pancakeswap.finance/swap?outputCurrency=0xb02be67dbfbd500011c5bbb435fef555ad3f37f8&chain=bsc" target="_blank">Acheter sur PancakeSwap</a>
+        <a class="btn" id="pinksaleBtn" aria-disabled="true">Pré‑vente PinkSale</a>
       </div>
-      <hr style="border:none; border-top:1px solid var(--border); margin:14px 0">
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px">
-        <div class="card">
-          <b>Taxes</b>
-          <p class="muted" style="margin:.4rem 0 0">Au lancement: <b>0%</b> (achats/ventes). Après listing: jusqu'à <b>5%</b> max (configurable), annoncées publiquement.</p>
-        </div>
-        <div class="card">
-          <b>Installer l'app</b>
-          <p class="muted" style="margin:.4rem 0 .6rem">Ajoutez SamDoge à votre écran d'accueil (PWA).</p>
-          <button class="btn" id="installBtn">📲 Installer</button>
-        </div>
+      <hr style="border:none; border-top:1px solid var(--border); margin:12px 0">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px">
+        <div class="card"><b>Taxes</b><p class="muted" style="margin:.4rem 0 0">Lancement: <b>0%</b>. Après annonce publique: <b>≤5%</b> (ex: 3% marketing + 2% LP).</p></div>
+        <div class="card"><b>PWA</b><p class="muted" style="margin:.4rem 0 0">Installer l'app pour accès rapide et notifications.</p><button class="btn" id="installBtn">📲 Installer</button></div>
       </div>
     </div>
   </div>
 </div>
 
-  </section>  <!-- ABOUT / VALUE -->  <section class="container" id="about" style="padding:18px 0 0">
+  </section>  <!-- ABOUT / TOKENOMICS -->  <section class="container" id="about" style="padding:18px 0 0">
     <div class="grid">
-      <div class="card">
-        <h3>Pourquoi SamDoge ?</h3>
-        <p class="muted">Un branding fun + une exécution sérieuse : contrat vérifiable, taxes annoncées, liquidité verrouillée, roadmap claire, et communauté impliquée.</p>
-      </div>
-      <div class="card">
-        <h3>Sécurité d'abord</h3>
-        <ul class="list">
-          <li>Contrat vérifié et propriétaire renoncé/partiellement renoncé (selon besoins de taxes).</li>
-          <li>Adresses exclues de taxe pour la pré-vente si nécessaire.</li>
-          <li>Liquidité verrouillée sur DEX (preuve publique).</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Utilités prévues</h3>
-        <ul class="list">
-          <li>Staking de SDM (APR variable).</li>
-          <li>Récompenses communautaires & concours.</li>
-          <li>Intégrations web (widgets, mini‑apps).</li>
-        </ul>
-      </div>
+      <div class="card"><h3>Pourquoi SamDoge ?</h3><p class="muted">Branding fort, équipe active, audit et preuves de sécurité. Communauté au centre.</p></div>
+      <div class="card"><h3>Sécurité</h3><ul class="list"><li>Contrat public & vérifié</li><li>LP lock & audit publics</li><li>Adresses exclues pour pré-vente si besoin</li></ul></div>
+      <div class="card"><h3>Utilités</h3><ul class="list"><li>Staking</li><li>Concours & récompenses</li><li>Intégrations web</li></ul></div>
     </div>
-  </section>  <!-- TOKENOMICS -->  <section class="container" id="tokenomics" style="padding:28px 0 0">
-    <h2 style="margin:0 0 12px">Tokenomics</h2>
-    <p class="muted" style="margin-top:0">Supply total: <b>1,000,000,000 SDM</b>. Allocation et taxes transparentes.</p><div class="stats" style="margin-top:12px">
-  <div class="stat"><b>Liquidity Pool</b><br/><span class="muted">300,000,000 SDM (30%)</span></div>
-  <div class="stat"><b>Marketing</b><br/><span class="muted">100,000,000 SDM (10%)</span></div>
-  <div class="stat"><b>Réserves CEX</b><br/><span class="muted">100,000,000 SDM (10%)</span></div>
-  <div class="stat"><b>Équipe</b><br/><span class="muted">50,000,000 SDM (5%) — vesting</span></div>
-  <div class="stat"><b>Staking/Rewards</b><br/><span class="muted">250,000,000 SDM (25%)</span></div>
-  <div class="stat"><b>Trésorerie</b><br/><span class="muted">200,000,000 SDM (20%)</span></div>
-</div>
-
-<div class="grid" style="margin-top:14px">
-  <div class="card">
-    <h3>Taxes</h3>
-    <ul class="list">
-      <li><b>Lancement:</b> 0% (buy/sell).</li>
-      <li><b>Après listing:</b> max 5% (ex: 3% marketing + 2% LP). Public et modifiable on‑chain par l'owner.</li>
-      <li>Portefeuille marketing: <code class="addr" id="marketingAddr">0x0000…0000</code></li>
-    </ul>
-  </div>
-  <div class="card">
-    <h3>Liquidité & Verrous</h3>
-    <ul class="list">
-      <li>Création paire SDM/BNB.</li>
-      <li>Prix initial défini par réserves (SDM & BNB) lors de l'ajout de liquidité.</li>
-      <li>LP tokens verrouillés (lien public).</li>
-    </ul>
-  </div>
-  <div class="card">
-    <h3>Paramètres clés</h3>
-    <ul class="list">
-      <li>Decimals: 18</li>
-      <li>Chaîne: BNB Smart Chain (BSC)</li>
-      <li>Ticker: SDM</li>
-    </ul>
-  </div>
-</div>
-
-  </section>  <!-- HOW TO BUY -->  <section class="container" id="howto" style="padding:28px 0 0">
-    <h2 style="margin:0 0 12px">Comment acheter</h2>
+  </section>  <section class="container" id="tokenomics" style="padding:22px 0 0">
+    <h2>Tokenomics</h2>
+    <p class="muted">Supply total: <b>1,000,000,000 SDM</b></p>
+    <div class="stats" style="margin-top:10px">
+      <div class="stat"><b>Liquidity Pool</b><br/><span class="muted">300,000,000 SDM (30%)</span></div>
+      <div class="stat"><b>Marketing</b><br/><span class="muted">100,000,000 SDM (10%)</span></div>
+      <div class="stat"><b>Réserves</b><br/><span class="muted">350,000,000 SDM</span></div>
+      <div class="stat"><b>Staking/Rewards</b><br/><span class="muted">250,000,000 SDM (25%)</span></div>
+    </div>
+  </section>  <!-- HOW TO BUY -->  <section class="container" id="howto" style="padding:22px 0 0">
+    <h2>Comment acheter</h2>
     <ol class="list">
-      <li>Installer <b>MetaMask</b> ou Trust Wallet et sélectionner le réseau <b>BSC</b>.</li>
-      <li>Approvisionner en <b>BNB</b> (réseau BSC).</li>
-      <li>Au listing, ouvrir PancakeSwap → Importer le token via l'adresse du contrat.</li>
-      <li>Choisir la paire <b>SDM/BNB</b>, définir le slippage (0–5% selon taxes actives), confirmer l'échange.</li>
+      <li>Installer MetaMask / Trust Wallet et sélectionner le réseau BNB Smart Chain (BSC).</li>
+      <li>Ajouter BNB au wallet (réseau BSC).</li>
+      <li>Ouvrir PancakeSwap et utiliser le lien direct (bouton ci‑dessous) ou importer le token via l'adresse de contrat.</li>
+      <li>Définir le slippage: 0.1–5% (selon taxes actives). Confirmer l'échange.</li>
     </ol>
-    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px">
-      <a class="btn" id="pancakeTrade" aria-disabled="true">PancakeSwap (bientôt)</a>
-      <a class="btn" id="pinksaleBtn" aria-disabled="true">Pré‑vente PinkSale (bientôt)</a>
-    </div>
-  </section>  <!-- ROADMAP -->  <section class="container" id="roadmap" style="padding:28px 0 0">
-    <h2 style="margin:0 0 12px">Feuille de route</h2>
+    <div style="margin-top:8px"><a class="btn accent" href="https://pancakeswap.finance/swap?outputCurrency=0xb02be67dbfbd500011c5bbb435fef555ad3f37f8&chain=bsc" target="_blank">Acheter SDM sur PancakeSwap</a></div>
+  </section>  <!-- ROADMAP -->  <section class="container" id="roadmap" style="padding:22px 0 0">
+    <h2>Feuille de route</h2>
     <div class="phases">
-      <div class="phase">
-        <h4>Phase 1 <span class="check">✓</span></h4>
-        <ul class="list">
-          <li>Pièce créée (contrat déployé)</li>
-          <li>Site web officiel en ligne</li>
-          <li>Communautés (Twitter, Reddit)</li>
-        </ul>
-      </div>
-      <div class="phase todo">
-        <h4>Phase 2</h4>
-        <ul class="list">
-          <li>Pré‑vente bientôt sur PinkSale</li>
-          <li>Audit abordable (ex: Coinscope / dessertswap)</li>
-          <li>Listing PancakeSwap</li>
-        </ul>
-      </div>
-      <div class="phase todo">
-        <h4>Phase 3</h4>
-        <ul class="list">
-          <li>Staking en production</li>
-          <li>Partenariats & marketing</li>
-          <li>Exploration CEX</li>
-        </ul>
-      </div>
+      <div class="phase"><h4>Phase 1 <span style="color:var(--ok)">✓</span></h4><ul class="list"><li>Token lancé</li><li>Site officiel</li><li>Communautés créées</li></ul></div>
+      <div class="phase"><h4>Phase 2</h4><ul class="list"><li>Pré-vente PinkSale</li><li>Audit & listing PancakeSwap</li><li>LP lock</li></ul></div>
+      <div class="phase"><h4>Phase 3</h4><ul class="list"><li>Staking</li><li>Partenariats</li><li>Exploration CEX</li></ul></div>
     </div>
-  </section>  <!-- LINKS -->  <section class="container" id="links" style="padding:28px 0 0">
-    <h2 style="margin:0 0 12px">Liens officiels</h2>
+  </section>  <!-- LINKS -->  <section class="container" id="links" style="padding:22px 0 0">
+    <h2>Liens officiels</h2>
     <div class="grid">
-      <div class="card">
-        <h3>Communauté</h3>
-        <ul class="list">
-          <li>Twitter: <a href="https://x.com/DogeSami" target="_blank" rel="noopener">@DogeSami</a></li>
-          <li>Reddit: <a href="https://reddit.com/r/SamDoge" target="_blank" rel="noopener">r/SamDoge</a></li>
-          <li>GitHub: <a href="https://github.com/danlel1" target="_blank" rel="noopener">danlel1</a></li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Docs & Preuves</h3>
-        <ul class="list">
-          <li>Contrat sur BscScan (après déploiement)</li>
-          <li>Preuve de verrouillage LP (lien)</li>
-          <li>Audit (lien)</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Contact</h3>
-        <p class="muted">Propositions, listings, partenariats: <a href="mailto:team@samdoge.io">team@samdoge.io</a></p>
-      </div>
+      <div class="card"><h3>Communauté</h3><ul class="list"><li>Twitter: <a href="https://x.com/DogeSami" target="_blank">@DogeSami</a></li><li>Reddit: <a href="https://reddit.com/r/SamDoge" target="_blank">r/SamDoge</a></li></ul></div>
+      <div class="card"><h3>Suivi & Audit</h3><ul class="list"><li>DexScreener: <a href="https://dexscreener.com/bsc/0xc85a95a4ee2dddfe2bd2970c71e17c56a2ba3104" target="_blank">Voir le chart</a></li><li>Audit / Token scanner: <a href="https://blocksafu.com/token-scanner/56/0x32bFd701655EDF95809EaA5e525F0024ea571267" target="_blank">BlockSafu</a></li></ul></div>
+      <div class="card"><h3>Contact</h3><p class="muted">team@samdoge.io</p><p class="muted">Contrat: <code class="addr">0xb02be67dbfbd500011c5bbb435fef555ad3f37f8</code></p></div>
     </div>
   </section>  <footer>
     <div class="container" style="display:flex; gap:14px; align-items:center; justify-content:space-between; flex-wrap:wrap">
@@ -286,73 +163,63 @@ footer{border-top:1px solid var(--border); margin-top:48px; padding:28px 0; colo
       <div style="opacity:.8">Made with 🧡 sur BSC • Style futuriste</div>
     </div>
   </footer>  <script>
-    // ====== Runtime helpers ======
-    const $ = (q)=>document.querySelector(q);
-    const contract = $('#contractAddr');
-    const bscscanBtn = $('#bscscanBtn');
-    const copyBtn = $('#copyBtn');
-    const buyBtn = $('#buyBtn');
-    const pancakeTrade = $('#pancakeTrade');
-    const pinksaleBtn = $('#pinksaleBtn');
-    const marketingAddr = $('#marketingAddr');
-
-    // 👉 REMPLACEZ ICI APRÈS DÉPLOIEMENT
+    // ====== SETTINGS (préremplies) ======
     const SETTINGS = {
-      CONTRACT_ADDRESS: '0x0000000000000000000000000000000000000000',
+      CONTRACT_ADDRESS: '0xb02be67dbfbd500011c5bbb435fef555ad3f37f8',
       MARKETING_ADDRESS: '0x0000000000000000000000000000000000000000',
-      PANCAKE_INFO: '', // ex: https://pancakeswap.finance/info/v2/tokens/0x...
-      PANCAKE_TRADE: '', // ex: https://pancakeswap.finance/swap?outputCurrency=0x...
-      PINKSALE: '' // ex: https://www.pinksale.finance/launchpad/0x...
+      PANCAKE_TRADE: 'https://pancakeswap.finance/swap?outputCurrency=0xb02be67dbfbd500011c5bbb435fef555ad3f37f8&chain=bsc',
+      DEXSCREENER: 'https://dexscreener.com/bsc/0xc85a95a4ee2dddfe2bd2970c71e17c56a2ba3104',
+      AUDIT: 'https://blocksafu.com/token-scanner/56/0x32bFd701655EDF95809EaA5e525F0024ea571267'
     };
 
-    function refreshLinks(){
-      contract.textContent = SETTINGS.CONTRACT_ADDRESS;
-      marketingAddr.textContent = SETTINGS.MARKETING_ADDRESS.slice(0,6)+'…'+SETTINGS.MARKETING_ADDRESS.slice(-4);
-      if(/^0x[a-fA-F0-9]{40}$/.test(SETTINGS.CONTRACT_ADDRESS)){
-        bscscanBtn.href = 'https://bscscan.com/token/' + SETTINGS.CONTRACT_ADDRESS;
-        bscscanBtn.classList.remove('disabled');
-        if(SETTINGS.PANCAKE_TRADE){ buyBtn.href = SETTINGS.PANCAKE_TRADE; buyBtn.removeAttribute('aria-disabled'); }
-        if(SETTINGS.PANCAKE_TRADE){ pancakeTrade.href = SETTINGS.PANCAKE_TRADE; pancakeTrade.removeAttribute('aria-disabled'); }
-      }
-      if(SETTINGS.PINKSALE){ pinksaleBtn.href = SETTINGS.PINKSALE; pinksaleBtn.removeAttribute('aria-disabled'); }
+    // DOM refs
+    const contractAddrMasked = document.getElementById('contractAddrMasked');
+    const revealBtn = document.getElementById('revealAddr');
+    const copyBtn = document.getElementById('copyBtn');
+    const bscscanBtn = document.getElementById('bscscanBtn');
+    const dexScreener = document.getElementById('dexScreener');
+    const auditLink = document.getElementById('auditLink');
+    const buyBtn = document.getElementById('buyBtn');
+    const pancakeBtn = document.getElementById('pinksaleBtn');
+
+    function mask(addr){ if(!addr) return '0x000...0000'; return addr.slice(0,6)+'...'+addr.slice(-4); }
+    function refresh(){
+      contractAddrMasked.textContent = mask(SETTINGS.CONTRACT_ADDRESS);
+      bscscanBtn.href = 'https://bscscan.com/token/'+SETTINGS.CONTRACT_ADDRESS;
+      dexScreener.href = SETTINGS.DEXSCREENER;
+      auditLink.href = SETTINGS.AUDIT;
+      buyBtn.href = SETTINGS.PANCAKE_TRADE;
+      pancakeBtn.href = '';
     }
 
-    copyBtn?.addEventListener('click', async()=>{
-      try{ await navigator.clipboard.writeText(SETTINGS.CONTRACT_ADDRESS); copyBtn.textContent='✅ Copié'; setTimeout(()=>copyBtn.textContent='📋 Copier',1200);}catch{alert('Copie impossible');}
+    let revealed = false;
+    revealBtn.addEventListener('click', ()=>{
+      if(!revealed){ contractAddrMasked.textContent = SETTINGS.CONTRACT_ADDRESS; revealBtn.textContent='🙈 Cacher'; revealed=true; }
+      else{ contractAddrMasked.textContent = mask(SETTINGS.CONTRACT_ADDRESS); revealBtn.textContent='👁️ Voir'; revealed=false; }
     });
 
-    // PWA install prompt
+    copyBtn.addEventListener('click', async ()=>{
+      try{ await navigator.clipboard.writeText(SETTINGS.CONTRACT_ADDRESS); copyBtn.textContent='✅ Copié'; setTimeout(()=>copyBtn.textContent='📋 Copier',1300);}catch{alert('Impossible de copier');}
+    });
+
+    // language switch (simple client-side)
+    const lang = document.getElementById('lang');
+    lang.addEventListener('change',(e)=>{
+      if(e.target.value==='en') alert('Switch to English — next: translate content (I can do that).');
+      else location.hash='';
+    });
+
+    // PWA install
     let deferredPrompt; const installBtn = document.getElementById('installBtn');
     window.addEventListener('beforeinstallprompt', (e)=>{ e.preventDefault(); deferredPrompt = e; installBtn?.removeAttribute('disabled'); });
     installBtn?.addEventListener('click', async()=>{ if(!deferredPrompt) return; deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null;});
 
     document.getElementById('year').textContent = new Date().getFullYear();
-    refreshLinks();
-  </script>  <!--
-  📦 À mettre à la racine du site
-  1) /assets/
-     - logo-512.png  (fond transparent)
-     - favicon-32.png, favicon-192.png, apple-touch-icon.png
-     - logo.svg       (vectorisé)
-
-  2) site.webmanifest (exemple) :
-  {
-    "name": "SamDoge",
-    "short_name": "SamDoge",
-    "start_url": "/",
-    "display": "standalone",
-    "background_color": "#0b1020",
-    "theme_color": "#0b1020",
-    "icons": [
-      {"src":"/assets/favicon-192.png","sizes":"192x192","type":"image/png"},
-      {"src":"/assets/logo-512.png","sizes":"512x512","type":"image/png"}
-    ]
-  }
-
-  3) (optionnel) service-worker.js pour le cache statique.
-
-  4) Après déploiement BSC, remplissez SETTINGS ci‑dessus pour activer les liens PancakeSwap / PinkSale / BscScan et le bouton Copier.
-
-  5) Couleurs brand : fond #0b1020, accents #f59e0b / #ffcc4d.
+    refresh();
+  </script>  <!-- NOTES pour déploiement:
+    - ajoute /assets/banner.png et /assets/logo.png et favicon dans le dossier /assets
+    - le SETTINGS ci‑dessus est prérempli avec l'adresse BSC fournie
+    - pour traduire FR/EN, je peux fournir les fichiers JSON ou ajouter les textes directement
+    - si tu veux que l'adresse marketing apparaisse et soit copiée aussi, dis moi l'adresse
   --></body>
 </html>
