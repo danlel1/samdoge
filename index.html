@@ -6,7 +6,7 @@
   <title>SamDoge (SDM) — Futuriste, prêt pour BSC</title>
   <meta name="description" content="SamDoge (SDM) — Meme coin communautaire sur BNB Smart Chain. Tokenomics claires, roadmap transparente, et style futuriste. Rejoignez la meute !" />
   <meta name="theme-color" content="#0b1020" />
-  <!-- Icônes & manifest en chemins RELATIFS -->
+  <!-- Icônes & manifest (RELATIFS) -->
   <link rel="icon" href="assets/smd/favicon-32x32.png" sizes="32x32" />
   <link rel="icon" href="assets/smd/android-chrome-192x192.png" sizes="192x192" />
   <link rel="apple-touch-icon" href="assets/smd/apple-touch-icon.png" />
@@ -32,35 +32,38 @@
     .btn[disabled]{opacity:.6; pointer-events:none}
     .btn.accent{background:linear-gradient(180deg,var(--accent-2),var(--accent)); color:#1a1303; border-color:rgba(255,211,106,.85)}
     .btn.ghost{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02)); color:var(--txt)}
+    .btn.sm{padding:8px 10px; border-radius:10px; font-weight:700}
     .lang-select{border:1px solid var(--border); padding:8px 10px; border-radius:10px; background:#ffffff; color:#0e1116; font-weight:800}
     nav.main a{position:relative; color:var(--txt); text-decoration:none; padding:8px}
     nav.main a:after{content:''; position:absolute; left:12px; right:12px; bottom:6px; height:2px; background:transparent; border-radius:4px; transition:background .18s}
     nav.main a:hover:after{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+
     .hero{position:relative; padding:44px 0 18px}
     .grid-hero{display:grid; grid-template-columns:1.1fr .9fr; gap:20px; min-width:0}
     .chip{display:inline-flex; gap:8px; align-items:center; padding:6px 12px; border-radius:999px; background:linear-gradient(90deg,rgba(255,255,255,.18),rgba(255,255,255,.10)); border:1px solid var(--border); color:#0d1116; font-weight:800}
     .title{font-size:clamp(28px,4.8vw,54px); line-height:1.04; margin:10px 0}
     .subtitle{color:var(--muted); max-width:60ch}
+
     .panel{background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.05)); border:1px solid var(--border); border-radius:16px; padding:16px; box-shadow:var(--shadow); min-width:0}
-    .contract{display:flex; gap:8px; align-items:center; padding:10px; border-radius:12px; flex-wrap:wrap; min-width:0}
-    .contract>*{min-width:0}
-    /* Adresse : lisible + ellipsis (0xb02b…37f8) + pas de débordement mobile */
-    .addr{
-      display:inline-block;
-      max-width:62vw;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
-      letter-spacing:.2px;
-      color:#0d1116;
-      background:rgba(255,255,255,.95);
-      padding:6px 8px;
-      border-radius:8px;
-      user-select:text;
-    }
-    .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
     .card{border:1px solid var(--border); background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.04)); border-radius:14px; padding:14px; box-shadow:var(--shadow); min-width:0}
+
+    /* Bloc contrats */
+    .contract{display:flex; flex-direction:column; gap:12px; padding:10px; border-radius:12px}
+    .row{display:flex; align-items:center; gap:8px; flex-wrap:wrap; min-width:0}
+    .row small{min-width:88px}
+
+    /* Adresse : desktop visible (raccourci), mobile cachée tant que non “Voir” */
+    .addr{
+      display:inline-block; max-width:62vw; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace; letter-spacing:.2px;
+      color:#0d1116; background:rgba(255,255,255,.95); padding:6px 8px; border-radius:8px; user-select:text;
+    }
+    .addr.hidden{display:none}
+
+    /* Bannière (placée juste au-dessus de Statut) */
+    .hero-banner{width:100%; height:clamp(140px,28vw,260px); object-fit:cover; border-radius:12px; margin-bottom:12px; box-shadow:var(--shadow)}
+
+    .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
     .muted{color:var(--muted)}
     .list{margin:0; padding-left:18px}
     .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
@@ -69,6 +72,7 @@
     .phase{border-radius:12px; padding:12px; background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03)); border:1px solid var(--border)}
     footer{border-top:1px solid var(--border); margin-top:34px; padding:18px 0; color:var(--muted)}
     #menuToggle{display:none}
+
     @media (max-width:980px){
       .grid-hero{grid-template-columns:1fr}
       .grid{grid-template-columns:1fr}
@@ -105,13 +109,8 @@
   </header>
 
   <section class="hero container" id="top">
-    <!-- Bannière : d’abord banniere.png, fallback banner.png -->
-    <img src="assets/smd/banniere.jpg"
-         onerror="this.onerror=null; this.src='assets/smd/banniere.pjpg';"
-         alt="SamDoge banner"
-         style="width:100%; border-radius:12px; margin-bottom:12px; box-shadow:var(--shadow)"/>
-
     <div class="grid-hero">
+      <!-- Colonne gauche : Titre, pitch, adresses -->
       <div>
         <div class="chip" data-i18n="chip">⚡ BNB Smart Chain (BSC)</div>
         <h1 class="title">SamDoge — <span data-i18n="hero_title">la mascotte futuriste de la communauté</span></h1>
@@ -120,18 +119,23 @@
         <div class="panel" style="margin-top:12px">
           <h3 data-i18n="contract_title">Adresses officielles</h3>
           <div class="contract">
-            <div style="display:flex; align-items:center; gap:8px; flex:1 1 260px">
+            <div class="row">
               <small class="muted">Contrat:</small>
-              <code class="addr" id="contractAddrMasked">0xb02b…37f8</code>
-              <button class="btn" id="revealAddr" data-i18n="view">👁️ Voir</button>
-              <button class="btn" id="copyBtn" data-i18n="copy">📋 Copier</button>
-              <a class="btn" id="bscscanBtn" target="_blank" rel="noopener">🔍 BscScan</a>
+              <code class="addr hidden" id="contractAddrMasked">0xb02b…37f8</code>
+              <div class="btn-group">
+                <button class="btn sm" id="revealAddr" data-i18n="view">👁️ Voir</button>
+                <button class="btn sm" id="copyBtn" data-i18n="copy">📋 Copier</button>
+                <a class="btn sm" id="bscscanBtn" target="_blank" rel="noopener">🔍 BscScan</a>
+              </div>
             </div>
-            <div style="display:flex; align-items:center; gap:8px; flex:1 1 260px">
+
+            <div class="row">
               <small class="muted">Marketing:</small>
-              <code class="addr" id="marketingAddrMasked">0x9a95…4C61</code>
-              <button class="btn" id="revealMkt" data-i18n="view">👁️ Voir</button>
-              <button class="btn" id="copyMkt" data-i18n="copy">📋 Copier</button>
+              <code class="addr hidden" id="marketingAddrMasked">0x9a95…4C61</code>
+              <div class="btn-group">
+                <button class="btn sm" id="revealMkt" data-i18n="view">👁️ Voir</button>
+                <button class="btn sm" id="copyMkt" data-i18n="copy">📋 Copier</button>
+              </div>
             </div>
           </div>
           <div style="margin-top:8px" class="muted">
@@ -140,7 +144,15 @@
           </div>
         </div>
       </div>
+
+      <!-- Colonne droite : Bannière + Statut -->
       <div>
+        <!-- Bannière déplacée ici -->
+        <img class="hero-banner"
+             src="assets/smd/banniere.jpg"
+             onerror="this.onerror=null; this.src='assets/smd/banniere.png';"
+             alt="SamDoge banner"/>
+
         <div class="panel">
           <h3 data-i18n="status">Statut</h3>
           <p class="muted" data-i18n="status_text">Pré-vente & listing: PinkSale → PancakeSwap. Liquidity lock & audit publiés.</p>
@@ -228,7 +240,7 @@
   </footer>
 
   <script>
-    // ====== SETTINGS (préremplies) ======
+    // ====== SETTINGS ======
     const SETTINGS = {
       CONTRACT_ADDRESS:'0xb02be67dbfbd500011c5bbb435fef555ad3f37f8',
       MARKETING_ADDRESS:'0x9a95027DEb2C944E239C546F2EE0C34F22804C61',
@@ -237,7 +249,7 @@
       AUDIT:'https://blocksafu.com/token-scanner/56/0x32bFd701655EDF95809EaA5e525F0024ea571267'
     };
 
-    // DOM refs
+    // Refs
     const contractAddrMasked=document.getElementById('contractAddrMasked');
     const revealBtn=document.getElementById('revealAddr');
     const copyBtn=document.getElementById('copyBtn');
@@ -248,41 +260,49 @@
     const dexScreener=document.getElementById('dexScreener');
     const auditLink=document.getElementById('auditLink');
     const buyBtn=document.getElementById('buyBtn');
-    const pancakeBtn=document.getElementById('pinksaleBtn');
     const menuToggle=document.getElementById('menuToggle');
     const mainNav=document.getElementById('mainNav');
     const lang=document.getElementById('lang');
 
     // Masque lisible 0x1234…ABCD
     function mask(a){ return a ? a.slice(0,6) + '…' + a.slice(-4) : '0x000…0000'; }
+    const isMobile = window.matchMedia('(max-width:768px)');
 
     function refresh(){
-      // on affiche un raccourci lisible dès le départ
       contractAddrMasked.textContent  = mask(SETTINGS.CONTRACT_ADDRESS);
       marketingAddrMasked.textContent = mask(SETTINGS.MARKETING_ADDRESS);
 
-      // liens fixes
+      // Desktop: visible (raccourci) / Mobile: caché jusqu'à "Voir"
+      if (!isMobile.matches){
+        contractAddrMasked.classList.remove('hidden');
+        marketingAddrMasked.classList.remove('hidden');
+      } else {
+        contractAddrMasked.classList.add('hidden');
+        marketingAddrMasked.classList.add('hidden');
+      }
+
       bscscanBtn.href = 'https://bscscan.com/token/' + SETTINGS.CONTRACT_ADDRESS;
       dexScreener.href = SETTINGS.DEXSCREENER;
       auditLink.href   = SETTINGS.AUDIT;
       buyBtn.href      = SETTINGS.PANCAKE_TRADE;
     }
 
-    // Voir/Cacher + Copier (actif même masqué)
+    // Voir/Cacher + Copier
     let revealed=false, revealedMkt=false;
 
     revealBtn.addEventListener('click', () => {
       if (!revealed) {
         contractAddrMasked.textContent = SETTINGS.CONTRACT_ADDRESS;
+        contractAddrMasked.classList.remove('hidden');
         revealBtn.textContent = '🙈 Cacher';
         revealed = true;
       } else {
         contractAddrMasked.textContent = mask(SETTINGS.CONTRACT_ADDRESS);
+        if (isMobile.matches) contractAddrMasked.classList.add('hidden');
         revealBtn.textContent = '👁️ Voir';
         revealed = false;
       }
     });
-
     copyBtn.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(SETTINGS.CONTRACT_ADDRESS);
@@ -294,15 +314,16 @@
     revealMkt.addEventListener('click', () => {
       if (!revealedMkt) {
         marketingAddrMasked.textContent = SETTINGS.MARKETING_ADDRESS;
+        marketingAddrMasked.classList.remove('hidden');
         revealMkt.textContent = '🙈 Cacher';
         revealedMkt = true;
       } else {
         marketingAddrMasked.textContent = mask(SETTINGS.MARKETING_ADDRESS);
+        if (isMobile.matches) marketingAddrMasked.classList.add('hidden');
         revealMkt.textContent = '👁️ Voir';
         revealedMkt = false;
       }
     });
-
     copyMkt.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(SETTINGS.MARKETING_ADDRESS);
@@ -311,7 +332,7 @@
       } catch {}
     });
 
-    // mobile menu toggle
+    // Menu mobile
     menuToggle?.addEventListener('click',()=>{mainNav.classList.toggle('open')});
 
     // i18n FR/EN
@@ -321,11 +342,6 @@
     };
     function applyLang(l){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n'); if(dict[l]&&dict[l][k]) el.textContent=dict[l][k];}); document.documentElement.lang=l;}
     lang.addEventListener('change',e=>applyLang(e.target.value));
-
-    // PWA install (si tu utilises service-worker.js externe, remplace par un register('/service-worker.js'))
-    let deferredPrompt; const installBtn=document.getElementById('installBtn');
-    window.addEventListener('beforeinstallprompt',e=>{e.preventDefault(); deferredPrompt=e; installBtn?.removeAttribute('disabled');});
-    installBtn?.addEventListener('click',async()=>{if(!deferredPrompt) return; deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null;});
 
     document.getElementById('year').textContent=(new Date()).getFullYear();
     refresh();
