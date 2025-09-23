@@ -62,13 +62,15 @@
     .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
     .muted{color:var(--muted)}
     .list{margin:0; padding-left:18px}
-    .stats{display:grid; grid-template-columns:repeat(2,1fr); gap:10px} /* mobile réduit */
+    .stats{display:grid; grid-template-columns:repeat(2,1fr); gap:10px}
     .stat{border-radius:12px; padding:12px; background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.05)); border:1px solid var(--border)}
     .phases{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
     .phase{border-radius:12px; padding:12px; background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03)); border:1px solid var(--border)}
     footer{border-top:1px solid var(--border); margin-top:34px; padding:18px 0; color:var(--muted)}
     #menuToggle{display:none}
 
+    /* === Bannière mobile en haut === */
+    .banner-top{ display:none; }
     @media (max-width:980px){
       .grid-hero{grid-template-columns:1fr}
       .grid{grid-template-columns:1fr}
@@ -79,6 +81,11 @@
       nav.main.open{display:flex}
       .title{font-size:clamp(26px,6vw,40px)}
       .panel{padding:14px}
+
+      /* mobile: bannière tout en haut, et on cache celle de droite */
+      .banner-top{display:block; margin:10px 0 12px;}
+      .banner-top img{width:100%; height:clamp(140px,28vw,260px); object-fit:cover; border-radius:12px; box-shadow:var(--shadow);}
+      .banner-block{display:none;}
     }
   </style>
 </head>
@@ -105,6 +112,13 @@
   </header>
 
   <section class="hero container" id="top">
+    <!-- *** BANNIÈRE MOBILE TOUT EN HAUT *** -->
+    <div class="banner-top">
+      <img src="assets/smd/banniere.jpg"
+           onerror="this.onerror=null; this.src='assets/smd/banniere.png';"
+           alt="SamDoge banner">
+    </div>
+
     <div class="grid-hero">
       <div>
         <div class="chip" data-i18n="chip">⚡ BNB Smart Chain (BSC)</div>
@@ -119,7 +133,7 @@
               <code class="addr hidden" id="contractAddrMasked">0xb02b…37f8</code>
               <div class="btn-group" style="display:flex; gap:8px; flex-wrap:wrap">
                 <button class="btn sm" id="revealAddr" data-i18n="view">👁️ Voir</button>
-                <button class="btn sm" id="copyBtn" data-i18n="copy">📋 Copier</button>
+                <button class="btn sm" id="copyBtn" data-i18n="copy" disabled>📋 Copier</button>
                 <a class="btn sm" id="bscscanBtn" target="_blank" rel="noopener">🔍 BscScan</a>
               </div>
             </div>
@@ -128,7 +142,7 @@
               <code class="addr hidden" id="marketingAddrMasked">0x9a95…4C61</code>
               <div class="btn-group" style="display:flex; gap:8px; flex-wrap:wrap">
                 <button class="btn sm" id="revealMkt" data-i18n="view">👁️ Voir</button>
-                <button class="btn sm" id="copyMkt" data-i18n="copy">📋 Copier</button>
+                <button class="btn sm" id="copyMkt" data-i18n="copy" disabled>📋 Copier</button>
               </div>
             </div>
           </div>
@@ -139,6 +153,7 @@
         </div>
       </div>
 
+      <!-- Colonne droite (inchangée sur desktop) -->
       <div>
         <div class="banner-block">
           <img class="hero-banner"
@@ -368,7 +383,7 @@
     function applyLang(l){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n'); if(dict[l]&&dict[l][k]) el.textContent=dict[l][k];}); document.documentElement.lang=l;}
     lang.addEventListener('change',e=>applyLang(e.target.value));
 
-    // LinkedIn injection
+    // LinkedIn injection (URL officielle ou cache si vide)
     (function(){
       const li = document.getElementById('liLinkedIn');
       const a  = document.getElementById('linkedinLink');
@@ -385,4 +400,4 @@
     refresh();
   </script>
 </body>
-    </html>
+</html>
