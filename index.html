@@ -6,7 +6,6 @@
   <title>SamDoge (SDM) — Futuriste, prêt pour BSC</title>
   <meta name="description" content="SamDoge (SDM) — Meme coin communautaire sur BNB Smart Chain. Tokenomics claires, roadmap transparente, et style futuriste. Rejoignez la meute !" />
   <meta name="theme-color" content="#0b1020" />
-  <!-- Icônes & manifest (RELATIFS) -->
   <link rel="icon" href="assets/smd/favicon-32x32.png" sizes="32x32" />
   <link rel="icon" href="assets/smd/android-chrome-192x192.png" sizes="192x192" />
   <link rel="apple-touch-icon" href="assets/smd/apple-touch-icon.png" />
@@ -37,7 +36,6 @@
     nav.main a{position:relative; color:var(--txt); text-decoration:none; padding:8px}
     nav.main a:after{content:''; position:absolute; left:12px; right:12px; bottom:6px; height:2px; background:transparent; border-radius:4px; transition:background .18s}
     nav.main a:hover:after{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
-
     .hero{position:relative; padding:44px 0 18px}
     .grid-hero{display:grid; grid-template-columns:1.1fr .9fr; gap:20px; min-width:0}
     .chip{display:inline-flex; gap:8px; align-items:center; padding:6px 12px; border-radius:999px; background:linear-gradient(90deg,rgba(255,255,255,.18),rgba(255,255,255,.10)); border:1px solid var(--border); color:#0d1116; font-weight:800}
@@ -60,8 +58,9 @@
     }
     .addr.hidden{display:none}
 
-    /* Bannière (placée juste au-dessus de Statut) */
+    /* Bannière (colonne de droite, remonte en premier sur mobile) */
     .hero-banner{width:100%; height:clamp(140px,28vw,260px); object-fit:cover; border-radius:12px; margin-bottom:12px; box-shadow:var(--shadow)}
+    @media (max-width:980px){ .banner-block{ order:-1; margin-top:10px } }
 
     .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
     .muted{color:var(--muted)}
@@ -122,17 +121,16 @@
             <div class="row">
               <small class="muted">Contrat:</small>
               <code class="addr hidden" id="contractAddrMasked">0xb02b…37f8</code>
-              <div class="btn-group">
+              <div class="btn-group" style="display:flex; gap:8px; flex-wrap:wrap">
                 <button class="btn sm" id="revealAddr" data-i18n="view">👁️ Voir</button>
                 <button class="btn sm" id="copyBtn" data-i18n="copy">📋 Copier</button>
                 <a class="btn sm" id="bscscanBtn" target="_blank" rel="noopener">🔍 BscScan</a>
               </div>
             </div>
-
             <div class="row">
               <small class="muted">Marketing:</small>
               <code class="addr hidden" id="marketingAddrMasked">0x9a95…4C61</code>
-              <div class="btn-group">
+              <div class="btn-group" style="display:flex; gap:8px; flex-wrap:wrap">
                 <button class="btn sm" id="revealMkt" data-i18n="view">👁️ Voir</button>
                 <button class="btn sm" id="copyMkt" data-i18n="copy">📋 Copier</button>
               </div>
@@ -147,11 +145,12 @@
 
       <!-- Colonne droite : Bannière + Statut -->
       <div>
-        <!-- Bannière déplacée ici -->
-        <img class="hero-banner"
-             src="assets/smd/banniere.jpg"
-             onerror="this.onerror=null; this.src='assets/smd/banniere.png';"
-             alt="SamDoge banner"/>
+        <div class="banner-block">
+          <img class="hero-banner"
+               src="assets/smd/banniere.jpg"
+               onerror="this.onerror=null; this.src='assets/smd/banniere.png';"
+               alt="SamDoge banner"/>
+        </div>
 
         <div class="panel">
           <h3 data-i18n="status">Statut</h3>
@@ -217,6 +216,7 @@
           <li>Twitter: <a href="https://x.com/DogeSami" target="_blank">@DogeSami</a></li>
           <li>Reddit: <a href="https://reddit.com/r/SamDoge" target="_blank">r/SamDoge</a></li>
           <li>Telegram: <a href="https://t.me/SamDogeOfficial" target="_blank">t.me/SamDogeOfficial</a></li>
+          <li>LinkedIn: <a href="https://www.linkedin.com/company/SamDoge" target="_blank">linkedin.com/company/SamDoge</a></li>
         </ul>
       </div>
       <div class="card"><h3>Suivi & Audit</h3>
@@ -227,7 +227,14 @@
       </div>
       <div class="card"><h3>Contact</h3>
         <p class="muted">contact@samdoge.io</p>
-        <p class="muted">Contrat: <code class="addr">0xb02be67dbfbd500011c5bbb435fef555ad3f37f8</code></p>
+        <p class="muted">
+          Contrat:
+          <code class="addr hidden" id="contactAddr">0xb02b…37f8</code>
+          <span class="btn-group" style="display:inline-flex; gap:8px; margin-left:8px">
+            <button class="btn sm" id="contactReveal">👁️ Voir</button>
+            <button class="btn sm" id="contactCopy">📋 Copier</button>
+          </span>
+        </p>
       </div>
     </div>
   </section>
@@ -266,7 +273,7 @@
 
     // Masque lisible 0x1234…ABCD
     function mask(a){ return a ? a.slice(0,6) + '…' + a.slice(-4) : '0x000…0000'; }
-    const isMobile = window.matchMedia('(max-width:768px)');
+    const isMobile = window.matchMedia('(max-width:980px)');
 
     function refresh(){
       contractAddrMasked.textContent  = mask(SETTINGS.CONTRACT_ADDRESS);
@@ -287,7 +294,7 @@
       buyBtn.href      = SETTINGS.PANCAKE_TRADE;
     }
 
-    // Voir/Cacher + Copier
+    // Voir/Cacher + Copier (Adresses officielles)
     let revealed=false, revealedMkt=false;
 
     revealBtn.addEventListener('click', () => {
@@ -329,6 +336,38 @@
         await navigator.clipboard.writeText(SETTINGS.MARKETING_ADDRESS);
         copyMkt.textContent = '✅ Copié';
         setTimeout(() => (copyMkt.textContent = '📋 Copier'), 1200);
+      } catch {}
+    });
+
+    // ---- Contact card mask/reveal/copy ----
+    const contactAddr   = document.getElementById('contactAddr');
+    const contactReveal = document.getElementById('contactReveal');
+    const contactCopy   = document.getElementById('contactCopy');
+    let revealedContact = false;
+
+    function setContactMasked(){
+      contactAddr.textContent = mask(SETTINGS.CONTRACT_ADDRESS);
+      if (isMobile.matches) contactAddr.classList.add('hidden'); else contactAddr.classList.remove('hidden');
+    }
+    setContactMasked();
+
+    contactReveal.addEventListener('click', () => {
+      if (!revealedContact) {
+        contactAddr.textContent = SETTINGS.CONTRACT_ADDRESS;
+        contactAddr.classList.remove('hidden');
+        contactReveal.textContent = '🙈 Cacher';
+      } else {
+        setContactMasked();
+        contactReveal.textContent = '👁️ Voir';
+      }
+      revealedContact = !revealedContact;
+    });
+
+    contactCopy.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(SETTINGS.CONTRACT_ADDRESS);
+        contactCopy.textContent = '✅ Copié';
+        setTimeout(()=> contactCopy.textContent='📋 Copier', 1200);
       } catch {}
     });
 
