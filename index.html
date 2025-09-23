@@ -16,8 +16,8 @@
     html,body{margin:0; padding:0; background:
       radial-gradient(900px 520px at 15% -10%, #1a2454 0%, transparent 60%),
       radial-gradient(900px 520px at 120% 10%, #401c48 0%, transparent 55%),
-      linear-gradient(180deg, #0b1020 0%, #090e1a 100%);
-      color:var(--txt); font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial; line-height:1.6; overflow-x:hidden}
+      linear-gradient(180deg, #0b1020 0%, #090e1a 100%); color:var(--txt);
+      font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial; line-height:1.6; overflow-x:hidden}
     a{color:var(--accent)} img{max-width:100%; height:auto; display:block}
     .container{width:min(1200px,94%); margin-inline:auto}
     header{position:sticky; top:0; z-index:60; backdrop-filter:saturate(140%) blur(10px); background:linear-gradient(180deg,rgba(11,16,32,.92),rgba(11,16,32,.55)); border-bottom:1px solid var(--border)}
@@ -39,7 +39,7 @@
     .hero{position:relative; padding:44px 0 18px}
     .grid-hero{display:grid; grid-template-columns:1.1fr .9fr; gap:20px; min-width:0}
     .chip{display:inline-flex; gap:8px; align-items:center; padding:6px 12px; border-radius:999px; background:linear-gradient(90deg,rgba(255,255,255,.18),rgba(255,255,255,.10)); border:1px solid var(--border); font-weight:800; color:#0d1116}
-    .chip .dot{width:8px; height:8px; border-radius:50%; background:#ff9900; box-shadow:0 0 10px #ff9900} /* orange BNB */
+    .chip .dot{width:8px; height:8px; border-radius:50%; background:#ff9900; box-shadow:0 0 10px #ff9900}
     .title{font-size:clamp(28px,4.8vw,54px); line-height:1.04; margin:10px 0}
     .subtitle{color:var(--muted); max-width:60ch}
 
@@ -54,7 +54,6 @@
     .addr.hidden{display:none}
 
     .hero-banner{width:100%; height:clamp(140px,28vw,260px); object-fit:cover; border-radius:12px; margin-bottom:12px; box-shadow:var(--shadow)}
-    @media (max-width:980px){ .banner-block{ order:-1; margin-top:10px } }
 
     .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
     .muted{color:var(--muted)}
@@ -102,12 +101,13 @@
 
   <section class="hero container" id="top">
     <div class="grid-hero">
-      <div>
+      <!-- Colonne gauche -->
+      <div id="colLeft">
         <div class="chip"><span class="dot"></span><span data-i18n="chip">BNB Smart Chain (BSC)</span></div>
         <h1 class="title">SamDoge — <span data-i18n="hero_title">la mascotte futuriste de la communauté</span></h1>
         <p class="subtitle" data-i18n="hero_sub">SamDoge (SDM) est un meme coin communautaire sur BSC : transparence, sécurité, et roadmap claire. Taxes désactivées au départ — activables après annonce publique.</p>
 
-        <div class="panel" style="margin-top:12px">
+        <div class="panel" style="margin-top:12px" id="addressesPanel">
           <h3 data-i18n="contract_title">Adresses officielles</h3>
           <div class="contract">
             <div class="row">
@@ -133,14 +133,25 @@
             • Audit: <a id="auditLink" href="https://blocksafu.com/token-scanner/56/0x32bFd701655EDF95809EaA5e525F0024ea571267" target="_blank">BlockSafu</a>
           </div>
         </div>
+
+        <!-- MINI-CARTES : Taxes / PWA — déplacées ici à gauche sur DESKTOP -->
+        <div id="miniCards" style="display:none; margin-top:12px">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px">
+            <div class="card"><b data-i18n="taxes">Taxes</b><p class="muted" data-i18n="taxes_text">Lancement: 0%. Après annonce publique: ≤5% (ex: 3% marketing + 2% LP).</p></div>
+            <div class="card"><b data-i18n="pwa">PWA</b><p class="muted" data-i18n="pwa_text">Installer l'app pour accès rapide et notifications.</p><button class="btn" id="installBtnLeft">📲 <span data-i18n="install">Installer</span></button></div>
+          </div>
+        </div>
       </div>
 
-      <div>
-        <div class="banner-block">
+      <!-- Colonne droite -->
+      <div id="colRight">
+        <!-- Bannière -->
+        <div class="banner-block" id="bannerBlock">
           <img class="hero-banner" src="assets/smd/banniere.jpg" onerror="this.onerror=null; this.src='assets/smd/banniere.png';" alt="SamDoge banner"/>
         </div>
 
-        <div class="panel">
+        <!-- Statut -->
+        <div class="panel" id="statusPanel">
           <h3 data-i18n="status">Statut</h3>
           <p class="muted" data-i18n="status_text">Pré-vente & listing: PinkSale → PancakeSwap. Liquidity lock & audit publiés.</p>
           <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px">
@@ -148,136 +159,16 @@
             <a class="btn ghost" id="pinksaleBtn" aria-disabled="true" data-i18n="presale">Pré-vente PinkSale</a>
           </div>
           <hr style="border:none; border-top:1px solid var(--border); margin:12px 0">
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px">
-            <div class="card"><b data-i18n="taxes">Taxes</b><p class="muted" data-i18n="taxes_text">Lancement: 0%. Après annonce publique: ≤5% (ex: 3% marketing + 2% LP).</p></div>
-            <div class="card"><b data-i18n="pwa">PWA</b><p class="muted" data-i18n="pwa_text">Installer l'app pour accès rapide et notifications.</p><button class="btn" id="installBtn">📲 <span data-i18n="install">Installer</span></button></div>
-          </div>
+          <!-- Placeholder où on remettra les mini-cartes sur MOBILE -->
+          <div id="statusCards"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="container" id="about" style="padding:18px 0 0">
-    <div class="grid">
-      <div class="card"><h3 data-i18n="why">Pourquoi SamDoge ?</h3><p class="muted" data-i18n="why_text">Branding fort, équipe active, audit et preuves de sécurité. Communauté au centre.</p></div>
-      <div class="card"><h3 data-i18n="security">Sécurité</h3>
-        <ul class="list">
-          <li data-i18n="sec1">Contrat public & vérifié</li>
-          <li data-i18n="sec2">LP lock & audit publics</li>
-          <li data-i18n="sec3">Adresses exclues pour pré-vente si besoin</li>
-          <li>🔒 <span data-i18n="reserve_lock">Réserve verrouillée:</span> <a href="https://www.pinksale.finance/#/pinklock/0x407993575c91ce7643a4d4cCACc9A98c36eE1BBE" target="_blank" rel="noopener">PinkLock</a></li>
-        </ul>
-      </div>
-      <div class="card"><h3 data-i18n="utilities">Utilités</h3><ul class="list"><li data-i18n="util1">Staking</li><li data-i18n="util2">Concours & récompenses</li><li data-i18n="util3">Intégrations web</li></ul></div>
-    </div>
-  </section>
-
-  <section class="container" id="tokenomics" style="padding:22px 0 0">
-    <h2 data-i18n="nav_tokenomics">Tokenomics</h2>
-    <p class="muted" data-i18n="supply">Supply total: <b>1,000,000,000 SDM</b></p>
-    <div class="stats" style="margin-top:10px">
-      <div class="stat"><b>Liquidity Pool</b><br/><span class="muted">300,000,000 SDM (30%)</span></div>
-      <div class="stat"><b>Marketing</b><br/><span class="muted">100,000,000 SDM (10%)</span></div>
-      <div class="stat"><b>Réserve</b><br/><span class="muted">350,000,000 SDM 🔒 (lock jusqu’en 2026)</span></div>
-      <div class="stat"><b>Staking/Rewards</b><br/><span class="muted">250,000,000 SDM (25%)</span></div>
-    </div>
-  </section>
-
-  <section class="container" id="howto" style="padding:22px 0 0">
-    <h2 data-i18n="howto">Comment acheter</h2>
-    <ol class="list">
-      <li data-i18n="how1">Installer MetaMask / Trust Wallet et sélectionner le réseau BNB Smart Chain (BSC).</li>
-      <li data-i18n="how2">Ajouter BNB au wallet (réseau BSC).</li>
-      <li data-i18n="how3">Ouvrir PancakeSwap et utiliser le lien direct (bouton ci-dessous) ou importer le token via l'adresse de contrat.</li>
-      <li data-i18n="how4">Définir le slippage: 0.1–5% (selon taxes actives). Confirmer l'échange.</li>
-    </ol>
-    <div style="margin-top:8px"><a class="btn accent" href="https://pancakeswap.finance/swap?inputCurrency=BNB&outputCurrency=0xb02be67dbfbd500011c5bbb435fef555ad3f37f8&chain=bsc" target="_blank" data-i18n="buy">Acheter SDM sur PancakeSwap</a></div>
-  </section>
-
-  <section class="container" id="roadmap" style="padding:22px 0 0">
-    <h2 data-i18n="nav_roadmap">Feuille de route</h2>
-    <div class="phases">
-      <div class="phase">
-        <h4 data-i18n="phase1">Phase 1</h4>
-        <ul class="list">
-          <li data-i18n="r1a">Token lancé</li>
-          <li data-i18n="r1b">Site officiel</li>
-          <li data-i18n="r1c">Communautés créées</li>
-        </ul>
-      </div>
-      <div class="phase">
-        <h4 data-i18n="phase2">Phase 2</h4>
-        <ul class="list">
-          <li data-i18n="r2a">Pré-vente PinkSale</li>
-          <li data-i18n="r2b">Audit & listing PancakeSwap</li>
-          <li data-i18n="r2c">LP lock</li>
-        </ul>
-      </div>
-      <div class="phase">
-        <h4 data-i18n="phase3">Phase 3</h4>
-        <ul class="list">
-          <li data-i18n="r3a">Staking</li>
-          <li data-i18n="r3b">Partenariats</li>
-          <li data-i18n="r3c">Exploration CEX</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="container" id="links" style="padding:22px 0 0">
-    <h2 data-i18n="links">Liens officiels</h2>
-    <div class="grid">
-      <div class="card"><h3>Communauté</h3>
-        <ul class="list">
-          <li>Twitter: <a href="https://x.com/DogeSami" target="_blank">@DogeSami</a></li>
-          <li>Reddit: <a href="https://reddit.com/r/SamDoge" target="_blank">r/SamDoge</a></li>
-          <li>Telegram: <a href="https://t.me/SamDogeOfficial" target="_blank">t.me/SamDogeOfficial</a></li>
-          <li id="liLinkedIn">LinkedIn: <a id="linkedinLink" href="#" target="_blank" rel="noopener">ouvrir</a></li>
-        </ul>
-      </div>
-      <div class="card"><h3>Suivi & Audit</h3>
-        <ul class="list">
-          <li>DexScreener: <a href="https://dexscreener.com/bsc/0xc85a95a4ee2dddfe2bd2970c71e17c56a2ba3104" target="_blank">Voir le chart</a></li>
-          <li>Audit / Token scanner: <a href="https://blocksafu.com/token-scanner/56/0x32bFd701655EDF95809EaA5e525F0024ea571267" target="_blank">BlockSafu</a></li>
-        </ul>
-      </div>
-      <div class="card"><h3>Contact</h3>
-        <p class="muted">contact@samdoge.io</p>
-        <p class="muted">
-          Contrat:
-          <code class="addr hidden" id="contactAddr">0xb02b…37f8</code>
-          <span class="btn-group" style="display:inline-flex; gap:8px; margin-left:8px">
-            <button class="btn sm" id="contactReveal">👁️ Voir</button>
-            <button class="btn sm" id="contactCopy">📋 Copier</button>
-          </span>
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Disclaimer -->
-  <section class="container" id="disclaimer" style="padding:20px 0">
-    <div class="panel">
-      <h3 data-i18n="disclaimer_title">Avertissement</h3>
-      <p class="muted" data-i18n="disclaimer_text">
-        SamDoge (SDM) est un jeton communautaire de type “meme coin”. 
-        Il n’offre aucune garantie de performance, de rendement ni de valeur future. 
-        Ce site ne constitue pas un conseil en investissement, ni une offre de titres financiers.
-
-        Les crypto-actifs sont hautement volatils et risqués : n’investissez que des fonds que vous pouvez vous permettre de perdre.
-
-        En utilisant ce site ou en achetant du SDM, vous acceptez de le faire sous votre 
-        pleine responsabilité et d’effectuer vos propres recherches (DYOR).
-      </p>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container" style="display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap">
-      <div>© <span id="year"></span> SamDoge. Tous droits réservés.</div>
-      <div style="opacity:.85">Made with 🧡 sur BSC • Style futuriste</div>
-    </div>
-  </footer>
+  <!-- … (le reste: about, tokenomics, howto, roadmap, links, disclaimer, footer) … -->
+  <!-- Pour ne pas allonger inutilement, je n’ai pas re-collé les sections suivantes car elles restent IDENTIQUES à ta dernière version.
+       Garde-les telles quelles sous cette ligne. -->
 
   <script>
     // ====== SETTINGS ======
@@ -290,7 +181,18 @@
       LINKEDIN:'https://www.linkedin.com/in/sam-doge-2b4653386'
     };
 
-    // DOM refs
+    // Refs communs
+    const isMobile = window.matchMedia('(max-width:980px)');
+    const hero = document.querySelector('.hero .grid-hero');
+    const colLeft = document.getElementById('colLeft');
+    const colRight = document.getElementById('colRight');
+    const bannerBlock = document.getElementById('bannerBlock');
+    const addressesPanel = document.getElementById('addressesPanel');
+    const statusPanel = document.getElementById('statusPanel');
+    const statusCards = document.getElementById('statusCards');
+    const miniCards = document.getElementById('miniCards');
+
+    // --- Adresses / liens
     const contractAddrMasked=document.getElementById('contractAddrMasked');
     const revealBtn=document.getElementById('revealAddr');
     const copyBtn=document.getElementById('copyBtn');
@@ -306,9 +208,8 @@
     const lang=document.getElementById('lang');
 
     function mask(a){ return a ? a.slice(0,6)+'…'+a.slice(-4) : '0x000…0000'; }
-    const isMobile = window.matchMedia('(max-width:980px)');
 
-    function refresh(){
+    function refreshLinksAndMasks(){
       contractAddrMasked.textContent  = mask(SETTINGS.CONTRACT_ADDRESS);
       marketingAddrMasked.textContent = mask(SETTINGS.MARKETING_ADDRESS);
       if (!isMobile.matches){
@@ -324,6 +225,29 @@
       buyBtn.href      = SETTINGS.PANCAKE_TRADE;
     }
 
+    // --- Placement dynamique demandé
+    function placeBannerAndCards(){
+      if(isMobile.matches){
+        // 1) Bannière TOUT EN HAUT (avant la colonne gauche) sur mobile
+        hero.parentElement.insertBefore(bannerBlock, hero); // bannière au-dessus de toute la grille
+        // 2) Mini-cartes sous Statut
+        statusCards.innerHTML = '';
+        statusCards.appendChild(miniCards);
+        miniCards.style.display = 'block';
+      }else{
+        // Desktop: bannière revient en haut de la colonne droite
+        if(bannerBlock.parentElement !== colRight){
+          colRight.insertBefore(bannerBlock, statusPanel);
+        }
+        // Mini-cartes sous "Adresses officielles" (colonne gauche)
+        if(miniCards.parentElement !== colLeft){
+          colLeft.insertBefore(miniCards, addressesPanel.nextSibling);
+        }
+        miniCards.style.display = 'block';
+      }
+    }
+
+    // --- Boutons voir / copier
     let revealed=false, revealedMkt=false;
     revealBtn.addEventListener('click',()=>{
       if(!revealed){contractAddrMasked.textContent=SETTINGS.CONTRACT_ADDRESS; contractAddrMasked.classList.remove('hidden'); revealBtn.textContent='🙈 Cacher'; revealed=true;}
@@ -337,53 +261,34 @@
     });
     copyMkt.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(SETTINGS.MARKETING_ADDRESS); copyMkt.textContent='✅ Copié'; setTimeout(()=>copyMkt.textContent='📋 Copier',1200);}catch{}});
 
-    // Contact block
+    // Contact (si tu l’as dans ta page complète)
     const contactAddr=document.getElementById('contactAddr');
     const contactReveal=document.getElementById('contactReveal');
     const contactCopy=document.getElementById('contactCopy');
-    function setContactMasked(){contactAddr.textContent=mask(SETTINGS.CONTRACT_ADDRESS); if(isMobile.matches) contactAddr.classList.add('hidden'); else contactAddr.classList.remove('hidden');}
-    setContactMasked();
-    contactReveal.addEventListener('click',()=>{if(contactAddr.classList.contains('hidden')){contactAddr.classList.remove('hidden'); contactAddr.textContent=SETTINGS.CONTRACT_ADDRESS; contactReveal.textContent='🙈 Cacher';}else{setContactMasked(); contactReveal.textContent='👁️ Voir';}});
-    contactCopy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(SETTINGS.CONTRACT_ADDRESS); contactCopy.textContent='✅ Copié'; setTimeout(()=> contactCopy.textContent='📋 Copier',1200);}catch{}});
+    function setContactMasked(){ if(!contactAddr) return; contactAddr.textContent=mask(SETTINGS.CONTRACT_ADDRESS); if(isMobile.matches) contactAddr.classList.add('hidden'); else contactAddr.classList.remove('hidden');}
+    if(contactReveal){contactReveal.addEventListener('click',()=>{if(contactAddr.classList.contains('hidden')){contactAddr.classList.remove('hidden'); contactAddr.textContent=SETTINGS.CONTRACT_ADDRESS; contactReveal.textContent='🙈 Cacher';}else{setContactMasked(); contactReveal.textContent='👁️ Voir';}});}
+    if(contactCopy){contactCopy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(SETTINGS.CONTRACT_ADDRESS); contactCopy.textContent='✅ Copié'; setTimeout(()=> contactCopy.textContent='📋 Copier',1200);}catch{}});}
 
-    // Mobile menu
+    // Menu mobile
     menuToggle?.addEventListener('click',()=>{mainNav.classList.toggle('open')});
 
-    // i18n dict (FR/EN) — ajout Phase 1/2/3 + disclaimer
-    const dict={
-      fr:{nav_about:'À propos',nav_tokenomics:'Tokenomics',nav_howto:'Comment acheter',nav_roadmap:'Feuille de route',nav_links:'Liens',buy:'Acheter',chip:'BNB Smart Chain (BSC)',hero_title:'la mascotte futuriste de la communauté',hero_sub:'SamDoge (SDM) est un meme coin communautaire sur BSC : transparence, sécurité, et roadmap claire. Taxes désactivées au départ — activables après annonce publique.',contract_title:'Adresses officielles',status:'Statut',status_text:'Pré-vente & listing: PinkSale → PancakeSwap. Liquidity lock & audit publiés.',presale:'Pré-vente PinkSale',taxes:'Taxes',taxes_text:'Lancement: 0%. Après annonce publique: ≤5% (ex: 3% marketing + 2% LP).',pwa:'PWA',pwa_text:"Installer l'app pour accès rapide et notifications.",install:'Installer',why:'Pourquoi SamDoge ?',why_text:'Branding fort, équipe active, audit et preuves de sécurité. Communauté au centre.',security:'Sécurité',sec1:'Contrat public & vérifié',sec2:'LP lock & audit publics',sec3:'Adresses exclues pour pré-vente si besoin',reserve_lock:'Réserve verrouillée :',utilities:'Utilités',util1:'Staking',util2:'Concours & récompenses',util3:'Intégrations web',howto:'Comment acheter',how1:'Installer MetaMask / Trust Wallet et sélectionner le réseau BNB Smart Chain (BSC).',how2:'Ajouter BNB au wallet (réseau BSC).',how3:"Ouvrir PancakeSwap et utiliser le lien direct (bouton ci-dessous) ou importer le token via l'adresse de contrat.",how4:"Définir le slippage: 0.1–5% (selon taxes actives). Confirmer l'échange.",links:'Liens officiels',phase1:'Phase 1',phase2:'Phase 2',phase3:'Phase 3',r1a:'Token lancé',r1b:'Site officiel',r1c:'Communautés créées',r2a:'Pré-vente PinkSale',r2b:'Audit & listing PancakeSwap',r2c:'LP lock',r3a:'Staking',r3b:'Partenariats',r3c:'Exploration CEX',disclaimer_title:'Avertissement',disclaimer_text:"SamDoge (SDM) est un jeton communautaire de type “meme coin”. Il n’offre aucune garantie de performance, de rendement ni de valeur future. Ce site ne constitue pas un conseil en investissement, ni une offre de titres financiers.\n\nLes crypto-actifs sont hautement volatils et risqués : n’investissez que des fonds que vous pouvez vous permettre de perdre.\n\nEn utilisant ce site ou en achetant du SDM, vous acceptez de le faire sous votre pleine responsabilité et d’effectuer vos propres recherches (DYOR)."},
-      en:{nav_about:'About',nav_tokenomics:'Tokenomics',nav_howto:'How to Buy',nav_roadmap:'Roadmap',nav_links:'Links',buy:'Buy',chip:'BNB Smart Chain (BSC)',hero_title:'the community’s futuristic mascot',hero_sub:'SamDoge (SDM) is a community meme coin on BSC: transparency, security and a clear roadmap. Taxes off at launch — enabled only after public notice.',contract_title:'Official Addresses',status:'Status',status_text:'Presale & listing: PinkSale → PancakeSwap. Liquidity lock & audit published.',presale:'PinkSale Presale',taxes:'Taxes',taxes_text:'Launch: 0%. After public notice: ≤5% (e.g., 3% marketing + 2% LP).',pwa:'PWA',pwa_text:'Install the app for quick access and notifications.',install:'Install',why:'Why SamDoge?',why_text:'Strong branding, active team, audit and security proofs. Community first.',security:'Security',sec1:'Public & verified contract',sec2:'LP lock & public audit',sec3:'Tax-exempt addresses for presale if needed',reserve_lock:'Locked reserve:',utilities:'Utilities',util1:'Staking',util2:'Community rewards',util3:'Web integrations',howto:'How to Buy',how1:'Install MetaMask / Trust Wallet and select BNB Smart Chain (BSC).',how2:'Add BNB to your wallet (BSC network).',how3:'Open PancakeSwap via the button below or import the token via the contract address.',how4:'Set slippage: 0.1–5% (depending on active taxes). Confirm the swap.',links:'Official Links',phase1:'Phase 1',phase2:'Phase 2',phase3:'Phase 3',r1a:'Token launched',r1b:'Official website',r1c:'Communities created',r2a:'PinkSale presale',r2b:'Audit & PancakeSwap listing',r2c:'LP lock',r3a:'Staking',r3b:'Partnerships',r3c:'CEX exploration',disclaimer_title:'Disclaimer',disclaimer_text:"SamDoge (SDM) is a community-driven meme coin. It provides no guarantees of performance, returns, or future value. This website does not constitute investment advice or an offer of financial securities.\n\nCryptocurrencies are highly volatile and risky: only invest funds you can afford to lose.\n\nBy using this site or purchasing SDM, you agree to do so at your own responsibility and to conduct your own research (DYOR)."}
-    };
-
-    function applyLang(l){
-      document.querySelectorAll('[data-i18n]').forEach(el=>{
-        const k=el.getAttribute('data-i18n');
-        if(dict[l]&&dict[l][k]){
-          // si le texte contient des sauts de ligne, utiliser innerText pour les conserver
-          const val=dict[l][k];
-          if((val||'').includes('\n')) el.innerText=val; else el.textContent=val;
-        }
-      });
-      document.documentElement.lang=l;
-    }
+    // i18n (tu gardes ton dict existant)
+    const dict={/* … ton dictionnaire FR/EN tel que la dernière version … */};
+    function applyLang(l){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n'); if(dict[l]&&dict[l][k]){const v=dict[l][k]; if((v||'').includes('\n')) el.innerText=v; else el.textContent=v;}}); document.documentElement.lang=l;}
     lang.addEventListener('change',e=>applyLang(e.target.value));
 
-    // LinkedIn injection
+    // LinkedIn
     (function(){
-      const li = document.getElementById('liLinkedIn');
-      const a  = document.getElementById('linkedinLink');
-      const u = SETTINGS.LINKEDIN;
-      if(u && /^https?:\/\//i.test(u)){
-        a.href = u;
-        a.textContent = u.replace(/^https?:\/\/(www\.)?/,'');
-      } else {
-        li.style.display = 'none';
-      }
+      const li=document.getElementById('liLinkedIn'); const a=document.getElementById('linkedinLink'); const u=SETTINGS.LINKEDIN;
+      if(li && a){ if(u && /^https?:\/\//i.test(u)){ a.href=u; a.textContent=u.replace(/^https?:\/\/(www\.)?/,''); } else { li.style.display='none'; } }
     })();
 
-    document.getElementById('year').textContent=(new Date()).getFullYear();
-    applyLang('fr'); // FR par défaut
-    refresh();
+    // Init
+    document.getElementById('year') && (document.getElementById('year').textContent=(new Date()).getFullYear());
+    applyLang('fr');
+    refreshLinksAndMasks();
+    placeBannerAndCards();
+    isMobile.addEventListener('change', placeBannerAndCards);
   </script>
 </body>
 </html>
