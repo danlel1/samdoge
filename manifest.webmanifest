@@ -1,0 +1,12 @@
+{
+  "name": "SamDoge (SMD)",
+  "short_name": "SamDoge",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0a1133",
+  "theme_color": "#0a1133",
+  "icons": [
+    { "src": "logo-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "logo-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
