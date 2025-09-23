@@ -308,17 +308,50 @@
     </div>
   </section>
 
-  <!-- ===== DISCLAIMER / AVERTISSEMENT ===== -->
-  <section class="container" id="disclaimer" style="padding:18px 0 0">
-    <div class="panel">
-      <h3 data-i18n="disc_title">Avertissement</h3>
-      <p class="muted" data-i18n="disc_text">
-        SamDoge (SDM) est un token mème communautaire. Aucune promesse de gain ni conseil financier.
-        Faites vos propres recherches (DYOR). Les crypto-actifs sont volatils : n’investissez que ce que
-        vous pouvez vous permettre de perdre. L’achat de SDM implique des risques.
-      </p>
-    </div>
-  </section>
+ <section class="container" id="disclaimer" style="padding:20px 0">
+  <div class="panel">
+    <h3 data-i18n="disclaimer_title">Avertissement</h3>
+    <p class="muted" data-i18n="disclaimer_text">
+      SamDoge (SDM) est un jeton communautaire de type “meme coin”. 
+      Il n’offre aucune garantie de performance, de rendement ni de valeur future. 
+      Ce site ne constitue pas un conseil en investissement, ni une offre de titres financiers.<br><br>
+      Les crypto-actifs sont <b>hautement volatils et risqués</b> : n’investissez que des fonds que vous pouvez vous permettre de perdre.<br><br>
+      En utilisant ce site ou en achetant du SDM, vous acceptez de le faire sous votre 
+      <b>pleine responsabilité</b> et d’effectuer vos propres recherches (DYOR).
+    </p>
+  </div>
+</section>
+
+<script>
+  const dictDisclaimer = {
+    fr: {
+      disclaimer_title: "Avertissement",
+      disclaimer_text: "SamDoge (SDM) est un jeton communautaire de type “meme coin”. Il n’offre aucune garantie de performance, de rendement ni de valeur future. Ce site ne constitue pas un conseil en investissement, ni une offre de titres financiers.\n\nLes crypto-actifs sont hautement volatils et risqués : n’investissez que des fonds que vous pouvez vous permettre de perdre.\n\nEn utilisant ce site ou en achetant du SDM, vous acceptez de le faire sous votre pleine responsabilité et d’effectuer vos propres recherches (DYOR)."
+    },
+    en: {
+      disclaimer_title: "Disclaimer",
+      disclaimer_text: "SamDoge (SDM) is a community-driven meme coin. It provides no guarantees of performance, returns, or future value. This website does not constitute investment advice or an offer of financial securities.\n\nCryptocurrencies are highly volatile and risky: only invest funds you can afford to lose.\n\nBy using this site or purchasing SDM, you agree to do so at your own responsibility and to conduct your own research (DYOR)."
+    }
+  };
+
+  function applyDisclaimerLang(lang) {
+    document.querySelectorAll('#disclaimer [data-i18n]').forEach(el=>{
+      const key = el.getAttribute('data-i18n');
+      if(dictDisclaimer[lang] && dictDisclaimer[lang][key]) {
+        el.innerText = dictDisclaimer[lang][key];
+      }
+    });
+  }
+
+  // attache au sélecteur de langue déjà existant
+  document.getElementById('lang').addEventListener('change', (e)=>{
+    applyDisclaimerLang(e.target.value);
+  });
+
+  // charge FR par défaut
+  applyDisclaimerLang('fr');
+</script>
+
 
   <footer>
     <div class="container" style="display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap">
