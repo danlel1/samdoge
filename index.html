@@ -38,7 +38,10 @@
     nav.main a:hover:after{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
     .hero{position:relative; padding:44px 0 18px}
     .grid-hero{display:grid; grid-template-columns:1.1fr .9fr; gap:20px; min-width:0}
-    .chip{display:inline-flex; gap:8px; align-items:center; padding:6px 12px; border-radius:999px; background:linear-gradient(90deg,rgba(255,255,255,.18),rgba(255,255,255,.10)); border:1px solid var(--border); color:#0d1116; font-weight:800}
+    /* --- Chip ORANGE --- */
+    .chip{display:inline-flex; gap:8px; align-items:center; padding:6px 12px; border-radius:999px;
+      background:linear-gradient(180deg, rgba(255,211,106,.95), rgba(246,180,73,.95));
+      border:1px solid rgba(255,211,106,.85); color:#1a1303; font-weight:900; box-shadow:0 4px 14px rgba(246,180,73,.25);}
     .title{font-size:clamp(28px,4.8vw,54px); line-height:1.04; margin:10px 0}
     .subtitle{color:var(--muted); max-width:60ch}
 
@@ -82,7 +85,6 @@
       .title{font-size:clamp(26px,6vw,40px)}
       .panel{padding:14px}
 
-      /* mobile: bannière tout en haut, et on cache celle de droite */
       .banner-top{display:block; margin:10px 0 12px;}
       .banner-top img{width:100%; height:clamp(140px,28vw,260px); object-fit:cover; border-radius:12px; box-shadow:var(--shadow);}
       .banner-block{display:none;}
@@ -113,7 +115,6 @@
   </header>
 
   <section class="hero container" id="top">
-    <!-- *** BANNIÈRE MOBILE TOUT EN HAUT *** -->
     <div class="banner-top">
       <img src="assets/smd/banniere.jpg"
            onerror="this.onerror=null; this.src='assets/smd/banniere.png';"
@@ -154,7 +155,6 @@
         </div>
       </div>
 
-      <!-- Colonne droite (inchangée sur desktop) -->
       <div>
         <div class="banner-block">
           <img class="hero-banner"
@@ -171,7 +171,6 @@
             <a class="btn ghost" id="pinksaleBtn" aria-disabled="true" data-i18n="presale">Pré-vente PinkSale</a>
           </div>
 
-          <!-- ====== LIVE STATS DEXSCREENER ====== -->
           <hr style="border:none; border-top:1px solid var(--border); margin:12px 0">
           <div id="liveStats" class="card" style="display:grid; gap:8px">
             <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap">
@@ -203,12 +202,23 @@
             </div>
             <small class="muted" data-i18n="live_note">Source: Dexscreener (rafraîchi automatiquement toutes les 30s).</small>
           </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px">
+            <div class="card">
+              <b data-i18n="taxes">Taxes</b>
+              <p class="muted" data-i18n="taxes_text">Lancement: 0%. Après annonce publique: ≤5% (ex: 3% marketing + 2% LP).</p>
+            </div>
+            <div class="card">
+              <b data-i18n="pwa">PWA</b>
+              <p class="muted" data-i18n="pwa_text">Installer l'app pour accès rapide et notifications.</p>
+              <button class="btn" id="installBtn">📲 <span data-i18n="install">Installer</span></button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Section Statut = zone d’ancre #buy -->
   <section class="container" id="buy" style="scroll-margin-top:80px">
     <div class="panel">
       <h3 data-i18n="status">Statut</h3>
@@ -287,7 +297,6 @@
     </div>
   </section>
 
-  <!-- ===== Disclaimer / Légal ===== -->
   <section class="container" id="legal" style="padding:28px 0 8px">
     <div class="panel">
       <h2 data-i18n="legal_title">Mentions légales & avertissement</h2>
@@ -306,7 +315,6 @@
   </footer>
 
   <script>
-    // ===== SETTINGS =====
     const SETTINGS = {
       CONTRACT_ADDRESS:'0xb02be67dbfbd500011c5bbb435fef555ad3f37f8',
       MARKETING_ADDRESS:'0x9a95027DEb2C944E239C546F2EE0C34F22804C61',
@@ -316,7 +324,6 @@
       LINKEDIN:'https://www.linkedin.com/in/sam-doge-2b4653386'
     };
 
-    // ===== DOM Refs =====
     const contractAddrMasked=document.getElementById('contractAddrMasked');
     const revealBtn=document.getElementById('revealAddr');
     const copyBtn=document.getElementById('copyBtn');
@@ -341,13 +348,11 @@
     const updatedEl  = document.getElementById('lastUpdated');
     const refreshBtn = document.getElementById('refreshBtn');
 
-    // ===== Utils =====
     function mask(a){ return a ? a.slice(0,6) + '…' + a.slice(-4) : '0x000…0000'; }
     const isMobile = window.matchMedia('(max-width:980px)');
     const nf0 = new Intl.NumberFormat(undefined, {maximumFractionDigits:0});
     const nf2 = new Intl.NumberFormat(undefined, {maximumFractionDigits:6});
     const money = v => (v==null? '—' : '$'+nf0.format(v));
-    const pct = v => (v==null? '—' : (v>=0? '+' : '') + v.toFixed(2)+'%');
 
     function refresh(){
       contractAddrMasked.textContent  = mask(SETTINGS.CONTRACT_ADDRESS);
@@ -365,7 +370,6 @@
       buyBtn.href      = SETTINGS.PANCAKE_TRADE;
     }
 
-    // Voir/Cacher + Copier
     let revealed=false, revealedMkt=false;
 
     revealBtn.addEventListener('click', () => {
@@ -410,10 +414,8 @@
       } catch {}
     });
 
-    // Menu mobile
     menuToggle?.addEventListener('click',()=>{mainNav.classList.toggle('open')});
 
-    // i18n FR/EN
     const dict={
       fr:{nav_about:'À propos',nav_tokenomics:'Tokenomics',nav_howto:'Comment acheter',nav_roadmap:'Feuille de route',nav_links:'Liens',buy:'Acheter',chip:'⚡ BNB Smart Chain (BSC)',hero_title:'la mascotte futuriste de la communauté',hero_sub:'SamDoge (SDM) est un meme coin communautaire sur BSC : transparence, sécurité, et roadmap claire. Taxes désactivées au départ — activables après annonce publique.',contract_title:'Adresses officielles',status:'Statut',status_text:'Pré-vente & listing: PinkSale → PancakeSwap. Liquidity lock & audit publiés.',presale:'Pré-vente PinkSale',taxes:'Taxes',taxes_text:'Lancement: 0%. Après annonce publique: ≤5% (ex: 3% marketing + 2% LP).',pwa:'PWA',pwa_text:"Installer l'app pour accès rapide et notifications.",install:'Installer',why:'Pourquoi SamDoge ?',why_text:'Branding fort, équipe active, audit et preuves de sécurité. Communauté au centre.',security:'Sécurité',sec1:'Contrat public & vérifié',sec2:'LP lock & audit publics',sec3:'Adresses exclues pour pré-vente si besoin',utilities:'Utilités',util1:'Staking',util2:'Concours & récompenses',util3:'Intégrations web',howto:'Comment acheter',how1:'Installer MetaMask / Trust Wallet et sélectionner le réseau BNB Smart Chain (BSC).',how2:'Ajouter BNB au wallet (réseau BSC).',how3:"Ouvrir PancakeSwap et utiliser le lien direct (bouton ci-dessous) ou importer le token via l'adresse de contrat.",how4:"Définir le slippage: 0.1–5% (selon taxes actives). Confirmer l'échange.",links:'Liens officiels',live_title:'Cours & Stats (live)',refresh:'Rafraîchir',price_usd:'Prix (USD)',price_bnb:'Prix (BNB)',change_24h:'Variation 24h',vol_24h:'Volume 24h',liq:'Liquidité',live_note:'Source: Dexscreener (rafraîchi automatiquement toutes les 30s).',legal_title:'Mentions légales & avertissement',legal_text:"SamDoge (SDM) est un token communautaire sans promesse de rendement. Les crypto-actifs sont volatils et comportent des risques de perte totale. Faites vos propres recherches (DYOR). Ce site ne constitue pas un conseil financier."},
       en:{nav_about:'About',nav_tokenomics:'Tokenomics',nav_howto:'How to Buy',nav_roadmap:'Roadmap',nav_links:'Links',buy:'Buy',chip:'⚡ BNB Smart Chain (BSC)',hero_title:'the community’s futuristic mascot',hero_sub:'SamDoge (SDM) is a community meme coin on BSC: transparency, security and a clear roadmap. Taxes off at launch — enabled only after public notice.',contract_title:'Official Addresses',status:'Status',status_text:'Presale & listing: PinkSale → PancakeSwap. Liquidity lock & audit published.',presale:'PinkSale Presale',taxes:'Taxes',taxes_text:'Launch: 0%. After public notice: ≤5% (e.g., 3% marketing + 2% LP).',pwa:'PWA',pwa_text:'Install the app for quick access and notifications.',install:'Install',why:'Why SamDoge?',why_text:'Strong branding, active team, audit and security proofs. Community first.',security:'Security',sec1:'Public & verified contract',sec2:'LP lock & public audit',sec3:'Tax-exempt addresses for presale if needed',utilities:'Utilities',util1:'Staking',util2:'Community rewards',util3:'Web integrations',howto:'How to Buy',how1:'Install MetaMask / Trust Wallet and select BNB Smart Chain (BSC).',how2:'Add BNB to your wallet (BSC network).',how3:'Open PancakeSwap via the button below or import the token via the contract address.',how4:'Set slippage: 0.1–5% (depending on active taxes). Confirm the swap.',links:'Official Links',live_title:'Live Price & Stats',refresh:'Refresh',price_usd:'Price (USD)',price_bnb:'Price (BNB)',change_24h:'24h Change',vol_24h:'24h Volume',liq:'Liquidity',live_note:'Source: Dexscreener (auto-refresh every 30s).',legal_title:'Legal & Disclaimer',legal_text:"SamDoge (SDM) is a community token with no promise of returns. Crypto assets are volatile and can lead to total loss. Do your own research (DYOR). Nothing here is financial advice."}
@@ -421,7 +423,6 @@
     function applyLang(l){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n'); if(dict[l]&&dict[l][k]) el.textContent=dict[l][k];}); document.documentElement.lang=l;}
     lang.addEventListener('change',e=>applyLang(e.target.value));
 
-    // LinkedIn injection (URL officielle ou cache si vide)
     (function(){
       const li = document.getElementById('liLinkedIn');
       const a  = document.getElementById('linkedinLink');
@@ -434,7 +435,6 @@
       }
     })();
 
-    // ===== Dexscreener Live =====
     async function fetchDex(){
       const url = `https://api.dexscreener.com/latest/dex/tokens/${SETTINGS.CONTRACT_ADDRESS}`;
       updatedEl.textContent = '…';
@@ -443,16 +443,16 @@
         if(!res.ok) throw new Error('HTTP '+res.status);
         const data = await res.json();
         const pairs = (data && data.pairs) || [];
-        // On choisit la paire BSC la plus liquide
         const best = pairs
           .filter(p=> (p.chainId||'').toLowerCase()==='bsc')
           .sort((a,b)=> (b.liquidity?.usd||0) - (a.liquidity?.usd||0))[0] || pairs[0];
 
-        if(!best){
-          priceUsdEl.textContent = priceBnbEl.textContent = change24El.textContent = vol24El.textContent = liqEl.textContent = fdvEl.textContent = '—';
-          updatedEl.textContent = 'N/A';
-          return;
-        }
+        const nf0 = new Intl.NumberFormat(undefined, {maximumFractionDigits:0});
+        const nf2 = new Intl.NumberFormat(undefined, {maximumFractionDigits:6});
+
+        const money = v => (v==null? '—' : '$'+nf0.format(v));
+
+        if(!best){ priceUsdEl.textContent=priceBnbEl.textContent=change24El.textContent=vol24El.textContent=liqEl.textContent=fdvEl.textContent='—'; updatedEl.textContent='N/A'; return; }
 
         const pxUsd = Number(best.priceUsd)||0;
         const pxBnb = Number(best.priceNative)||0;
@@ -463,28 +463,36 @@
 
         priceUsdEl.textContent = pxUsd ? '$'+nf2.format(pxUsd) : '—';
         priceBnbEl.textContent = pxBnb ? nf2.format(pxBnb)+' BNB' : '—';
-
         change24El.textContent = isFinite(ch24) ? (ch24>=0? '+' : '')+ch24.toFixed(2)+'%' : '—';
         change24El.style.color = isFinite(ch24) ? (ch24>=0? 'var(--ok)' : 'var(--down)') : 'inherit';
-
         vol24El.textContent = isFinite(vol24) ? money(vol24) : '—';
         liqEl.textContent   = isFinite(liq)   ? money(liq)   : '—';
         fdvEl.textContent   = isFinite(fdv)   ? money(fdv)   : '—';
-
-        const d = new Date();
-        updatedEl.textContent = d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-      }catch(e){
-        updatedEl.textContent = '⚠︎';
-        // on ne casse pas l’UI si l’API ne répond pas
-      }
+        updatedEl.textContent = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+      }catch{ updatedEl.textContent='⚠︎'; }
     }
     refreshBtn?.addEventListener('click', fetchDex);
     setInterval(fetchDex, 30000);
 
     document.getElementById('year').textContent=(new Date()).getFullYear();
     refresh();
-    applyLang('fr'); // par défaut
-    fetchDex();      // première charge
+    applyLang('fr');
+    fetchDex();
+
+    // PWA install
+    let deferredPrompt; const installBtn=document.getElementById('installBtn');
+    window.addEventListener('beforeinstallprompt',e=>{e.preventDefault(); deferredPrompt=e; installBtn?.removeAttribute('disabled');});
+    installBtn?.addEventListener('click',async()=>{if(!deferredPrompt) return; deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null;});
+
+    // Contact block handlers
+    const contactAddr=document.getElementById('contactAddr');
+    const contactReveal=document.getElementById('contactReveal');
+    const contactCopy=document.getElementById('contactCopy');
+    const setContactMasked=()=>{ contactAddr.textContent=mask(SETTINGS.CONTRACT_ADDRESS); isMobile.matches?contactAddr.classList.add('hidden'):contactAddr.classList.remove('hidden'); };
+    setContactMasked();
+    let revealedContact=false;
+    contactReveal.addEventListener('click',()=>{ if(!revealedContact){contactAddr.textContent=SETTINGS.CONTRACT_ADDRESS; contactAddr.classList.remove('hidden'); contactReveal.textContent='🙈 Cacher';} else {setContactMasked(); contactReveal.textContent='👁️ Voir';} revealedContact=!revealedContact; });
+    contactCopy.addEventListener('click',async()=>{ try{ await navigator.clipboard.writeText(SETTINGS.CONTRACT_ADDRESS); contactCopy.textContent='✅ Copié'; setTimeout(()=>contactCopy.textContent='📋 Copier',1200);}catch{}});
   </script>
 </body>
 </html>
