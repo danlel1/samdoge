@@ -10,12 +10,10 @@
   <link rel="icon" href="/assets/smd/android-chrome-192x192.png" sizes="192x192" />
   <link rel="apple-touch-icon" href="/assets/smd/apple-touch-icon.png" />
   <link rel="manifest" href="/assets/smd/site.webmanifest" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <style>
-    :root{
-      --bg:#0b1020; --panel:#0f1631; --card:#121a38; --muted:#b9c6e3; --txt:#f4f7ff;
-      --accent:#f6b449; --accent-2:#ffd36a; --ok:#22c55e; --border:rgba(255,255,255,.18);
-      --shadow:0 10px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04);
-    }
+    :root{--bg:#0b1020;--panel:#0f1631;--card:#121a38;--muted:#c7d2ea;--txt:#ffffff;--accent:#f6b449;--accent-2:#ffd36a;--ok:#22c55e;--border:rgba(255,255,255,.22);--shadow:0 10px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08);}
     *{box-sizing:border-box}
     html,body{margin:0; padding:0; background:radial-gradient(900px 520px at 15% -10%, #1a2454 0%, transparent 60%),
                                    radial-gradient(900px 520px at 120% 10%, #401c48 0%, transparent 55%),
@@ -38,7 +36,7 @@ nav.main{display:flex; gap:12px; align-items:center}
 .btn.accent{background:linear-gradient(180deg, var(--accent-2), var(--accent)); color:#1a1303; border-color:rgba(255,211,106,.85)}
 .btn.ghost{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); color:var(--txt)}
 
-.lang-select{border:1px solid var(--border); padding:8px 10px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.06)); color:#0e1116; font-weight:700}
+.lang-select{border:1px solid var(--border);padding:8px 10px;border-radius:10px;background:#ffffff;color:#0e1116;font-weight:800}
 
 /* Menu underline */
 nav.main a{position:relative; color:var(--txt); text-decoration:none; padding:8px}
@@ -47,13 +45,13 @@ nav.main a:hover:after{background:linear-gradient(90deg,var(--accent),var(--acce
 
 .hero{position:relative; padding:44px 0 18px}
 .grid-hero{display:grid; grid-template-columns:1.1fr .9fr; gap:20px}
-.chip{display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border-radius:999px; background:linear-gradient(90deg, rgba(255,255,255,.12), rgba(255,255,255,.06)); border:1px solid var(--border); color:#0d1116}
+.chip{display:inline-flex;gap:8px;align-items:center;padding:6px 12px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,.18), rgba(255,255,255,.10));border:1px solid var(--border);color:#0d1116;font-weight:800}
 .title{font-size:clamp(28px, 4.8vw, 54px); line-height:1.04; margin:10px 0}
 .subtitle{color:var(--muted); max-width:60ch}
 .panel{background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05)); border:1px solid var(--border); border-radius:16px; padding:16px; box-shadow:var(--shadow)}
 
 .contract{display:flex; gap:8px; align-items:center; padding:10px; border-radius:12px; flex-wrap:wrap}
-.addr{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; letter-spacing:.2px; color:#0d1116; background:rgba(255,255,255,.85); padding:6px 8px; border-radius:8px}
+.addr{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;letter-spacing:.2px;color:#0d1116;background:rgba(255,255,255,.95);padding:6px 8px;border-radius:8px;overflow-wrap:anywhere;word-break:break-word}
 
 .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
 .card{border:1px solid var(--border); background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04)); border-radius:14px; padding:14px; box-shadow:var(--shadow)}
@@ -89,7 +87,7 @@ footer{border-top:1px solid var(--border); margin-top:34px; padding:18px 0; colo
   <header>
     <div class="container nav">
       <a class="brand" href="#top" aria-label="SamDoge Home">
-        <img src="/assets/smd/logo.png" alt="SamDoge logo" />
+        <img src="/assets/smd/logo.png" onerror="this.src='/assets/smd/android-chrome-512x512.png'" alt="SamDoge logo" />
         <span>SamDoge (SDM)</span>
       </a><button id="menuToggle" aria-label="Ouvrir le menu" class="btn ghost">☰</button>
   <nav class="main" id="mainNav" aria-label="Main navigation">
@@ -111,7 +109,7 @@ footer{border-top:1px solid var(--border); margin-top:34px; padding:18px 0; colo
 </div>
 
   </header>  <!-- HERO with banner -->  <section class="hero container" id="top">
-    <img src="/assets/smd/banner.png" alt="SamDoge banner" style="width:100%; border-radius:12px; margin-bottom:12px; box-shadow:var(--shadow)"/>
+    <img src="/assets/smd/banniere.png" alt="SamDoge banner" style="width:100%; border-radius:12px; margin-bottom:12px; box-shadow:var(--shadow)"/>
     <div class="grid-hero">
       <div>
         <div class="chip">⚡ BNB Smart Chain (BSC)</div>
@@ -188,9 +186,9 @@ footer{border-top:1px solid var(--border); margin-top:34px; padding:18px 0; colo
   </section>  <!-- LINKS -->  <section class="container" id="links" style="padding:22px 0 0">
     <h2>Liens officiels</h2>
     <div class="grid">
-      <div class="card"><h3>Communauté</h3><ul class="list"><li>Twitter: <a href="https://x.com/DogeSami" target="_blank">@DogeSami</a></li><li>Reddit: <a href="https://reddit.com/r/SamDoge" target="_blank">r/SamDoge</a></li></ul></div>
+      <div class="card"><h3>Communauté</h3><ul class="list"><li>Twitter: <a href="https://x.com/DogeSami" target="_blank">@DogeSami</a></li><li>Reddit: <a href="https://reddit.com/r/SamDoge" target="_blank">r/SamDoge</a></li><li>Telegram: <a href="https://t.me/SamDogeOfficial" target="_blank">t.me/SamDogeOfficial</a></li></ul></div>
       <div class="card"><h3>Suivi & Audit</h3><ul class="list"><li>DexScreener: <a href="https://dexscreener.com/bsc/0xc85a95a4ee2dddfe2bd2970c71e17c56a2ba3104" target="_blank">Voir le chart</a></li><li>Audit / Token scanner: <a href="https://blocksafu.com/token-scanner/56/0x32bFd701655EDF95809EaA5e525F0024ea571267" target="_blank">BlockSafu</a></li></ul></div>
-      <div class="card"><h3>Contact</h3><p class="muted">team@samdoge.io</p><p class="muted">Contrat: <code class="addr">0xb02be67dbfbd500011c5bbb435fef555ad3f37f8</code></p></div>
+      <div class="card"><h3>Contact</h3><p class="muted">contact@samdoge.io</p><p class="muted">Contrat: <code class="addr">0xb02be67dbfbd500011c5bbb435fef555ad3f37f8</code></p></div>
     </div>
   </section>  <footer>
     <div class="container" style="display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap">
@@ -199,67 +197,52 @@ footer{border-top:1px solid var(--border); margin-top:34px; padding:18px 0; colo
     </div>
   </footer>  <script>
     // ====== SETTINGS (préremplies) ======
-    const SETTINGS = {
-      CONTRACT_ADDRESS: '0xb02be67dbfbd500011c5bbb435fef555ad3f37f8',
-      MARKETING_ADDRESS: '0x9a95027DEb2C944E239C546F2EE0C34F22804C61',
-      PANCAKE_TRADE: 'https://pancakeswap.finance/swap?inputCurrency=BNB&outputCurrency=0xb02be67dbfbd500011c5bbb435fef555ad3f37f8&chain=bsc',
-      DEXSCREENER: 'https://dexscreener.com/bsc/0xc85a95a4ee2dddfe2bd2970c71e17c56a2ba3104',
-      AUDIT: 'https://blocksafu.com/token-scanner/56/0x32bFd701655EDF95809EaA5e525F0024ea571267'
-    };
+    const SETTINGS = { CONTRACT_ADDRESS:'0xb02be67dbfbd500011c5bbb435fef555ad3f37f8', MARKETING_ADDRESS:'0x9a95027DEb2C944E239C546F2EE0C34F22804C61', PANCAKE_TRADE:'https://pancakeswap.finance/swap?inputCurrency=BNB&outputCurrency=0xb02be67dbfbd500011c5bbb435fef555ad3f37f8&chain=bsc', DEXSCREENER:'https://dexscreener.com/bsc/0xc85a95a4ee2dddfe2bd2970c71e17c56a2ba3104', AUDIT:'https://blocksafu.com/token-scanner/56/0x32bFd701655EDF95809EaA5e525F0024ea571267' };
 
     // DOM refs
-    const contractAddrMasked = document.getElementById('contractAddrMasked');
-    const revealBtn = document.getElementById('revealAddr');
-    const copyBtn = document.getElementById('copyBtn');
-    const marketingAddrMasked = document.getElementById('marketingAddrMasked');
-    const revealMkt = document.getElementById('revealMkt');
-    const copyMkt = document.getElementById('copyMkt');
-    const bscscanBtn = document.getElementById('bscscanBtn');
-    const dexScreener = document.getElementById('dexScreener');
-    const auditLink = document.getElementById('auditLink');
-    const buyBtn = document.getElementById('buyBtn');
-    const pancakeBtn = document.getElementById('pinksaleBtn');
-    const menuToggle = document.getElementById('menuToggle');
-    const mainNav = document.getElementById('mainNav');
-    const lang = document.getElementById('lang');
+    const contractAddrMasked=document.getElementById('contractAddrMasked');
+    const revealBtn=document.getElementById('revealAddr');
+    const copyBtn=document.getElementById('copyBtn');
+    const marketingAddrMasked=document.getElementById('marketingAddrMasked');
+    const revealMkt=document.getElementById('revealMkt');
+    const copyMkt=document.getElementById('copyMkt');
+    const bscscanBtn=document.getElementById('bscscanBtn');
+    const dexScreener=document.getElementById('dexScreener');
+    const auditLink=document.getElementById('auditLink');
+    const buyBtn=document.getElementById('buyBtn');
+    const pancakeBtn=document.getElementById('pinksaleBtn');
+    const menuToggle=document.getElementById('menuToggle');
+    const mainNav=document.getElementById('mainNav');
+    const lang=document.getElementById('lang');
 
-    function mask(addr){ if(!addr) return '0x000...0000'; return addr.slice(0,6)+'...'+addr.slice(-4); }
-    function refresh(){
-      contractAddrMasked.textContent = mask(SETTINGS.CONTRACT_ADDRESS);
-      marketingAddrMasked.textContent = mask(SETTINGS.MARKETING_ADDRESS);
-      bscscanBtn.href = 'https://bscscan.com/token/'+SETTINGS.CONTRACT_ADDRESS;
-      dexScreener.href = SETTINGS.DEXSCREENER;
-      auditLink.href = SETTINGS.AUDIT;
-      buyBtn.href = SETTINGS.PANCAKE_TRADE;
-      pancakeBtn.href = '';
-    }
+    function mask(a){return a?a.slice(0,6)+'...'+a.slice(-4):'0x000...0000'}
+    function refresh(){ contractAddrMasked.textContent=mask(SETTINGS.CONTRACT_ADDRESS); marketingAddrMasked.textContent=mask(SETTINGS.MARKETING_ADDRESS); bscscanBtn.href='https://bscscan.com/token/'+SETTINGS.CONTRACT_ADDRESS; dexScreener.href=SETTINGS.DEXSCREENER; auditLink.href=SETTINGS.AUDIT; buyBtn.href=SETTINGS.PANCAKE_TRADE; pancakeBtn.href=''; }
 
-    let revealed = false, revealedMkt = false;
-    revealBtn.addEventListener('click', ()=>{
-      if(!revealed){ contractAddrMasked.textContent = SETTINGS.CONTRACT_ADDRESS; revealBtn.textContent='🙈 Cacher'; revealed=true; } else { contractAddrMasked.textContent = mask(SETTINGS.CONTRACT_ADDRESS); revealBtn.textContent='👁️ Voir'; revealed=false; }
-    });
-    copyBtn.addEventListener('click', async ()=>{ try{ await navigator.clipboard.writeText(SETTINGS.CONTRACT_ADDRESS); copyBtn.textContent='✅ Copié'; setTimeout(()=>copyBtn.textContent='📋 Copier',1200);}catch{alert('Impossible de copier');} });
+    let revealed=false, revealedMkt=false;
+    revealBtn.addEventListener('click',()=>{ if(!revealed){contractAddrMasked.textContent=SETTINGS.CONTRACT_ADDRESS; revealBtn.textContent='🙈 Cacher'; revealed=true;} else {contractAddrMasked.textContent=mask(SETTINGS.CONTRACT_ADDRESS); revealBtn.textContent='👁️ Voir'; revealed=false;} });
+    copyBtn.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(SETTINGS.CONTRACT_ADDRESS); copyBtn.textContent='✅ Copié'; setTimeout(()=>copyBtn.textContent='📋 Copier',1200);}catch{alert('Impossible de copier');}});
+    revealMkt.addEventListener('click',()=>{ if(!revealedMkt){marketingAddrMasked.textContent=SETTINGS.MARKETING_ADDRESS; revealMkt.textContent='🙈 Cacher'; revealedMkt=true;} else {marketingAddrMasked.textContent=mask(SETTINGS.MARKETING_ADDRESS); revealMkt.textContent='👁️ Voir'; revealedMkt=false;} });
+    copyMkt.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(SETTINGS.MARKETING_ADDRESS); copyMkt.textContent='✅ Copié'; setTimeout(()=>copyMkt.textContent='📋 Copier',1200);}catch{alert('Impossible de copier');}});
+    menuToggle?.addEventListener('click',()=>{mainNav.classList.toggle('open')});
 
-    revealMkt.addEventListener('click', ()=>{
-      if(!revealedMkt){ marketingAddrMasked.textContent = SETTINGS.MARKETING_ADDRESS; revealMkt.textContent='🙈 Cacher'; revealedMkt=true; } else { marketingAddrMasked.textContent = mask(SETTINGS.MARKETING_ADDRESS); revealMkt.textContent='👁️ Voir'; revealedMkt=false; }
-    });
-    copyMkt.addEventListener('click', async ()=>{ try{ await navigator.clipboard.writeText(SETTINGS.MARKETING_ADDRESS); copyMkt.textContent='✅ Copié'; setTimeout(()=>copyMkt.textContent='📋 Copier',1200);}catch{alert('Impossible de copier');} });
-
-    // mobile menu toggle
-    menuToggle?.addEventListener('click', ()=>{ mainNav.classList.toggle('open'); });
-
-    // language switch – FR/EN (nav only pour l'instant)
-    const i18n = {
-      fr: { nav_about:'À propos', nav_tokenomics:'Tokenomics', nav_howto:'Comment acheter', nav_roadmap:'Feuille de route', nav_links:'Liens', contract_title:'Adresses officielles' },
-      en: { nav_about:'About', nav_tokenomics:'Tokenomics', nav_howto:'How to Buy', nav_roadmap:'Roadmap', nav_links:'Links', contract_title:'Official Addresses' }
+    // i18n full (FR/EN) — titles & key texts
+    const t={
+      fr:{nav_about:'À propos',nav_tokenomics:'Tokenomics',nav_howto:'Comment acheter',nav_roadmap:'Feuille de route',nav_links:'Liens',contract_title:'Adresses officielles',status:'Statut',status_text:'Pré-vente & listing: PinkSale → PancakeSwap. Liquidity lock & audit publiés.',buy:'Acheter sur PancakeSwap',presale:'Pré‑vente PinkSale',taxes:'Taxes',taxes_text:'Lancement: 0%. Après annonce publique: ≤5% (ex: 3% marketing + 2% LP).',pwa:'PWA',pwa_text:"Installer l'app pour accès rapide et notifications.",why:'Pourquoi SamDoge ?',security:'Sécurité',utilities:'Utilités',howto:'Comment acheter',how1:'Installer MetaMask / Trust Wallet et sélectionner le réseau BNB Smart Chain (BSC).',how2:'Ajouter BNB au wallet (réseau BSC).',how3:"Ouvrir PancakeSwap et utiliser le lien direct (bouton ci‑dessous) ou importer le token via l'adresse de contrat.",how4:'Définir le slippage: 0.1–5% (selon taxes actives). Confirmer l\'échange.',roadmap:'Feuille de route',links:'Liens officiels'},
+      en:{nav_about:'About',nav_tokenomics:'Tokenomics',nav_howto:'How to Buy',nav_roadmap:'Roadmap',nav_links:'Links',contract_title:'Official Addresses',status:'Status',status_text:'Presale & listing: PinkSale → PancakeSwap. Liquidity lock & audit published.',buy:'Buy on PancakeSwap',presale:'PinkSale Presale',taxes:'Taxes',taxes_text:'Launch: 0%. After public notice: ≤5% (e.g., 3% marketing + 2% LP).',pwa:'PWA',pwa_text:'Install the app for quick access and notifications.',why:'Why SamDoge?',security:'Security',utilities:'Utilities',howto:'How to Buy',how1:'Install MetaMask / Trust Wallet and select BNB Smart Chain (BSC).',how2:'Add BNB to your wallet (BSC network).',how3:'Open PancakeSwap using the button below or import the token via the contract address.',how4:'Set slippage: 0.1–5% (depending on active taxes). Confirm the swap.',roadmap:'Roadmap',links:'Official Links'}
     };
-    function applyLang(l){
-      document.querySelectorAll('[data-i18n]').forEach(el=>{ const k=el.getAttribute('data-i18n'); if(i18n[l]&&i18n[l][k]) el.textContent=i18n[l][k]; });
-      document.documentElement.lang = l;
-    }
-    lang.addEventListener('change',(e)=> applyLang(e.target.value));
+    function applyLang(l){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n'); if(t[l]&&t[l][k]) el.textContent=t[l][k];}); document.documentElement.lang=l;}
+    lang.addEventListener('change',e=>applyLang(e.target.value));
 
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // PWA: install + SW (in-page minimal)
+    let deferredPrompt; const installBtn=document.getElementById('installBtn');
+    window.addEventListener('beforeinstallprompt',e=>{e.preventDefault(); deferredPrompt=e; installBtn?.removeAttribute('disabled');});
+    installBtn?.addEventListener('click',async()=>{if(!deferredPrompt) return; deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null;});
+    if('serviceWorker' in navigator){
+      const swCode=`self.addEventListener('install',e=>{e.waitUntil(caches.open('sdm-v1').then(c=>c.addAll(['/','/index.html','/assets/smd/logo.png','/assets/smd/banniere.png'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))})`;
+      const blob=new Blob([swCode],{type:'text/javascript'}); const url=URL.createObjectURL(blob); navigator.serviceWorker.register(url);
+    }
+
+    document.getElementById('year').textContent=(new Date()).getFullYear();
     refresh();
   </script></body>
 </html>
