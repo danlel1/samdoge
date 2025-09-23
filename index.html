@@ -5,53 +5,68 @@
   <title>SamDoge (SDM) — Futuriste, prêt pour BSC</title>
   <meta name="description" content="SamDoge (SDM) — Meme coin communautaire sur BNB Smart Chain. Tokenomics claires, roadmap transparente, et style futuriste. Rejoignez la meute !" />
   <meta name="theme-color" content="#0b1020" />
-  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" />
-  <link rel="icon" href="/assets/favicon-192.png" sizes="192x192" />
-  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
-  <link rel="manifest" href="/site.webmanifest" />
+  <!-- FAVICONS (selon ton dépôt /assets/smd/) -->
+  <link rel="icon" href="/assets/smd/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" href="/assets/smd/android-chrome-192x192.png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/assets/smd/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/smd/site.webmanifest" />
   <style>
     :root{
-      --bg:#0b1020; --bg-soft:#0e152e; --card:#121a38; --muted:#93a4bf; --txt:#e6ecff; --accent:#f59e0b; --accent-2:#ffcc4d; --ok:#22c55e; --glass: rgba(255,255,255,.06); --border: rgba(255,255,255,.12); --shadow: 0 10px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.03);
+      --bg:#0b1020; --panel:#0f1631; --card:#121a38; --muted:#b9c6e3; --txt:#f4f7ff;
+      --accent:#f6b449; --accent-2:#ffd36a; --ok:#22c55e; --border:rgba(255,255,255,.18);
+      --shadow:0 10px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04);
     }
     *{box-sizing:border-box}
-    html,body{margin:0; padding:0; background:radial-gradient(1000px 600px at 20% -10%, #1a2454 0%, transparent 60%), radial-gradient(900px 600px at 120% 10%, #401c48 0%, transparent 55%), linear-gradient(180deg, #0b1020 0%, #090e1a 100%); color:var(--txt); font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial; line-height:1.6}
-    a{color:var(--accent)} img{max-width:100%; height:auto}
-    .container{width:min(1200px, 92%); margin-inline:auto}
-    header{position:sticky; top:0; z-index:60; backdrop-filter:saturate(140%) blur(8px); background:linear-gradient(180deg, rgba(11,16,32,.9), rgba(11,16,32,.45)); border-bottom:1px solid var(--border)}
-    .nav{display:flex; align-items:center; gap:12px; padding:10px 0}
-    .brand{display:flex; align-items:center; gap:12px; text-decoration:none}
-    .brand img{width:44px; height:44px}
-    .brand span{font-weight:900; letter-spacing:.6px}
-    nav.main{display:flex; gap:14px; align-items:center}
-    .spacer{flex:1}
-    .cta{display:inline-flex; align-items:center; gap:10px; padding:9px 14px; border-radius:12px; background:linear-gradient(180deg, rgba(245,158,11,.16), rgba(245,158,11,.06)); color:#1d1204; font-weight:700; text-decoration:none}
-    .lang-select{border:1px solid var(--border); padding:6px 8px; border-radius:10px; background:transparent; color:var(--txt)}
-    nav.main a{position:relative; color:var(--txt); text-decoration:none; padding:8px}
-    nav.main a:after{content:''; position:absolute; left:12px; right:12px; bottom:6px; height:2px; background:transparent; border-radius:4px; transition:background .18s}
-    nav.main a:hover:after{background:linear-gradient(90deg,var(--accent),var(--accent-2))}.hero{position:relative; padding:48px 0 20px}
-.grid-hero{display:grid; grid-template-columns:1.1fr .9fr; gap:22px}
-.chip{display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border-radius:999px; background:linear-gradient(90deg, rgba(255,255,255,.02), rgba(255,255,255,.01)); border:1px solid var(--border)}
-.title{font-size:clamp(28px, 4.2vw, 52px); line-height:1.05; margin:12px 0}
+    html,body{margin:0; padding:0; background:radial-gradient(900px 520px at 15% -10%, #1a2454 0%, transparent 60%),
+                                   radial-gradient(900px 520px at 120% 10%, #401c48 0%, transparent 55%),
+                                   linear-gradient(180deg, #0b1020 0%, #090e1a 100%);
+      color:var(--txt); font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial; line-height:1.6; overflow-x:hidden}
+    a{color:var(--accent)}
+    img{max-width:100%; height:auto; display:block}.container{width:min(1200px, 94%); margin-inline:auto}
+header{position:sticky; top:0; z-index:60; backdrop-filter:saturate(140%) blur(10px); background:linear-gradient(180deg, rgba(11,16,32,.92), rgba(11,16,32,.55)); border-bottom:1px solid var(--border)}
+.nav{display:flex; align-items:center; gap:10px; padding:10px 0}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none}
+.brand img{width:44px; height:44px}
+.brand span{font-weight:900; letter-spacing:.6px}
+nav.main{display:flex; gap:12px; align-items:center}
+.spacer{flex:1}
+
+/* Buttons — CONTRASTE PLUS CLAIR */
+.btn{cursor:pointer; display:inline-flex; align-items:center; gap:8px; padding:11px 14px; border-radius:12px; border:1px solid var(--border);
+     background:linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.08)); color:#0e1116; font-weight:800; text-decoration:none; box-shadow:var(--shadow)}
+.btn:hover{box-shadow:0 0 0 2px rgba(255,255,255,.16), var(--shadow)}
+.btn.accent{background:linear-gradient(180deg, var(--accent-2), var(--accent)); color:#1a1303; border-color:rgba(255,211,106,.85)}
+.btn.ghost{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); color:var(--txt)}
+
+.lang-select{border:1px solid var(--border); padding:8px 10px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.06)); color:#0e1116; font-weight:700}
+
+/* Menu underline */
+nav.main a{position:relative; color:var(--txt); text-decoration:none; padding:8px}
+nav.main a:after{content:''; position:absolute; left:12px; right:12px; bottom:6px; height:2px; background:transparent; border-radius:4px; transition:background .18s}
+nav.main a:hover:after{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+
+.hero{position:relative; padding:44px 0 18px}
+.grid-hero{display:grid; grid-template-columns:1.1fr .9fr; gap:20px}
+.chip{display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border-radius:999px; background:linear-gradient(90deg, rgba(255,255,255,.12), rgba(255,255,255,.06)); border:1px solid var(--border); color:#0d1116}
+.title{font-size:clamp(28px, 4.8vw, 54px); line-height:1.04; margin:10px 0}
 .subtitle{color:var(--muted); max-width:60ch}
-.panel{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid var(--border); border-radius:16px; padding:16px; box-shadow:var(--shadow)}
+.panel{background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05)); border:1px solid var(--border); border-radius:16px; padding:16px; box-shadow:var(--shadow)}
 
-.contract{display:flex; gap:10px; align-items:center; padding:10px; border-radius:12px; flex-wrap:wrap}
-.addr{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; letter-spacing:.2px}
-.btn{cursor:pointer; display:inline-flex; align-items:center; gap:8px; padding:9px 12px; border-radius:10px; border:1px solid var(--border); background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01)); color:var(--txt); font-weight:700; text-decoration:none}
-.btn.accent{background:linear-gradient(180deg, rgba(245,158,11,.18), rgba(245,158,11,.06)); color:#1d1204}
+.contract{display:flex; gap:8px; align-items:center; padding:10px; border-radius:12px; flex-wrap:wrap}
+.addr{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; letter-spacing:.2px; color:#0d1116; background:rgba(255,255,255,.85); padding:6px 8px; border-radius:8px}
 
-.grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
-.card{border:1px solid var(--border); background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)); border-radius:14px; padding:14px; box-shadow:var(--shadow)}
+.grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+.card{border:1px solid var(--border); background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04)); border-radius:14px; padding:14px; box-shadow:var(--shadow)}
 .muted{color:var(--muted)}
 .list{margin:0; padding-left:18px}
 
-.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
-.stat{border-radius:12px; padding:12px; background:var(--glass)}
+.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+.stat{border-radius:12px; padding:12px; background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05)); border:1px solid var(--border)}
 
-.phases{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
-.phase{border-radius:12px; padding:12px}
+.phases{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
+.phase{border-radius:12px; padding:12px; background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)); border:1px solid var(--border)}
 
-footer{border-top:1px solid var(--border); margin-top:36px; padding:20px 0; color:var(--muted)}
+footer{border-top:1px solid var(--border); margin-top:34px; padding:18px 0; color:var(--muted)}
 
 /* Mobile */
 #menuToggle{display:none}
@@ -61,9 +76,10 @@ footer{border-top:1px solid var(--border); margin-top:36px; padding:20px 0; colo
   .stats{grid-template-columns:repeat(2,1fr)}
   .phases{grid-template-columns:1fr}
   #menuToggle{display:inline-flex}
-  nav.main{position:fixed; inset:60px 12px auto 12px; display:none; flex-direction:column; gap:4px; padding:10px; border:1px solid var(--border); border-radius:12px; background:rgba(11,16,32,.98)}
+  nav.main{position:fixed; inset:60px 10px auto 10px; display:none; flex-direction:column; gap:6px; padding:10px; border:1px solid var(--border); border-radius:12px; background:rgba(11,16,32,.98)}
   nav.main.open{display:flex}
   .title{font-size:clamp(26px, 6vw, 40px)}
+  .panel{padding:14px}
 }
 
   </style>
@@ -73,9 +89,9 @@ footer{border-top:1px solid var(--border); margin-top:36px; padding:20px 0; colo
   <header>
     <div class="container nav">
       <a class="brand" href="#top" aria-label="SamDoge Home">
-        <img src="/assets/logo.png" alt="SamDoge logo" />
+        <img src="/assets/smd/logo.png" alt="SamDoge logo" />
         <span>SamDoge (SDM)</span>
-      </a><button id="menuToggle" aria-label="Ouvrir le menu" class="btn">☰</button>
+      </a><button id="menuToggle" aria-label="Ouvrir le menu" class="btn ghost">☰</button>
   <nav class="main" id="mainNav" aria-label="Main navigation">
     <a href="#about" data-i18n="nav_about">À propos</a>
     <a href="#tokenomics" data-i18n="nav_tokenomics">Tokenomics</a>
@@ -91,11 +107,11 @@ footer{border-top:1px solid var(--border); margin-top:36px; padding:20px 0; colo
     <option value="en">EN</option>
   </select>
 
-  <a class="cta" href="#buy">Acheter</a>
+  <a class="btn accent" href="#buy">Acheter</a>
 </div>
 
   </header>  <!-- HERO with banner -->  <section class="hero container" id="top">
-    <img src="/assets/banner.png" alt="SamDoge banner" style="width:100%; border-radius:12px; margin-bottom:12px; box-shadow:var(--shadow)"/>
+    <img src="/assets/smd/banner.png" alt="SamDoge banner" style="width:100%; border-radius:12px; margin-bottom:12px; box-shadow:var(--shadow)"/>
     <div class="grid-hero">
       <div>
         <div class="chip">⚡ BNB Smart Chain (BSC)</div>
@@ -127,7 +143,7 @@ footer{border-top:1px solid var(--border); margin-top:36px; padding:20px 0; colo
       <p class="muted">Pré-vente & listing: PinkSale → PancakeSwap. Liquidity lock & audit publiés.</p>
       <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px">
         <a class="btn accent" id="buyBtn" href="https://pancakeswap.finance/swap?inputCurrency=BNB&outputCurrency=0xb02be67dbfbd500011c5bbb435fef555ad3f37f8&chain=bsc" target="_blank">Acheter sur PancakeSwap</a>
-        <a class="btn" id="pinksaleBtn" aria-disabled="true">Pré‑vente PinkSale</a>
+        <a class="btn ghost" id="pinksaleBtn" aria-disabled="true">Pré‑vente PinkSale</a>
       </div>
       <hr style="border:none; border-top:1px solid var(--border); margin:12px 0">
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px">
@@ -177,9 +193,9 @@ footer{border-top:1px solid var(--border); margin-top:36px; padding:20px 0; colo
       <div class="card"><h3>Contact</h3><p class="muted">team@samdoge.io</p><p class="muted">Contrat: <code class="addr">0xb02be67dbfbd500011c5bbb435fef555ad3f37f8</code></p></div>
     </div>
   </section>  <footer>
-    <div class="container" style="display:flex; gap:14px; align-items:center; justify-content:space-between; flex-wrap:wrap">
+    <div class="container" style="display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap">
       <div>© <span id="year"></span> SamDoge. Tous droits réservés.</div>
-      <div style="opacity:.8">Made with 🧡 sur BSC • Style futuriste</div>
+      <div style="opacity:.85">Made with 🧡 sur BSC • Style futuriste</div>
     </div>
   </footer>  <script>
     // ====== SETTINGS (préremplies) ======
@@ -205,6 +221,7 @@ footer{border-top:1px solid var(--border); margin-top:36px; padding:20px 0; colo
     const pancakeBtn = document.getElementById('pinksaleBtn');
     const menuToggle = document.getElementById('menuToggle');
     const mainNav = document.getElementById('mainNav');
+    const lang = document.getElementById('lang');
 
     function mask(addr){ if(!addr) return '0x000...0000'; return addr.slice(0,6)+'...'+addr.slice(-4); }
     function refresh(){
@@ -231,12 +248,11 @@ footer{border-top:1px solid var(--border); margin-top:36px; padding:20px 0; colo
     // mobile menu toggle
     menuToggle?.addEventListener('click', ()=>{ mainNav.classList.toggle('open'); });
 
-    // language switch – FR/EN minimal i18n (nav titles only for now)
+    // language switch – FR/EN (nav only pour l'instant)
     const i18n = {
       fr: { nav_about:'À propos', nav_tokenomics:'Tokenomics', nav_howto:'Comment acheter', nav_roadmap:'Feuille de route', nav_links:'Liens', contract_title:'Adresses officielles' },
       en: { nav_about:'About', nav_tokenomics:'Tokenomics', nav_howto:'How to Buy', nav_roadmap:'Roadmap', nav_links:'Links', contract_title:'Official Addresses' }
     };
-    const lang = document.getElementById('lang');
     function applyLang(l){
       document.querySelectorAll('[data-i18n]').forEach(el=>{ const k=el.getAttribute('data-i18n'); if(i18n[l]&&i18n[l][k]) el.textContent=i18n[l][k]; });
       document.documentElement.lang = l;
