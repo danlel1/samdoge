@@ -148,7 +148,7 @@
             • Audit: <a id="auditLink" href="https://blocksafu.com/token-scanner/56/0x32bFd701655EDF95809EaA5e525F0024ea571267" target="_blank">BlockSafu</a>
           </div>
 
-          <!-- === DÉPLACÉ ICI : Taxes + PWA (à gauche) === -->
+          <!-- Taxes + PWA -->
           <hr style="border:none; border-top:1px solid var(--border); margin:12px 0">
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px">
             <div class="card">
@@ -178,7 +178,7 @@
             <a class="btn ghost" id="pinksaleBtn" aria-disabled="true" data-i18n="presale">Pré-vente PinkSale</a>
           </div>
 
-          <!-- Live Stats à droite -->
+          <!-- Live Stats -->
           <hr style="border:none; border-top:1px solid var(--border); margin:12px 0">
           <div id="liveStats" class="card" style="display:grid; gap:8px">
             <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap">
@@ -293,6 +293,18 @@
     </div>
   </section>
 
+  <!-- ===== DISCLAIMER / AVERTISSEMENT ===== -->
+  <section class="container" id="disclaimer" style="padding:18px 0 0">
+    <div class="panel">
+      <h3 data-i18n="disc_title">Avertissement</h3>
+      <p class="muted" data-i18n="disc_text">
+        SamDoge (SDM) est un token mème communautaire. Aucune promesse de gain ni conseil financier.
+        Faites vos propres recherches (DYOR). Les crypto-actifs sont volatils : n’investissez que ce que
+        vous pouvez vous permettre de perdre. L’achat de SDM implique des risques.
+      </p>
+    </div>
+  </section>
+
   <footer>
     <div class="container" style="display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap">
       <div>© <span id="year"></span> SamDoge. Tous droits réservés.</div>
@@ -376,8 +388,8 @@
 
     // i18n
     const dict={
-      fr:{nav_about:'À propos',nav_tokenomics:'Tokenomics',nav_howto:'Comment acheter',nav_roadmap:'Feuille de route',nav_links:'Liens',buy:'Acheter',chip:'⚡ BNB Smart Chain (BSC)',hero_title:'la mascotte futuriste de la communauté',hero_sub:'SamDoge (SDM) est un meme coin communautaire sur BSC : transparence, sécurité, et roadmap claire. Taxes désactivées au départ — activables après annonce publique.',contract_title:'Adresses officielles',status:'Statut',status_text:'Pré-vente & listing: PinkSale → PancakeSwap. Liquidity lock & audit publiés.',presale:'Pré-vente PinkSale',taxes:'Taxes',taxes_text:'Lancement: 0%. Après annonce publique: ≤5% (ex: 3% marketing + 2% LP).',pwa:'PWA',pwa_text:"Installer l'app pour accès rapide et notifications.",install:'Installer',why:'Pourquoi SamDoge ?',why_text:'Branding fort, équipe active, audit et preuves de sécurité. Communauté au centre.',security:'Sécurité',sec1:'Contrat public & vérifié',sec2:'LP lock & audit publics',sec3:'Adresses exclues pour pré-vente si besoin',utilities:'Utilités',util1:'Staking',util2:'Concours & récompenses',util3:'Intégrations web',howto:'Comment acheter',how1:'Installer MetaMask / Trust Wallet et sélectionner le réseau BNB Smart Chain (BSC).',how2:'Ajouter BNB au wallet (réseau BSC).',how3:"Ouvrir PancakeSwap et utiliser le lien direct (bouton ci-dessous) ou importer le token via l'adresse de contrat.",how4:"Définir le slippage: 0.1–5% (selon taxes actives). Confirmer l'échange.",links:'Liens officiels',live_title:'Cours & Stats (live)',refresh:'Rafraîchir',price_usd:'Prix (USD)',price_bnb:'Prix (BNB)',change_24h:'Variation 24h',vol_24h:'Volume 24h',liq:'Liquidité',live_note:'Source: Dexscreener (rafraîchi automatiquement toutes les 30s).'},
-      en:{nav_about:'About',nav_tokenomics:'Tokenomics',nav_howto:'How to Buy',nav_roadmap:'Roadmap',nav_links:'Links',buy:'Buy',chip:'⚡ BNB Smart Chain (BSC)',hero_title:'the community’s futuristic mascot',hero_sub:'SamDoge (SDM) is a community meme coin on BSC: transparency, security and a clear roadmap. Taxes off at launch — enabled only after public notice.',contract_title:'Official Addresses',status:'Status',status_text:'Presale & listing: PinkSale → PancakeSwap. Liquidity lock & audit published.',presale:'PinkSale Presale',taxes:'Taxes',taxes_text:'Launch: 0%. After public notice: ≤5% (e.g., 3% marketing + 2% LP).',pwa:'PWA',pwa_text:'Install the app for quick access and notifications.',install:'Install',why:'Why SamDoge?',why_text:'Strong branding, active team, audit and security proofs. Community first.',security:'Security',sec1:'Public & verified contract',sec2:'LP lock & public audit',sec3:'Tax-exempt addresses for presale if needed',utilities:'Utilities',util1:'Staking',util2:'Community rewards',util3:'Web integrations',howto:'How to Buy',how1:'Install MetaMask / Trust Wallet and select BNB Smart Chain (BSC).',how2:'Add BNB to your wallet (BSC network).',how3:'Open PancakeSwap via the button below or import the token via the contract address.',how4:'Set slippage: 0.1–5% (depending on active taxes). Confirm the swap.',links:'Official Links',live_title:'Live Price & Stats',refresh:'Refresh',price_usd:'Price (USD)',price_bnb:'Price (BNB)',change_24h:'24h Change',vol_24h:'24h Volume',liq:'Liquidity',live_note:'Source: Dexscreener (auto-refresh every 30s).'}
+      fr:{nav_about:'À propos',nav_tokenomics:'Tokenomics',nav_howto:'Comment acheter',nav_roadmap:'Feuille de route',nav_links:'Liens',buy:'Acheter',chip:'⚡ BNB Smart Chain (BSC)',hero_title:'la mascotte futuriste de la communauté',hero_sub:'SamDoge (SDM) est un meme coin communautaire sur BSC : transparence, sécurité, et roadmap claire. Taxes désactivées au départ — activables après annonce publique.',contract_title:'Adresses officielles',status:'Statut',status_text:'Pré-vente & listing: PinkSale → PancakeSwap. Liquidity lock & audit publiés.',presale:'Pré-vente PinkSale',taxes:'Taxes',taxes_text:'Lancement: 0%. Après annonce publique: ≤5% (ex: 3% marketing + 2% LP).',pwa:'PWA',pwa_text:"Installer l'app pour accès rapide et notifications.",install:'Installer',why:'Pourquoi SamDoge ?',why_text:'Branding fort, équipe active, audit et preuves de sécurité. Communauté au centre.',security:'Sécurité',sec1:'Contrat public & vérifié',sec2:'LP lock & audit publics',sec3:'Adresses exclues pour pré-vente si besoin',utilities:'Utilités',util1:'Staking',util2:'Concours & récompenses',util3:'Intégrations web',howto:'Comment acheter',how1:'Installer MetaMask / Trust Wallet et sélectionner le réseau BNB Smart Chain (BSC).',how2:'Ajouter BNB au wallet (réseau BSC).',how3:"Ouvrir PancakeSwap et utiliser le lien direct (bouton ci-dessous) ou importer le token via l'adresse de contrat.",how4:"Définir le slippage: 0.1–5% (selon taxes actives). Confirmer l'échange.",links:'Liens officiels',live_title:'Cours & Stats (live)',refresh:'Rafraîchir',price_usd:'Prix (USD)',price_bnb:'Prix (BNB)',change_24h:'Variation 24h',vol_24h:'Volume 24h',liq:'Liquidité',live_note:'Source: Dexscreener (rafraîchi automatiquement toutes les 30s).',disc_title:'Avertissement',disc_text:"SamDoge (SDM) est un token mème communautaire. Aucune promesse de gain ni conseil financier. Faites vos propres recherches (DYOR). Les crypto-actifs sont volatils : n’investissez que ce que vous pouvez vous permettre de perdre. L’achat de SDM implique des risques."},
+      en:{nav_about:'About',nav_tokenomics:'Tokenomics',nav_howto:'How to Buy',nav_roadmap:'Roadmap',nav_links:'Links',buy:'Buy',chip:'⚡ BNB Smart Chain (BSC)',hero_title:'the community’s futuristic mascot',hero_sub:'SamDoge (SDM) is a community meme coin on BSC: transparency, security and a clear roadmap. Taxes off at launch — enabled only after public notice.',contract_title:'Official Addresses',status:'Status',status_text:'Presale & listing: PinkSale → PancakeSwap. Liquidity lock & audit published.',presale:'PinkSale Presale',taxes:'Taxes',taxes_text:'Launch: 0%. After public notice: ≤5% (e.g., 3% marketing + 2% LP).',pwa:'PWA',pwa_text:'Install the app for quick access and notifications.',install:'Install',why:'Why SamDoge?',why_text:'Strong branding, active team, audit and security proofs. Community first.',security:'Security',sec1:'Public & verified contract',sec2:'LP lock & public audit',sec3:'Tax-exempt addresses for presale if needed',utilities:'Utilities',util1:'Staking',util2:'Community rewards',util3:'Web integrations',howto:'How to Buy',how1:'Install MetaMask / Trust Wallet and select BNB Smart Chain (BSC).',how2:'Add BNB to your wallet (BSC network).',how3:'Open PancakeSwap via the button below or import the token via the contract address.',how4:'Set slippage: 0.1–5% (depending on active taxes). Confirm the swap.',links:'Official Links',live_title:'Live Price & Stats',refresh:'Refresh',price_usd:'Price (USD)',price_bnb:'Price (BNB)',change_24h:'24h Change',vol_24h:'24h Volume',liq:'Liquidity',live_note:'Source: Dexscreener (auto-refresh every 30s).',disc_title:'Disclaimer',disc_text:"SamDoge (SDM) is a community meme token. No promise of profit and no financial advice. Do your own research (DYOR). Crypto assets are volatile; only invest what you can afford to lose. Buying SDM involves risk."}
     };
     function applyLang(l){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n'); if(dict[l]&&dict[l][k]) el.textContent=dict[l][k];}); document.documentElement.lang=l;}
     lang.addEventListener('change',e=>applyLang(e.target.value));
