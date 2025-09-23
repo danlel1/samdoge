@@ -11,13 +11,13 @@
   <link rel="apple-touch-icon" href="assets/smd/apple-touch-icon.png" />
   <link rel="manifest" href="assets/smd/site.webmanifest" />
   <style>
-    :root{--bg:#0b1020;--panel:#0f1631;--card:#121a38;--muted:#c7d2ea;--txt:#ffffff;--accent:#f6b449;--accent-2:#ffd36a;--ok:#22c55e;--border:rgba(255,255,255,.22);--shadow:0 10px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08);}
+    :root{--bg:#0b1020;--panel:#0f1631;--card:#121a38;--muted:#c7d2ea;--txt:#ffffff;--accent:#f6b449;--accent-2:#ffd36a;--ok:#22c55e;--down:#ef4444;--border:rgba(255,255,255,.22);--shadow:0 10px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08);}
     *{box-sizing:border-box}
     html,body{margin:0; padding:0; background:
       radial-gradient(900px 520px at 15% -10%, #1a2454 0%, transparent 60%),
       radial-gradient(900px 520px at 120% 10%, #401c48 0%, transparent 55%),
       linear-gradient(180deg, #0b1020 0%, #090e1a 100%);
-      color:var(--txt); font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial; line-height:1.6; overflow-x:hidden}
+      color:var(--txt); font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial; line-height:1.6; overflow-x:hidden; scroll-behavior:smooth}
     a{color:var(--accent)} img{max-width:100%; height:auto; display:block}
     .container{width:min(1200px,94%); margin-inline:auto}
     header{position:sticky; top:0; z-index:60; backdrop-filter:saturate(140%) blur(10px); background:linear-gradient(180deg,rgba(11,16,32,.92),rgba(11,16,32,.55)); border-bottom:1px solid var(--border)}
@@ -104,6 +104,7 @@
         <a href="#howto" data-i18n="nav_howto">Comment acheter</a>
         <a href="#roadmap" data-i18n="nav_roadmap">Feuille de route</a>
         <a href="#links" data-i18n="nav_links">Liens</a>
+        <a href="#buy" data-i18n="buy">Acheter</a>
       </nav>
       <div class="spacer"></div>
       <select id="lang" class="lang-select" title="Langue"><option value="fr">FR</option><option value="en">EN</option></select>
@@ -133,7 +134,7 @@
               <code class="addr hidden" id="contractAddrMasked">0xb02b…37f8</code>
               <div class="btn-group" style="display:flex; gap:8px; flex-wrap:wrap">
                 <button class="btn sm" id="revealAddr" data-i18n="view">👁️ Voir</button>
-                <button class="btn sm" id="copyBtn" data-i18n="copy" disabled>📋 Copier</button>
+                <button class="btn sm" id="copyBtn" data-i18n="copy">📋 Copier</button>
                 <a class="btn sm" id="bscscanBtn" target="_blank" rel="noopener">🔍 BscScan</a>
               </div>
             </div>
@@ -142,7 +143,7 @@
               <code class="addr hidden" id="marketingAddrMasked">0x9a95…4C61</code>
               <div class="btn-group" style="display:flex; gap:8px; flex-wrap:wrap">
                 <button class="btn sm" id="revealMkt" data-i18n="view">👁️ Voir</button>
-                <button class="btn sm" id="copyMkt" data-i18n="copy" disabled>📋 Copier</button>
+                <button class="btn sm" id="copyMkt" data-i18n="copy">📋 Copier</button>
               </div>
             </div>
           </div>
@@ -169,13 +170,50 @@
             <a class="btn accent" id="buyBtn" href="https://pancakeswap.finance/swap?inputCurrency=BNB&outputCurrency=0xb02be67dbfbd500011c5bbb435fef555ad3f37f8&chain=bsc" target="_blank" data-i18n="buy">Acheter sur PancakeSwap</a>
             <a class="btn ghost" id="pinksaleBtn" aria-disabled="true" data-i18n="presale">Pré-vente PinkSale</a>
           </div>
+
+          <!-- ====== LIVE STATS DEXSCREENER ====== -->
           <hr style="border:none; border-top:1px solid var(--border); margin:12px 0">
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px">
-            <div class="card"><b data-i18n="taxes">Taxes</b><p class="muted" data-i18n="taxes_text">Lancement: 0%. Après annonce publique: ≤5% (ex: 3% marketing + 2% LP).</p></div>
-            <div class="card"><b data-i18n="pwa">PWA</b><p class="muted" data-i18n="pwa_text">Installer l'app pour accès rapide et notifications.</p><button class="btn" id="installBtn">📲 <span data-i18n="install">Installer</span></button></div>
+          <div id="liveStats" class="card" style="display:grid; gap:8px">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap">
+              <b data-i18n="live_title">Cours & Stats (live)</b>
+              <div style="display:flex; gap:8px; align-items:center">
+                <small class="muted" id="lastUpdated">—</small>
+                <button class="btn sm" id="refreshBtn" type="button" aria-live="polite">↻ <span data-i18n="refresh">Rafraîchir</span></button>
+              </div>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:8px">
+              <div class="panel" style="padding:10px">
+                <div><small class="muted" data-i18n="price_usd">Prix (USD)</small></div>
+                <div id="priceUsd" style="font-weight:800; font-size:18px">—</div>
+                <div><small class="muted" data-i18n="price_bnb">Prix (BNB)</small> <span id="priceBnb">—</span></div>
+              </div>
+              <div class="panel" style="padding:10px">
+                <div><small class="muted" data-i18n="change_24h">Variation 24h</small></div>
+                <div id="change24" style="font-weight:800; font-size:18px">—</div>
+                <div><small class="muted" data-i18n="vol_24h">Volume 24h</small> <span id="vol24">—</span></div>
+              </div>
+              <div class="panel" style="padding:10px">
+                <div><small class="muted">FDV</small></div>
+                <div id="fdv" style="font-weight:800; font-size:18px">—</div>
+              </div>
+              <div class="panel" style="padding:10px">
+                <div><small class="muted" data-i18n="liq">Liquidité</small></div>
+                <div id="liquidity" style="font-weight:800; font-size:18px">—</div>
+              </div>
+            </div>
+            <small class="muted" data-i18n="live_note">Source: Dexscreener (rafraîchi automatiquement toutes les 30s).</small>
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Section Statut = zone d’ancre #buy -->
+  <section class="container" id="buy" style="scroll-margin-top:80px">
+    <div class="panel">
+      <h3 data-i18n="status">Statut</h3>
+      <p class="muted" data-i18n="status_text">Pré-vente & listing: PinkSale → PancakeSwap. Liquidity lock & audit publiés.</p>
+      <a class="btn accent" href="https://pancakeswap.finance/swap?inputCurrency=BNB&outputCurrency=0xb02be67dbfbd500011c5bbb435fef555ad3f37f8&chain=bsc" target="_blank" data-i18n="buy">Acheter sur PancakeSwap</a>
     </div>
   </section>
 
@@ -249,6 +287,17 @@
     </div>
   </section>
 
+  <!-- ===== Disclaimer / Légal ===== -->
+  <section class="container" id="legal" style="padding:28px 0 8px">
+    <div class="panel">
+      <h2 data-i18n="legal_title">Mentions légales & avertissement</h2>
+      <p class="muted" data-i18n="legal_text">
+        SamDoge (SDM) est un token communautaire sans promesse de rendement. Les crypto-actifs sont volatils et comportent des risques de perte totale.
+        Faites vos propres recherches (DYOR). Ce site ne constitue pas un conseil financier.
+      </p>
+    </div>
+  </section>
+
   <footer>
     <div class="container" style="display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap">
       <div>© <span id="year"></span> SamDoge. Tous droits réservés.</div>
@@ -257,6 +306,7 @@
   </footer>
 
   <script>
+    // ===== SETTINGS =====
     const SETTINGS = {
       CONTRACT_ADDRESS:'0xb02be67dbfbd500011c5bbb435fef555ad3f37f8',
       MARKETING_ADDRESS:'0x9a95027DEb2C944E239C546F2EE0C34F22804C61',
@@ -266,6 +316,7 @@
       LINKEDIN:'https://www.linkedin.com/in/sam-doge-2b4653386'
     };
 
+    // ===== DOM Refs =====
     const contractAddrMasked=document.getElementById('contractAddrMasked');
     const revealBtn=document.getElementById('revealAddr');
     const copyBtn=document.getElementById('copyBtn');
@@ -280,8 +331,23 @@
     const mainNav=document.getElementById('mainNav');
     const lang=document.getElementById('lang');
 
+    // Live stats refs
+    const priceUsdEl = document.getElementById('priceUsd');
+    const priceBnbEl = document.getElementById('priceBnb');
+    const change24El = document.getElementById('change24');
+    const vol24El    = document.getElementById('vol24');
+    const liqEl      = document.getElementById('liquidity');
+    const fdvEl      = document.getElementById('fdv');
+    const updatedEl  = document.getElementById('lastUpdated');
+    const refreshBtn = document.getElementById('refreshBtn');
+
+    // ===== Utils =====
     function mask(a){ return a ? a.slice(0,6) + '…' + a.slice(-4) : '0x000…0000'; }
     const isMobile = window.matchMedia('(max-width:980px)');
+    const nf0 = new Intl.NumberFormat(undefined, {maximumFractionDigits:0});
+    const nf2 = new Intl.NumberFormat(undefined, {maximumFractionDigits:6});
+    const money = v => (v==null? '—' : '$'+nf0.format(v));
+    const pct = v => (v==null? '—' : (v>=0? '+' : '') + v.toFixed(2)+'%');
 
     function refresh(){
       contractAddrMasked.textContent  = mask(SETTINGS.CONTRACT_ADDRESS);
@@ -299,6 +365,7 @@
       buyBtn.href      = SETTINGS.PANCAKE_TRADE;
     }
 
+    // Voir/Cacher + Copier
     let revealed=false, revealedMkt=false;
 
     revealBtn.addEventListener('click', () => {
@@ -343,42 +410,13 @@
       } catch {}
     });
 
-    const contactAddr   = document.getElementById('contactAddr');
-    const contactReveal = document.getElementById('contactReveal');
-    const contactCopy   = document.getElementById('contactCopy');
-    let revealedContact = false;
-
-    function setContactMasked(){
-      contactAddr.textContent = mask(SETTINGS.CONTRACT_ADDRESS);
-      if (isMobile.matches) contactAddr.classList.add('hidden'); else contactAddr.classList.remove('hidden');
-    }
-    setContactMasked();
-
-    contactReveal.addEventListener('click', () => {
-      if (!revealedContact) {
-        contactAddr.textContent = SETTINGS.CONTRACT_ADDRESS;
-        contactAddr.classList.remove('hidden');
-        contactReveal.textContent = '🙈 Cacher';
-      } else {
-        setContactMasked();
-        contactReveal.textContent = '👁️ Voir';
-      }
-      revealedContact = !revealedContact;
-    });
-
-    contactCopy.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(SETTINGS.CONTRACT_ADDRESS);
-        contactCopy.textContent = '✅ Copié';
-        setTimeout(()=> contactCopy.textContent='📋 Copier', 1200);
-      } catch {}
-    });
-
+    // Menu mobile
     menuToggle?.addEventListener('click',()=>{mainNav.classList.toggle('open')});
 
+    // i18n FR/EN
     const dict={
-      fr:{nav_about:'À propos',nav_tokenomics:'Tokenomics',nav_howto:'Comment acheter',nav_roadmap:'Feuille de route',nav_links:'Liens',buy:'Acheter',chip:'⚡ BNB Smart Chain (BSC)',hero_title:'la mascotte futuriste de la communauté',hero_sub:'SamDoge (SDM) est un meme coin communautaire sur BSC : transparence, sécurité, et roadmap claire. Taxes désactivées au départ — activables après annonce publique.',contract_title:'Adresses officielles',status:'Statut',status_text:'Pré-vente & listing: PinkSale → PancakeSwap. Liquidity lock & audit publiés.',presale:'Pré-vente PinkSale',taxes:'Taxes',taxes_text:'Lancement: 0%. Après annonce publique: ≤5% (ex: 3% marketing + 2% LP).',pwa:'PWA',pwa_text:"Installer l'app pour accès rapide et notifications.",install:'Installer',why:'Pourquoi SamDoge ?',why_text:'Branding fort, équipe active, audit et preuves de sécurité. Communauté au centre.',security:'Sécurité',sec1:'Contrat public & vérifié',sec2:'LP lock & audit publics',sec3:'Adresses exclues pour pré-vente si besoin',utilities:'Utilités',util1:'Staking',util2:'Concours & récompenses',util3:'Intégrations web',howto:'Comment acheter',how1:'Installer MetaMask / Trust Wallet et sélectionner le réseau BNB Smart Chain (BSC).',how2:'Ajouter BNB au wallet (réseau BSC).',how3:"Ouvrir PancakeSwap et utiliser le lien direct (bouton ci-dessous) ou importer le token via l'adresse de contrat.",how4:"Définir le slippage: 0.1–5% (selon taxes actives). Confirm the échange.",links:'Liens officiels'},
-      en:{nav_about:'About',nav_tokenomics:'Tokenomics',nav_howto:'How to Buy',nav_roadmap:'Roadmap',nav_links:'Links',buy:'Buy',chip:'⚡ BNB Smart Chain (BSC)',hero_title:'the community’s futuristic mascot',hero_sub:'SamDoge (SDM) is a community meme coin on BSC: transparency, security and a clear roadmap. Taxes off at launch — enabled only after public notice.',contract_title:'Official Addresses',status:'Status',status_text:'Presale & listing: PinkSale → PancakeSwap. Liquidity lock & audit published.',presale:'PinkSale Presale',taxes:'Taxes',taxes_text:'Launch: 0%. After public notice: ≤5% (e.g., 3% marketing + 2% LP).',pwa:'PWA',pwa_text:'Install the app for quick access and notifications.',install:'Install',why:'Why SamDoge?',why_text:'Strong branding, active team, audit and security proofs. Community first.',security:'Security',sec1:'Public & verified contract',sec2:'LP lock & public audit',sec3:'Tax-exempt addresses for presale if needed',utilities:'Utilities',util1:'Staking',util2:'Community rewards',util3:'Web integrations',howto:'How to Buy',how1:'Install MetaMask / Trust Wallet and select BNB Smart Chain (BSC).',how2:'Add BNB to your wallet (BSC network).',how3:'Open PancakeSwap via the button below or import the token via the contract address.',how4:'Set slippage: 0.1–5% (depending on active taxes). Confirm the swap.',links:'Official Links'}
+      fr:{nav_about:'À propos',nav_tokenomics:'Tokenomics',nav_howto:'Comment acheter',nav_roadmap:'Feuille de route',nav_links:'Liens',buy:'Acheter',chip:'⚡ BNB Smart Chain (BSC)',hero_title:'la mascotte futuriste de la communauté',hero_sub:'SamDoge (SDM) est un meme coin communautaire sur BSC : transparence, sécurité, et roadmap claire. Taxes désactivées au départ — activables après annonce publique.',contract_title:'Adresses officielles',status:'Statut',status_text:'Pré-vente & listing: PinkSale → PancakeSwap. Liquidity lock & audit publiés.',presale:'Pré-vente PinkSale',taxes:'Taxes',taxes_text:'Lancement: 0%. Après annonce publique: ≤5% (ex: 3% marketing + 2% LP).',pwa:'PWA',pwa_text:"Installer l'app pour accès rapide et notifications.",install:'Installer',why:'Pourquoi SamDoge ?',why_text:'Branding fort, équipe active, audit et preuves de sécurité. Communauté au centre.',security:'Sécurité',sec1:'Contrat public & vérifié',sec2:'LP lock & audit publics',sec3:'Adresses exclues pour pré-vente si besoin',utilities:'Utilités',util1:'Staking',util2:'Concours & récompenses',util3:'Intégrations web',howto:'Comment acheter',how1:'Installer MetaMask / Trust Wallet et sélectionner le réseau BNB Smart Chain (BSC).',how2:'Ajouter BNB au wallet (réseau BSC).',how3:"Ouvrir PancakeSwap et utiliser le lien direct (bouton ci-dessous) ou importer le token via l'adresse de contrat.",how4:"Définir le slippage: 0.1–5% (selon taxes actives). Confirmer l'échange.",links:'Liens officiels',live_title:'Cours & Stats (live)',refresh:'Rafraîchir',price_usd:'Prix (USD)',price_bnb:'Prix (BNB)',change_24h:'Variation 24h',vol_24h:'Volume 24h',liq:'Liquidité',live_note:'Source: Dexscreener (rafraîchi automatiquement toutes les 30s).',legal_title:'Mentions légales & avertissement',legal_text:"SamDoge (SDM) est un token communautaire sans promesse de rendement. Les crypto-actifs sont volatils et comportent des risques de perte totale. Faites vos propres recherches (DYOR). Ce site ne constitue pas un conseil financier."},
+      en:{nav_about:'About',nav_tokenomics:'Tokenomics',nav_howto:'How to Buy',nav_roadmap:'Roadmap',nav_links:'Links',buy:'Buy',chip:'⚡ BNB Smart Chain (BSC)',hero_title:'the community’s futuristic mascot',hero_sub:'SamDoge (SDM) is a community meme coin on BSC: transparency, security and a clear roadmap. Taxes off at launch — enabled only after public notice.',contract_title:'Official Addresses',status:'Status',status_text:'Presale & listing: PinkSale → PancakeSwap. Liquidity lock & audit published.',presale:'PinkSale Presale',taxes:'Taxes',taxes_text:'Launch: 0%. After public notice: ≤5% (e.g., 3% marketing + 2% LP).',pwa:'PWA',pwa_text:'Install the app for quick access and notifications.',install:'Install',why:'Why SamDoge?',why_text:'Strong branding, active team, audit and security proofs. Community first.',security:'Security',sec1:'Public & verified contract',sec2:'LP lock & public audit',sec3:'Tax-exempt addresses for presale if needed',utilities:'Utilities',util1:'Staking',util2:'Community rewards',util3:'Web integrations',howto:'How to Buy',how1:'Install MetaMask / Trust Wallet and select BNB Smart Chain (BSC).',how2:'Add BNB to your wallet (BSC network).',how3:'Open PancakeSwap via the button below or import the token via the contract address.',how4:'Set slippage: 0.1–5% (depending on active taxes). Confirm the swap.',links:'Official Links',live_title:'Live Price & Stats',refresh:'Refresh',price_usd:'Price (USD)',price_bnb:'Price (BNB)',change_24h:'24h Change',vol_24h:'24h Volume',liq:'Liquidity',live_note:'Source: Dexscreener (auto-refresh every 30s).',legal_title:'Legal & Disclaimer',legal_text:"SamDoge (SDM) is a community token with no promise of returns. Crypto assets are volatile and can lead to total loss. Do your own research (DYOR). Nothing here is financial advice."}
     };
     function applyLang(l){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n'); if(dict[l]&&dict[l][k]) el.textContent=dict[l][k];}); document.documentElement.lang=l;}
     lang.addEventListener('change',e=>applyLang(e.target.value));
@@ -396,8 +434,57 @@
       }
     })();
 
+    // ===== Dexscreener Live =====
+    async function fetchDex(){
+      const url = `https://api.dexscreener.com/latest/dex/tokens/${SETTINGS.CONTRACT_ADDRESS}`;
+      updatedEl.textContent = '…';
+      try{
+        const res = await fetch(url, {cache:'no-store'});
+        if(!res.ok) throw new Error('HTTP '+res.status);
+        const data = await res.json();
+        const pairs = (data && data.pairs) || [];
+        // On choisit la paire BSC la plus liquide
+        const best = pairs
+          .filter(p=> (p.chainId||'').toLowerCase()==='bsc')
+          .sort((a,b)=> (b.liquidity?.usd||0) - (a.liquidity?.usd||0))[0] || pairs[0];
+
+        if(!best){
+          priceUsdEl.textContent = priceBnbEl.textContent = change24El.textContent = vol24El.textContent = liqEl.textContent = fdvEl.textContent = '—';
+          updatedEl.textContent = 'N/A';
+          return;
+        }
+
+        const pxUsd = Number(best.priceUsd)||0;
+        const pxBnb = Number(best.priceNative)||0;
+        const ch24  = Number(best.priceChange?.h24);
+        const vol24 = Number(best.volume?.h24);
+        const liq   = Number(best.liquidity?.usd);
+        const fdv   = Number(best.fdv);
+
+        priceUsdEl.textContent = pxUsd ? '$'+nf2.format(pxUsd) : '—';
+        priceBnbEl.textContent = pxBnb ? nf2.format(pxBnb)+' BNB' : '—';
+
+        change24El.textContent = isFinite(ch24) ? (ch24>=0? '+' : '')+ch24.toFixed(2)+'%' : '—';
+        change24El.style.color = isFinite(ch24) ? (ch24>=0? 'var(--ok)' : 'var(--down)') : 'inherit';
+
+        vol24El.textContent = isFinite(vol24) ? money(vol24) : '—';
+        liqEl.textContent   = isFinite(liq)   ? money(liq)   : '—';
+        fdvEl.textContent   = isFinite(fdv)   ? money(fdv)   : '—';
+
+        const d = new Date();
+        updatedEl.textContent = d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+      }catch(e){
+        updatedEl.textContent = '⚠︎';
+        // on ne casse pas l’UI si l’API ne répond pas
+      }
+    }
+    refreshBtn?.addEventListener('click', fetchDex);
+    setInterval(fetchDex, 30000);
+
     document.getElementById('year').textContent=(new Date()).getFullYear();
     refresh();
+    applyLang('fr'); // par défaut
+    fetchDex();      // première charge
   </script>
 </body>
 </html>
