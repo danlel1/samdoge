@@ -18,26 +18,24 @@
     a{color:var(--accent)} img{max-width:100%; height:auto}
     .container{width:min(1200px, 92%); margin-inline:auto}
     header{position:sticky; top:0; z-index:60; backdrop-filter:saturate(140%) blur(8px); background:linear-gradient(180deg, rgba(11,16,32,.9), rgba(11,16,32,.45)); border-bottom:1px solid var(--border)}
-    .nav{display:flex; align-items:center; gap:18px; padding:10px 0}
+    .nav{display:flex; align-items:center; gap:12px; padding:10px 0}
     .brand{display:flex; align-items:center; gap:12px; text-decoration:none}
     .brand img{width:44px; height:44px}
     .brand span{font-weight:900; letter-spacing:.6px}
     nav.main{display:flex; gap:14px; align-items:center}
     .spacer{flex:1}
     .cta{display:inline-flex; align-items:center; gap:10px; padding:9px 14px; border-radius:12px; background:linear-gradient(180deg, rgba(245,158,11,.16), rgba(245,158,11,.06)); color:#1d1204; font-weight:700; text-decoration:none}
-    .lang-select{border:1px solid var(--border); padding:6px 8px; border-radius:10px; background:transparent}
-    /* improved menu: compact + hover underline */
+    .lang-select{border:1px solid var(--border); padding:6px 8px; border-radius:10px; background:transparent; color:var(--txt)}
     nav.main a{position:relative; color:var(--txt); text-decoration:none; padding:8px}
     nav.main a:after{content:''; position:absolute; left:12px; right:12px; bottom:6px; height:2px; background:transparent; border-radius:4px; transition:background .18s}
-    nav.main a:hover:after{background:linear-gradient(90deg,var(--accent),var(--accent-2))}/* Hero */
-.hero{position:relative; padding:48px 0 20px}
+    nav.main a:hover:after{background:linear-gradient(90deg,var(--accent),var(--accent-2))}.hero{position:relative; padding:48px 0 20px}
 .grid-hero{display:grid; grid-template-columns:1.1fr .9fr; gap:22px}
 .chip{display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border-radius:999px; background:linear-gradient(90deg, rgba(255,255,255,.02), rgba(255,255,255,.01)); border:1px solid var(--border)}
 .title{font-size:clamp(28px, 4.2vw, 52px); line-height:1.05; margin:12px 0}
 .subtitle{color:var(--muted); max-width:60ch}
 .panel{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid var(--border); border-radius:16px; padding:16px; box-shadow:var(--shadow)}
 
-.contract{display:flex; gap:10px; align-items:center; padding:10px; border-radius:12px}
+.contract{display:flex; gap:10px; align-items:center; padding:10px; border-radius:12px; flex-wrap:wrap}
 .addr{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; letter-spacing:.2px}
 .btn{cursor:pointer; display:inline-flex; align-items:center; gap:8px; padding:9px 12px; border-radius:10px; border:1px solid var(--border); background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01)); color:var(--txt); font-weight:700; text-decoration:none}
 .btn.accent{background:linear-gradient(180deg, rgba(245,158,11,.18), rgba(245,158,11,.06)); color:#1d1204}
@@ -55,7 +53,18 @@
 
 footer{border-top:1px solid var(--border); margin-top:36px; padding:20px 0; color:var(--muted)}
 
-@media (max-width:980px){.grid-hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.phases{grid-template-columns:1fr}}
+/* Mobile */
+#menuToggle{display:none}
+@media (max-width:980px){
+  .grid-hero{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .phases{grid-template-columns:1fr}
+  #menuToggle{display:inline-flex}
+  nav.main{position:fixed; inset:60px 12px auto 12px; display:none; flex-direction:column; gap:4px; padding:10px; border:1px solid var(--border); border-radius:12px; background:rgba(11,16,32,.98)}
+  nav.main.open{display:flex}
+  .title{font-size:clamp(26px, 6vw, 40px)}
+}
 
   </style>
 </head>
@@ -66,12 +75,13 @@ footer{border-top:1px solid var(--border); margin-top:36px; padding:20px 0; colo
       <a class="brand" href="#top" aria-label="SamDoge Home">
         <img src="/assets/logo.png" alt="SamDoge logo" />
         <span>SamDoge (SDM)</span>
-      </a><nav class="main" aria-label="Main navigation">
-    <a href="#about">À propos</a>
-    <a href="#tokenomics">Tokenomics</a>
-    <a href="#howto">Comment acheter</a>
-    <a href="#roadmap">Feuille de route</a>
-    <a href="#links">Liens</a>
+      </a><button id="menuToggle" aria-label="Ouvrir le menu" class="btn">☰</button>
+  <nav class="main" id="mainNav" aria-label="Main navigation">
+    <a href="#about" data-i18n="nav_about">À propos</a>
+    <a href="#tokenomics" data-i18n="nav_tokenomics">Tokenomics</a>
+    <a href="#howto" data-i18n="nav_howto">Comment acheter</a>
+    <a href="#roadmap" data-i18n="nav_roadmap">Feuille de route</a>
+    <a href="#links" data-i18n="nav_links">Liens</a>
   </nav>
 
   <div class="spacer"></div>
@@ -91,12 +101,21 @@ footer{border-top:1px solid var(--border); margin-top:36px; padding:20px 0; colo
         <div class="chip">⚡ BNB Smart Chain (BSC)</div>
         <h1 class="title">SamDoge — la mascotte futuriste de la communauté</h1>
         <p class="subtitle">SamDoge (SDM) est un meme coin communautaire sur BSC : transparence, sécurité, et roadmap claire. Taxes désactivées au départ — activables après annonce publique.</p><div class="panel" style="margin-top:12px">
-      <h3>Adresse du contrat</h3>
+      <h3 data-i18n="contract_title">Adresses officielles</h3>
       <div class="contract">
-        <code class="addr" id="contractAddrMasked">0xb02b...f37f8</code>
-        <button class="btn" id="revealAddr">👁️ Voir</button>
-        <button class="btn" id="copyBtn">📋 Copier</button>
-        <a class="btn" id="bscscanBtn" target="_blank" rel="noopener">🔍 BscScan</a>
+        <div style="display:flex; align-items:center; gap:8px; flex:1 1 260px">
+          <small class="muted" style="min-width:92px">Contrat:</small>
+          <code class="addr" id="contractAddrMasked">0xb02b...f37f8</code>
+          <button class="btn" id="revealAddr">👁️ Voir</button>
+          <button class="btn" id="copyBtn">📋 Copier</button>
+          <a class="btn" id="bscscanBtn" target="_blank" rel="noopener">🔍 BscScan</a>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; flex:1 1 260px">
+          <small class="muted" style="min-width:92px">Marketing:</small>
+          <code class="addr" id="marketingAddrMasked">0x9a95...04C61</code>
+          <button class="btn" id="revealMkt">👁️ Voir</button>
+          <button class="btn" id="copyMkt">📋 Copier</button>
+        </div>
       </div>
       <div style="margin-top:8px" class="muted">Suivi live: <a id="dexScreener" href="https://dexscreener.com/bsc/0xc85a95a4ee2dddfe2bd2970c71e17c56a2ba3104" target="_blank" rel="noopener">Dexscreener</a> • Audit: <a id="auditLink" href="https://blocksafu.com/token-scanner/56/0x32bFd701655EDF95809EaA5e525F0024ea571267" target="_blank" rel="noopener">BlockSafu</a></div>
     </div>
@@ -107,7 +126,7 @@ footer{border-top:1px solid var(--border); margin-top:36px; padding:20px 0; colo
       <h3>Statut</h3>
       <p class="muted">Pré-vente & listing: PinkSale → PancakeSwap. Liquidity lock & audit publiés.</p>
       <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px">
-        <a class="btn accent" id="buyBtn" href="https://pancakeswap.finance/swap?outputCurrency=0xb02be67dbfbd500011c5bbb435fef555ad3f37f8&chain=bsc" target="_blank">Acheter sur PancakeSwap</a>
+        <a class="btn accent" id="buyBtn" href="https://pancakeswap.finance/swap?inputCurrency=BNB&outputCurrency=0xb02be67dbfbd500011c5bbb435fef555ad3f37f8&chain=bsc" target="_blank">Acheter sur PancakeSwap</a>
         <a class="btn" id="pinksaleBtn" aria-disabled="true">Pré‑vente PinkSale</a>
       </div>
       <hr style="border:none; border-top:1px solid var(--border); margin:12px 0">
@@ -142,7 +161,7 @@ footer{border-top:1px solid var(--border); margin-top:36px; padding:20px 0; colo
       <li>Ouvrir PancakeSwap et utiliser le lien direct (bouton ci‑dessous) ou importer le token via l'adresse de contrat.</li>
       <li>Définir le slippage: 0.1–5% (selon taxes actives). Confirmer l'échange.</li>
     </ol>
-    <div style="margin-top:8px"><a class="btn accent" href="https://pancakeswap.finance/swap?outputCurrency=0xb02be67dbfbd500011c5bbb435fef555ad3f37f8&chain=bsc" target="_blank">Acheter SDM sur PancakeSwap</a></div>
+    <div style="margin-top:8px"><a class="btn accent" href="https://pancakeswap.finance/swap?inputCurrency=BNB&outputCurrency=0xb02be67dbfbd500011c5bbb435fef555ad3f37f8&chain=bsc" target="_blank">Acheter SDM sur PancakeSwap</a></div>
   </section>  <!-- ROADMAP -->  <section class="container" id="roadmap" style="padding:22px 0 0">
     <h2>Feuille de route</h2>
     <div class="phases">
@@ -166,8 +185,8 @@ footer{border-top:1px solid var(--border); margin-top:36px; padding:20px 0; colo
     // ====== SETTINGS (préremplies) ======
     const SETTINGS = {
       CONTRACT_ADDRESS: '0xb02be67dbfbd500011c5bbb435fef555ad3f37f8',
-      MARKETING_ADDRESS: '0x0000000000000000000000000000000000000000',
-      PANCAKE_TRADE: 'https://pancakeswap.finance/swap?outputCurrency=0xb02be67dbfbd500011c5bbb435fef555ad3f37f8&chain=bsc',
+      MARKETING_ADDRESS: '0x9a95027DEb2C944E239C546F2EE0C34F22804C61',
+      PANCAKE_TRADE: 'https://pancakeswap.finance/swap?inputCurrency=BNB&outputCurrency=0xb02be67dbfbd500011c5bbb435fef555ad3f37f8&chain=bsc',
       DEXSCREENER: 'https://dexscreener.com/bsc/0xc85a95a4ee2dddfe2bd2970c71e17c56a2ba3104',
       AUDIT: 'https://blocksafu.com/token-scanner/56/0x32bFd701655EDF95809EaA5e525F0024ea571267'
     };
@@ -176,15 +195,21 @@ footer{border-top:1px solid var(--border); margin-top:36px; padding:20px 0; colo
     const contractAddrMasked = document.getElementById('contractAddrMasked');
     const revealBtn = document.getElementById('revealAddr');
     const copyBtn = document.getElementById('copyBtn');
+    const marketingAddrMasked = document.getElementById('marketingAddrMasked');
+    const revealMkt = document.getElementById('revealMkt');
+    const copyMkt = document.getElementById('copyMkt');
     const bscscanBtn = document.getElementById('bscscanBtn');
     const dexScreener = document.getElementById('dexScreener');
     const auditLink = document.getElementById('auditLink');
     const buyBtn = document.getElementById('buyBtn');
     const pancakeBtn = document.getElementById('pinksaleBtn');
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
 
     function mask(addr){ if(!addr) return '0x000...0000'; return addr.slice(0,6)+'...'+addr.slice(-4); }
     function refresh(){
       contractAddrMasked.textContent = mask(SETTINGS.CONTRACT_ADDRESS);
+      marketingAddrMasked.textContent = mask(SETTINGS.MARKETING_ADDRESS);
       bscscanBtn.href = 'https://bscscan.com/token/'+SETTINGS.CONTRACT_ADDRESS;
       dexScreener.href = SETTINGS.DEXSCREENER;
       auditLink.href = SETTINGS.AUDIT;
@@ -192,34 +217,33 @@ footer{border-top:1px solid var(--border); margin-top:36px; padding:20px 0; colo
       pancakeBtn.href = '';
     }
 
-    let revealed = false;
+    let revealed = false, revealedMkt = false;
     revealBtn.addEventListener('click', ()=>{
-      if(!revealed){ contractAddrMasked.textContent = SETTINGS.CONTRACT_ADDRESS; revealBtn.textContent='🙈 Cacher'; revealed=true; }
-      else{ contractAddrMasked.textContent = mask(SETTINGS.CONTRACT_ADDRESS); revealBtn.textContent='👁️ Voir'; revealed=false; }
+      if(!revealed){ contractAddrMasked.textContent = SETTINGS.CONTRACT_ADDRESS; revealBtn.textContent='🙈 Cacher'; revealed=true; } else { contractAddrMasked.textContent = mask(SETTINGS.CONTRACT_ADDRESS); revealBtn.textContent='👁️ Voir'; revealed=false; }
     });
+    copyBtn.addEventListener('click', async ()=>{ try{ await navigator.clipboard.writeText(SETTINGS.CONTRACT_ADDRESS); copyBtn.textContent='✅ Copié'; setTimeout(()=>copyBtn.textContent='📋 Copier',1200);}catch{alert('Impossible de copier');} });
 
-    copyBtn.addEventListener('click', async ()=>{
-      try{ await navigator.clipboard.writeText(SETTINGS.CONTRACT_ADDRESS); copyBtn.textContent='✅ Copié'; setTimeout(()=>copyBtn.textContent='📋 Copier',1300);}catch{alert('Impossible de copier');}
+    revealMkt.addEventListener('click', ()=>{
+      if(!revealedMkt){ marketingAddrMasked.textContent = SETTINGS.MARKETING_ADDRESS; revealMkt.textContent='🙈 Cacher'; revealedMkt=true; } else { marketingAddrMasked.textContent = mask(SETTINGS.MARKETING_ADDRESS); revealMkt.textContent='👁️ Voir'; revealedMkt=false; }
     });
+    copyMkt.addEventListener('click', async ()=>{ try{ await navigator.clipboard.writeText(SETTINGS.MARKETING_ADDRESS); copyMkt.textContent='✅ Copié'; setTimeout(()=>copyMkt.textContent='📋 Copier',1200);}catch{alert('Impossible de copier');} });
 
-    // language switch (simple client-side)
+    // mobile menu toggle
+    menuToggle?.addEventListener('click', ()=>{ mainNav.classList.toggle('open'); });
+
+    // language switch – FR/EN minimal i18n (nav titles only for now)
+    const i18n = {
+      fr: { nav_about:'À propos', nav_tokenomics:'Tokenomics', nav_howto:'Comment acheter', nav_roadmap:'Feuille de route', nav_links:'Liens', contract_title:'Adresses officielles' },
+      en: { nav_about:'About', nav_tokenomics:'Tokenomics', nav_howto:'How to Buy', nav_roadmap:'Roadmap', nav_links:'Links', contract_title:'Official Addresses' }
+    };
     const lang = document.getElementById('lang');
-    lang.addEventListener('change',(e)=>{
-      if(e.target.value==='en') alert('Switch to English — next: translate content (I can do that).');
-      else location.hash='';
-    });
-
-    // PWA install
-    let deferredPrompt; const installBtn = document.getElementById('installBtn');
-    window.addEventListener('beforeinstallprompt', (e)=>{ e.preventDefault(); deferredPrompt = e; installBtn?.removeAttribute('disabled'); });
-    installBtn?.addEventListener('click', async()=>{ if(!deferredPrompt) return; deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null;});
+    function applyLang(l){
+      document.querySelectorAll('[data-i18n]').forEach(el=>{ const k=el.getAttribute('data-i18n'); if(i18n[l]&&i18n[l][k]) el.textContent=i18n[l][k]; });
+      document.documentElement.lang = l;
+    }
+    lang.addEventListener('change',(e)=> applyLang(e.target.value));
 
     document.getElementById('year').textContent = new Date().getFullYear();
     refresh();
-  </script>  <!-- NOTES pour déploiement:
-    - ajoute /assets/banner.png et /assets/logo.png et favicon dans le dossier /assets
-    - le SETTINGS ci‑dessus est prérempli avec l'adresse BSC fournie
-    - pour traduire FR/EN, je peux fournir les fichiers JSON ou ajouter les textes directement
-    - si tu veux que l'adresse marketing apparaisse et soit copiée aussi, dis moi l'adresse
-  --></body>
+  </script></body>
 </html>
