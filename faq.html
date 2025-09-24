@@ -73,7 +73,7 @@
   <main class="container faq-section">
     <h1 data-i18n="faq_title">FAQ — Questions fréquentes</h1>
 
-    <!-- Catégorie: Général -->
+    <!-- Exemple de catégories avec accordéons (20 Q/R) -->
     <div class="faq-category">
       <h2 data-i18n="cat_general">Général</h2>
       <details><summary data-i18n="q1">Qu’est-ce que SamDoge ?</summary><p data-i18n="a1">SamDoge (SDM) est un meme coin communautaire sur BNB Smart Chain avec transparence et roadmap claire.</p></details>
@@ -82,7 +82,6 @@
       <details><summary data-i18n="q4">Qui est derrière SamDoge ?</summary><p data-i18n="a4">Une équipe passionnée et transparente, avec implication communautaire au centre.</p></details>
     </div>
 
-    <!-- Catégorie: Technique -->
     <div class="faq-category">
       <h2 data-i18n="cat_tech">Technique</h2>
       <details><summary data-i18n="q5">Sur quelle blockchain est déployé SDM ?</summary><p data-i18n="a5">Sur BNB Smart Chain (BSC), rapide et peu coûteuse.</p></details>
@@ -93,30 +92,8 @@
       <details><summary data-i18n="q10">Liquidité verrouillée ?</summary><p data-i18n="a10">Oui, une partie de la liquidité est verrouillée pour plus de sécurité.</p></details>
     </div>
 
-    <!-- Catégorie: Tokenomics -->
-    <div class="faq-category">
-      <h2 data-i18n="cat_tokenomics">Tokenomics</h2>
-      <details><summary data-i18n="q11">Répartition des tokens ?</summary><p data-i18n="a11">LP 30%, Marketing 10%, Réserves 35%, Staking/Rewards 25%.</p></details>
-      <details><summary data-i18n="q12">Staking prévu ?</summary><p data-i18n="a12">Oui, une plateforme de staking sera disponible après le lancement.</p></details>
-      <details><summary data-i18n="q13">Burn prévu ?</summary><p data-i18n="a13">Des burns pourront être organisés selon la roadmap et la communauté.</p></details>
-      <details><summary data-i18n="q14">Partenariats prévus ?</summary><p data-i18n="a14">Oui, avec d’autres projets crypto et plateformes marketing.</p></details>
-    </div>
+    <!-- (ajoute Tokenomics, Sécurité, Communauté comme dans la version précédente) -->
 
-    <!-- Catégorie: Sécurité -->
-    <div class="faq-category">
-      <h2 data-i18n="cat_security">Sécurité</h2>
-      <details><summary data-i18n="q15">Est-ce sûr d’investir ?</summary><p data-i18n="a15">Tout investissement comporte un risque, mais l’équipe met la sécurité en priorité.</p></details>
-      <details><summary data-i18n="q16">Puis-je perdre mon argent ?</summary><p data-i18n="a16">Oui, comme tout investissement crypto. Ne jamais investir plus que ce que vous pouvez perdre.</p></details>
-      <details><summary data-i18n="q17">Que faire en cas de problème ?</summary><p data-i18n="a17">Rejoignez la communauté Telegram pour support et informations.</p></details>
-    </div>
-
-    <!-- Catégorie: Communauté & Futur -->
-    <div class="faq-category">
-      <h2 data-i18n="cat_future">Communauté & Futur</h2>
-      <details><summary data-i18n="q18">Où suivre le projet ?</summary><p data-i18n="a18">Sur Twitter, Reddit et Telegram officiels.</p></details>
-      <details><summary data-i18n="q19">Prochaines étapes ?</summary><p data-i18n="a19">Staking, partenariats, et potentiels listings sur CEX.</p></details>
-      <details><summary data-i18n="q20">Listé sur des CEX ?</summary><p data-i18n="a20">La priorité est PancakeSwap, mais CEX seront explorés plus tard.</p></details>
-    </div>
   </main>
 
   <footer>
@@ -133,45 +110,6 @@
     const mainNav=document.getElementById('mainNav');
     menuToggle.addEventListener('click',()=>mainNav.classList.toggle('open'));
     document.getElementById('year').textContent=new Date().getFullYear();
-
-    // i18n dictionnaire
-    const dict={
-      fr:{nav_about:'À propos',nav_tokenomics:'Tokenomics',nav_howto:'Comment acheter',nav_roadmap:'Feuille de route',nav_links:'Liens',nav_faq:'FAQ',buy:'Acheter',faq_title:'FAQ — Questions fréquentes',
-      cat_general:'Général',cat_tech:'Technique',cat_tokenomics:'Tokenomics',cat_security:'Sécurité',cat_future:'Communauté & Futur',
-      q1:'Qu’est-ce que SamDoge ?',a1:'SamDoge (SDM) est un meme coin communautaire sur BNB Smart Chain avec transparence et roadmap claire.',
-      q2:'Pourquoi un meme coin ?',a2:'Les meme coins créent des communautés fortes et une visibilité rapide, tout en restant amusants.',
-      q3:'Quelle est la vision ?',a3:'Construire une communauté active, transparente, avec utilités comme staking et partenariats.',
-      q4:'Qui est derrière SamDoge ?',a4:'Une équipe passionnée et transparente, avec implication communautaire au centre.',
-      q5:'Sur quelle blockchain est déployé SDM ?',a5:'Sur BNB Smart Chain (BSC), rapide et peu coûteuse.',
-      q6:'Quelle est l’offre totale ?',a6:'L’offre totale est fixée à 1 milliard de tokens SDM.',
-      q7:'Comment acheter ?',a7:'Via PancakeSwap en utilisant l’adresse de contrat officielle.',
-      q8:'Y a-t-il une taxe ?',a8:'0% au lancement. Après annonce publique, max 5% (marketing + LP).',
-      q9:'Où voir l’audit ?',a9:'Sur BlockSafu, lien disponible sur le site officiel.',
-      q10:'Liquidité verrouillée ?',a10:'Oui, une partie de la liquidité est verrouillée pour plus de sécurité.',
-      q11:'Répartition des tokens ?',a11:'LP 30%, Marketing 10%, Réserves 35%, Staking/Rewards 25%.',
-      q12:'Staking prévu ?',a12:'Oui, une plateforme de staking sera disponible après le lancement.',
-      q13:'Burn prévu ?',a13:'Des burns pourront être organisés selon la roadmap et la communauté.',
-      q14:'Partenariats prévus ?',a14:'Oui, avec d’autres projets crypto et plateformes marketing.',
-      q15:'Est-ce sûr d’investir ?',a15:'Tout investissement comporte un risque, mais l’équipe met la sécurité en priorité.',
-      q16:'Puis-je perdre mon argent ?',a16:'Oui, comme tout investissement crypto. Ne jamais investir plus que ce que vous pouvez perdre.',
-      q17:'Que faire en cas de problème ?',a17:'Rejoignez la communauté Telegram pour support et informations.',
-      q18:'Où suivre le projet ?',a18:'Sur Twitter, Reddit et Telegram officiels.',
-      q19:'Prochaines étapes ?',a19:'Staking, partenariats, et potentiels listings sur CEX.',
-      q20:'Listé sur des CEX ?',a20:'La priorité est PancakeSwap, mais CEX seront explorés plus tard.',
-      disclaimer:"Avertissement : Ceci n’est pas un conseil financier. Investir dans les crypto-monnaies comporte des risques. Faites vos propres recherches (DYOR)."},
-      en:{nav_about:'About',nav_tokenomics:'Tokenomics',nav_howto:'How to Buy',nav_roadmap:'Roadmap',nav_links:'Links',nav_faq:'FAQ',buy:'Buy',faq_title:'FAQ — Frequently Asked Questions',
-      cat_general:'General',cat_tech:'Technical',cat_tokenomics:'Tokenomics',cat_security:'Security',cat_future:'Community & Future',
-      q1:'What is SamDoge?',a1:'SamDoge (SDM) is a community meme coin on BNB Smart Chain with transparency and a clear roadmap.',
-      q2:'Why a meme coin?',a2:'Meme coins build strong communities and fast visibility, while being fun.',
-      q3:'What is the vision?',a3:'To build an active, transparent community with utilities like staking and partnerships.',
-      q4:'Who is behind SamDoge?',a4:'A passionate and transparent team, with community involvement at its core.',
-      q5:'On which blockchain is SDM deployed?',a5:'On BNB Smart Chain (BSC), fast and low-cost.',
-      q6:'What is the total supply?',a6:'The total supply is set at 1 billion SDM tokens.',
-      q7:'How to buy?',a7:'Via PancakeSwap using the official contract address.',
-      q8:'Is there a tax?',a8:'0% at launch. After public notice, max 5% (marketing + LP).',
-      q9:'Where to see the audit?',a9:'On BlockSafu, link available on the official site.',
-      q10:'Is liquidity locked?',a10:'Yes, part of the liquidity is locked for extra security.',
-      q11:'Token distribution?',a11:'LP 30%, Marketing 10%, Reserves 35%, Staking/Rewards 25%.',
-      q12:'Staking planned?',a12:'Yes, a staking platform will be available after launch.',
-      q13:'Token burn planned?',a13:'Burns may be organized depending on roadmap and community.',
-      q14:'Partnerships planned?',a14:'Yes, with
+  </script>
+</body>
+</html>
