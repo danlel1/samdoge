@@ -1,461 +1,301 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>SamDoge — Staking</title>
-  <meta name="theme-color" content="#0b1020"/>
-  <link rel="icon" href="assets/smd/favicon-32x32.png" sizes="32x32"/>
-  <link rel="apple-touch-icon" href="assets/smd/apple-touch-icon.png"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Staking SDM — SamDoge</title>
+  <meta name="theme-color" content="#0b1020" />
+  <link rel="icon" href="assets/smd/favicon-32x32.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="assets/smd/apple-touch-icon.png" />
   <style>
     :root{
-      --bg:#0b1020;--panel:#0f1631;--card:#121a38;--muted:#c7d2ea;--txt:#ffffff;
-      --accent:#f6b449;--accent-2:#ffd36a;--ok:#22c55e;--down:#ef4444;--border:rgba(255,255,255,.22);
+      --bg:#0b1020;--panel:#0f1631;--card:#121a38;--muted:#c7d2ea;--txt:#fff;
+      --accent:#f6b449;--accent-2:#ffd36a;--ok:#22c55e;--warn:#f59e0b;
+      --border:rgba(255,255,255,.22);
       --shadow:0 10px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08);
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:
+    html,body{margin:0;background:
       radial-gradient(900px 520px at 15% -10%, #1a2454 0%, transparent 60%),
       radial-gradient(900px 520px at 120% 10%, #401c48 0%, transparent 55%),
-      linear-gradient(180deg, #0b1020 0%, #090e1a 100%);
-      color:var(--txt);font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial;line-height:1.6;overflow-x:hidden}
-    a{color:var(--accent)}
-    .container{width:min(1200px,94%);margin-inline:auto}
-    header{position:sticky;top:0;z-index:60;backdrop-filter:saturate(140%) blur(10px);
-      background:linear-gradient(180deg,rgba(11,16,32,.92),rgba(11,16,32,.55));border-bottom:1px solid var(--border)}
-    .nav{display:flex;align-items:center;gap:10px;padding:10px 0}
-    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--txt)}
-    .brand img{width:44px;height:44px}
-    .brand span{font-weight:900;letter-spacing:.6px}
-    nav.main{display:flex;gap:12px;align-items:center}
-    nav.main a{position:relative;color:var(--txt);text-decoration:none;padding:8px}
-    nav.main a:after{content:'';position:absolute;left:12px;right:12px;bottom:6px;height:2px;background:transparent;border-radius:4px;transition:.18s}
+      linear-gradient(180deg,#0b1020 0%,#090e1a 100%);
+      color:var(--txt); font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Ubuntu; line-height:1.6}
+    a{color:var(--accent); text-decoration:none}
+    .container{width:min(1200px,94%); margin-inline:auto}
+    header{position:sticky; top:0; z-index:60; backdrop-filter:saturate(140%) blur(10px);
+      background:linear-gradient(180deg,rgba(11,16,32,.92),rgba(11,16,32,.55));
+      border-bottom:1px solid var(--border)}
+    .nav{display:flex; align-items:center; gap:10px; padding:10px 0}
+    .brand{display:flex; align-items:center; gap:10px}
+    .brand img{width:44px; height:44px}
+    .brand span{font-weight:900}
+    nav.main{display:flex; gap:12px; align-items:center}
+    nav.main a{position:relative; padding:8px; color:var(--txt)}
+    nav.main a:after{content:''; position:absolute; left:12px; right:12px; bottom:6px; height:2px; background:transparent; transition:background .18s}
     nav.main a:hover:after{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
     .spacer{flex:1}
-    .btn{cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid var(--border);
-      background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.08));color:#fff;font-weight:800;text-decoration:none;box-shadow:var(--shadow)}
-    .btn.accent{background:linear-gradient(180deg,var(--accent-2),var(--accent));color:#111;border-color:rgba(255,211,106,.85)}
-    .btn.ghost{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));color:var(--txt)}
-    .btn.sm{padding:8px 10px;border-radius:10px;font-weight:700}
-    .lang-select{border:1px solid var(--border);padding:8px 10px;border-radius:10px;background:#ffffff;color:#0e1116;font-weight:800}
+    .btn{cursor:pointer; display:inline-flex; align-items:center; gap:8px; padding:10px 14px;
+      border-radius:12px; border:1px solid var(--border);
+      background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.06));
+      color:var(--txt); font-weight:800; box-shadow:var(--shadow)}
+    .btn.accent{background:linear-gradient(180deg,var(--accent-2),var(--accent)); color:#1a1303; border-color:rgba(255,211,106,.85)}
+    .btn.ghost{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02))}
+    .btn.sm{padding:7px 10px; border-radius:10px; font-weight:700}
+    .lang-select{border:1px solid var(--border); padding:8px 10px; border-radius:10px; background:#fff; color:#0e1116; font-weight:800}
+
+    h1{font-size:clamp(26px,5vw,40px); margin:18px 0 6px}
+    .muted{color:var(--muted)}
+    .panel{background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.05));
+      border:1px solid var(--border); border-radius:16px; padding:16px; box-shadow:var(--shadow)}
+    .card{border:1px solid var(--border); background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.04));
+      border-radius:14px; padding:14px; box-shadow:var(--shadow)}
+    .grid{display:grid; grid-template-columns:1.3fr .7fr; gap:14px}
+    .subgrid{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    .pill{display:inline-flex; gap:8px; align-items:center; padding:6px 12px; border-radius:999px;
+      background:linear-gradient(180deg, rgba(255,211,106,.95), rgba(246,180,73,.95));
+      border:1px solid rgba(255,211,106,.85); color:#1a1303; font-weight:900}
+
+    .warn{border:1px dashed rgba(245,158,11,.6); background:rgba(245,158,11,.08)}
+    .ok{color:var(--ok)}
+
+    footer{border-top:1px solid var(--border); margin-top:34px; padding:18px 0; color:var(--muted)}
     #menuToggle{display:none}
     @media (max-width:980px){
+      .grid{grid-template-columns:1fr}
       #menuToggle{display:inline-flex}
-      nav.main{position:fixed;inset:60px 10px auto 10px;display:none;flex-direction:column;gap:6px;padding:10px;border:1px solid var(--border);border-radius:12px;background:rgba(11,16,32,.98)}
+      nav.main{position:fixed; inset:60px 10px auto 10px; display:none; flex-direction:column; gap:6px; padding:10px; border:1px solid var(--border); border-radius:12px; background:rgba(11,16,32,.98)}
       nav.main.open{display:flex}
     }
-    /* Page */
-    .hero{padding:34px 0 8px}
-    h1{font-size:clamp(28px,4.2vw,44px);margin:0 0 6px}
-    .muted{color:var(--muted)}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    @media (max-width:980px){.grid{grid-template-columns:1fr}}
-    .panel{background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.05));border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
-    .card{border:1px solid var(--border);background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.04));border-radius:14px;padding:14px;box-shadow:var(--shadow)}
-    .plans{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-    @media (max-width:980px){.plans{grid-template-columns:1fr 1fr}}
-    @media (max-width:640px){.plans{grid-template-columns:1fr}}
-    .planHead{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px}
-    .apy{font-size:22px;font-weight:900}
-    input[type="number"]{width:160px;max-width:100%;padding:10px;border-radius:10px;border:1px solid var(--border);background:#fff;color:#111;font-weight:700}
-    .stack{display:grid;gap:10px}
-    .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-    .list{margin:0;padding-left:18px}
-    .tbl{display:grid;gap:8px}
-    .pos{border:1px dashed var(--border);border-radius:12px;padding:10px}
-    .pill{display:inline-block;padding:4px 8px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.06)}
-    footer{border-top:1px solid var(--border);margin-top:34px;padding:18px 0;color:var(--muted)}
-    .disclaimer{font-size:.9rem;margin-top:10px}
+    .plan{display:flex; flex-direction:column; gap:8px}
+    .plan h4{margin:0}
+    .plan small{color:var(--muted)}
+    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    input[type="number"]{background:#0e1328; color:var(--txt); border:1px solid var(--border); border-radius:10px; padding:10px 12px; width:220px}
+    .disabled{opacity:.6; pointer-events:none}
   </style>
-
-  <!-- Ethers + Web3Modal + WalletConnect (CDN) -->
-  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.umd.min.js"></script>
-  <script src="https://unpkg.com/web3modal@1.9.12/dist/index.js"></script>
-  <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
 </head>
 <body>
+  <!-- Header -->
   <header>
     <div class="container nav">
-      <a class="brand" href="index.html" aria-label="SamDoge Home">
-        <img src="assets/smd/logo.png" alt="SamDoge logo"/>
+      <a class="brand" href="index.html" aria-label="Accueil SamDoge">
+        <img src="assets/smd/logo.png" alt="SamDoge logo">
         <span>SamDoge (SDM)</span>
       </a>
+
       <button id="menuToggle" class="btn ghost" aria-label="Ouvrir le menu">☰</button>
-      <nav class="main" id="mainNav" aria-label="Main navigation">
-        <a href="index.html#about" data-i18n="nav_about">À propos</a>
-        <a href="index.html#tokenomics" data-i18n="nav_tokenomics">Tokenomics</a>
-        <a href="index.html#howto" data-i18n="nav_howto">Comment acheter</a>
-        <a href="index.html#roadmap" data-i18n="nav_roadmap">Feuille de route</a>
-        <a href="index.html#links" data-i18n="nav_links">Liens</a>
-        <a href="staking.html" data-i18n="nav_staking">Staking</a>
-        <a href="faq.html" data-i18n="nav_faq">FAQ</a>
+      <nav class="main" id="mainNav">
+        <a href="index.html#about">À propos</a>
+        <a href="index.html#tokenomics">Tokenomics</a>
+        <a href="index.html#howto">Comment acheter</a>
+        <a href="index.html#roadmap">Feuille de route</a>
+        <a href="index.html#links">Liens</a>
+        <a href="staking.html">Staking</a>
+        <a href="faq.html">FAQ</a>
       </nav>
+
       <div class="spacer"></div>
       <select id="lang" class="lang-select"><option value="fr">FR</option><option value="en">EN</option></select>
-      <button id="connectBtn" class="btn accent">🔌 <span data-i18n="connect">Se connecter</span></button>
+      <button id="connectBtn" class="btn accent">Se connecter</button>
     </div>
   </header>
 
-  <section class="container hero">
-    <h1 data-i18n="staking_title">Staking SDM</h1>
-    <p class="muted" data-i18n="staking_sub">Choisis un plan (3/6/9/12 mois), approuve tes SDM puis stake. Réclame et retire à la fin du lock.</p>
+  <!-- Main -->
+  <main class="container" style="padding:14px 0 24px">
+    <h1>Staking SDM</h1>
+    <p class="muted">Choisis un plan (3/6/9/12 mois), approuve tes SDM puis stake. Réclame et retire à la fin du lock.</p>
 
-    <!-- ✅ Indicateur global ouvert/fermé -->
-    <div id="stakingStatus" class="panel" style="margin-top:12px; text-align:center; font-weight:900"></div>
-  </section>
+    <div class="panel" style="margin:8px 0">
+      <span class="pill">⚡ BNB Smart Chain (BSC)</span>
+    </div>
 
-  <section class="container" style="padding-bottom:10px">
     <div class="grid">
-      <!-- Plans -->
-      <div class="panel">
-        <h3>🟧 <span data-i18n="choose_plan">Choisir un plan</span></h3>
-        <div class="plans" id="plans">
-          <!-- Cartes générées par JS -->
-        </div>
-      </div>
+      <!-- Colonne gauche : Choisir un plan -->
+      <section class="panel">
+        <h3>Choisir un plan</h3>
 
-      <!-- Ton wallet + positions -->
-      <div class="panel">
-        <div class="stack">
-          <div class="card">
-            <h3 data-i18n="your_wallet">Ton wallet</h3>
-            <div class="tbl">
-              <div>Address: <b id="addr">—</b></div>
-              <div>Réseau: <b id="net">—</b> <button class="btn sm" id="switchBsc">🔁 <span data-i18n="switch_bsc">Basculer BSC</span></button></div>
-              <div>Solde SDM: <b id="balSdm">—</b></div>
+        <!-- Bloc d'explications (visible si non connecté) -->
+        <div id="helpBox" class="card">
+          <h4>Comment démarrer ?</h4>
+          <ol class="muted" style="margin:8px 0 0 18px">
+            <li><b>Connecte ton wallet</b> via le bouton <em>Se connecter</em> (MetaMask / WalletConnect).</li>
+            <li><b>Vérifie le réseau</b> : bascule sur <em>BNB Smart Chain</em> si nécessaire.</li>
+            <li><b>Sélectionne un plan</b> (3/6/9/12 mois) et <b>approuve</b> les SDM.</li>
+            <li><b>Stake</b> le montant voulu. Tes tokens seront <b>verrouillés</b> pendant la durée choisie.</li>
+            <li>À la fin, <b>réclame et retire</b> tes SDM + intérêts.</li>
+          </ol>
+          <p class="muted" style="margin-top:10px">⚠️ Tant que tu n’es pas connecté, la sélection de plan reste désactivée.</p>
+        </div>
+
+        <!-- Plans (affichés après connexion) -->
+        <div id="plansBox" class="subgrid" style="display:none">
+          <div class="card plan">
+            <h4>3 mois</h4>
+            <small>APY indicatif : <b>8%</b></small>
+            <div class="row">
+              <input id="amt3" type="number" min="0" placeholder="Montant SDM">
+              <button class="btn sm" onclick="approve(3)">Approuver</button>
+              <button class="btn sm" onclick="stake(3)">Staker</button>
             </div>
-            <div class="row" style="margin-top:10px">
-              <button class="btn sm ghost" id="disconnect">⏏︎ <span data-i18n="disconnect">Déconnecter</span></button>
+          </div>
+          <div class="card plan">
+            <h4>6 mois</h4>
+            <small>APY indicatif : <b>12%</b></small>
+            <div class="row">
+              <input id="amt6" type="number" min="0" placeholder="Montant SDM">
+              <button class="btn sm" onclick="approve(6)">Approuver</button>
+              <button class="btn sm" onclick="stake(6)">Staker</button>
+            </div>
+          </div>
+          <div class="card plan">
+            <h4>9 mois</h4>
+            <small>APY indicatif : <b>16%</b></small>
+            <div class="row">
+              <input id="amt9" type="number" min="0" placeholder="Montant SDM">
+              <button class="btn sm" onclick="approve(9)">Approuver</button>
+              <button class="btn sm" onclick="stake(9)">Staker</button>
+            </div>
+          </div>
+          <div class="card plan">
+            <h4>12 mois</h4>
+            <small>APY indicatif : <b>20%</b></small>
+            <div class="row">
+              <input id="amt12" type="number" min="0" placeholder="Montant SDM">
+              <button class="btn sm" onclick="approve(12)">Approuver</button>
+              <button class="btn sm" onclick="stake(12)">Staker</button>
             </div>
           </div>
 
-          <div class="card">
-            <h3 data-i18n="positions_title">Vos positions</h3>
-            <div id="positions" class="stack"></div>
-            <div class="muted" id="noPos" style="display:none" data-i18n="no_positions">Aucune position pour le moment.</div>
+          <!-- Avertissement affiché quand connecté -->
+          <div class="card warn" style="grid-column:1/-1">
+            <b>⚠️ Avertissement</b>
+            <p class="muted" style="margin:6px 0 0">
+              Pendant la période choisie, vos SDM sont verrouillés.  
+              <b>Si vous laissez votre dépôt plus longtemps que la durée sélectionnée, les récompenses n’augmentent pas au-delà de cette durée</b> ; vous gagnerez uniquement pour le plan choisi (3/6/9/12 mois).  
+              Les crypto-actifs sont volatils — n’investissez que ce que vous pouvez vous permettre de perdre (DYOR).
+            </p>
           </div>
-
-          <div class="muted" id="status" style="min-height:18px"></div>
         </div>
+      </section>
+
+      <!-- Colonne droite : Wallet + positions -->
+      <aside class="panel">
+        <h3>Ton wallet</h3>
+        <div class="card">
+          <div class="row"><small class="muted">Address:</small> <span id="addr">—</span></div>
+          <div class="row"><small class="muted">Réseau:</small> <span id="net">—</span> <button class="btn sm" id="switchBsc">🔁 Basculer BSC</button></div>
+          <div class="row"><small class="muted">Solde SDM:</small> <span id="bal">—</span></div>
+          <div class="row"><button id="disconnectBtn" class="btn sm">🔒 Déconnecter</button></div>
+        </div>
+
+        <h3 style="margin-top:14px">Vos positions</h3>
+        <div id="positions" class="card muted">Aucune position.</div>
+      </aside>
+    </div>
+
+    <!-- Zone réclamation / retrait (exemple d’UI, logique à brancher) -->
+    <section class="panel" style="margin-top:14px">
+      <h3>Réclamer & Retirer</h3>
+      <div class="row">
+        <input id="claimId" type="number" min="0" placeholder="ID de position">
+        <button class="btn sm" onclick="claim()">Réclamer</button>
+        <button class="btn sm" onclick="exitPosition()">Exit (retour + rewards)</button>
       </div>
-    </div>
-  </section>
+      <p class="muted" style="margin:8px 0 0">Les fonctions sont prêtes côté interface. Il reste à brancher le contrat du staking.</p>
+    </section>
+  </main>
 
-  <section class="container" id="disclaimer" style="padding:10px 0 24px">
-    <div class="panel">
-      <h3 data-i18n="disc_title">Avertissement</h3>
-      <p class="muted" data-i18n="disc_text">
-        Le staking comporte des risques. Aucune garantie de rendement. Faites vos propres recherches (DYOR).
-        Des frais réseau (BNB) s’appliquent. Les récompenses sont plafonnées à la durée choisie.
-      </p>
-    </div>
-  </section>
-
+  <!-- Footer -->
   <footer>
-    <div class="container" style="display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+    <div class="container" style="display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap">
       <div>© <span id="year"></span> SamDoge. Tous droits réservés.</div>
       <div style="opacity:.85">Made with 🧡 sur BSC • Style futuriste</div>
     </div>
   </footer>
 
-  <script>
-    // ================== CONFIG ==================
-    const CONFIG = {
-      CHAIN_ID_HEX: '0x38', // BSC mainnet (56)
-      CHAIN: {
-        chainId: '0x38',
-        chainName: 'BNB Smart Chain',
-        nativeCurrency: { name:'BNB', symbol:'BNB', decimals:18 },
-        rpcUrls: ['https://bsc-dataseed.binance.org/'],
-        blockExplorerUrls: ['https://bscscan.com']
-      },
-      TOKEN_ADDRESS: '0xb02be67dbfbd500011c5bbb435fef555ad3f37f8', // SDM
-      STAKING_ADDRESS: '0xYOUR_STAKING_CONTRACT_ADDRESS', // ⚠️ RENSEIGNER ICI
-      // APY affichés (bps, info UI — le contrat fait foi)
-      PLANS: [
-        { id:0, months:3,  apyBps:400 },
-        { id:1, months:6,  apyBps:600 },
-        { id:2, months:9,  apyBps:900 },
-        { id:3, months:12, apyBps:1200 },
-      ],
-      ERC20_ABI: [
-        'function decimals() view returns (uint8)',
-        'function balanceOf(address) view returns (uint256)',
-        'function allowance(address owner, address spender) view returns (uint256)',
-        'function approve(address spender, uint256 amount) returns (bool)'
-      ],
-      STAKING_ABI: [
-        "function stake(uint256 amount, uint8 poolId) external",
-        "function claim(uint256 positionId) external",
-        "function unstake(uint256 positionId) external",
-        "function exit(uint256 positionId) external",
-        "function getUserPositions(address user) view returns (uint256[])",
-        "function positions(uint256 id) view returns (address owner,uint8 poolId,uint64 startTime,uint256 amount,uint256 claimed,bool withdrawn)",
-        "function poolInfo(uint8 poolId) view returns (tuple(bool active,uint64 lockDuration,uint16 apyBps,uint256 rewardBudget,uint256 rewardDistributed))",
-        "function balanceOf(address user) view returns (uint256)",
-        "function earned(address user) view returns (uint256)"
-      ],
-    };
+<script>
+  // --- NAV mobile
+  const menuToggle = document.getElementById('menuToggle');
+  const mainNav = document.getElementById('mainNav');
+  menuToggle?.addEventListener('click',()=> mainNav.classList.toggle('open'));
 
-    // ================== I18N ==================
-    const dict = {
-      fr:{
-        nav_about:'À propos',nav_tokenomics:'Tokenomics',nav_howto:'Comment acheter',nav_roadmap:'Feuille de route',nav_links:'Liens',nav_staking:'Staking',nav_faq:'FAQ',
-        connect:'Se connecter',staking_title:'Staking SDM',
-        staking_sub:'Choisis un plan (3/6/9/12 mois), approuve tes SDM puis stake. Réclame et retire à la fin du lock.',
-        choose_plan:'Choisir un plan',your_wallet:'Ton wallet',switch_bsc:'Basculer BSC',disconnect:'Déconnecter',
-        positions_title:'Vos positions',no_positions:'Aucune position pour le moment.',
-        plan_months:'mois',approve:'Approuver',stake:'Staker',amount:'Montant',
-        pool_budget:'Budget rewards',pool_distributed:'Distribué',claim:'Réclamer',exit:'Exit (tout récupérer)',
-        locked_until:'Verrouillé jusqu’au',unlocked:'Déverrouillé',disc_title:'Avertissement',
-        disc_text:'Le staking comporte des risques. Aucune garantie de rendement. Faites vos propres recherches (DYOR). Des frais réseau (BNB) s’appliquent. Les récompenses sont plafonnées à la durée choisie.',
-        staking_open:'✅ Staking ouvert', staking_closed:'⛔ Staking fermé'
-      },
-      en:{
-        nav_about:'About',nav_tokenomics:'Tokenomics',nav_howto:'How to Buy',nav_roadmap:'Roadmap',nav_links:'Links',nav_staking:'Staking',nav_faq:'FAQ',
-        connect:'Connect',staking_title:'SDM Staking',
-        staking_sub:'Choose a plan (3/6/9/12 months), approve then stake. Claim & exit at the end of the lock.',
-        choose_plan:'Choose a plan',your_wallet:'Your wallet',switch_bsc:'Switch BSC',disconnect:'Disconnect',
-        positions_title:'Your positions',no_positions:'No positions yet.',
-        plan_months:'months',approve:'Approve',stake:'Stake',amount:'Amount',
-        pool_budget:'Rewards budget',pool_distributed:'Distributed',claim:'Claim',exit:'Exit (withdraw all)',
-        locked_until:'Locked until',unlocked:'Unlocked',disc_title:'Disclaimer',
-        disc_text:'Staking has risks. No guaranteed returns. DYOR. Network fees (BNB) apply. Rewards are capped to the selected duration.',
-        staking_open:'✅ Staking open', staking_closed:'⛔ Staking closed'
-      }
-    };
-    const langSel=document.getElementById('lang');
-    function applyLang(l){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(dict[l]&&dict[l][k]) el.textContent=dict[l][k];});document.documentElement.lang=l;}
-    langSel.addEventListener('change',e=>applyLang(e.target.value)); applyLang('fr');
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ================== Menu / année ==================
-    document.getElementById('menuToggle').addEventListener('click',()=>document.getElementById('mainNav').classList.toggle('open'));
-    document.getElementById('year').textContent=new Date().getFullYear();
+  // --- État de connexion (placeholder; à remplacer par votre logique Web3)
+  let connected = false;
+  let account = null;
 
-    // ================== Web3 ==================
-    let web3Modal, provider, ethersProvider, signer, account, chainId, tokenC, stakingC, tokenDecimals=18;
+  const connectBtn = document.getElementById('connectBtn');
+  const disconnectBtn = document.getElementById('disconnectBtn');
+  const addrEl = document.getElementById('addr');
+  const netEl  = document.getElementById('net');
+  const balEl  = document.getElementById('bal');
 
-    const connectBtn=document.getElementById('connectBtn');
-    const disconnectBtn=document.getElementById('disconnect');
-    const switchBscBtn=document.getElementById('switchBsc');
-    const addrEl=document.getElementById('addr'); const netEl=document.getElementById('net'); const balSdmEl=document.getElementById('balSdm');
-    const statusEl=document.getElementById('status');
-    const plansWrap=document.getElementById('plans'); const positionsWrap=document.getElementById('positions'); const noPos=document.getElementById('noPos');
-    const stakingStatusBox=document.getElementById('stakingStatus');
+  const helpBox  = document.getElementById('helpBox');
+  const plansBox = document.getElementById('plansBox');
 
-    function log(msg, err=false){ statusEl.textContent=msg; statusEl.style.color=err?'var(--down)':'var(--muted)'; }
-    function fmtUnits(x,dec=18,frac=6){ try{ const n=Number(ethers.formatUnits(x??0n,dec)); return n.toLocaleString(undefined,{maximumFractionDigits:frac}); }catch{return '—';}}
-    function short(a){return a? a.slice(0,6)+'…'+a.slice(-4):'—';}
-    function tsToDate(ts){ const d=new Date(Number(ts)*1000); return d.toLocaleDateString()+' '+d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}); }
-
-    async function ensureBsc(){
-      try{
-        const eth = provider || window.ethereum; if(!eth) return;
-        const current = await eth.request({method:'eth_chainId'});
-        if(current?.toLowerCase()!==CONFIG.CHAIN_ID_HEX.toLowerCase()){
-          try{ await eth.request({method:'wallet_switchEthereumChain', params:[{ chainId: CONFIG.CHAIN_ID_HEX }]}); }
-          catch(e){ if(e.code===4902){ await eth.request({method:'wallet_addEthereumChain', params:[CONFIG.CHAIN]}); } else { throw e; } }
-        }
-      }catch(e){ log('Impossible de basculer sur BSC',true); }
+  function updateUI(){
+    if(connected){
+      helpBox.style.display = 'none';
+      plansBox.style.display = 'grid';
+      connectBtn.textContent = 'Connecté';
+      connectBtn.classList.add('disabled');
+      addrEl.textContent = account ?? '—';
+      netEl.textContent  = 'BSC (prévu)';
+      balEl.textContent  = '—';
+    }else{
+      helpBox.style.display = 'block';
+      plansBox.style.display = 'none';
+      connectBtn.textContent = 'Se connecter';
+      connectBtn.classList.remove('disabled');
+      addrEl.textContent = '—'; netEl.textContent = '—'; balEl.textContent = '—';
     }
+  }
+  updateUI();
 
-    async function onConnect(){
-      try{
-        web3Modal = new window.Web3Modal.default({
-          cacheProvider:false,
-          providerOptions:{ walletconnect:{ package: window.WalletConnectProvider.default, options:{ rpc:{56:'https://bsc-dataseed.binance.org/'}, chainId:56 } } },
-          theme:'dark'
-        });
-        const ext = await web3Modal.connect();
-        provider = ext;
-        ethersProvider = new ethers.BrowserProvider(ext);
-        signer = await ethersProvider.getSigner();
-        account = await signer.getAddress();
-        chainId = (await ethersProvider.getNetwork()).chainId;
-        addrEl.textContent = short(account);
-        netEl.textContent  = (Number(chainId)===56 ? 'BSC (56)' : 'Chain '+String(chainId));
-        provider.on?.('accountsChanged',()=>location.reload());
-        provider.on?.('chainChanged',()=>location.reload());
-        provider.on?.('disconnect',()=>location.reload());
+  connectBtn.addEventListener('click', async ()=>{
+    // Ici on branchera MetaMask / WalletConnect.
+    // Pour l’instant on simule la connexion.
+    connected = true;
+    account = '0x1234…ABCD';
+    updateUI();
+  });
 
-        await ensureBsc();
+  disconnectBtn.addEventListener('click', ()=>{
+    connected = false; account = null; updateUI();
+  });
 
-        tokenC = new ethers.Contract(CONFIG.TOKEN_ADDRESS, CONFIG.ERC20_ABI, signer);
-        stakingC = new ethers.Contract(CONFIG.STAKING_ADDRESS, CONFIG.STAKING_ABI, signer);
-        tokenDecimals = await tokenC.decimals();
+  document.getElementById('switchBsc').addEventListener('click', ()=>{
+    alert('Basculement BSC: à implémenter via ethereum.request({ method: "wallet_switchEthereumChain", params:[{ chainId: "0x38" }] })');
+  });
 
-        await updateBalance();
-        await renderPlans();
-        await loadPositions();
+  // --- Boutons (placeholders)
+  function approve(months){
+    if(!connected) return alert('Connecte d’abord ton wallet.');
+    const amt = Number(document.getElementById('amt'+months).value||0);
+    if(!amt) return alert('Entre un montant SDM.');
+    alert(`Approval ${amt} SDM pour plan ${months} mois — (brancher le contrat).`);
+  }
 
-        log('Connecté');
-      }catch(e){ log('Connexion annulée ou impossible',true); }
-    }
-    async function onDisconnect(){ try{ await web3Modal?.clearCachedProvider(); }catch{} location.reload(); }
-    async function updateBalance(){ try{ const bal = await tokenC.balanceOf(account); balSdmEl.textContent = fmtUnits(bal, tokenDecimals); }catch{} }
+  function stake(months){
+    if(!connected) return alert('Connecte d’abord ton wallet.');
+    const amt = Number(document.getElementById('amt'+months).value||0);
+    if(!amt) return alert('Entre un montant SDM.');
+    alert(`Stake ${amt} SDM sur ${months} mois — (brancher le contrat).`);
+  }
 
-    // ===== Plans UI + statut global
-    async function renderPlans(){
-      plansWrap.innerHTML = '';
-      let anyActive = false;
-
-      for(const p of CONFIG.PLANS){
-        // récupérer info du contrat (lockDuration/apy/budget/distrib/active)
-        let info;
-        try{ info = await stakingC.poolInfo(p.id); } catch{ info = null; }
-        const months = p.months;
-        const apy = info ? Number(info.apyBps)/100 : (p.apyBps/100);
-        const budget = info ? fmtUnits(info.rewardBudget, tokenDecimals, 2) : '—';
-        const distrib = info ? fmtUnits(info.rewardDistributed, tokenDecimals, 2) : '—';
-        const active = info ? info.active : true;
-        if(active) anyActive = true;
-
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          <div class="planHead">
-            <div><b>${months}</b> <span data-i18n="plan_months">${dict.fr.plan_months}</span></div>
-            <div class="apy">${apy}% APY</div>
-          </div>
-          <div class="muted" style="margin-bottom:8px">
-            <span class="pill">${active?'ON':'OFF'}</span>
-            • <small data-i18n="pool_budget">${dict.fr.pool_budget}</small>: <b>${budget}</b>
-            • <small data-i18n="pool_distributed">${dict.fr.pool_distributed}</small>: <b>${distrib}</b>
-          </div>
-          <div class="row">
-            <input type="number" min="0" step="0.000001" placeholder="${dict.fr.amount}" id="amt_${p.id}"/>
-            <button class="btn sm" id="appr_${p.id}" ${active?'':'disabled'}>✅ <span data-i18n="approve">${dict.fr.approve}</span></button>
-            <button class="btn sm" id="stake_${p.id}" ${active?'':'disabled'}>🟧 <span data-i18n="stake">${dict.fr.stake}</span></button>
-          </div>
-        `;
-        plansWrap.appendChild(card);
-
-        // bind buttons
-        const amtInp = card.querySelector('#amt_'+p.id);
-        const apprBtn = card.querySelector('#appr_'+p.id);
-        const stakeBtn = card.querySelector('#stake_'+p.id);
-
-        apprBtn?.addEventListener('click', async ()=>{
-          if(!signer) return log('Connecte ton wallet',true);
-          const v = amtInp.value?.trim(); if(!v || Number(v)<=0) return log('Montant invalide',true);
-          try{
-            const value = ethers.parseUnits(v, tokenDecimals);
-            log('Approve en cours…');
-            const tx = await tokenC.approve(CONFIG.STAKING_ADDRESS, value);
-            await tx.wait();
-            log('Approve confirmé ✅');
-          }catch(e){ log('Approve échoué',true); }
-        });
-
-        stakeBtn?.addEventListener('click', async ()=>{
-          if(!signer) return log('Connecte ton wallet',true);
-          const v = amtInp.value?.trim(); if(!v || Number(v)<=0) return log('Montant invalide',true);
-          try{
-            const value = ethers.parseUnits(v, tokenDecimals);
-            log('Stake en cours…');
-            const tx = await stakingC.stake(value, p.id);
-            await tx.wait();
-            log('Stake confirmé ✅');
-            amtInp.value = '';
-            await updateBalance();
-            await loadPositions();
-          }catch(e){ log('Stake échoué',true); }
-        });
-      }
-
-      // ✅ Message global ouvert/fermé
-      if(anyActive){
-        stakingStatusBox.style.color = 'var(--ok)';
-        stakingStatusBox.textContent = dict[document.documentElement.lang].staking_open;
-      } else {
-        stakingStatusBox.style.color = 'var(--down)';
-        stakingStatusBox.textContent = dict[document.documentElement.lang].staking_closed;
-      }
-
-      // re-applique la langue si user passe en EN
-      applyLang(document.documentElement.lang || 'fr');
-    }
-
-    // ===== Positions UI
-    async function loadPositions(){
-      if(!signer){ positionsWrap.innerHTML=''; noPos.style.display='block'; return; }
-      try{
-        const ids = await stakingC.getUserPositions(account);
-        positionsWrap.innerHTML = '';
-        if(!ids || ids.length===0){ noPos.style.display='block'; return; }
-        noPos.style.display='none';
-        for(const id of ids){
-          const pos = await stakingC.positions(id);
-          const pool = Number(pos.poolId);
-          const months = CONFIG.PLANS.find(x=>x.id===pool)?.months || '?';
-          const pinfo = await stakingC.poolInfo(pool);
-          const unlockTs = Number(pos.startTime) + Number(pinfo.lockDuration);
-          const unlocked = Math.floor(Date.now()/1000) >= unlockTs;
-
-          const div = document.createElement('div');
-          div.className='pos';
-          div.innerHTML = `
-            <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
-              <b>#${id} • ${months} ${dict.fr.plan_months}</b>
-              <span class="pill">${unlocked? dict.fr.unlocked : (dict.fr.locked_until+': '+tsToDate(unlockTs))}</span>
-            </div>
-            <div class="tbl" style="margin-top:6px">
-              <div>Amount: <b>${fmtUnits(pos.amount, tokenDecimals)}</b></div>
-              <div>Claimed: <b>${fmtUnits(pos.claimed, tokenDecimals)}</b></div>
-              <div id="claimable_${id}">Claimable: <b>…</b></div>
-            </div>
-            <div class="row" style="margin-top:8px">
-              <button class="btn sm" id="claim_${id}">🎁 ${dict.fr.claim}</button>
-              <button class="btn sm ghost" id="exit_${id}">⏏︎ ${dict.fr.exit}</button>
-            </div>
-          `;
-          positionsWrap.appendChild(div);
-
-          // load claimable
-          try{
-            const cl = await stakingC.claimable(id);
-            div.querySelector('#claimable_'+id).innerHTML = `Claimable: <b>${fmtUnits(cl, tokenDecimals)}</b>`;
-          }catch{
-            try{
-              const clTot = await stakingC.earned(account);
-              div.querySelector('#claimable_'+id).innerHTML = `Claimable: <b>${fmtUnits(clTot, tokenDecimals)}</b>`;
-            }catch{}
-          }
-
-          // bind actions
-          div.querySelector('#claim_'+id).addEventListener('click', async ()=>{
-            try{
-              log('Claim…');
-              const tx = await stakingC.claim(id);
-              await tx.wait();
-              log('Récompense réclamée ✅');
-              await loadPositions();
-              await updateBalance();
-            }catch(e){ log('Claim échoué',true); }
-          });
-          div.querySelector('#exit_'+id).addEventListener('click', async ()=>{
-            try{
-              log('Exit…');
-              const tx = await stakingC.exit(id); // claim + unstake
-              await tx.wait();
-              log('Exit effectué ✅');
-              await loadPositions();
-              await updateBalance();
-            }catch(e){ log('Exit échoué (peut-être encore verrouillé)',true); }
-          });
-        }
-      }catch(e){
-        positionsWrap.innerHTML=''; noPos.style.display='block';
-      }
-    }
-
-    // ===== Buttons
-    document.getElementById('connectBtn').addEventListener('click', onConnect);
-    document.getElementById('disconnect').addEventListener('click', onDisconnect);
-    document.getElementById('switchBsc').addEventListener('click', ensureBsc);
-
-    // init
-    document.getElementById('year').textContent=new Date().getFullYear();
-  </script>
+  function claim(){
+    const id = Number(document.getElementById('claimId').value||0);
+    if(!connected) return alert('Connecte d’abord ton wallet.');
+    if(!id) return alert('Entre un ID de position.');
+    alert(`Réclamer la position #${id} — (brancher le contrat).`);
+  }
+  function exitPosition(){
+    const id = Number(document.getElementById('claimId').value||0);
+    if(!connected) return alert('Connecte d’abord ton wallet.');
+    if(!id) return alert('Entre un ID de position.');
+    alert(`Exit de la position #${id} — (brancher le contrat).`);
+  }
+</script>
 </body>
 </html>
