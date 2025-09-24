@@ -38,9 +38,7 @@
     nav.main a:hover:after{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
     .hero{position:relative; padding:44px 0 18px}
     .grid-hero{display:grid; grid-template-columns:1.1fr .9fr; gap:20px; min-width:0}
-    .chip{display:inline-flex; gap:8px; align-items:center; padding:6px 12px; border-radius:999px;
-      background:linear-gradient(180deg, rgba(255,211,106,.95), rgba(246,180,73,.95));
-      border:1px solid rgba(255,211,106,.85); color:#1a1303; font-weight:900; box-shadow:0 4px 14px rgba(246,180,73,.25);}
+    .chip{display:inline-flex; gap:8px; align-items:center; padding:6px 12px; border-radius:999px; background:linear-gradient(180deg, rgba(255,211,106,.95), rgba(246,180,73,.95)); border:1px solid rgba(255,211,106,.85); color:#1a1303; font-weight:900; box-shadow:0 4px 14px rgba(246,180,73,.25);}
     .title{font-size:clamp(28px,4.8vw,54px); line-height:1.04; margin:10px 0}
     .subtitle{color:var(--muted); max-width:60ch}
     .panel{background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.05)); border:1px solid var(--border); border-radius:16px; padding:16px; box-shadow:var(--shadow); min-width:0}
@@ -137,7 +135,7 @@
           </div>
           <div style="margin-top:8px" class="muted">
             Suivi live: <a id="dexScreener" href="https://dexscreener.com/bsc/0xc85a95a4ee2dddfe2bd2970c71e17c56a2ba3104" target="_blank">Dexscreener</a>
-            <!-- Audit retiré volontairement jusqu'à publication -->
+            <!-- Audit retiré jusqu'à publication -->
           </div>
 
           <hr style="border:none; border-top:1px solid var(--border); margin:12px 0">
@@ -213,22 +211,52 @@
     </div>
   </section>
 
+  <!-- ABOUT + TEAM -->
   <section class="container" id="about" style="padding:18px 0 0">
-    <div class="grid">
-      <div class="card"><h3 data-i18n="why">Pourquoi SamDoge ?</h3><p class="muted" data-i18n="why_text">Branding fort, équipe active, sécurité et transparence. Communauté au centre.</p></div>
+    <div class="panel">
+      <h2 data-i18n="about_title">Pourquoi SamDoge ?</h2>
+      <p class="muted" data-i18n="about_p1"></p>
+      <ul class="list" style="margin-top:8px">
+        <li data-i18n="about_team"></li>
+        <li data-i18n="about_security"></li>
+        <li data-i18n="about_utility"></li>
+        <li data-i18n="about_vision"></li>
+      </ul>
+    </div>
+
+    <div class="grid" style="margin-top:14px">
       <div class="card">
         <h3 data-i18n="security">Sécurité</h3>
         <ul class="list">
           <li data-i18n="sec1">Contrat public & vérifié</li>
           <li data-i18n="sec2">LP lock public</li>
-          <li data-i18n="sec3">Adresses exclues pour pré-vente si besoin</li>
-          <li>🔒 Réserve verrouillée:
-            <a href="https://www.pinksale.finance/pinklock/bsc/record/1356598" target="_blank" rel="noopener">Vérifier sur PinkLock</a>
+          <li>🔒 <span data-i18n="reserve_lock">Réserve verrouillée:</span>
+            <a href="https://www.pinksale.finance/pinklock/bsc/record/1356598" target="_blank" rel="noopener" data-i18n="verify_on_pinklock">Vérifier sur PinkLock</a>
           </li>
-          <li>📝 Audit: à venir</li>
+          <li data-i18n="audit_soon">📝 Audit : à venir</li>
         </ul>
       </div>
-      <div class="card"><h3 data-i18n="utilities">Utilités</h3><ul class="list"><li data-i18n="util1">Staking</li><li data-i18n="util2">Concours & récompenses</li><li data-i18n="util3">Intégrations web</li></ul></div>
+
+      <div class="card">
+        <h3 data-i18n="utilities">Utilités</h3>
+        <ul class="list">
+          <li data-i18n="util1">Staking</li>
+          <li data-i18n="util2">Concours & récompenses</li>
+          <li data-i18n="util3">Intégrations web</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3 data-i18n="team_title">Team</h3>
+        <ul class="list">
+          <li data-i18n="team_lead"><b>Lead / Coordination :</b> pilotage communautaire, relations partenaires, annonces.</li>
+          <li data-i18n="team_dev"><b>Développement :</b> smart contracts, intégrations web, déploiements.</li>
+          <li data-i18n="team_marketing"><b>Marketing & Com :</b> réseaux sociaux, visuels, campagnes.</li>
+        </ul>
+        <p class="muted" data-i18n="team_note" style="margin-top:8px">
+          L’équipe communique publiquement via Telegram et X et publie des mises à jour régulières.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -384,10 +412,20 @@
     // Menu mobile
     menuToggle?.addEventListener('click',()=>{mainNav.classList.toggle('open')});
 
-    // i18n
+    // i18n (complété)
     const dict={
-      fr:{nav_about:'À propos',nav_tokenomics:'Tokenomics',nav_howto:'Comment acheter',nav_roadmap:'Feuille de route',nav_links:'Liens',buy:'Acheter',chip:'⚡ BNB Smart Chain (BSC)',hero_title:'la mascotte futuriste de la communauté',hero_sub:'SamDoge (SDM) est un meme coin communautaire sur BSC : transparence, sécurité, et roadmap claire. Taxes désactivées au départ — activables après annonce publique.',contract_title:'Adresses officielles',status:'Statut',status_text:'Pré-vente & listing: PinkSale → PancakeSwap. Liquidity lock publié. Audit à venir.',presale:'Pré-vente PinkSale',taxes:'Taxes',taxes_text:'Lancement: 0%. Après annonce publique: ≤5% (ex: 3% marketing + 2% LP).',pwa:'PWA',pwa_text:"Installer l'app pour accès rapide et notifications.",install:'Installer',why:'Pourquoi SamDoge ?',why_text:'Branding fort, équipe active, sécurité et transparence. Communauté au centre.',security:'Sécurité',sec1:'Contrat public & vérifié',sec2:'LP lock public',sec3:'Adresses exclues pour pré-vente si besoin',utilities:'Utilités',util1:'Staking',util2:'Concours & récompenses',util3:'Intégrations web',howto:'Comment acheter',how1:'Installer MetaMask / Trust Wallet et sélectionner le réseau BNB Smart Chain (BSC).',how2:'Ajouter BNB au wallet (réseau BSC).',how3:"Ouvrir PancakeSwap et utiliser le lien direct (bouton ci-dessous) ou importer le token via l'adresse de contrat.",how4:"Définir le slippage: 0.1–5% (selon taxes actives). Confirmer l'échange.",links:'Liens officiels',live_title:'Cours & Stats (live)',refresh:'Rafraîchir',price_usd:'Prix (USD)',price_bnb:'Prix (BNB)',change_24h:'Variation 24h',vol_24h:'Volume 24h',liq:'Liquidité',live_note:'Source: Dexscreener (rafraîchi automatiquement toutes les 30s).'},
-      en:{nav_about:'About',nav_tokenomics:'Tokenomics',nav_howto:'How to Buy',nav_roadmap:'Roadmap',nav_links:'Links',buy:'Buy',chip:'⚡ BNB Smart Chain (BSC)',hero_title:'the community’s futuristic mascot',hero_sub:'SamDoge (SDM) is a community meme coin on BSC: transparency, security and a clear roadmap. Taxes off at launch — enabled only after public notice.',contract_title:'Official Addresses',status:'Status',status_text:'Presale & listing: PinkSale → PancakeSwap. Liquidity lock published. Audit upcoming.',presale:'PinkSale Presale',taxes:'Taxes',taxes_text:'Launch: 0%. After public notice: ≤5% (e.g., 3% marketing + 2% LP).',pwa:'PWA',pwa_text:'Install the app for quick access and notifications.',install:'Install',why:'Why SamDoge?',why_text:'Strong branding, active team, security and transparency. Community first.',security:'Security',sec1:'Public & verified contract',sec2:'Public LP lock',sec3:'Tax-exempt addresses for presale if needed',utilities:'Utilities',util1:'Staking',util2:'Community rewards',util3:'Web integrations',howto:'How to Buy',how1:'Install MetaMask / Trust Wallet and select BNB Smart Chain (BSC).',how2:'Add BNB to your wallet (BSC network).',how3:'Open PancakeSwap via the button below or import the token via the contract address.',how4:'Set slippage: 0.1–5% (depending on active taxes). Confirm the swap.',links:'Official Links',live_title:'Live Price & Stats',refresh:'Refresh',price_usd:'Price (USD)',price_bnb:'Price (BNB)',change_24h:'24h Change',vol_24h:'24h Volume',liq:'Liquidity',live_note:'Source: Dexscreener (auto-refresh every 30s).'}
+      fr:{nav_about:'À propos',nav_tokenomics:'Tokenomics',nav_howto:'Comment acheter',nav_roadmap:'Feuille de route',nav_links:'Liens',buy:'Acheter',chip:'⚡ BNB Smart Chain (BSC)',hero_title:'la mascotte futuriste de la communauté',hero_sub:'SamDoge (SDM) est un meme coin communautaire sur BSC : transparence, sécurité, et roadmap claire. Taxes désactivées au départ — activables après annonce publique.',contract_title:'Adresses officielles',status:'Statut',status_text:'Pré-vente & listing: PinkSale → PancakeSwap. Liquidity lock publié. Audit à venir.',presale:'Pré-vente PinkSale',taxes:'Taxes',taxes_text:'Lancement: 0%. Après annonce publique: ≤5% (ex: 3% marketing + 2% LP).',pwa:'PWA',pwa_text:"Installer l'app pour accès rapide et notifications.",install:'Installer',howto:'Comment acheter',how1:'Installer MetaMask / Trust Wallet et sélectionner le réseau BNB Smart Chain (BSC).',how2:'Ajouter BNB au wallet (réseau BSC).',how3:"Ouvrir PancakeSwap et utiliser le lien direct (bouton ci-dessous) ou importer le token via l'adresse de contrat.",how4:"Définir le slippage: 0.1–5% (selon taxes actives). Confirmer l'échange.",links:'Liens officiels',live_title:'Cours & Stats (live)',refresh:'Rafraîchir',price_usd:'Prix (USD)',price_bnb:'Prix (BNB)',change_24h:'Variation 24h',vol_24h:'Volume 24h',liq:'Liquidité',live_note:'Source: Dexscreener (rafraîchi automatiquement toutes les 30s).',
+        about_title:"Pourquoi SamDoge ?",about_p1:"SamDoge est un projet communautaire sur la Binance Smart Chain dont l’objectif est simple : rassembler la communauté autour d’un meme token transparent et durable.",about_team:"• Équipe & transparence : passionnés de blockchain, développement web et marketing crypto. Mises à jour régulières et support actif via Telegram et X.",about_security:"• Sécurité : contrat vérifié sur BscScan, liquidité verrouillée (LP lock) et réserves bloquées pour réduire les risques de rug pull.",about_utility:"• Utilité & engagement : fonctionnalités de staking, concours communautaires et intégrations progressives.",about_vision:"• Vision : construire un écosystème fun, sécurisé et centré sur la communauté, avec un token symbole de confiance et d’innovation.",
+        reserve_lock:"Réserve verrouillée:",verify_on_pinklock:"Vérifier sur PinkLock",audit_soon:"📝 Audit : à venir",
+        utilities:'Utilités',security:'Sécurité',
+        team_title:"Team",team_lead:"Lead / Coordination : pilotage communautaire, relations partenaires, annonces.",team_dev:"Développement : smart contracts, intégrations web, déploiements.",team_marketing:"Marketing & Com : réseaux sociaux, visuels, campagnes.",team_note:"L’équipe communique publiquement via Telegram et X et publie des mises à jour régulières.",nav_staking:'Staking',nav_faq:'FAQ',nav_links:'Liens'
+      },
+      en:{nav_about:'About',nav_tokenomics:'Tokenomics',nav_howto:'How to Buy',nav_roadmap:'Roadmap',nav_links:'Links',buy:'Buy',chip:'⚡ BNB Smart Chain (BSC)',hero_title:'the community’s futuristic mascot',hero_sub:'SamDoge (SDM) is a community meme coin on BSC: transparency, security and a clear roadmap. Taxes off at launch — enabled only after public notice.',contract_title:'Official Addresses',status:'Status',status_text:'Presale & listing: PinkSale → PancakeSwap. Liquidity lock published. Audit upcoming.',presale:'PinkSale Presale',taxes:'Taxes',taxes_text:'Launch: 0%. After public notice: ≤5% (e.g., 3% marketing + 2% LP).',pwa:'PWA',pwa_text:'Install the app for quick access and notifications.',install:'Install',howto:'How to Buy',how1:'Install MetaMask / Trust Wallet and select BNB Smart Chain (BSC).',how2:'Add BNB to your wallet (BSC network).',how3:'Open PancakeSwap via the button below or import the token via the contract address.',how4:'Set slippage: 0.1–5% (depending on active taxes). Confirm the swap.',links:'Official Links',live_title:'Live Price & Stats',refresh:'Refresh',price_usd:'Price (USD)',price_bnb:'Price (BNB)',change_24h:'24h Change',vol_24h:'24h Volume',liq:'Liquidity',live_note:'Source: Dexscreener (auto-refresh every 30s).',
+        about_title:"Why SamDoge?",about_p1:"SamDoge is a community project on Binance Smart Chain with a simple goal: bring people together around a transparent, durable meme token.",about_team:"• Team & transparency: enthusiasts in blockchain, web development and crypto marketing. Regular updates and active support via Telegram and X.",about_security:"• Security: contract verified on BscScan, liquidity locked (LP lock) and reserves locked to reduce rug-pull risk.",about_utility:"• Utility & engagement: staking features, community contests and progressive integrations.",about_vision:"• Vision: build a fun, secure and community-first ecosystem, with a token that stands for trust and innovation.",
+        reserve_lock:"Locked reserve:",verify_on_pinklock:"Verify on PinkLock",audit_soon:"📝 Audit: coming soon",
+        utilities:'Utilities',security:'Security',
+        team_title:"Team",team_lead:"Lead / Coordination: community ops, partner relations, announcements.",team_dev:"Development: smart contracts, web integrations, deployments.",team_marketing:"Marketing & Comms: socials, visuals, campaigns.",team_note:"The team communicates publicly via Telegram and X and posts regular updates.",nav_staking:'Staking',nav_faq:'FAQ'
+      }
     };
     function applyLang(l){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n'); if(dict[l]&&dict[l][k]) el.textContent=dict[l][k];}); document.documentElement.lang=l;}
     lang.addEventListener('change',e=>applyLang(e.target.value));
@@ -436,7 +474,7 @@
 
     document.getElementById('year').textContent=(new Date()).getFullYear();
     refresh();
-    applyLang('fr');
+    applyLang('fr');   // charge FR par défaut
     fetchDex();
 
     // PWA install
