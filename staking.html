@@ -9,9 +9,8 @@
   <link rel="apple-touch-icon" href="assets/smd/apple-touch-icon.png"/>
   <style>
     :root{
-      --bg:#0b1020;--panel:#0f1631;--card:#121a38;--muted:#c7d2ea;
-      --txt:#ffffff;--accent:#f59e0b;--accent-2:#ffd36a;--ok:#22c55e;--down:#ef4444;
-      --border:rgba(255,255,255,.22);
+      --bg:#0b1020;--panel:#0f1631;--card:#121a38;--muted:#c7d2ea;--txt:#ffffff;
+      --accent:#f6b449;--accent-2:#ffd36a;--ok:#22c55e;--down:#ef4444;--border:rgba(255,255,255,.22);
       --shadow:0 10px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08);
     }
     *{box-sizing:border-box}
@@ -49,21 +48,27 @@
     .hero{padding:34px 0 8px}
     h1{font-size:clamp(28px,4.2vw,44px);margin:0 0 6px}
     .muted{color:var(--muted)}
-    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
     @media (max-width:980px){.grid{grid-template-columns:1fr}}
     .panel{background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.05));border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
     .card{border:1px solid var(--border);background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.04));border-radius:14px;padding:14px;box-shadow:var(--shadow)}
+    .plans{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    @media (max-width:980px){.plans{grid-template-columns:1fr 1fr}}
+    @media (max-width:640px){.plans{grid-template-columns:1fr}}
+    .planHead{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px}
+    .apy{font-size:22px;font-weight:900}
+    input[type="number"]{width:160px;max-width:100%;padding:10px;border-radius:10px;border:1px solid var(--border);background:#fff;color:#111;font-weight:700}
     .stack{display:grid;gap:10px}
     .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-    input[type="number"]{width:180px;max-width:100%;padding:10px;border-radius:10px;border:1px solid var(--border);background:#fff;color:#111;font-weight:700}
-    .kv{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    @media (max-width:640px){.kv{grid-template-columns:1fr}}
-    .ok{color:var(--ok)} .bad{color:var(--down)}
+    .list{margin:0;padding-left:18px}
+    .tbl{display:grid;gap:8px}
+    .pos{border:1px dashed var(--border);border-radius:12px;padding:10px}
+    .pill{display:inline-block;padding:4px 8px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.06)}
     footer{border-top:1px solid var(--border);margin-top:34px;padding:18px 0;color:var(--muted)}
-    .disclaimer{font-size:.85rem;margin-top:10px}
+    .disclaimer{font-size:.9rem;margin-top:10px}
   </style>
 
-  <!-- Ethers + Web3Modal + WalletConnect (via CDN) -->
+  <!-- Ethers + Web3Modal + WalletConnect (CDN) -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.umd.min.js"></script>
   <script src="https://unpkg.com/web3modal@1.9.12/dist/index.js"></script>
   <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
@@ -71,7 +76,10 @@
 <body>
   <header>
     <div class="container nav">
-      <a class="brand" href="index.html"><img src="assets/smd/logo.png" alt="SamDoge logo"/><span>SamDoge (SDM)</span></a>
+      <a class="brand" href="index.html" aria-label="SamDoge Home">
+        <img src="assets/smd/logo.png" alt="SamDoge logo"/>
+        <span>SamDoge (SDM)</span>
+      </a>
       <button id="menuToggle" class="btn ghost" aria-label="Ouvrir le menu">☰</button>
       <nav class="main" id="mainNav" aria-label="Main navigation">
         <a href="index.html#about" data-i18n="nav_about">À propos</a>
@@ -90,81 +98,45 @@
 
   <section class="container hero">
     <h1 data-i18n="staking_title">Staking SDM</h1>
-    <p class="muted" data-i18n="staking_sub">Connecte ton wallet (BSC) pour approuver, staker, retirer et réclamer tes récompenses.</p>
+    <p class="muted" data-i18n="staking_sub">Choisis un plan (3/6/9/12 mois), approuve tes SDM puis stake. Réclame et retire à la fin du lock.</p>
+
+    <!-- ✅ Indicateur global ouvert/fermé -->
+    <div id="stakingStatus" class="panel" style="margin-top:12px; text-align:center; font-weight:900"></div>
   </section>
 
-  <section class="container" style="padding-bottom:16px">
+  <section class="container" style="padding-bottom:10px">
     <div class="grid">
-      <!-- Colonne gauche: actions staking -->
+      <!-- Plans -->
+      <div class="panel">
+        <h3>🟧 <span data-i18n="choose_plan">Choisir un plan</span></h3>
+        <div class="plans" id="plans">
+          <!-- Cartes générées par JS -->
+        </div>
+      </div>
+
+      <!-- Ton wallet + positions -->
       <div class="panel">
         <div class="stack">
           <div class="card">
             <h3 data-i18n="your_wallet">Ton wallet</h3>
-            <div class="kv">
-              <div>Address<br><b id="addr">—</b></div>
-              <div>Réseau<br><b id="net">—</b></div>
-              <div>Solde SDM<br><b id="balSdm">—</b></div>
-              <div>SDM déposé (staké)<br><b id="staked">—</b></div>
+            <div class="tbl">
+              <div>Address: <b id="addr">—</b></div>
+              <div>Réseau: <b id="net">—</b> <button class="btn sm" id="switchBsc">🔁 <span data-i18n="switch_bsc">Basculer BSC</span></button></div>
+              <div>Solde SDM: <b id="balSdm">—</b></div>
             </div>
             <div class="row" style="margin-top:10px">
-              <button class="btn sm" id="switchBsc">🔁 <span data-i18n="switch_bsc">Basculer vers BSC</span></button>
               <button class="btn sm ghost" id="disconnect">⏏︎ <span data-i18n="disconnect">Déconnecter</span></button>
             </div>
           </div>
 
           <div class="card">
-            <h3 data-i18n="approve_title">1) Autoriser (approve)</h3>
-            <div class="row">
-              <input id="approveAmount" type="number" min="0" step="0.000001" placeholder="0.0"/>
-              <button class="btn sm" id="btnApprove">✅ <span data-i18n="approve_btn">Approuver SDM</span></button>
-            </div>
-            <p class="muted" data-i18n="approve_help">Autorise le contrat de staking à dépenser tes SDM (nécessaire une fois par montant).</p>
-          </div>
-
-          <div class="card">
-            <h3 data-i18n="stake_title">2) Staker</h3>
-            <div class="row">
-              <input id="stakeAmount" type="number" min="0" step="0.000001" placeholder="0.0"/>
-              <button class="btn sm" id="btnStake">🟧 <span data-i18n="stake_btn">Staker</span></button>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3 data-i18n="unstake_title">Retirer (Unstake)</h3>
-            <div class="row">
-              <input id="unstakeAmount" type="number" min="0" step="0.000001" placeholder="0.0"/>
-              <button class="btn sm" id="btnUnstake">↩︎ <span data-i18n="unstake_btn">Unstaker</span></button>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3 data-i18n="claim_title">Récompenses</h3>
-            <div class="kv">
-              <div>Gagné<br><b id="earned">—</b></div>
-              <div>&nbsp;</div>
-            </div>
-            <div class="row" style="margin-top:8px">
-              <button class="btn sm" id="btnClaim">🎁 <span data-i18n="claim_btn">Réclamer</span></button>
-              <button class="btn sm ghost" id="btnRefresh">↻ <span data-i18n="refresh_btn">Rafraîchir</span></button>
-            </div>
+            <h3 data-i18n="positions_title">Vos positions</h3>
+            <div id="positions" class="stack"></div>
+            <div class="muted" id="noPos" style="display:none" data-i18n="no_positions">Aucune position pour le moment.</div>
           </div>
 
           <div class="muted" id="status" style="min-height:18px"></div>
         </div>
-      </div>
-
-      <!-- Colonne droite: infos -->
-      <div class="panel">
-        <h3>ℹ️ <span data-i18n="help_title">Aide & Conseils</span></h3>
-        <ul class="muted">
-          <li data-i18n="help_1">Assure-toi d’être sur <b>BNB Smart Chain (BSC)</b> — utilise le bouton “Basculer vers BSC”.</li>
-          <li data-i18n="help_2">Flow : <b>Approve → Stake</b>. L’approve peut être besoin à nouveau si tu stakes plus tard un montant supérieur.</li>
-          <li data-i18n="help_3">Les noms de fonctions du contrat de staking doivent correspondre (stake, unstake, claim, earned). Adapte l’ABI si besoin.</li>
-          <li data-i18n="help_4">Des frais réseau (BNB) s’appliquent pour chaque transaction.</li>
-        </ul>
-        <hr style="border:none;border-top:1px solid var(--border);margin:12px 0"/>
-        <h4>⚠️ <span data-i18n="risk_title">Risque</span></h4>
-        <p class="muted" data-i18n="risk_text">Le staking comporte des risques. Faites vos propres recherches (DYOR). Aucune garantie de rendement.</p>
       </div>
     </div>
   </section>
@@ -173,8 +145,8 @@
     <div class="panel">
       <h3 data-i18n="disc_title">Avertissement</h3>
       <p class="muted" data-i18n="disc_text">
-        SamDoge (SDM) est un jeton communautaire. Ce site n’est pas un conseil financier.
-        Les crypto-actifs sont volatils et impliquent des risques : n’investissez que ce que vous pouvez vous permettre de perdre (DYOR).
+        Le staking comporte des risques. Aucune garantie de rendement. Faites vos propres recherches (DYOR).
+        Des frais réseau (BNB) s’appliquent. Les récompenses sont plafonnées à la durée choisie.
       </p>
     </div>
   </section>
@@ -187,7 +159,7 @@
   </footer>
 
   <script>
-    // ================== CONFIG À RENSEIGNER ==================
+    // ================== CONFIG ==================
     const CONFIG = {
       CHAIN_ID_HEX: '0x38', // BSC mainnet (56)
       CHAIN: {
@@ -198,8 +170,14 @@
         blockExplorerUrls: ['https://bscscan.com']
       },
       TOKEN_ADDRESS: '0xb02be67dbfbd500011c5bbb435fef555ad3f37f8', // SDM
-      STAKING_ADDRESS: '0xSTAKING_CONTRACT_ADDRESS', // ← à remplir
-      // ABI minimales (adapter si nécessaire)
+      STAKING_ADDRESS: '0xYOUR_STAKING_CONTRACT_ADDRESS', // ⚠️ RENSEIGNER ICI
+      // APY affichés (bps, info UI — le contrat fait foi)
+      PLANS: [
+        { id:0, months:3,  apyBps:400 },
+        { id:1, months:6,  apyBps:600 },
+        { id:2, months:9,  apyBps:900 },
+        { id:3, months:12, apyBps:1200 },
+      ],
       ERC20_ABI: [
         'function decimals() view returns (uint8)',
         'function balanceOf(address) view returns (uint256)',
@@ -207,243 +185,277 @@
         'function approve(address spender, uint256 amount) returns (bool)'
       ],
       STAKING_ABI: [
-        'function stake(uint256 amount) external',
-        'function unstake(uint256 amount) external',
-        'function claim() external',
-        'function earned(address account) view returns (uint256)',
-        'function balanceOf(address account) view returns (uint256)' // si le staking contrat garde la balance
-      ]
+        "function stake(uint256 amount, uint8 poolId) external",
+        "function claim(uint256 positionId) external",
+        "function unstake(uint256 positionId) external",
+        "function exit(uint256 positionId) external",
+        "function getUserPositions(address user) view returns (uint256[])",
+        "function positions(uint256 id) view returns (address owner,uint8 poolId,uint64 startTime,uint256 amount,uint256 claimed,bool withdrawn)",
+        "function poolInfo(uint8 poolId) view returns (tuple(bool active,uint64 lockDuration,uint16 apyBps,uint256 rewardBudget,uint256 rewardDistributed))",
+        "function balanceOf(address user) view returns (uint256)",
+        "function earned(address user) view returns (uint256)"
+      ],
     };
 
     // ================== I18N ==================
     const dict = {
       fr:{
         nav_about:'À propos',nav_tokenomics:'Tokenomics',nav_howto:'Comment acheter',nav_roadmap:'Feuille de route',nav_links:'Liens',nav_staking:'Staking',nav_faq:'FAQ',
-        connect:'Se connecter',staking_title:'Staking SDM',staking_sub:'Connecte ton wallet (BSC) pour approuver, staker, retirer et réclamer tes récompenses.',
-        your_wallet:'Ton wallet',switch_bsc:'Basculer vers BSC',disconnect:'Déconnecter',
-        approve_title:'1) Autoriser (approve)',approve_btn:'Approuver SDM',approve_help:"Autorise le contrat de staking à dépenser tes SDM (nécessaire une fois par montant).",
-        stake_title:'2) Staker',stake_btn:'Staker',
-        unstake_title:'Retirer (Unstake)',unstake_btn:'Unstaker',
-        claim_title:'Récompenses',claim_btn:'Réclamer',refresh_btn:'Rafraîchir',
-        help_title:'Aide & Conseils',
-        help_1:'Assure-toi d’être sur BNB Smart Chain (BSC) — utilise le bouton “Basculer vers BSC”.',
-        help_2:'Flow : Approve → Stake. Tu devras peut-être re-approuver pour des montants plus élevés.',
-        help_3:'Les fonctions du contrat doivent correspondre (stake, unstake, claim, earned). Adapte l’ABI si besoin.',
-        help_4:'Des frais réseau (BNB) s’appliquent.',
-        risk_title:'Risque',
-        risk_text:'Le staking comporte des risques. DYOR. Aucune garantie de rendement.',
-        disc_title:'Avertissement',
-        disc_text:'SamDoge (SDM) est un jeton communautaire. Ce site n’est pas un conseil financier. Les crypto-actifs sont volatils et impliquent des risques : n’investissez que ce que vous pouvez vous permettre de perdre (DYOR).'
+        connect:'Se connecter',staking_title:'Staking SDM',
+        staking_sub:'Choisis un plan (3/6/9/12 mois), approuve tes SDM puis stake. Réclame et retire à la fin du lock.',
+        choose_plan:'Choisir un plan',your_wallet:'Ton wallet',switch_bsc:'Basculer BSC',disconnect:'Déconnecter',
+        positions_title:'Vos positions',no_positions:'Aucune position pour le moment.',
+        plan_months:'mois',approve:'Approuver',stake:'Staker',amount:'Montant',
+        pool_budget:'Budget rewards',pool_distributed:'Distribué',claim:'Réclamer',exit:'Exit (tout récupérer)',
+        locked_until:'Verrouillé jusqu’au',unlocked:'Déverrouillé',disc_title:'Avertissement',
+        disc_text:'Le staking comporte des risques. Aucune garantie de rendement. Faites vos propres recherches (DYOR). Des frais réseau (BNB) s’appliquent. Les récompenses sont plafonnées à la durée choisie.',
+        staking_open:'✅ Staking ouvert', staking_closed:'⛔ Staking fermé'
       },
       en:{
         nav_about:'About',nav_tokenomics:'Tokenomics',nav_howto:'How to Buy',nav_roadmap:'Roadmap',nav_links:'Links',nav_staking:'Staking',nav_faq:'FAQ',
-        connect:'Connect',staking_title:'SDM Staking',staking_sub:'Connect your wallet (BSC) to approve, stake, unstake and claim rewards.',
-        your_wallet:'Your wallet',switch_bsc:'Switch to BSC',disconnect:'Disconnect',
-        approve_title:'1) Approve',approve_btn:'Approve SDM',approve_help:'Allow the staking contract to spend your SDM (required once per amount).',
-        stake_title:'2) Stake',stake_btn:'Stake',
-        unstake_title:'Withdraw (Unstake)',unstake_btn:'Unstake',
-        claim_title:'Rewards',claim_btn:'Claim',refresh_btn:'Refresh',
-        help_title:'Help & Tips',
-        help_1:'Make sure you are on BNB Smart Chain (BSC) — use “Switch to BSC”.',
-        help_2:'Flow: Approve → Stake. You may need to approve again for higher amounts.',
-        help_3:'Contract functions must match (stake, unstake, claim, earned). Adjust ABI if needed.',
-        help_4:'Network fees (BNB) apply.',
-        risk_title:'Risk',
-        risk_text:'Staking carries risks. DYOR. No guaranteed returns.',
-        disc_title:'Disclaimer',
-        disc_text:'SamDoge (SDM) is a community token. This is not financial advice. Crypto assets are volatile and risky: only invest what you can afford to lose (DYOR).'
+        connect:'Connect',staking_title:'SDM Staking',
+        staking_sub:'Choose a plan (3/6/9/12 months), approve then stake. Claim & exit at the end of the lock.',
+        choose_plan:'Choose a plan',your_wallet:'Your wallet',switch_bsc:'Switch BSC',disconnect:'Disconnect',
+        positions_title:'Your positions',no_positions:'No positions yet.',
+        plan_months:'months',approve:'Approve',stake:'Stake',amount:'Amount',
+        pool_budget:'Rewards budget',pool_distributed:'Distributed',claim:'Claim',exit:'Exit (withdraw all)',
+        locked_until:'Locked until',unlocked:'Unlocked',disc_title:'Disclaimer',
+        disc_text:'Staking has risks. No guaranteed returns. DYOR. Network fees (BNB) apply. Rewards are capped to the selected duration.',
+        staking_open:'✅ Staking open', staking_closed:'⛔ Staking closed'
       }
     };
     const langSel=document.getElementById('lang');
     function applyLang(l){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(dict[l]&&dict[l][k]) el.textContent=dict[l][k];});document.documentElement.lang=l;}
     langSel.addEventListener('change',e=>applyLang(e.target.value)); applyLang('fr');
 
-    // ================== Menu mobile ==================
+    // ================== Menu / année ==================
     document.getElementById('menuToggle').addEventListener('click',()=>document.getElementById('mainNav').classList.toggle('open'));
     document.getElementById('year').textContent=new Date().getFullYear();
 
-    // ================== Web3: Web3Modal + Ethers ==================
-    let web3Modal, provider, ethersProvider, signer, account, chainId;
-    const connectBtn = document.getElementById('connectBtn');
-    const disconnectBtn = document.getElementById('disconnect');
-    const switchBscBtn = document.getElementById('switchBsc');
+    // ================== Web3 ==================
+    let web3Modal, provider, ethersProvider, signer, account, chainId, tokenC, stakingC, tokenDecimals=18;
 
-    // UI refs
-    const addrEl=document.getElementById('addr');
-    const netEl=document.getElementById('net');
-    const balSdmEl=document.getElementById('balSdm');
-    const stakedEl=document.getElementById('staked');
-    const earnedEl=document.getElementById('earned');
+    const connectBtn=document.getElementById('connectBtn');
+    const disconnectBtn=document.getElementById('disconnect');
+    const switchBscBtn=document.getElementById('switchBsc');
+    const addrEl=document.getElementById('addr'); const netEl=document.getElementById('net'); const balSdmEl=document.getElementById('balSdm');
     const statusEl=document.getElementById('status');
+    const plansWrap=document.getElementById('plans'); const positionsWrap=document.getElementById('positions'); const noPos=document.getElementById('noPos');
+    const stakingStatusBox=document.getElementById('stakingStatus');
 
-    const approveAmountEl=document.getElementById('approveAmount');
-    const stakeAmountEl=document.getElementById('stakeAmount');
-    const unstakeAmountEl=document.getElementById('unstakeAmount');
-
-    const btnApprove=document.getElementById('btnApprove');
-    const btnStake=document.getElementById('btnStake');
-    const btnUnstake=document.getElementById('btnUnstake');
-    const btnClaim=document.getElementById('btnClaim');
-    const btnRefresh=document.getElementById('btnRefresh');
-
-    function logStatus(msg,isErr=false){ statusEl.textContent=msg; statusEl.style.color=isErr?'var(--down)':'var(--muted)'; }
+    function log(msg, err=false){ statusEl.textContent=msg; statusEl.style.color=err?'var(--down)':'var(--muted)'; }
+    function fmtUnits(x,dec=18,frac=6){ try{ const n=Number(ethers.formatUnits(x??0n,dec)); return n.toLocaleString(undefined,{maximumFractionDigits:frac}); }catch{return '—';}}
+    function short(a){return a? a.slice(0,6)+'…'+a.slice(-4):'—';}
+    function tsToDate(ts){ const d=new Date(Number(ts)*1000); return d.toLocaleDateString()+' '+d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}); }
 
     async function ensureBsc(){
       try{
         const eth = provider || window.ethereum; if(!eth) return;
         const current = await eth.request({method:'eth_chainId'});
         if(current?.toLowerCase()!==CONFIG.CHAIN_ID_HEX.toLowerCase()){
-          try{
-            await eth.request({method:'wallet_switchEthereumChain', params:[{ chainId: CONFIG.CHAIN_ID_HEX }]});
-          }catch(switchErr){
-            if(switchErr.code===4902){ // add chain
-              await eth.request({method:'wallet_addEthereumChain', params:[CONFIG.CHAIN]});
-            }else{ throw switchErr; }
-          }
+          try{ await eth.request({method:'wallet_switchEthereumChain', params:[{ chainId: CONFIG.CHAIN_ID_HEX }]}); }
+          catch(e){ if(e.code===4902){ await eth.request({method:'wallet_addEthereumChain', params:[CONFIG.CHAIN]}); } else { throw e; } }
         }
-      }catch(e){ logStatus('Impossible de basculer sur BSC',true); }
-    }
-
-    function fmt(amount,dec=18,digits=6){
-      try{
-        const v = Number(ethers.formatUnits(amount??0, dec));
-        const max = v<1 ? 6 : 2;
-        return v.toLocaleString(undefined,{maximumFractionDigits:digits??max});
-      }catch{ return '—';}
-    }
-
-    async function updateUi(){
-      try{
-        if(!signer) return;
-        const token = new ethers.Contract(CONFIG.TOKEN_ADDRESS, CONFIG.ERC20_ABI, ethersProvider);
-        const staking = new ethers.Contract(CONFIG.STAKING_ADDRESS, CONFIG.STAKING_ABI, ethersProvider);
-
-        const [dec, bal, staked, earned] = await Promise.all([
-          token.decimals(),
-          token.balanceOf(account),
-          staking.balanceOf ? staking.balanceOf(account) : 0n,
-          staking.earned ? staking.earned(account) : 0n
-        ]);
-
-        balSdmEl.textContent = fmt(bal, dec);
-        stakedEl.textContent = staked ? fmt(staked, dec) : '—';
-        earnedEl.textContent = earned ? fmt(earned, dec) : '—';
-      }catch(e){ /* lecture best-effort */ }
+      }catch(e){ log('Impossible de basculer sur BSC',true); }
     }
 
     async function onConnect(){
       try{
-        // Init Web3Modal (WalletConnect + injected)
         web3Modal = new window.Web3Modal.default({
           cacheProvider:false,
-          providerOptions:{
-            walletconnect:{ package: window.WalletConnectProvider.default, options:{ rpc:{56:'https://bsc-dataseed.binance.org/'}, chainId:56 } }
-          },
+          providerOptions:{ walletconnect:{ package: window.WalletConnectProvider.default, options:{ rpc:{56:'https://bsc-dataseed.binance.org/'}, chainId:56 } } },
           theme:'dark'
         });
-
-        const extProvider = await web3Modal.connect();
-        provider = extProvider;
-        ethersProvider = new ethers.BrowserProvider(extProvider);
+        const ext = await web3Modal.connect();
+        provider = ext;
+        ethersProvider = new ethers.BrowserProvider(ext);
         signer = await ethersProvider.getSigner();
-        account = (await signer.getAddress());
+        account = await signer.getAddress();
         chainId = (await ethersProvider.getNetwork()).chainId;
-
-        addrEl.textContent = account.slice(0,6)+'…'+account.slice(-4);
-        netEl.textContent = Number(chainId)===56 ? 'BSC (56)' : 'Chain '+String(chainId);
-
-        // events
+        addrEl.textContent = short(account);
+        netEl.textContent  = (Number(chainId)===56 ? 'BSC (56)' : 'Chain '+String(chainId));
         provider.on?.('accountsChanged',()=>location.reload());
         provider.on?.('chainChanged',()=>location.reload());
         provider.on?.('disconnect',()=>location.reload());
 
         await ensureBsc();
-        await updateUi();
-        logStatus('Connecté');
+
+        tokenC = new ethers.Contract(CONFIG.TOKEN_ADDRESS, CONFIG.ERC20_ABI, signer);
+        stakingC = new ethers.Contract(CONFIG.STAKING_ADDRESS, CONFIG.STAKING_ABI, signer);
+        tokenDecimals = await tokenC.decimals();
+
+        await updateBalance();
+        await renderPlans();
+        await loadPositions();
+
+        log('Connecté');
+      }catch(e){ log('Connexion annulée ou impossible',true); }
+    }
+    async function onDisconnect(){ try{ await web3Modal?.clearCachedProvider(); }catch{} location.reload(); }
+    async function updateBalance(){ try{ const bal = await tokenC.balanceOf(account); balSdmEl.textContent = fmtUnits(bal, tokenDecimals); }catch{} }
+
+    // ===== Plans UI + statut global
+    async function renderPlans(){
+      plansWrap.innerHTML = '';
+      let anyActive = false;
+
+      for(const p of CONFIG.PLANS){
+        // récupérer info du contrat (lockDuration/apy/budget/distrib/active)
+        let info;
+        try{ info = await stakingC.poolInfo(p.id); } catch{ info = null; }
+        const months = p.months;
+        const apy = info ? Number(info.apyBps)/100 : (p.apyBps/100);
+        const budget = info ? fmtUnits(info.rewardBudget, tokenDecimals, 2) : '—';
+        const distrib = info ? fmtUnits(info.rewardDistributed, tokenDecimals, 2) : '—';
+        const active = info ? info.active : true;
+        if(active) anyActive = true;
+
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="planHead">
+            <div><b>${months}</b> <span data-i18n="plan_months">${dict.fr.plan_months}</span></div>
+            <div class="apy">${apy}% APY</div>
+          </div>
+          <div class="muted" style="margin-bottom:8px">
+            <span class="pill">${active?'ON':'OFF'}</span>
+            • <small data-i18n="pool_budget">${dict.fr.pool_budget}</small>: <b>${budget}</b>
+            • <small data-i18n="pool_distributed">${dict.fr.pool_distributed}</small>: <b>${distrib}</b>
+          </div>
+          <div class="row">
+            <input type="number" min="0" step="0.000001" placeholder="${dict.fr.amount}" id="amt_${p.id}"/>
+            <button class="btn sm" id="appr_${p.id}" ${active?'':'disabled'}>✅ <span data-i18n="approve">${dict.fr.approve}</span></button>
+            <button class="btn sm" id="stake_${p.id}" ${active?'':'disabled'}>🟧 <span data-i18n="stake">${dict.fr.stake}</span></button>
+          </div>
+        `;
+        plansWrap.appendChild(card);
+
+        // bind buttons
+        const amtInp = card.querySelector('#amt_'+p.id);
+        const apprBtn = card.querySelector('#appr_'+p.id);
+        const stakeBtn = card.querySelector('#stake_'+p.id);
+
+        apprBtn?.addEventListener('click', async ()=>{
+          if(!signer) return log('Connecte ton wallet',true);
+          const v = amtInp.value?.trim(); if(!v || Number(v)<=0) return log('Montant invalide',true);
+          try{
+            const value = ethers.parseUnits(v, tokenDecimals);
+            log('Approve en cours…');
+            const tx = await tokenC.approve(CONFIG.STAKING_ADDRESS, value);
+            await tx.wait();
+            log('Approve confirmé ✅');
+          }catch(e){ log('Approve échoué',true); }
+        });
+
+        stakeBtn?.addEventListener('click', async ()=>{
+          if(!signer) return log('Connecte ton wallet',true);
+          const v = amtInp.value?.trim(); if(!v || Number(v)<=0) return log('Montant invalide',true);
+          try{
+            const value = ethers.parseUnits(v, tokenDecimals);
+            log('Stake en cours…');
+            const tx = await stakingC.stake(value, p.id);
+            await tx.wait();
+            log('Stake confirmé ✅');
+            amtInp.value = '';
+            await updateBalance();
+            await loadPositions();
+          }catch(e){ log('Stake échoué',true); }
+        });
+      }
+
+      // ✅ Message global ouvert/fermé
+      if(anyActive){
+        stakingStatusBox.style.color = 'var(--ok)';
+        stakingStatusBox.textContent = dict[document.documentElement.lang].staking_open;
+      } else {
+        stakingStatusBox.style.color = 'var(--down)';
+        stakingStatusBox.textContent = dict[document.documentElement.lang].staking_closed;
+      }
+
+      // re-applique la langue si user passe en EN
+      applyLang(document.documentElement.lang || 'fr');
+    }
+
+    // ===== Positions UI
+    async function loadPositions(){
+      if(!signer){ positionsWrap.innerHTML=''; noPos.style.display='block'; return; }
+      try{
+        const ids = await stakingC.getUserPositions(account);
+        positionsWrap.innerHTML = '';
+        if(!ids || ids.length===0){ noPos.style.display='block'; return; }
+        noPos.style.display='none';
+        for(const id of ids){
+          const pos = await stakingC.positions(id);
+          const pool = Number(pos.poolId);
+          const months = CONFIG.PLANS.find(x=>x.id===pool)?.months || '?';
+          const pinfo = await stakingC.poolInfo(pool);
+          const unlockTs = Number(pos.startTime) + Number(pinfo.lockDuration);
+          const unlocked = Math.floor(Date.now()/1000) >= unlockTs;
+
+          const div = document.createElement('div');
+          div.className='pos';
+          div.innerHTML = `
+            <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
+              <b>#${id} • ${months} ${dict.fr.plan_months}</b>
+              <span class="pill">${unlocked? dict.fr.unlocked : (dict.fr.locked_until+': '+tsToDate(unlockTs))}</span>
+            </div>
+            <div class="tbl" style="margin-top:6px">
+              <div>Amount: <b>${fmtUnits(pos.amount, tokenDecimals)}</b></div>
+              <div>Claimed: <b>${fmtUnits(pos.claimed, tokenDecimals)}</b></div>
+              <div id="claimable_${id}">Claimable: <b>…</b></div>
+            </div>
+            <div class="row" style="margin-top:8px">
+              <button class="btn sm" id="claim_${id}">🎁 ${dict.fr.claim}</button>
+              <button class="btn sm ghost" id="exit_${id}">⏏︎ ${dict.fr.exit}</button>
+            </div>
+          `;
+          positionsWrap.appendChild(div);
+
+          // load claimable
+          try{
+            const cl = await stakingC.claimable(id);
+            div.querySelector('#claimable_'+id).innerHTML = `Claimable: <b>${fmtUnits(cl, tokenDecimals)}</b>`;
+          }catch{
+            try{
+              const clTot = await stakingC.earned(account);
+              div.querySelector('#claimable_'+id).innerHTML = `Claimable: <b>${fmtUnits(clTot, tokenDecimals)}</b>`;
+            }catch{}
+          }
+
+          // bind actions
+          div.querySelector('#claim_'+id).addEventListener('click', async ()=>{
+            try{
+              log('Claim…');
+              const tx = await stakingC.claim(id);
+              await tx.wait();
+              log('Récompense réclamée ✅');
+              await loadPositions();
+              await updateBalance();
+            }catch(e){ log('Claim échoué',true); }
+          });
+          div.querySelector('#exit_'+id).addEventListener('click', async ()=>{
+            try{
+              log('Exit…');
+              const tx = await stakingC.exit(id); // claim + unstake
+              await tx.wait();
+              log('Exit effectué ✅');
+              await loadPositions();
+              await updateBalance();
+            }catch(e){ log('Exit échoué (peut-être encore verrouillé)',true); }
+          });
+        }
       }catch(e){
-        logStatus('Connexion annulée ou impossible',true);
+        positionsWrap.innerHTML=''; noPos.style.display='block';
       }
     }
 
-    async function onDisconnect(){
-      try{
-        await web3Modal?.clearCachedProvider();
-      }catch{}
-      provider = null; signer=null; ethersProvider=null; account=null;
-      location.reload();
-    }
+    // ===== Buttons
+    document.getElementById('connectBtn').addEventListener('click', onConnect);
+    document.getElementById('disconnect').addEventListener('click', onDisconnect);
+    document.getElementById('switchBsc').addEventListener('click', ensureBsc);
 
-    async function doApprove(){
-      try{
-        if(!signer) return logStatus('Connecte ton wallet',true);
-        const token = new ethers.Contract(CONFIG.TOKEN_ADDRESS, CONFIG.ERC20_ABI, signer);
-        const dec = await token.decimals();
-        const amt = approveAmountEl.value?.trim();
-        if(!amt || Number(amt)<=0) return logStatus('Montant invalide',true);
-        const value = ethers.parseUnits(amt, dec);
-        logStatus('Signature approve…');
-        const tx = await token.approve(CONFIG.STAKING_ADDRESS, value);
-        logStatus('Approve envoyé. Attente…');
-        await tx.wait();
-        logStatus('Approve confirmé ✅');
-      }catch(e){ logStatus('Approve échoué',true); }
-    }
-
-    async function doStake(){
-      try{
-        if(!signer) return logStatus('Connecte ton wallet',true);
-        const token = new ethers.Contract(CONFIG.TOKEN_ADDRESS, CONFIG.ERC20_ABI, signer);
-        const staking = new ethers.Contract(CONFIG.STAKING_ADDRESS, CONFIG.STAKING_ABI, signer);
-        const dec = await token.decimals();
-        const amt = stakeAmountEl.value?.trim();
-        if(!amt || Number(amt)<=0) return logStatus('Montant invalide',true);
-        const value = ethers.parseUnits(amt, dec);
-        logStatus('Envoi stake…');
-        const tx = await staking.stake(value);
-        await tx.wait();
-        logStatus('Stake confirmé ✅');
-        await updateUi();
-      }catch(e){ logStatus('Stake échoué',true); }
-    }
-
-    async function doUnstake(){
-      try{
-        if(!signer) return logStatus('Connecte ton wallet',true);
-        const token = new ethers.Contract(CONFIG.TOKEN_ADDRESS, CONFIG.ERC20_ABI, signer);
-        const staking = new ethers.Contract(CONFIG.STAKING_ADDRESS, CONFIG.STAKING_ABI, signer);
-        const dec = await token.decimals();
-        const amt = unstakeAmountEl.value?.trim();
-        if(!amt || Number(amt)<=0) return logStatus('Montant invalide',true);
-        const value = ethers.parseUnits(amt, dec);
-        logStatus('Envoi unstake…');
-        const tx = await staking.unstake(value);
-        await tx.wait();
-        logStatus('Unstake confirmé ✅');
-        await updateUi();
-      }catch(e){ logStatus('Unstake échoué',true); }
-    }
-
-    async function doClaim(){
-      try{
-        if(!signer) return logStatus('Connecte ton wallet',true);
-        const staking = new ethers.Contract(CONFIG.STAKING_ADDRESS, CONFIG.STAKING_ABI, signer);
-        logStatus('Réclamation…');
-        const tx = await staking.claim();
-        await tx.wait();
-        logStatus('Récompenses réclamées ✅');
-        await updateUi();
-      }catch(e){ logStatus('Claim échoué',true); }
-    }
-
-    // Boutons
-    connectBtn.addEventListener('click', onConnect);
-    disconnectBtn.addEventListener('click', onDisconnect);
-    switchBscBtn.addEventListener('click', ensureBsc);
-    btnApprove.addEventListener('click', doApprove);
-    btnStake.addEventListener('click', doStake);
-    btnUnstake.addEventListener('click', doUnstake);
-    btnClaim.addEventListener('click', doClaim);
-    btnRefresh.addEventListener('click', updateUi);
+    // init
+    document.getElementById('year').textContent=new Date().getFullYear();
   </script>
 </body>
 </html>
