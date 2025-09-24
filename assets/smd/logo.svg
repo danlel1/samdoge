@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- Fond sombre -->
+  <circle cx="256" cy="256" r="256" fill="#0b1020"/>
+  <!-- Cercle extérieur doré -->
+  <circle cx="256" cy="256" r="220" stroke="#f6b449" stroke-width="28" fill="none"/>
+  <!-- Cercle intérieur futuriste (pointillé) -->
+  <circle cx="256" cy="256" r="160" stroke="#ffd36a" stroke-width="10" fill="none" stroke-dasharray="20 12"/>
+  <!-- S central -->
+  <text x="50%" y="54%" font-size="140" text-anchor="middle" fill="#f6b449" font-family="Arial Black, sans-serif">S</text>
+</svg>
