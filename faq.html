@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FAQ — SamDoge (SDM)</title>
+  <meta name="description" content="FAQ officielle SamDoge (SDM) — toutes les réponses aux questions sur le meme coin communautaire sur BSC." />
+  <meta name="theme-color" content="#0b1020" />
+  <style>
+    :root{
+      --bg:#0b1020;--panel:#0f1631;--card:#121a38;--muted:#c7d2ea;
+      --txt:#ffffff;--accent:#f59e0b;--accent-2:#ffd36a;--ok:#22c55e;
+      --border:rgba(255,255,255,.22);
+      --shadow:0 10px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:ui-sans-serif,system-ui,Roboto,Arial;background:var(--bg);color:var(--txt);line-height:1.6}
+    a{color:var(--accent)}
+    header{position:sticky;top:0;z-index:60;background:#111;display:flex;align-items:center;justify-content:space-between;padding:10px 20px;border-bottom:1px solid var(--border)}
+    header img{height:40px}
+    .btn{background:var(--accent);color:#000;font-weight:bold;padding:8px 16px;border-radius:10px;text-decoration:none}
+    .lang-select{padding:6px 10px;border-radius:8px;font-weight:700}
+    .container{width:min(1200px,94%);margin:auto;padding:20px 0}
+    h1,h2{color:var(--accent)}
+    .faq-item{border:1px solid var(--border);border-radius:12px;background:var(--card);margin-bottom:12px;box-shadow:var(--shadow)}
+    .faq-question{padding:14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:700}
+    .faq-answer{display:none;padding:0 14px 14px;color:var(--muted)}
+    .faq-question:hover{background:rgba(255,255,255,.05)}
+    .open .faq-answer{display:block}
+    footer{border-top:1px solid var(--border);padding:20px;text-align:center;color:var(--muted)}
+    .disclaimer{font-size:13px;color:#bbb;margin-top:12px}
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <a href="index.html"><img src="assets/smd/logo.png" alt="SamDoge Logo"></a>
+      <strong>SamDoge (SDM)</strong>
+    </div>
+    <div>
+      <select class="lang-select" id="langSelect">
+        <option value="fr">FR</option>
+        <option value="en">EN</option>
+      </select>
+      <a href="https://pancakeswap.finance/swap?outputCurrency=0xb02be67dbfbd500011c5bbb435fef555ad3f37f8&chain=bsc" target="_blank" class="btn" data-i18n="buy">Acheter</a>
+    </div>
+  </header>
+
+  <section class="container">
+    <h1 data-i18n="faq_title">FAQ — Questions fréquentes</h1>
+    <div id="faqList">
+      <!-- Les items FAQ seront générés par JS -->
+    </div>
+  </section>
+
+  <footer>
+    <p>© <span id="year"></span> SamDoge. Tous droits réservés.</p>
+    <p class="disclaimer" data-i18n="disclaimer">
+      SamDoge (SDM) est un jeton communautaire de type "meme coin". Il n'offre aucune garantie de performance, de rendement ni de valeur future.
+      Les crypto-actifs sont hautement volatils et risqués : n’investissez que des fonds que vous pouvez vous permettre de perdre.
+      En utilisant ce site ou en achetant du SDM, vous acceptez de le faire sous votre pleine responsabilité et d’effectuer vos propres recherches (DYOR).
+    </p>
+  </footer>
+
+  <script>
+    const dict = {
+      fr:{
+        buy:"Acheter",faq_title:"FAQ — Questions fréquentes",
+        disclaimer:"SamDoge (SDM) est un jeton communautaire de type 'meme coin'. Il n'offre aucune garantie de performance, de rendement ni de valeur future. Les crypto-actifs sont hautement volatils et risqués : n’investissez que des fonds que vous pouvez vous permettre de perdre. En utilisant ce site ou en achetant du SDM, vous acceptez de le faire sous votre pleine responsabilité et d’effectuer vos propres recherches (DYOR).",
+        q:[
+          ["Qu’est-ce que SamDoge ?","SamDoge est un meme coin communautaire sur BNB Smart Chain (BSC), conçu pour rassembler une communauté autour d’un token fun et transparent."],
+          ["Pourquoi un meme coin ?","Les meme coins rassemblent de grandes communautés et offrent des opportunités de croissance grâce à leur viralité."],
+          ["Quelle est la vision du projet ?","Créer une communauté forte, transparente et durable avec utilités (staking, concours, partenariats)."],
+          ["Qui est derrière SamDoge ?","SamDoge est un projet communautaire, avec une équipe dédiée à la sécurité, au marketing et au développement."],
+          ["Sur quelle blockchain est SDM ?","SamDoge est déployé sur BNB Smart Chain (BSC)."],
+          ["Quelle est l’offre totale ?","L’offre totale est de 1 000 000 000 SDM."],
+          ["Comment acheter du SDM ?","Via PancakeSwap avec MetaMask ou Trust Wallet sur BSC. Voir le guide dans 'Comment acheter'."],
+          ["Y a-t-il une taxe ?","Lancement: 0%. Après annonce: ≤5% (ex: 3% marketing + 2% LP)."],
+          ["Où voir l’audit ?","Sur BlockSafu: un lien direct est disponible dans la section 'Liens officiels'."],
+          ["La liquidité est-elle verrouillée ?","Oui, une partie de la liquidité et des réserves est verrouillée pour rassurer la communauté."],
+          ["Les adresses sont-elles publiques ?","Oui, les adresses officielles (contrat, marketing) sont listées sur le site."],
+          ["Puis-je staker mes SDM ?","Oui, un programme de staking est prévu après la prévente et le listing PancakeSwap."],
+          ["Y aura-t-il des burns ?","Des burn manuels pourront être réalisés pour réduire le supply si la communauté le décide."],
+          ["Quels partenariats prévus ?","Des partenariats avec influenceurs et projets crypto sont envisagés."],
+          ["Est-ce un investissement sûr ?","Non. C’est un projet risqué comme tout meme coin. DYOR avant d’investir."],
+          ["Puis-je perdre mon argent ?","Oui, comme tout investissement crypto. Risque de perte totale."],
+          ["Que faire en cas de problème ?","Rejoindre la communauté Telegram/Reddit pour obtenir de l’aide."],
+          ["Où suivre le projet ?","Twitter, Reddit, Telegram, Dexscreener (liens dans la section 'Liens officiels')."],
+          ["Quelles sont les prochaines étapes ?","Roadmap: prévente PinkSale, listing PancakeSwap, staking, partenariats."],
+          ["SamDoge sera-t-il listé sur CEX ?","C’est prévu à long terme si la communauté et la liquidité le permettent."]
+        ]
+      },
+      en:{
+        buy:"Buy",faq_title:"FAQ — Frequently Asked Questions",
+        disclaimer:"SamDoge (SDM) is a community 'meme coin'. It offers no guarantees of performance, returns or future value. Crypto assets are highly volatile and risky: only invest what you can afford to lose. By using this site or buying SDM, you agree to do so at your own responsibility and to DYOR (Do Your Own Research).",
+        q:[
+          ["What is SamDoge?","SamDoge is a community meme coin on BNB Smart Chain (BSC), created to unite a community around a fun and transparent token."],
+          ["Why a meme coin?","Meme coins gather strong communities and can grow virally."],
+          ["What is the project vision?","Build a strong, transparent, sustainable community with utilities (staking, contests, partnerships)."],
+          ["Who is behind SamDoge?","SamDoge is community-driven, with a team focusing on security, marketing and development."],
+          ["On which blockchain is SDM?","SamDoge is deployed on BNB Smart Chain (BSC)."],
+          ["What is the total supply?","Total supply is 1,000,000,000 SDM."],
+          ["How to buy SDM?","Via PancakeSwap using MetaMask or Trust Wallet on BSC. See the 'How to Buy' guide."],
+          ["Is there a tax?","Launch: 0%. After notice: ≤5% (e.g. 3% marketing + 2% LP)."],
+          ["Where to see the audit?","On BlockSafu: link is available in 'Official Links' section."],
+          ["Is liquidity locked?","Yes, part of liquidity and reserves are locked to reassure the community."],
+          ["Are addresses public?","Yes, official addresses (contract, marketing) are listed on the site."],
+          ["Can I stake my SDM?","Yes, a staking program is planned after presale and PancakeSwap listing."],
+          ["Will there be burns?","Manual burns may occur to reduce supply if community decides."],
+          ["What partnerships are planned?","Partnerships with influencers and crypto projects are considered."],
+          ["Is it a safe investment?","No. It's risky like any meme coin. DYOR before investing."],
+          ["Can I lose my money?","Yes, as with any crypto investment. Risk of total loss."],
+          ["What to do if issues?","Join Telegram/Reddit to get support."],
+          ["Where to follow the project?","Twitter, Reddit, Telegram, Dexscreener (see 'Official Links')."],
+          ["What are the next steps?","Roadmap: PinkSale presale, PancakeSwap listing, staking, partnerships."],
+          ["Will SamDoge be listed on CEX?","Planned long-term if community and liquidity allow."]
+        ]
+      }
+    };
+
+    function renderFAQ(lang){
+      const list=document.getElementById("faqList");
+      list.innerHTML="";
+      dict[lang].q.forEach(([q,a],i)=>{
+        const item=document.createElement("div");
+        item.className="faq-item";
+        item.innerHTML=`<div class="faq-question">${q}<span>+</span></div><div class="faq-answer">${a}</div>`;
+        item.querySelector(".faq-question").addEventListener("click",()=>{
+          item.classList.toggle("open");
+        });
+        list.appendChild(item);
+      });
+      document.querySelector("[data-i18n='faq_title']").textContent=dict[lang].faq_title;
+      document.querySelector("[data-i18n='disclaimer']").textContent=dict[lang].disclaimer;
+      document.querySelector("[data-i18n='buy']").textContent=dict[lang].buy;
+      document.documentElement.lang=lang;
+    }
+
+    const langSel=document.getElementById("langSelect");
+    langSel.addEventListener("change",()=>renderFAQ(langSel.value));
+    document.getElementById("year").textContent=(new Date()).getFullYear();
+    renderFAQ("fr");
+  </script>
+</body>
+</html>
