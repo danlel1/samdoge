@@ -1,28 +1,14 @@
 {
-  "name": "SamDoge",
-  "short_name": "SDM",
-  "description": "SamDoge (SDM) — Meme coin communautaire sur BNB Smart Chain.",
+  "name": "SamDoge (SDM)",
+  "short_name": "SamDoge",
+  "description": "Meme coin communautaire sur BSC.",
   "start_url": "/index.html",
   "scope": "/",
   "display": "standalone",
   "background_color": "#0b1020",
   "theme_color": "#0b1020",
   "icons": [
-    {
-      "src": "/assets/smd/android-chrome-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/assets/smd/android-chrome-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "/assets/smd/maskable-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
+    { "src": "/assets/smd/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/smd/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" }
   ]
 }
