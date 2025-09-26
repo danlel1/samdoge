@@ -99,7 +99,19 @@
 
   
 </head>
+
+  <script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(console.error);
+  });
+}
+  </script>
 <body>
+
+
+
+  
   <header>
     <div class="container nav">
       <a class="brand" href="#top" aria-label="SamDoge Home">
