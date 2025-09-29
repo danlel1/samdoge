@@ -240,11 +240,30 @@ if ('serviceWorker' in navigator) {
   </section>
 
   <section class="container" id="buy" style="scroll-margin-top:80px">
+
     <div class="panel">
-      <h3 data-i18n="status">Statut</h3>
-      <p class="muted" data-i18n="status_text">Pré-vente & listing: PinkSale → PancakeSwap. Liquidity lock publié. Audit à venir.</p>
-      <a class="btn accent" href="https://pancakeswap.finance/swap?inputCurrency=BNB&outputCurrency=0xb02be67dbfbd500011c5bbb435fef555ad3f37f8&chain=bsc" target="_blank" data-i18n="buy">Acheter sur PancakeSwap</a>
-    </div>
+  <h3 data-i18n="status">Statut</h3>
+  <p class="muted" data-i18n="status_text">
+    Pré-vente & listing: PinkSale → PancakeSwap. Liquidity lock publié.
+  </p>
+
+  <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px">
+    <!-- Bouton Acheter (orange accent + icône fusée) -->
+    <a class="btn accent" id="buyBtn" 
+       href="https://www.pinksale.finance/launchpad/bsc/0xb87d64BAa94E1DA311815F3BDD73305FB32c03AB" 
+       target="_blank">
+       🚀 Acheter
+    </a>
+
+    <!-- Bouton Pré-vente PinkSale (style ghost) -->
+    <a class="btn ghost" id="pinksaleBtn" 
+       href="https://www.pinksale.finance/launchpad/bsc/0xb87d64BAa94E1DA311815F3BDD73305FB32c03AB" 
+       target="_blank">
+       Pré-vente PinkSale
+    </a>
+  </div>
+</div>
+
   </section>
 
   <!-- ABOUT + TEAM -->
